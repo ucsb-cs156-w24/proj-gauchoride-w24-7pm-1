@@ -1,0 +1,3 @@
+CREATE TABLE users (
+  id int IDENTITY NOT NULL PRIMARY KEY
+);
