@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling(handlingConfigurer -> handlingConfigurer
           .authenticationEntryPoint(new Http403ForbiddenEntryPoint())
         )
-        .oauth2Login(oauth2 -> {});
+        .oauth2Login(oauth2 -> {})
+        .csrf(csrf -> csrf
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        )
+    ;
   }
 
   @Override
