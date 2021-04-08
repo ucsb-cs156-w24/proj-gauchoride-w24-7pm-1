@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Profile("!development")
 @Controller
 public class FrontendController {
-  @GetMapping("/**")
+  @GetMapping("/**/{path:[^\\.]*}")
   public String index() {
-    return "/index.html";
+    return "forward:/index.html";
   }
 }
