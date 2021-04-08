@@ -107,5 +107,53 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>production</id>
+            <activation>
+                <property>
+                    <name>env.PRODUCTION</name>
+                </property>
+            </activation>
+            <properties>
+                <springProfiles>production</springProfiles>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <target>
+                                        <exec executable="npm" dir="${project.basedir}/frontend">
+                                            <arg value="install" />
+                                        </exec>
+                                        <exec executable="npm" dir="${project.basedir}/frontend">
+                                            <arg value="run" />
+                                            <arg value="build" />
+                                        </exec>
+                                        <copy todir="${project.build.outputDirectory}/public">
+                                            <fileset dir="${project.basedir}/frontend/build" />
+                                        </copy>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
