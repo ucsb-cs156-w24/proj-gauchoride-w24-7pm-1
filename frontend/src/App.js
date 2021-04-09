@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "pages/HomePage/HomePage";
+import HomePage from "main/pages/HomePage/HomePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "bootstrap/dist/css/bootstrap.css";
 

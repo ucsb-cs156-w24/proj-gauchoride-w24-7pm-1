@@ -1,6 +1,6 @@
 import { Button, Container, Navbar as BootstrapNavbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCurrentUser, useLogout } from "utils/user";
+import { useCurrentUser, useLogout } from "main/utils/user";
 
 export default function Navbar() {
   const { data: currentUser } = useCurrentUser();

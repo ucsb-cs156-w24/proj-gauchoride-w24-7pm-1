@@ -1,4 +1,4 @@
-import BasicLayout from "layouts/BasicLayout/BasicLayout";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 export default function HomePage() {
   return (
