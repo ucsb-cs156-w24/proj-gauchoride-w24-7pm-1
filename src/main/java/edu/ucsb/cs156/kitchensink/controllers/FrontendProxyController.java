@@ -12,7 +12,7 @@ import java.net.ConnectException;
 @Profile("development")
 @RestController
 public class FrontendProxyController {
-  @GetMapping({"/", "/{path:^(?!api|oauth2).*}/**"})
+  @GetMapping({"/", "/{path:^(?!api|oauth2|swagger-ui).*}/**"})
   public ResponseEntity<String> proxy(ProxyExchange<String> proxy) {
     String path = proxy.path("/");
     try {
