@@ -19,6 +19,14 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String email;
+  private String googleSub;
+  private String pictureUrl;
+  private String fullName;
+  private String givenName;
+  private String familyName;
+  private boolean emailVerified;
+  private String locale;
+  private String hostedDomain;
 
   public boolean isMember() {
     return email.endsWith("@ucsb.edu");
