@@ -1,4 +1,17 @@
+## emacs ##
 *~
+
+# Don't check in a built storybook #
+
+frontend/storybook-static
+
+# If a package-lock.json shows up in top level dir, don't store it in github
+# Only keep the one under frontend/
+
+package-lock.json
+!frontend/package-lock.json
+
+# Maven
 
 /target
 

@@ -12,7 +12,7 @@ IMAGE_ID=$(docker images -q "${IMAGE_NAME}")
 CONTAINER_NAME="${IMAGE_NAME}_${IMAGE_ID}"
 
 if [ ! "$(docker ps -aq -f "name=${CONTAINER_NAME}")" ]; then
-  docker create -p 8080:8080 -p 3000:3000 -v "$(pwd):/app" -it --name "${CONTAINER_NAME}" "${IMAGE_ID}" /bin/bash
+  docker create -p 8080:8080 -p 3000:3000 -p 6006:6006 -v "$(pwd):/app" -it --name "${CONTAINER_NAME}" "${IMAGE_ID}" /bin/bash
 fi
 
 if [ "$(docker ps -aq -f "name=${CONTAINER_NAME}" -f "status=running")" ]; then

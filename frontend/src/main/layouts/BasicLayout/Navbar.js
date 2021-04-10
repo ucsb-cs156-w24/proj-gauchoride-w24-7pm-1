@@ -19,7 +19,7 @@ export default function Navbar() {
           {
             currentUser.loggedIn ? (
               <>
-                <BootstrapNavbar.Text className="me-3">Welcome, {currentUser.user.email}</BootstrapNavbar.Text>
+                <BootstrapNavbar.Text className="me-3" as={Link} to="/profile">Welcome, {currentUser.user.email}</BootstrapNavbar.Text>
                 <Button onClick={doLogout}>Log Out</Button>
               </>
             ) : (
