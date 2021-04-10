@@ -2,7 +2,6 @@
 import React from 'react';
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ContextTemplate from "stories/storyutils/ContextTemplate"
 
 export default {
     title: 'layouts/BasicLayout/BasicLayout',

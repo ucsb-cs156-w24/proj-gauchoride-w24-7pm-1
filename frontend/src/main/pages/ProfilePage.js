@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Container, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import RoleBadge from "main/components/Profile/RoleBadge";
 import { useCurrentUser } from "main/utils/user";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
