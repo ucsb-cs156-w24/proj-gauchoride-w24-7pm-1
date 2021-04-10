@@ -9,13 +9,6 @@ export default {
     component: BasicLayout
 };
 
-
-const BasicLayoutInContext = ContextTemplate(BasicLayout);
-
-const Template = () => {
-    return (
-        <BasicLayoutInContext />
-    )
-};
+const Template = () => <BasicLayout />;
 
 export const Default = Template.bind({});
