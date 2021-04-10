@@ -2,8 +2,6 @@ package edu.ucsb.cs156.kitchensink.services;
 
 import edu.ucsb.cs156.kitchensink.entities.User;
 import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
-import lombok.experimental.Delegate;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service("currentUser")
