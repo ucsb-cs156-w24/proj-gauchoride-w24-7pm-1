@@ -33,8 +33,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --coverage --watchAll=false",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "storybook": "start-storybook --docs -p 6006 -s public",
+    "build-storybook": "build-storybook --docs -s public"
   },
   "eslintConfig": {
     "extends": [
