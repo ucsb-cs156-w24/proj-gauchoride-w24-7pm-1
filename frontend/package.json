@@ -20,12 +20,12 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "@storybook/addon-actions": "^6.1.18",
-    "@storybook/addon-essentials": "^6.1.18",
-    "@storybook/addon-links": "^6.1.18",
-    "@storybook/node-logger": "^6.1.18",
-    "@storybook/preset-create-react-app": "^3.1.6",
-    "@storybook/react": "^6.1.18"
+    "@storybook/addon-actions": "^6.2.7",
+    "@storybook/addon-essentials": "^6.2.7",
+    "@storybook/addon-links": "^6.2.7",
+    "@storybook/node-logger": "^6.2.7",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.7"
   },
   "scripts": {
     "start": "env-cmd -f ../.env -e development react-scripts start",
