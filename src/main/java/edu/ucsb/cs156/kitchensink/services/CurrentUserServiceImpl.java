@@ -5,12 +5,14 @@ import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -89,5 +91,14 @@ public class CurrentUserServiceImpl extends CurrentUserService {
     }
 
     return null;
+  }
+
+
+  public Collection<? extends GrantedAuthority> getCurrentUsersAuthorities() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    Authentication authentication = securityContext.getAuthentication();
+    Collection<? extends GrantedAuthority> credentials = authentication.getAuthorities();
+    log.info("credentials={}", credentials);
+    return credentials;
   }
 }
