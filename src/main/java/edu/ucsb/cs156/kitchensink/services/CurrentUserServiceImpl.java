@@ -4,7 +4,12 @@ import edu.ucsb.cs156.kitchensink.entities.User;
 import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +23,9 @@ import org.springframework.stereotype.Service;
 public class CurrentUserServiceImpl extends CurrentUserService {
   @Autowired
   private UserRepository userRepository;
+
+  @Value("${app.admin.emails}")
+  final private List<String> adminEmails = new ArrayList<String>();
 
   public User get() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -38,21 +46,46 @@ public class CurrentUserServiceImpl extends CurrentUserService {
       java.util.Map<java.lang.String,java.lang.Object> attrs = oAuthUser.getAttributes();
       log.info("attrs={}",attrs);
 
-      return userRepository.findByEmail(email)
-          .orElseGet(
-              () ->
-                  User.builder()
-                      .googleSub(googleSub)
-                      .email(email)
-                      .pictureUrl(pictureUrl)
-                      .fullName(fullName)
-                      .givenName(givenName)
-                      .familyName(familyName)
-                      .emailVerified(emailVerified)
-                      .locale(locale)
-                      .hostedDomain(hostedDomain)
-                      .build()
-          );
+      Optional<User> ou = userRepository.findByEmail(email);
+      if (ou.isPresent()) {
+        User u = ou.get();
+        if (adminEmails.contains(email) && !u.isAdmin()) {
+          u.setAdmin(true);
+          userRepository.save(u);
+        }
+        return u;
+      }
+
+      User u = User.builder()
+          .googleSub(googleSub)
+          .email(email)
+          .pictureUrl(pictureUrl)
+          .fullName(fullName)
+          .givenName(givenName)
+          .familyName(familyName)
+          .emailVerified(emailVerified)
+          .locale(locale)
+          .hostedDomain(hostedDomain)
+          .admin(adminEmails.contains(email))
+          .build();
+      userRepository.save(u);
+      return u;
+
+      // return userRepository.findByEmail(email)
+      //     .orElseGet(
+      //         () ->
+      //             User.builder()
+      //                 .googleSub(googleSub)
+      //                 .email(email)
+      //                 .pictureUrl(pictureUrl)
+      //                 .fullName(fullName)
+      //                 .givenName(givenName)
+      //                 .familyName(familyName)
+      //                 .emailVerified(emailVerified)
+      //                 .locale(locale)
+      //                 .hostedDomain(hostedDomain)
+      //                 .build()
+      //     );
     }
 
     return null;

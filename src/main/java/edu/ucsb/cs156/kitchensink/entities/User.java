@@ -27,5 +27,5 @@ public class User {
   private boolean emailVerified;
   private String locale;
   private String hostedDomain;
-
+  private boolean admin;
 }
