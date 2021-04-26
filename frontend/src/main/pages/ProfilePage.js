@@ -16,9 +16,6 @@ const ProfilePage = () => {
     }
 
     const { email, pictureUrl, fullName } = currentUser.root.user;
-
-    const role = (currentUser.root.user.member ? "member" : "guest");
-
     return (
         <BasicLayout>
             <Row className="align-items-center profile-header mb-5 text-center text-md-left">
@@ -32,7 +29,9 @@ const ProfilePage = () => {
                 <Col md>
                     <h2>{fullName}</h2>
                     <p className="lead text-muted">{email}</p>
-                    <RoleBadge role={role} />
+                    <RoleBadge role={"USER"} currentUser={currentUser}/>
+                    <RoleBadge role={"MEMBER"} currentUser={currentUser}/>
+                    <RoleBadge role={"ADMIN"} currentUser={currentUser}/>
                 </Col>
             </Row>
             <Row className="text-left">
