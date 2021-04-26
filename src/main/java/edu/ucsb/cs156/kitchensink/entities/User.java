@@ -28,7 +28,4 @@ public class User {
   private String locale;
   private String hostedDomain;
 
-  public boolean isMember() {
-    return email.endsWith("@ucsb.edu");
-  }
 }

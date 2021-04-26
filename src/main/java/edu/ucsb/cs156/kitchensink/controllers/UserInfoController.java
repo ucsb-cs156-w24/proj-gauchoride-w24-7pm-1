@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @RestController
 public class UserInfoController extends ApiController {
-  @PreAuthorize("@currentUser.member")
+  @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("/currentUser")
   public User currentUser() {
     return super.currentUser();
