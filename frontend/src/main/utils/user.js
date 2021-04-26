@@ -7,12 +7,12 @@ export function useCurrentUser() {
     try {
       const response = await axios.get("/api/currentUser");
 
-      return { loggedIn: true, user: response.data };
+      return { loggedIn: true, root: response.data };
     } catch {
-      return { loggedIn: false, user: null };
+      return { loggedIn: false, root: null };
     }
   }, {
-    initialData: { loggedIn: false, user: null }
+    initialData: { loggedIn: false, root: null }
   });
 }
 

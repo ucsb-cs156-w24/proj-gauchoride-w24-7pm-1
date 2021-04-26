@@ -1,19 +1,19 @@
 package edu.ucsb.cs156.kitchensink.services;
 
 import edu.ucsb.cs156.kitchensink.entities.User;
-import lombok.experimental.Delegate;
+import edu.ucsb.cs156.kitchensink.models.CurrentUser;
 
 import java.util.Collection;
-import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 
 public abstract class CurrentUserService {
-  public abstract User get();
-  public abstract Collection<? extends GrantedAuthority> getCurrentUsersAuthorities();
+  public abstract User getUser();
+  public abstract CurrentUser getCurrentUser();
+  public abstract Collection<? extends GrantedAuthority> getRoles();
 
   public final boolean isLoggedIn() {
-    return get() != null;
+    return getUser() != null;
   }
 
 }

@@ -15,9 +15,9 @@ const ProfilePage = () => {
         )
     }
 
-    const { email, pictureUrl, fullName } = currentUser.user;
+    const { email, pictureUrl, fullName } = currentUser.root.user;
 
-    const role = (currentUser.user.member ? "member" : "guest");
+    const role = (currentUser.root.user.member ? "member" : "guest");
 
     return (
         <BasicLayout>
@@ -36,7 +36,7 @@ const ProfilePage = () => {
                 </Col>
             </Row>
             <Row className="text-left">
-                <ReactJson src={currentUser.user} />
+                <ReactJson src={currentUser.root} />
             </Row>
         </BasicLayout>
     );

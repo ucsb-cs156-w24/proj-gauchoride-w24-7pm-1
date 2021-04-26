@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.kitchensink.services;
 
 import edu.ucsb.cs156.kitchensink.entities.User;
+import edu.ucsb.cs156.kitchensink.models.CurrentUser;
 import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +30,16 @@ public class CurrentUserServiceImpl extends CurrentUserService {
   @Value("${app.admin.emails}")
   final private List<String> adminEmails = new ArrayList<String>();
 
-  public User get() {
+  public CurrentUser getCurrentUser() {
+    CurrentUser cu = CurrentUser.builder()
+      .user(this.getUser())
+      .roles(this.getRoles())
+      .build();
+    log.info("getCurrentUser returns {}",cu);
+    return cu;
+  }
+
+  public User getUser() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
 
@@ -72,33 +82,16 @@ public class CurrentUserServiceImpl extends CurrentUserService {
           .build();
       userRepository.save(u);
       return u;
-
-      // return userRepository.findByEmail(email)
-      //     .orElseGet(
-      //         () ->
-      //             User.builder()
-      //                 .googleSub(googleSub)
-      //                 .email(email)
-      //                 .pictureUrl(pictureUrl)
-      //                 .fullName(fullName)
-      //                 .givenName(givenName)
-      //                 .familyName(familyName)
-      //                 .emailVerified(emailVerified)
-      //                 .locale(locale)
-      //                 .hostedDomain(hostedDomain)
-      //                 .build()
-      //     );
     }
 
     return null;
   }
 
-
-  public Collection<? extends GrantedAuthority> getCurrentUsersAuthorities() {
+  public Collection<? extends GrantedAuthority> getRoles() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     Authentication authentication = securityContext.getAuthentication();
-    Collection<? extends GrantedAuthority> credentials = authentication.getAuthorities();
-    log.info("credentials={}", credentials);
-    return credentials;
+    Collection<? extends GrantedAuthority> roles = authentication.getAuthorities();
+    log.info("roles={}", roles);
+    return roles;
   }
 }

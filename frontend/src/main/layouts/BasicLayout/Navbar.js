@@ -6,6 +6,7 @@ export default function Navbar() {
   const { data: currentUser } = useCurrentUser();
   const doLogout = useLogout();
 
+  console.log('currentUser',currentUser);
   return (
     <BootstrapNavbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
@@ -19,7 +20,7 @@ export default function Navbar() {
           {
             currentUser.loggedIn ? (
               <>
-                <BootstrapNavbar.Text className="me-3" as={Link} to="/profile">Welcome, {currentUser.user.email}</BootstrapNavbar.Text>
+                <BootstrapNavbar.Text className="me-3" as={Link} to="/profile">Welcome, {currentUser.root.user.email}</BootstrapNavbar.Text>
                 <Button onClick={doLogout}>Log Out</Button>
               </>
             ) : (
