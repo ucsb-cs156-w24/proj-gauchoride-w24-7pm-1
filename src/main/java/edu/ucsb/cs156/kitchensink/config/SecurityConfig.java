@@ -18,9 +18,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
-import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -37,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Value("${app.admin.emails}")
-  final private List<String> adminEmails = new ArrayList<String>();
+  private final List<String> adminEmails = new ArrayList<String>();
 
   @Autowired
   UserRepository userRepository;
@@ -50,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling(handlingConfigurer -> handlingConfigurer
           .authenticationEntryPoint(new Http403ForbiddenEntryPoint())
         )
-        // .oauth2Login(oauth2 -> {})
         .oauth2Login(oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userAuthoritiesMapper(this.userAuthoritiesMapper())))
         .csrf(csrf -> csrf
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
