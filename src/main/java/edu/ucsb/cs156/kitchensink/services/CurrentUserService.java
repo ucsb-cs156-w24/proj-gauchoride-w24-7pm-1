@@ -12,12 +12,4 @@ public abstract class CurrentUserService {
     return get() != null;
   }
 
-  public final boolean isMember() {
-    User user = get();
-    if (user == null) {
-      return false;
-    }
-
-    return user.isMember();
-  }
 }
