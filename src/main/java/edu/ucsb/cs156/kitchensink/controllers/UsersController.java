@@ -27,7 +27,7 @@ public class UsersController extends ApiController {
 
     @ApiOperation(value = "Get a list of all users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<String> users()
             throws JsonProcessingException {
         Iterable<User> users = userRepository.findAll();
