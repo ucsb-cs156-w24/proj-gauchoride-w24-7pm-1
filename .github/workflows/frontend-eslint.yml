@@ -1,4 +1,4 @@
-name: ESLint
+name: ESLint (JavaScript style checking)
 
 on:
   pull_request:

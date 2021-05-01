@@ -1,13 +1,21 @@
 # demo-spring-react-kitchensink: dsrk
 
+
 Storybook is here:
 * Production: <https://happycows.github.io/demo-spring-react-kitchensink-docs/>
 * QA:  <https://happycows.github.io/demo-spring-react-kitchensink-docs-qa/>
 
-# Setup before you run for the first time
+# Test setup
+
+For testing, you need to set a repository secret `TEST_PROPERTIES` to be the contents of `.env.SAMPLE`.   It is not necessary to have
+valid values for each of the environment variables, but if they are undefined, the tests will fail.
+
+# Setup before running application
 
 * Obtain a Google client id and client secret
-  - The callback url should be: `http://localhost:8080/login/oauth2/code/google`
+  - This is done at the Google Developer Console <https://console.cloud.google.com/> via the left navigation under `APIs and Services`, then `Credentials`, then `Create Credentials`
+  - The callback url should be: `http://localhost:8080/login/oauth2/code/google`.  (Note: `http` not `https` for localhost).
+  - You will also need to add a callback URL for Heroku if you are deploying there, e.g. `https://myappname.herokuapp.com/login/oauth2/code/google` (Note the `https` in the Heroku case.)
 
 
 # Getting Started on localhost
