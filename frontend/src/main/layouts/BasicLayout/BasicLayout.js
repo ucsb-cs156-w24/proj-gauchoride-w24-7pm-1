@@ -1,12 +1,11 @@
 import { Container } from "react-bootstrap";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Footer from "main/components/Nav/Footer";
+import AppNavbar from "main/components/Nav/AppNavbar";
 
-export default function BasicLayout(props) {
-  const { children } = props;
+export default function BasicLayout({ children }) {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Navbar />
+      <AppNavbar />
       <Container expand="xl" className="pt-4 flex-grow-1">
         {children}
       </Container>

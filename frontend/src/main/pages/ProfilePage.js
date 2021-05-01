@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import RoleBadge from "main/components/Profile/RoleBadge";
-import { useCurrentUser } from "main/utils/user";
+import { useCurrentUser } from "main/utils/currentUser";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 import ReactJson from "react-json-view";
