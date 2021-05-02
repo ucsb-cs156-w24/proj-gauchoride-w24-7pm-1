@@ -3,15 +3,18 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import usersFixtures from "fixtures/usersFixtures";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import nock from "nock";
 
-describe("AdminUsersPage tests", async () => {
-
-
+describe("AdminUsersPage tests",  () => {
     const queryClient = new QueryClient();
-    test("renders without crashing on two users", () => {
+    test("renders without crashing on two users", async () => {
 
-        const _expectation = nock('http://localhost')
+        const _expectation1 = nock('http://localhost')
+        .get('/api/currentUser')
+        .reply(200, apiCurrentUserFixtures.adminUser);
+
+        const _expectation2 = nock('http://localhost')
             .get('/api/admin/users')
             .reply(200, usersFixtures.twoUsers);
 
@@ -22,9 +25,10 @@ describe("AdminUsersPage tests", async () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+        await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
+
     });
 
-    await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 });
 
 
