@@ -1,6 +1,11 @@
 ## emacs ##
 *~
 
+# Stryker reports
+
+frontend/.stryker-tmp
+frontend/reports
+
 # Don't check in a built storybook #
 
 frontend/storybook-static
