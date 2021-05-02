@@ -1,7 +1,4 @@
 import { render } from "@testing-library/react";
-import HomePage from "main/pages/HomePage";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
 import usersFixtures from "fixtures/usersFixtures";
 import UsersTable from "main/components/Users/UsersTable"
 

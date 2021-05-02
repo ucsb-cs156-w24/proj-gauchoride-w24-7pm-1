@@ -5,10 +5,10 @@ import { apiCurrentUserFixtures, currentUserFixtures } from "fixtures/currentUse
 import nock from "nock";
 import mockConsole from "jest-mock-console";
 import { act } from 'react-dom/test-utils';
+import { useNavigate } from "react-router-dom"
 
 
 jest.mock('react-router-dom');
-import { useNavigate } from "react-router-dom"
 const { MemoryRouter } = jest.requireActual('react-router-dom');
 
 
@@ -24,7 +24,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/currentUser')
                 .reply(403);
 
@@ -45,7 +45,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/currentUser')
                 .reply(200, apiCurrentUserFixtures.userOnly);
 
@@ -70,7 +70,7 @@ describe("utils/currentUser tests", () => {
             );
 
             const apiResult = apiCurrentUserFixtures.missingRolesToTestErrorHandling;
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/currentUser')
                 .reply(200, apiResult);
 
@@ -98,7 +98,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            const nockExpectation = nock('http://localhost')
+            const _nockExpectation = nock('http://localhost')
                 .post('/logout')
                 .reply(200);
 

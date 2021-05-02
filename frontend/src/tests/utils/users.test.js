@@ -1,17 +1,11 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useUsers } from "main/utils/users";
 import { renderHook } from '@testing-library/react-hooks'
-import { apiCurrentUserFixtures, currentUserFixtures } from "fixtures/currentUserFixtures";
 import nock from "nock";
 import mockConsole from "jest-mock-console";
-import { act } from 'react-dom/test-utils';
-
+import usersFixtures from "fixtures/usersFixtures";
 
 jest.mock('react-router-dom');
-import { useNavigate } from "react-router-dom"
-import usersFixtures from "fixtures/usersFixtures";
-const { MemoryRouter } = jest.requireActual('react-router-dom');
-
 
 describe("utils/users tests", () => {
     describe("useUsers tests", () => {
@@ -24,7 +18,7 @@ describe("utils/users tests", () => {
                 </QueryClientProvider>
             );
 
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/admin/users')
                 .reply(403);
 
@@ -47,7 +41,7 @@ describe("utils/users tests", () => {
                 </QueryClientProvider>
             );
 
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/admin/users')
                 .reply(404);
 
@@ -73,7 +67,7 @@ describe("utils/users tests", () => {
                 </QueryClientProvider>
             );
 
-            const expectation = nock('http://localhost')
+            const _expectation = nock('http://localhost')
                 .get('/api/admin/users')
                 .reply(200, usersFixtures.twoUsers);
 

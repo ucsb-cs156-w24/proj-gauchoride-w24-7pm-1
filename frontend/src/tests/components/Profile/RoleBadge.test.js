@@ -1,7 +1,4 @@
 import { render } from "@testing-library/react";
-import HomePage from "main/pages/HomePage";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
 import {currentUserFixtures} from "fixtures/currentUserFixtures";
 import RoleBadge from "main/components/Profile/RoleBadge"
 
