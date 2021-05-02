@@ -4,13 +4,11 @@ import { Badge } from "react-bootstrap";
 export default function RoleBadge({role, currentUser}) {
    
   const roles = currentUser.root.roles.map( (o) => o.authority );
-  const stringToMatch = `ROLE_${role}`;
-
 
   return (
-     roles.includes(stringToMatch) ?
-        <Badge className="bg-primary">{role.toLowerCase()}</Badge> 
+     roles.includes(role) ?
+        <Badge className="bg-primary" data-testid={"role-badge"}>{role.replace("ROLE_","").toLowerCase()}</Badge> 
         :
-        <span className="missing-role" data-missingRole={role}></span>
+        <span className="missing-role" data-testid={"missing-role"} data-missingrole={role}></span>
   );
 }

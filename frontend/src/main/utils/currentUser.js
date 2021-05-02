@@ -10,11 +10,13 @@ export function useCurrentUser() {
       try {
         rolesList = response.data.roles.map((r) => r.authority);
       } catch (e) {
-        console.log("Error getting roles: ", e);
+        console.error("Error getting roles: ", e);
+        rolesList = ["ERROR_GETTING_ROLES"];
       }
       response.data = { ...response.data, rolesList: rolesList }
       return { loggedIn: true, root: response.data };
-    } catch {
+    } catch (e) {
+      console.error("Error invoking axios.get: ", e);
       return { loggedIn: false, root: null };
     }
   }, {
@@ -30,14 +32,13 @@ export function useLogout() {
     await queryClient.resetQueries("current user", { exact: true });
     navigate("/");
   })
-
-  return mutation.mutate
+  return mutation;
 }
 
-export function hasRole( currentUser, role ) {
+export function hasRole(currentUser, role) {
   return currentUser
     && currentUser.loggedIn
-    && currentUser.root 
-    && currentUser.root.rolesList 
+    && currentUser.root
+    && currentUser.root.rolesList
     && currentUser.root.rolesList.includes(role)
 }

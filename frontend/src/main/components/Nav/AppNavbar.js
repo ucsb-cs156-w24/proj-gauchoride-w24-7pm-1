@@ -1,13 +1,8 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCurrentUser, useLogout, hasRole} from "main/utils/currentUser";
+import { hasRole} from "main/utils/currentUser";
 
-
-export default function AppNavbar() {
-  const { data: currentUser } = useCurrentUser();
-  const doLogout = useLogout();
-
-  console.log('currentUser', currentUser);
+export default function AppNavbar({currentUser, doLogout}) { 
   return (
     <Navbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
