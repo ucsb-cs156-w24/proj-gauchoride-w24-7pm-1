@@ -15,10 +15,7 @@ const ProfilePage = () => {
         )
     }
 
-    const { email, pictureUrl, fullName } = currentUser.user;
-
-    const role = (currentUser.user.member ? "member" : "guest");
-
+    const { email, pictureUrl, fullName } = currentUser.root.user;
     return (
         <BasicLayout>
             <Row className="align-items-center profile-header mb-5 text-center text-md-left">
@@ -32,11 +29,13 @@ const ProfilePage = () => {
                 <Col md>
                     <h2>{fullName}</h2>
                     <p className="lead text-muted">{email}</p>
-                    <RoleBadge role={role} />
+                    <RoleBadge role={"USER"} currentUser={currentUser}/>
+                    <RoleBadge role={"MEMBER"} currentUser={currentUser}/>
+                    <RoleBadge role={"ADMIN"} currentUser={currentUser}/>
                 </Col>
             </Row>
             <Row className="text-left">
-                <ReactJson src={currentUser.user} />
+                <ReactJson src={currentUser.root} />
             </Row>
         </BasicLayout>
     );

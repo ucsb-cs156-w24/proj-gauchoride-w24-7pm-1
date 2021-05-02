@@ -14,10 +14,10 @@ public abstract class ControllerTestCase {
   @Autowired
   protected MockMvc mockMvc;
 
-  @MockBean(name = "currentUser")
-  private CurrentUserService currentUser;
+  @MockBean
+  private CurrentUserService currentUserService;
 
   protected void loginAs(User user) {
-    when(currentUser.get()).thenReturn(user);
+    when(currentUserService.getUser()).thenReturn(user);
   }
 }
