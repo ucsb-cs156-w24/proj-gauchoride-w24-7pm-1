@@ -6,7 +6,6 @@ export default function Navbar() {
   const { data: currentUser } = useCurrentUser();
   const doLogout = useLogout();
 
-  console.log('currentUser',currentUser);
   return (
     <BootstrapNavbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
