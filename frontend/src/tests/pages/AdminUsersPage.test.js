@@ -16,7 +16,7 @@ describe("AdminUsersPage tests",  () => {
 
         const _expectation2 = nock('http://localhost')
             .get('/api/admin/users')
-            .reply(200, usersFixtures.twoUsers);
+            .reply(200, usersFixtures.threeUsers);
 
         const { getByText } = render(
             <QueryClientProvider client={queryClient}>

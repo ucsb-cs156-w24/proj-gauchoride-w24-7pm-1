@@ -1,5 +1,5 @@
 const usersFixtures = {
-    twoUsers: [
+    threeUsers: [
         {
             "id": 1,
             "email": "phtcon@ucsb.edu",
@@ -21,6 +21,19 @@ const usersFixtures = {
             "fullName": "Phillip Conrad",
             "givenName": "Phillip",
             "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": null,
+            "admin": false
+        },
+        {
+            "id": 3,
+            "email": "craig.zzyzx@example.org",
+            "googleSub": "123456789012345678901",
+            "pictureUrl": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+            "fullName": "Craig Zzyxx",
+            "givenName": "Craig",
+            "familyName": "Zzyxx",
             "emailVerified": true,
             "locale": "en",
             "hostedDomain": null,

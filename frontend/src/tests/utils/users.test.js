@@ -69,11 +69,11 @@ describe("utils/users tests", () => {
 
             const _expectation = nock('http://localhost')
                 .get('/api/admin/users')
-                .reply(200, usersFixtures.twoUsers);
+                .reply(200, usersFixtures.threeUsers);
 
             const { result, waitFor } = renderHook(() => useUsers(), { wrapper });
             await waitFor(() => result.current.isFetched);                      
-            expect(result.current.data).toEqual(usersFixtures.twoUsers);
+            expect(result.current.data).toEqual(usersFixtures.threeUsers);
 
         });
     });
