@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import RoleBadge from "main/components/Profile/RoleBadge";
-import { useCurrentUser } from "main/utils/user";
+import { useCurrentUser } from "main/utils/currentUser";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 import ReactJson from "react-json-view";
@@ -29,9 +29,9 @@ const ProfilePage = () => {
                 <Col md>
                     <h2>{fullName}</h2>
                     <p className="lead text-muted">{email}</p>
-                    <RoleBadge role={"USER"} currentUser={currentUser}/>
-                    <RoleBadge role={"MEMBER"} currentUser={currentUser}/>
-                    <RoleBadge role={"ADMIN"} currentUser={currentUser}/>
+                    <RoleBadge role={"ROLE_USER"} currentUser={currentUser}/>
+                    <RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser}/>
+                    <RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser}/>
                 </Col>
             </Row>
             <Row className="text-left">

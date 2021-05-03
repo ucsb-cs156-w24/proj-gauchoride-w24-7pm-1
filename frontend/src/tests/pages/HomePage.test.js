@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import HomePage from "main/pages/HomePage/HomePage";
+import HomePage from "main/pages/HomePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 

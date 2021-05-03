@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import Footer from "main/layouts/BasicLayout/Footer";
+import Footer from "main/components/Nav/Footer";
 
 export default {
     title: 'layouts/BasicLayout/Footer',
