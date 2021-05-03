@@ -31,6 +31,10 @@ describe("utils/currentUser tests", () => {
             await waitFor(() => result.current.isSuccess);
 
             expect(result.current.data).toEqual({ loggedIn: false, root: null, initialData:true });
+            
+            const queryState = queryClient.getQueryState("current user");
+            expect(queryState).toBeDefined();
+
             queryClient.clear();
 
             await waitFor( ()=> expect(console.error).toHaveBeenCalled() );
@@ -131,6 +135,8 @@ describe("utils/currentUser tests", () => {
             const navigateSpy = jest.fn();
             useNavigate.mockImplementation(() => navigateSpy);
 
+            const resetQueriesSpy = jest.spyOn(queryClient, 'resetQueries');
+            
             const { result, waitFor } = renderHook(() => useLogout(), { wrapper });
 
             act(() => {
@@ -138,6 +144,9 @@ describe("utils/currentUser tests", () => {
                 result.current.mutate();
             });
             await waitFor(() => expect(navigateSpy).toHaveBeenCalledWith("/"));
+
+            await waitFor(() => expect(resetQueriesSpy).toHaveBeenCalledWith("current user", { exact: true }));
+
             queryClient.clear();
         });
     });

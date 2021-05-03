@@ -31,6 +31,9 @@ describe("utils/users tests", () => {
             await waitFor(() => result.current.isSuccess);
             expect(result.current.data).toEqual([]);
 
+            const queryState = queryClient.getQueryState("users");
+            expect(queryState).toBeDefined();
+
             await waitFor(() => expect(console.error).toHaveBeenCalled());
             const errorMessage = console.error.mock.calls[0][0];
             expect(errorMessage).toMatch("Error getting data from /api/admin/users:");
