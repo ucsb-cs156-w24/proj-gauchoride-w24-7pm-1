@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useCurrentUser, useLogout } from "main/utils/currentUser";
+import { useCurrentUser, useLogout, hasRole } from "main/utils/currentUser";
 import { renderHook } from '@testing-library/react-hooks'
 import { apiCurrentUserFixtures, currentUserFixtures } from "fixtures/currentUserFixtures";
 import nock from "nock";
@@ -112,5 +112,23 @@ describe("utils/currentUser tests", () => {
             });
             await waitFor( () => expect(navigateSpy).toHaveBeenCalledWith("/") );
         });
+    });
+    describe("hasRole tests", () => {
+        test('hasRole(x,"ROLE_ADMIN") return falsy when currentUser ill-defined' , async () => {
+            expect(hasRole(null,"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: null},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true, root: null},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true, root: {}},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true, root: {rolesList: null}},"ROLE_ADMIN")).toBeFalsy();
+        });
+
+        test('hasRole(x,"ROLE_ADMIN") returns correct values when currentUser properly defined' , async () => {
+            expect(hasRole({loggedIn: true, root: {rolesList: [] }},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true, root: {rolesList: ["ROLE_USER"] }},"ROLE_ADMIN")).toBeFalsy();
+            expect(hasRole({loggedIn: true, root: {rolesList: ["ROLE_USER","ROLE_ADMIN"] }},"ROLE_ADMIN")).toBeTruthy();
+        });
+
     });
 });
