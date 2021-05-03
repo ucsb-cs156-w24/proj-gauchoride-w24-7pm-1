@@ -33,7 +33,7 @@ describe("ProfilePage tests", () => {
         var axiosMock = new AxiosMockAdapter(axios);
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
 
-        const { getByText } = render(
+        const { getByText, getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -43,7 +43,9 @@ describe("ProfilePage tests", () => {
 
         await waitFor( () => expect(getByText("Phill Conrad")).toBeInTheDocument() );
         expect(getByText("phtcon@ucsb.edu")).toBeInTheDocument();
-
+        expect(getByTestId("role-badge-user")).toBeInTheDocument();
+        expect(getByTestId("role-badge-admin")).toBeInTheDocument();
+        expect(getByTestId("role-badge-member")).toBeInTheDocument();
     });
 });
 
