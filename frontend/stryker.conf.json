@@ -12,6 +12,7 @@
         "projectType": "create-react-app"
     },
     "mutate": [
-        "src/main/**/*.{js,jsx,ts,tsx}"
+        "src/main/**/*.{js,jsx,ts,tsx}",
+        "!src/main/**/*_NoStryker.{js,jsx,ts,tsx}"
     ]
 }

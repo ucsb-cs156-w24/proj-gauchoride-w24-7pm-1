@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"
 
 export function useCurrentUser() {
-  let rolesList = [];
+  let rolesList = ["ERROR_GETTING_ROLES"];
   return useQuery("current user", async () => {
     try {
       const response = await axios.get("/api/currentUser");
@@ -11,7 +11,6 @@ export function useCurrentUser() {
         rolesList = response.data.roles.map((r) => r.authority);
       } catch (e) {
         console.error("Error getting roles: ", e);
-        rolesList = ["ERROR_GETTING_ROLES"];
       }
       response.data = { ...response.data, rolesList: rolesList }
       return { loggedIn: true, root: response.data };
@@ -20,7 +19,7 @@ export function useCurrentUser() {
       return { loggedIn: false, root: null };
     }
   }, {
-    initialData: { loggedIn: false, root: null }
+    initialData: { loggedIn: false, root: null, initialData:true }
   });
 }
 
