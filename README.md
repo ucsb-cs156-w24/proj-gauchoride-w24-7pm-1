@@ -1,9 +1,9 @@
-# demo-spring-react-kitchensink: dsrk
+# demo-spring-react-example: dsrk
 
 
 Storybook is here:
-* Production: <https://happycows.github.io/demo-spring-react-kitchensink-docs/>
-* QA:  <https://happycows.github.io/demo-spring-react-kitchensink-docs-qa/>
+* Production: <https://happycows.github.io/demo-spring-react-example-docs/>
+* QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
 
 
 

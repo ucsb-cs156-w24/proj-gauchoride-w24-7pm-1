@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.config;
+package edu.ucsb.cs156.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

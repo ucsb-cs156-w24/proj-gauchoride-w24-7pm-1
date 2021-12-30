@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.controllers;
+package edu.ucsb.cs156.example.controllers;
 
 import org.springframework.cloud.gateway.mvc.ProxyExchange;
 import org.springframework.context.annotation.Profile;

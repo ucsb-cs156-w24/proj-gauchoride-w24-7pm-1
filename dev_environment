@@ -4,7 +4,7 @@ set -e
 # Disable path conversion on Windows
 export MSYS_NO_PATHCONV=1
 
-IMAGE_NAME=demo_spring_react_kitchen_sink_dev
+IMAGE_NAME=demo_spring_react_example_dev
 
 docker build -t "${IMAGE_NAME}" - < Dockerfile
 

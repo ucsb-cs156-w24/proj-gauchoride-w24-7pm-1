@@ -1,7 +1,7 @@
-package edu.ucsb.cs156.kitchensink.controllers;
+package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.kitchensink.ControllerTestCase;
-import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
+import edu.ucsb.cs156.example.ControllerTestCase;
+import edu.ucsb.cs156.example.repositories.UserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.controllers;
+package edu.ucsb.cs156.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.ucsb.cs156.kitchensink.entities.User;
-import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
+import edu.ucsb.cs156.example.entities.User;
+import edu.ucsb.cs156.example.repositories.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 

@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.services;
+package edu.ucsb.cs156.example.services;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 
-import edu.ucsb.cs156.kitchensink.ControllerTestCase;
-import edu.ucsb.cs156.kitchensink.entities.User;
+import edu.ucsb.cs156.example.ControllerTestCase;
+import edu.ucsb.cs156.example.entities.User;
 
 class CurrentUserServiceTests extends ControllerTestCase {
 

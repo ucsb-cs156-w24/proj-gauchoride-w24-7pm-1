@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.config;
+package edu.ucsb.cs156.example.config;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,8 +23,8 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import edu.ucsb.cs156.kitchensink.entities.User;
-import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
+import edu.ucsb.cs156.example.entities.User;
+import edu.ucsb.cs156.example.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration

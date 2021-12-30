@@ -1,8 +1,8 @@
-package edu.ucsb.cs156.kitchensink.services;
+package edu.ucsb.cs156.example.services;
 
-import edu.ucsb.cs156.kitchensink.entities.User;
-import edu.ucsb.cs156.kitchensink.models.CurrentUser;
-import edu.ucsb.cs156.kitchensink.repositories.UserRepository;
+import edu.ucsb.cs156.example.entities.User;
+import edu.ucsb.cs156.example.models.CurrentUser;
+import edu.ucsb.cs156.example.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

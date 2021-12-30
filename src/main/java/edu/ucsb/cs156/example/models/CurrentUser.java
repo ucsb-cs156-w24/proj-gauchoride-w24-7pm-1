@@ -1,4 +1,4 @@
-package edu.ucsb.cs156.kitchensink.models;
+package edu.ucsb.cs156.example.models;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 
 
 import org.springframework.security.core.GrantedAuthority;
-import edu.ucsb.cs156.kitchensink.entities.User;
+import edu.ucsb.cs156.example.entities.User;
 
 import java.util.Collection;
 

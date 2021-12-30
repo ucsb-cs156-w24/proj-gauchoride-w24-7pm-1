@@ -7,7 +7,7 @@ export default function AppNavbar({currentUser, doLogout}) {
     <Navbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          Kitchen Sink
+          Example
         </Navbar.Brand>
 
         <Navbar.Toggle />
