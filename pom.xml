@@ -4,16 +4,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>2.6.2</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>edu.ucsb.cs156</groupId>
     <artifactId>kitchensink</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>kitchensink</name>
     <description>Spring Boot + React Kitchen Sink</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -35,12 +35,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gateway-mvc</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>me.paulschwarz</groupId>
             <artifactId>spring-dotenv</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.1</version>
         </dependency>
 
         <dependency>
@@ -102,7 +102,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
+                <version>0.8.7</version>
                 <configuration>
                     <excludes>
                         <exclude>**/edu/ucsb/cs156/kitchensink/controllers/FrontendController.*</exclude>
@@ -169,7 +169,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.12.1</version>
                         <configuration>
                             <workingDirectory>frontend</workingDirectory>
                             <installDirectory>${project.build.directory}</installDirectory>
