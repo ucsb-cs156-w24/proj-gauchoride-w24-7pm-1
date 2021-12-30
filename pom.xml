@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gateway-mvc</artifactId>
-            <version>3.1.0</version>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.paulschwarz</groupId>
