@@ -5,6 +5,9 @@ Storybook is here:
 * Production: <https://happycows.github.io/demo-spring-react-kitchensink-docs/>
 * QA:  <https://happycows.github.io/demo-spring-react-kitchensink-docs-qa/>
 
+
+
+
 # Test setup
 
 For testing, you need to set a repository secret `TEST_PROPERTIES` to be the contents of `.env.SAMPLE`.   It is not necessary to have
@@ -26,6 +29,14 @@ valid values for each of the environment variables, but if they are undefined, t
   - If running for the first time, do `npm install` to install dependencies.
   - After that, do `npm start`
 * Then, the app should be available on <http://localhost:8080>
+
+If it doesn't work at first, e.g. you have a blank page on  <http://localhost:8080>, give it a minute and a few page refreshes.  Sometimes it takes a moment for everything to settle in.
+
+# Accessing swagger
+
+To access the swagger API endpoints, use:
+
+* < <http://localhost:8080/swagger-ui/index.html>
 
 # To run React Storybook
 
