@@ -5,7 +5,7 @@ Storybook is here:
 * Production: <https://happycows.github.io/demo-spring-react-example-docs/>
 * QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
 
-
+The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `TOKEN` be set up; this should be an access token for the repository.
 
 
 # Test setup
