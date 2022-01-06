@@ -19,7 +19,7 @@ jobs:
           mkdir -p docs-build
           npm run build-storybook
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+        uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           repository-name: ${{ github.repository }}-docs
           token: ${{ secrets.TOKEN }}
