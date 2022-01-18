@@ -59,7 +59,7 @@ Failed to connect to the frontend server! You may have forgotten to run npm star
 
 To access the swagger API endpoints, use:
 
-* < <http://localhost:8080/swagger-ui/index.html>
+* <http://localhost:8080/swagger-ui/index.html>
 
 # To run React Storybook
 
