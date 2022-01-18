@@ -16,27 +16,30 @@ Each is explained below.
 1. Login to the Google Developer Console at 
    <https://console.cloud.google.com/>
 
-2. Look under the left navigation for 
-   - `APIs and Services`
-   - then `Credentials`
-   - then `Create Credentials`
+2. Upper left, there is a hamburger menu icon that provides a left navigation menu.
+   
+   * Look for  `APIs and Services` then `Credentials`.
+   * On that page, near the top, click the button for `+ CREATE CREDENTIALS`
+   * This makes a pull-down menu where you can select `OAuth Client id`
+   * For Application Type, select `Web Application`
+   * For name, choose something you will remember; I suggest using the name of your repo, or the name of the Heroku application
+   * Scroll down to the part of the page that says: `Authorized redirect URIs`
 
-3. You should now have the screen where you can create a new set
-   of OAuth Credentials (i.e. a client id and client secret).
-    
-   You'll be asked for a callback url.
+3. Under `Authorized redirect URIs`, you'll need to click the `+ ADD URI` button twice to enter two addresses:
 
-   For localhost, enter this (note: `http`, not `https`):
-   ```
-   http://localhost:8080/login/oauth2/code/google 
-   ``` 
-     
-   For Heroku, add a second callback url, using `https`, and
-   substituting in your app name in place of `myappname`:
+   * For localhost, enter: `http://localhost:8080/login/oauth2/code/google`
+     - Note that this *must* be `http` not `https`
+   * For Heroku, enter: `https://myappname.herokuapp.com/login/oauth2/code/google`
+     - Note that you should substitute in *your* app name in place of `my-app-name`
+     - Note that this *must* be `https` not `http`
 
-   ```
-   https://myappname.herokuapp.com/login/oauth2/code/google
-   ``` 
+   ![image](https://user-images.githubusercontent.com/1119017/149854295-8e1c4c63-929c-4706-972d-1962c644a40a.png)
+
+   Then click the blue `CREATE` button.
+   
+   You will now see the client id and client secret values.
+   
+   Keep this window open, since you'll need these values in the next step.
    
 ## Step 2: Copy `.env.SAMPLE` to `.env` and enter values
 
