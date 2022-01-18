@@ -23,14 +23,27 @@ The OAuth client was not found.
 
 # Getting Started on localhost
 
-* The backend and frontend should be run separately, so first start by opening two separate terminal windows.
-* In the first window, start up the backend with `mvn spring-boot:run`
-* In the second window, `cd frontend` then:
-  - If running for the first time, do `npm install` to install dependencies.
-  - After that, do `npm start`
-* Then, the app should be available on <http://localhost:8080>
+* Open *two separate terminal windows*  
+* In the first window, start up the backend with:
+  ``` 
+  mvn spring-boot:run
+  ```
+* In the second window:
+  ```
+  cd frontend
+  npm install  # only on first run or when dependencies change
+  npm start
+  ```
+
+Then, the app should be available on <http://localhost:8080>
 
 If it doesn't work at first, e.g. you have a blank page on  <http://localhost:8080>, give it a minute and a few page refreshes.  Sometimes it takes a moment for everything to settle in.
+
+If you see the following on localhost, make sure that you also have the frontend code running in a separate window.
+
+```
+Failed to connect to the frontend server! You may have forgotten to run npm start in a separate ./dev_environment window (or it hasn't loaded yet).
+```
 
 # Getting Started on Heroku
 
