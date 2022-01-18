@@ -14,7 +14,7 @@ you need to do the steps documented in [`docs/oauth.md`](docs/oauth.md).
 Otherwise, when you try to login for the first time, you 
 will likely see an error such as:
 
-<img src="https://user-images.githubusercontent.com/1119017/149858436-c9baa238-a4f7-4c52-b995-0ed8bee97487.png" alt="Authorization Error; Error 401: invalid_client; The OAuth client was not found." width="200"/>
+<img src="https://user-images.githubusercontent.com/1119017/149858436-c9baa238-a4f7-4c52-b995-0ed8bee97487.png" alt="Authorization Error; Error 401: invalid_client; The OAuth client was not found." width="400"/>
 
 # Getting Started on localhost
 
