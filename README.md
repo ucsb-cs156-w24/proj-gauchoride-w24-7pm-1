@@ -1,4 +1,4 @@
-# demo-spring-react-example: dsrk
+# demo-spring-react-example: dsre
 
 
 Storybook is here:
@@ -12,10 +12,17 @@ The GitHub actions script to deploy the Storybook to QA requires that a reposito
 
 # Setup before running application
 
-* Obtain a Google client id and client secret
-  - This is done at the Google Developer Console <https://console.cloud.google.com/> via the left navigation under `APIs and Services`, then `Credentials`, then `Create Credentials`
-  - The callback url should be: `http://localhost:8080/login/oauth2/code/google`.  (Note: `http` not `https` for localhost).
-  - You will also need to add a callback URL for Heroku if you are deploying there, e.g. `https://myappname.herokuapp.com/login/oauth2/code/google` (Note the `https` in the Heroku case.)
+Before running the application for the first time,
+you need to do the steps documented in [`docs/oauth.md`](docs/oauth.md).
+
+Otherwise, when you try to login for the first time, you 
+will likely see an error such as:
+
+```
+Authorization Error
+Error 401: invalid_client
+The OAuth client was not found.
+```
 
 
 # Getting Started on localhost
@@ -29,11 +36,30 @@ The GitHub actions script to deploy the Storybook to QA requires that a reposito
 
 If it doesn't work at first, e.g. you have a blank page on  <http://localhost:8080>, give it a minute and a few page refreshes.  Sometimes it takes a moment for everything to settle in.
 
+# Getting Started on Heroku
+
+On Heroku, you'll need to set the following configuration variable:
+
+* Using the Heroku CLI:
+  ```
+  heroku config:set PRODUCTION=true --app <heroku app name>
+  ```
+* Or set it on the Heroku Dashboard:
+  ![image](https://user-images.githubusercontent.com/1119017/149855768-7b56164a-98f7-4357-b877-da34b7bd9ea4.png)
+
+You'll also need to follow the OAuth set up instructions here: [`docs/oauth.md`](docs/oauth.md).
+
+If you get the following message, it probably means that you failed to setup one or more of the environment variables:
+
+```
+Failed to connect to the frontend server! You may have forgotten to run npm start in a separate ./dev_environment window (or it hasn't loaded yet).
+```
+
 # Accessing swagger
 
 To access the swagger API endpoints, use:
 
-* < <http://localhost:8080/swagger-ui/index.html>
+* <http://localhost:8080/swagger-ui/index.html>
 
 # To run React Storybook
 
