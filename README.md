@@ -12,10 +12,17 @@ The GitHub actions script to deploy the Storybook to QA requires that a reposito
 
 # Setup before running application
 
-* Obtain a Google client id and client secret
-  - This is done at the Google Developer Console <https://console.cloud.google.com/> via the left navigation under `APIs and Services`, then `Credentials`, then `Create Credentials`
-  - The callback url should be: `http://localhost:8080/login/oauth2/code/google`.  (Note: `http` not `https` for localhost).
-  - You will also need to add a callback URL for Heroku if you are deploying there, e.g. `https://myappname.herokuapp.com/login/oauth2/code/google` (Note the `https` in the Heroku case.)
+Before running the application for the first time,
+you need to do the steps documented in [`docs/oauth.md`](docs/oauth.md).
+
+Otherwise, when you try to login for the first time, you 
+will likely see an error such as:
+
+```
+Authorization Error
+Error 401: invalid_client
+The OAuth client was not found.
+```
 
 
 # Getting Started on localhost
