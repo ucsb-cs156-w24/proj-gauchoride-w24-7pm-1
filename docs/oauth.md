@@ -115,11 +115,13 @@ The slightly more tedious way:
 
 If you see this:
 
-![image](https://user-images.githubusercontent.com/1119017/149856156-575fb638-7db8-460a-a344-9069145aa242.png)
+<img src="https://user-images.githubusercontent.com/1119017/149856156-575fb638-7db8-460a-a344-9069145aa242.png" alt="Redirect URI Mismatch" width="600" />
+
 
 Try clicking the little arrow to open up the additional message:
 
-![image](https://user-images.githubusercontent.com/1119017/149856193-512acb25-2bfc-4e53-991b-f61de37f1ed6.png)
+<img src="https://user-images.githubusercontent.com/1119017/149856193-512acb25-2bfc-4e53-991b-f61de37f1ed6.png" alt="Request Details" width="600" />
+
 
 Now, you'll see  the Redirect URI that the app is expecting.
 
