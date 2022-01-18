@@ -1,14 +1,10 @@
 # demo-spring-react-example: dsre
 
-
 Storybook is here:
-* Production: <https://happycows.github.io/demo-spring-react-example-docs/>
-* QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
+* Production: <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs/>
+* QA:  <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs-qa/>
 
-The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `TOKEN` be set up; this should be an access token for the repository.   This secret can be obtained by visiting the settings page for either the organization, or a user with access to the organization, visiting Developer Settings, and then Personal Access Tokens. 
-
-![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
-
+If these reposare not yet setup, see the setup steps in [`docs/storybook.md`](docs/storybook.md).
 
 # Setup before running application
 
