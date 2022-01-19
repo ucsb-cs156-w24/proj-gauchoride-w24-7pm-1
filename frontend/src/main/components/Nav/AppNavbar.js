@@ -2,7 +2,8 @@ import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { hasRole} from "main/utils/currentUser";
 
-export default function AppNavbar({currentUser, doLogout}) { 
+export default function AppNavbar({currentUser, systemInfo, doLogout}) { 
+  console.log("systemInfo",systemInfo);
   return (
     <Navbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
@@ -20,6 +21,23 @@ export default function AppNavbar({currentUser, doLogout}) {
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )
+            }
+          </Nav>
+
+          <Nav className="me-auto">
+            {
+              systemInfo?.springH2ConsoleEnabled && (
+                <>
+                   <Nav.Link href="/h2-console">H2Console</Nav.Link>
+                </>
+              ) 
+            }
+            {
+              systemInfo && systemInfo?.showSwaggerUILink && (
+                <>
+                   <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                </>
+              ) 
             }
           </Nav>
 
