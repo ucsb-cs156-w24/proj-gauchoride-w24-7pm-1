@@ -26,7 +26,7 @@ export default function AppNavbar({currentUser, systemInfo, doLogout}) {
 
           <Nav className="me-auto">
             {
-              systemInfo && systemInfo?.springH2ConsoleEnabled && (
+              systemInfo?.springH2ConsoleEnabled && (
                 <>
                    <Nav.Link href="/h2-console">H2Console</Nav.Link>
                 </>
