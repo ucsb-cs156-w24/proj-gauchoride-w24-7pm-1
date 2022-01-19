@@ -1,14 +1,12 @@
 # demo-spring-react-example: dsre
 
-
 Storybook is here:
-* Production: <https://happycows.github.io/demo-spring-react-example-docs/>
-* QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
+* Production: <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs/>
+* QA:  <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs-qa/>
 
-The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `TOKEN` be set up; this should be an access token for the repository.   This secret can be obtained by visiting the settings page for either the organization, or a user with access to the organization, visiting Developer Settings, and then Personal Access Tokens. 
+The GitHub actions script to deploy the Storybook to QA requires some configuration; see [docs/github-actions.md](docs/github-actions.md) for details.
 
-![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
-
+If these repo sare not yet setup, see the setup steps in [`docs/storybook.md`](docs/storybook.md).
 
 # Setup before running application
 
@@ -18,23 +16,31 @@ you need to do the steps documented in [`docs/oauth.md`](docs/oauth.md).
 Otherwise, when you try to login for the first time, you 
 will likely see an error such as:
 
-```
-Authorization Error
-Error 401: invalid_client
-The OAuth client was not found.
-```
-
+<img src="https://user-images.githubusercontent.com/1119017/149858436-c9baa238-a4f7-4c52-b995-0ed8bee97487.png" alt="Authorization Error; Error 401: invalid_client; The OAuth client was not found." width="400"/>
 
 # Getting Started on localhost
 
-* The backend and frontend should be run separately, so first start by opening two separate terminal windows.
-* In the first window, start up the backend with `mvn spring-boot:run`
-* In the second window, `cd frontend` then:
-  - If running for the first time, do `npm install` to install dependencies.
-  - After that, do `npm start`
-* Then, the app should be available on <http://localhost:8080>
+* Open *two separate terminal windows*  
+* In the first window, start up the backend with:
+  ``` 
+  mvn spring-boot:run
+  ```
+* In the second window:
+  ```
+  cd frontend
+  npm install  # only on first run or when dependencies change
+  npm start
+  ```
+
+Then, the app should be available on <http://localhost:8080>
 
 If it doesn't work at first, e.g. you have a blank page on  <http://localhost:8080>, give it a minute and a few page refreshes.  Sometimes it takes a moment for everything to settle in.
+
+If you see the following on localhost, make sure that you also have the frontend code running in a separate window.
+
+```
+Failed to connect to the frontend server! You may have forgotten to run npm start in a separate ./dev_environment window (or it hasn't loaded yet).
+```
 
 # Getting Started on Heroku
 
@@ -61,6 +67,7 @@ To access the swagger API endpoints, use:
 
 * <http://localhost:8080/swagger-ui/index.html>
 
+
 # To run React Storybook
 
 * cd into frontend
@@ -70,31 +77,30 @@ To access the swagger API endpoints, use:
 
 * For documentation on React Storybook, see: https://storybook.js.org/
 
+# Accessing Database Console
 
-# GitHub Actions Setup
+* On localhost only: <http://localhost:8080/h2-console>  See also: [docs/h2-console.md](docs/h2-console.md)
+* On Heroku, with CLI:
+  - Use: `heroku psql --app app-name-here` 
+  - Note that this requires that you have the psql CLI tool installed on your system.  
+  - This does work on CSIL, but you may need `heroku login -i` in order to login on CSIL
+  - Example:
+   
+    ```
+    [pconrad@csilvm-03 ~]$ heroku psql --app demo-spring-react-example
+    ›   Warning: heroku update available from 7.59.1 to 7.59.2.
+    --> Connecting to postgresql-tapered-84555
+    psql (13.4, server 13.5 (Ubuntu 13.5-2.pgdg20.04+1))
+    SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+    Type "help" for help.
 
-As long as each property value needed has a sane default value that works
-in test mode, it is not necessary to configure any repository secrets for
-GitHub Actions.
+    demo-spring-react-example::DATABASE=> 
+    ```
+* On Heroku, without CLI: 
+  - Upper right of dashboard, select "More" then "Run Console"
+    
+    <img alt="Heroku Dashboard; More; Run Console" src="https://user-images.githubusercontent.com/1119017/150204550-a1027ab8-6ce7-4770-b566-a43928f5c3a0.png" width="300" />
+  - Enter `psql $DATABASE_URL` and click `Run`
+   
+    <img alt="Enter psql $DATABASE_URL and click Run" src="https://user-images.githubusercontent.com/1119017/150206174-43193825-1afd-49f4-aeaf-cfadf0c0c6f3.png" width="400" />
 
-As an example, in `src/main/resources/application.properties`, we see lines that contain fallback values for `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `ADMIN_EMAILS`:
-
-```
-spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID:${env.GOOGLE_CLIENT_ID:client_id_unset}}
-spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET:${env.GOOGLE_CLIENT_SECRET:client_secret_unset}}
-spring.security.oauth2.client.registration.google.scope=email,profile
-...
-app.admin.emails=${ADMIN_EMAILS:${env.ADMIN_EMAILS:phtcon@ucsb.edu}}
-```
-
-The fallback values, in this case being:
-
-| Env variable | Default Value |
-|--------------|---------------|
-| `GOOGLE_CLIENT_ID` | `client_id_unset` |
-| `GOOGLE_CLIENT_SECRET` | `client_secret_unset` |
-| `ADMIN_EMAILS` | `phtcon@ucsb.edu` |
-
-This avoids the error that the Spring Boot application fails to load because a specific environment variable is undefined.   It is recommended that if any additional environment variables are added to `.env.SAMPLE` that similar fallback values be included in the `.properties` files.
-
-Having said that, if specific values are needed for GitHub actions testing, it is possible to define those in a repository secret called  `TEST_PROPERTIES` that has the contents of `.env.SAMPLE` with appropriate values.
