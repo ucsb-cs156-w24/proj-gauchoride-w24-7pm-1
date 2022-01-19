@@ -46,3 +46,8 @@ If it annoys you, perhaps choose a different random (but not one that you use fo
 
 
 <img alt="warning about password" src="https://user-images.githubusercontent.com/1119017/150203204-6ba97002-74df-4f0f-a7ba-239eaf659a6f.png" width="500" />
+
+After that, you should see a page that looks like this.   We will leave it to you to discover the things you can do here.  An SQL tutorial may help; a good one can be found here: <https://www.w3schools.com/sql/>
+
+![image](https://user-images.githubusercontent.com/1119017/150203565-860ed0dc-ed8d-4618-865e-f58673532669.png)
+
