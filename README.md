@@ -67,6 +67,7 @@ To access the swagger API endpoints, use:
 
 * <http://localhost:8080/swagger-ui/index.html>
 
+
 # To run React Storybook
 
 * cd into frontend
@@ -76,4 +77,18 @@ To access the swagger API endpoints, use:
 
 * For documentation on React Storybook, see: https://storybook.js.org/
 
+# Accessing Database Console
+
+* On localhost only: <http://localhost:8080/h2-console>  See also: [docs/h2-console.md](docs/h2-console.md)
+* On Heroku, with CLI:
+  - Use: `heroku psql --app app-name-here` 
+  - Note that this requires that you have the psql CLI tool installed on your system.  
+  - This does work on CSIL, but you may need `heroku login -i` in order to login on CSIL
+* On Heroku, without CLI: 
+  - Upper right of dashboard, select "More" then "Run Console"
+    
+    <img alt="Heroku Dashboard; More; Run Console" src="https://user-images.githubusercontent.com/1119017/150204550-a1027ab8-6ce7-4770-b566-a43928f5c3a0.png" width="300" />
+  - Enter `psql` and click `Run`
+    
+    <img alt="Enter psql and click Run" src="https://user-images.githubusercontent.com/1119017/150204821-250ad7ad-f107-4e3e-9bc9-72ecad6bd487.png" width="400" />
 
