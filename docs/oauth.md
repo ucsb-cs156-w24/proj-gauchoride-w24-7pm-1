@@ -9,7 +9,21 @@ Setting this up on localhost requires the first two steps below; getting this to
 2. Configuring the `.env` file with these values.
 3. Copying the `.env` values to the Heroku app's configuration values.
 
-Each is explained below.
+Each of these three steps is explained in more detail below.
+
+# About the `.env` and `.env.SAMPLE` files.
+
+* The `.env` file is created by copying it from `.env.SAMPLE` and then editing it, e.g.
+  
+  ```
+  cp .env.SAMPLE .env
+  ```
+* Recall that `.env` and `.env.SAMPLE` will not show up in regular directory listings; files starting with `.` are considered
+  hidden files.  Use `ls -a`, or configure your Mac finder/Windows explorer to show hidden files.
+* As explained below, put your client-id and client-secret into `.env`, NOT in `.env.SAMPLE` 
+* `.env` is never committed to the GitHub repo
+* There is more information about `.env` vs. `.env.SAMPLE` on this page if you are interested: [docs/environment-variables](environment-variables.md).
+
 
 ## Step 1: Obtain a Google client id and client secret
 
