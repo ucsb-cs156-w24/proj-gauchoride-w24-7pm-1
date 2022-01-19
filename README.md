@@ -6,7 +6,7 @@ Storybook is here:
 * QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
 
 
-The GitHub actions script to deploy the Storybook to QA requires some configuration; see [docs/github-actions.md](docs/github_actions.md) for details.
+The GitHub actions script to deploy the Storybook to QA requires some configuration; see [docs/github-actions.md](docs/github-actions.md) for details.
 
 
 
@@ -71,30 +71,3 @@ To access the swagger API endpoints, use:
 * For documentation on React Storybook, see: https://storybook.js.org/
 
 
-# GitHub Actions Setup
-
-As long as each property value needed has a sane default value that works
-in test mode, it is not necessary to configure any repository secrets for
-GitHub Actions.
-
-As an example, in `src/main/resources/application.properties`, we see lines that contain fallback values for `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `ADMIN_EMAILS`:
-
-```
-spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID:${env.GOOGLE_CLIENT_ID:client_id_unset}}
-spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET:${env.GOOGLE_CLIENT_SECRET:client_secret_unset}}
-spring.security.oauth2.client.registration.google.scope=email,profile
-...
-app.admin.emails=${ADMIN_EMAILS:${env.ADMIN_EMAILS:phtcon@ucsb.edu}}
-```
-
-The fallback values, in this case being:
-
-| Env variable | Default Value |
-|--------------|---------------|
-| `GOOGLE_CLIENT_ID` | `client_id_unset` |
-| `GOOGLE_CLIENT_SECRET` | `client_secret_unset` |
-| `ADMIN_EMAILS` | `phtcon@ucsb.edu` |
-
-This avoids the error that the Spring Boot application fails to load because a specific environment variable is undefined.   It is recommended that if any additional environment variables are added to `.env.SAMPLE` that similar fallback values be included in the `.properties` files.
-
-Having said that, if specific values are needed for GitHub actions testing, it is possible to define those in a repository secret called  `TEST_PROPERTIES` that has the contents of `.env.SAMPLE` with appropriate values.
