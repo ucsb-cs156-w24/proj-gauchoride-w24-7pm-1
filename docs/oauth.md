@@ -129,11 +129,13 @@ The slightly more tedious way:
 
 If you see this:
 
-![image](https://user-images.githubusercontent.com/1119017/149856156-575fb638-7db8-460a-a344-9069145aa242.png)
+<img src="https://user-images.githubusercontent.com/1119017/149856156-575fb638-7db8-460a-a344-9069145aa242.png" alt="Redirect URI Mismatch" width="600" />
+
 
 Try clicking the little arrow to open up the additional message:
 
-![image](https://user-images.githubusercontent.com/1119017/149856193-512acb25-2bfc-4e53-991b-f61de37f1ed6.png)
+<img src="https://user-images.githubusercontent.com/1119017/149856193-512acb25-2bfc-4e53-991b-f61de37f1ed6.png" alt="Request Details" width="600" />
+
 
 Now, you'll see  the Redirect URI that the app is expecting.
 
@@ -147,7 +149,9 @@ Rookie mistake!  I literally had `my-heroku-app` instead of `demo-spring-react-e
 
 Change it to the correct URI, click save.  Then go back to the URL for the home page of your app and refresh the page (you don't need to restart the Heroku backend; just refresh your browser page.)  Click login again, and you should get something like this:
 
-![image](https://user-images.githubusercontent.com/1119017/149856532-b1cda813-bd3f-4fd1-a79e-630e5929d7be.png)
+
+<img src="https://user-images.githubusercontent.com/1119017/149856532-b1cda813-bd3f-4fd1-a79e-630e5929d7be.png" alt="Choose an Account" width="600" />
+
 
 Success!
   

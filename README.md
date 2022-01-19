@@ -1,14 +1,12 @@
 # demo-spring-react-example: dsre
 
-
 Storybook is here:
-* Production: <https://happycows.github.io/demo-spring-react-example-docs/>
-* QA:  <https://happycows.github.io/demo-spring-react-example-docs-qa/>
-
+* Production: <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs/>
+* QA:  <https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs-qa/>
 
 The GitHub actions script to deploy the Storybook to QA requires some configuration; see [docs/github-actions.md](docs/github-actions.md) for details.
 
-
+If these repo sare not yet setup, see the setup steps in [`docs/storybook.md`](docs/storybook.md).
 
 # Setup before running application
 
@@ -18,23 +16,31 @@ you need to do the steps documented in [`docs/oauth.md`](docs/oauth.md).
 Otherwise, when you try to login for the first time, you 
 will likely see an error such as:
 
-```
-Authorization Error
-Error 401: invalid_client
-The OAuth client was not found.
-```
-
+<img src="https://user-images.githubusercontent.com/1119017/149858436-c9baa238-a4f7-4c52-b995-0ed8bee97487.png" alt="Authorization Error; Error 401: invalid_client; The OAuth client was not found." width="400"/>
 
 # Getting Started on localhost
 
-* The backend and frontend should be run separately, so first start by opening two separate terminal windows.
-* In the first window, start up the backend with `mvn spring-boot:run`
-* In the second window, `cd frontend` then:
-  - If running for the first time, do `npm install` to install dependencies.
-  - After that, do `npm start`
-* Then, the app should be available on <http://localhost:8080>
+* Open *two separate terminal windows*  
+* In the first window, start up the backend with:
+  ``` 
+  mvn spring-boot:run
+  ```
+* In the second window:
+  ```
+  cd frontend
+  npm install  # only on first run or when dependencies change
+  npm start
+  ```
+
+Then, the app should be available on <http://localhost:8080>
 
 If it doesn't work at first, e.g. you have a blank page on  <http://localhost:8080>, give it a minute and a few page refreshes.  Sometimes it takes a moment for everything to settle in.
+
+If you see the following on localhost, make sure that you also have the frontend code running in a separate window.
+
+```
+Failed to connect to the frontend server! You may have forgotten to run npm start in a separate ./dev_environment window (or it hasn't loaded yet).
+```
 
 # Getting Started on Heroku
 
