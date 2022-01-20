@@ -1,4 +1,4 @@
-# Setting up GitHub Actios
+# Setting up GitHub Actions
 
 To setup GitHub Actions so that the tests pass, you will need to configure
 a few *secrets* on the GitHub repo settings page.
@@ -22,16 +22,15 @@ Here are the secrets you need to create:
 
 # Obtaining a personal access `TOKEN` for storybook
 
-The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `TOKEN` be set up; this should be an access token for the repository.   This secret can be obtained by visiting the settings page for either the organization, or a user with access to the organization, visiting Developer Settings, and then Personal Access Tokens. 
+The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `TOKEN` be set up; this should be an access token for the repository. This secret can be obtained by visiting the settings page for your personal GitHub account, visiting Developer Settings, and then Personal Access Tokens. The page is also linked [here](https://github.com/settings/tokens).
 
 ![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
 
 # Obtaining a `CODECOV_TOKEN`
 
 *Why are we doing this?* Code coverage statistics help a dev team to keep track
-of whether they have written new code that is not yet covered by tests.  While
-100% coverage does not *necessarily* mean that the team has written *good* tests,
-coverage that is going down can indicate a problem.
+of whether they have written new code that is not yet covered by tests. While
+100% coverage does not *necessarily* mean that the team has written *good* tests, coverage that is going down can indicate a problem.
 
 So, many software dev teams track their code coverage as a early warning sign
 of potential technical debt.
@@ -44,10 +43,8 @@ To get started, you'll need to do two things first:
   this pack.
 * Once you have verified that you have access to the GitHub Student Developer Pack, login to the website <https://codecov.io> using your GitHub credentials.
 * Once you log in, assuming that you are already of the course organization
-  for CS156, you should see the name of that organization (e.g. `ucsb-cs156-f20`)Note that the quarter may be different depending on when you are reading these
-  instructions--navigate to the organization for the current quarter.
+  for CS156, you should see the name of that organization (e.g. `ucsb-cs156-f20`). Note that the quarter may be different depending on when you are reading these instructions--navigate to the organization for the current quarter.
   
-
   You should then be able to navigate to a link for your own repo.
   
   If you do NOT see your organization or repo, you can also try just 
@@ -61,10 +58,10 @@ To get started, you'll need to do two things first:
 
   That should take you to a page that has, across the top, tabs such as these:
 
-  | Overview | Commits | Branches | Pulls | Compares | Settings
+  | Overview | Commits | Branches | Pulls | Compares | Settings |
 
   The tab you want is `Settings`, and under `Settings` you will find the
-  token value to copy into the Secret called `CODECOV_TOKEN`.
+  token value to copy into the secret labeled `CODECOV_TOKEN`.
 
 # Adjusting the Code Coverage Badge
 
@@ -72,12 +69,7 @@ Many repos have a "badge" at the top of their README.md file that serves
 two purposes: it shows the current level of code coverage, and it's a 
 link to the code coverage report.
 
-On the same Settings page where you got the token, if you look at the left, there
-is a left navigation option for "Badge".  You can copy/paste that Markdown
+On the same Settings page where you got the token, if you look at the left, there is a navigation option for "Badge". You can copy/paste that Markdown
 into your README.md file to get the badge to show up.
 
-Note that if you used starter code for your repo that already had a badge in it,
-it likely doesn't point to the code coverage for your repo; rather it points to the
-code coverage of the repo you copied the README.md file from.  You should fix this.
-
-
+Note that if you used starter code for your repo that already had a badge in it, it likely doesn't point to the code coverage for your repo; rather it points to the code coverage of the repo you copied the README.md file from.  You should fix this.
