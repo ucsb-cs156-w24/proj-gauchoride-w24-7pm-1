@@ -27,14 +27,15 @@ Each of these three steps is explained in more detail below.
 
 ## Step 1: Obtain a Google client id and client secret
 
-1. Login to the Google Developer Console at 
-   <https://console.cloud.google.com/>
+1. Login to the Google Developer Console at <https://console.cloud.google.com/>.
 
-2. Upper left, there is a hamburger menu icon that provides a left navigation menu.
+2. Create a new project on the top left (or select the project you would like to create your OAuth app in)
+
+2. On the upper left, there is a hamburger menu icon that provides a left navigation menu.
    
-   * Look for  `APIs and Services` then `Credentials`.
+   * Look for `APIs and Services` then `Credentials`.
    * On that page, near the top, click the button for `+ CREATE CREDENTIALS`
-   * This makes a pull-down menu where you can select `OAuth Client id`
+   * This makes a pull-down menu where you can select `OAuth Client ID`
    * For Application Type, select `Web Application`
    * For name, choose something you will remember; I suggest using the name of your repo, or the name of the Heroku application
    * Scroll down to the part of the page that says: `Authorized redirect URIs`
@@ -57,7 +58,7 @@ Each of these three steps is explained in more detail below.
    
 ## Step 2: Copy `.env.SAMPLE` to `.env` and enter values
 
-Use this command to copy `.env.SAMPLE` to `.env`.  Recall that you
+In the frontend directory, use this command to copy `.env.SAMPLE` to `.env`.  Recall that you
 may need to use `ls -a` to get the files to show up, since they are hidden files on Unix-like systems.
 
 ```
