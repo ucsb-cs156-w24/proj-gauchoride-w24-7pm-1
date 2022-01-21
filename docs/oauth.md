@@ -114,6 +114,14 @@ The easy way, using the Heroku CLI:
     You can check the values by visiting the `Settings` tab 
     in the Heroku Dashboard, and clicking `Reveal Config Vars`
 
+    If the command fails with the following error:
+
+    ```
+     is invalid. Must be in the format FOO=bar.
+    ```
+
+    Ensure that your `.env` file does not have any empty lines, then retry the command.
+
 The slightly more tedious way: 
 
 1. In the Heroku Dashboard, visit the `Settings` tab 
