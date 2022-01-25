@@ -26,6 +26,10 @@ Then, for each of those repos, visit the repo settings and go to Pages.
 
 Enable GitHub Pages on the `main` branch, in the `docs` folder for each repo.
 
+That looks like this:
+
+![image](https://user-images.githubusercontent.com/1119017/151077121-693321a9-5684-40c5-a20f-2cb111881066.png)
+
 
 ## Setting up a Personal Access Token for GitHub Actions
 
