@@ -30,6 +30,9 @@ That looks like this:
 
 ![image](https://user-images.githubusercontent.com/1119017/151077121-693321a9-5684-40c5-a20f-2cb111881066.png)
 
+Note that the `main` branch and the `docs/` folder must exist before you can do this.  If necessary, you can use the GitHub web interface to
+first create an empty `README.md` to establish the `main` branch, then create an empty file called `docs/.keep` on the main branch to establish the
+`docs/` folder.
 
 ## Setting up a Personal Access Token for GitHub Actions
 
