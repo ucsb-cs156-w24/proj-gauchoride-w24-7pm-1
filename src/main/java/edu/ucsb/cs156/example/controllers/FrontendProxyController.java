@@ -19,7 +19,8 @@ public class FrontendProxyController {
       return proxy.uri("http://localhost:3000/" + path).get();
     } catch (ResourceAccessException e) {
       if (e.getCause() instanceof ConnectException) {
-        return ResponseEntity.ok("Failed to connect to the frontend server! You may have forgotten to run npm start in a separate ./dev_environment window (or it hasn't loaded yet).");
+        String instructions = "Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
+        return ResponseEntity.ok(instructions);
       }
       throw e;
     }
