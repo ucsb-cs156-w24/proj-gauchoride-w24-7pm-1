@@ -12,6 +12,24 @@ jobs:
         uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
+      - name: Append name of site to _config.yml
+        working-directory: ./frontend/docs-qa-index
+        run: | 
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          echo "repo: ${OWNER_PLUS_REPOSITORY}" >> _config.yml
+          echo "owner: ${OWNER}" >> _config.yml
+          echo "repo_name: ${REPOSITORY}" >> _config.yml
+      - name: Deploy index.md and jekyll files for production docs site 🚀
+        uses: JamesIves/github-pages-deploy-action@4.2.0
+        with:
+          repository-name: ${{ github.repository }}-docs
+          token: ${{ secrets.DOCS_TOKEN }}
+          branch: main # The branch the action should deploy to.
+          folder: frontend/docs-index 
+          clean: false 
+          target-folder: docs
       - name: Deploy index.md for docs site 🚀
         uses: JamesIves/github-pages-deploy-action@4.2.0
         with:

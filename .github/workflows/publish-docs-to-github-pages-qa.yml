@@ -44,15 +44,6 @@ jobs:
           echo "pull_request_url: ${{ github.event.pull_request.html_url}}" >> $FILENAME
           echo "pull_request_num: ${{ github.event.pull_request.number}}" >> $FILENAME
           echo "---" >> $FILENAME
-      # - name: Deploy (branch-name).md file to branch collection 🚀
-      #   uses: JamesIves/github-pages-deploy-action@4.2.0
-      #   with:
-      #     repository-name: ${{ github.repository }}-docs-qa
-      #     token: ${{ secrets.DOCS_TOKEN }}
-      #     branch: main # The branch the action should deploy to.
-      #     folder: frontend/_branches.tmp # The folder that the build-storybook script generates files.
-      #     clean: false # Automatically remove deleted files from the deploy branch
-      #     target-folder: docs/_branches
       - name: Pushes branch
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
