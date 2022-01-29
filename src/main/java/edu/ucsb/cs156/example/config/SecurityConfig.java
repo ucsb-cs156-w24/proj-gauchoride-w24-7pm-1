@@ -71,9 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
       String swaggerReferer = constructSwaggerUrl(request);
       String referer = request.getHeader("referer");
+    
       if (allowedMethods.matcher(request.getMethod()).matches()) {
         return false;
       }
+      if (referer==null) 
+        return true;
       if (referer.equals(localhostSwagger)) {
         return false;
       }

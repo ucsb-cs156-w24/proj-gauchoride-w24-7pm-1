@@ -17,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 @WebMvcTest(controllers = TodosController.class)
@@ -67,6 +69,25 @@ public class TodosControllerTests extends ControllerTestCase {
         User u = User.builder().build();
         loginAs(u);
         mockMvc.perform(get("/api/todos/all"))
+                .andExpect(status().isOk());
+    }
+
+    // Authorization tests for /api/todos/post
+
+    @Test
+    public void api_todos_post__logged_out__returns_403() throws Exception {
+        mockMvc.perform(post("/api/todos/post"))
+                .andExpect(status().is(403));
+    }
+
+    @WithMockUser(roles = { "USER" })
+    @Test
+    public void api_todos_post__user_logged_in__returns_200() throws Exception {
+        User u = User.builder().build();
+        loginAs(u);
+        mockMvc.perform(
+                post("/api/todos/post?title=The Title&details=The Details&done=false")
+                        .with(csrf()))
                 .andExpect(status().isOk());
     }
 
