@@ -1,5 +1,7 @@
 package edu.ucsb.cs156.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,4 +22,8 @@ public abstract class ControllerTestCase {
 
   @Autowired
   public MockMvc mockMvc;
+
+  @Autowired
+  public ObjectMapper mapper;
+  
 }
