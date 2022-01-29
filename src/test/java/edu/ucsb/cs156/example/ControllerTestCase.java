@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.example;
 
 import edu.ucsb.cs156.example.entities.User;
+import edu.ucsb.cs156.example.models.CurrentUser;
 import edu.ucsb.cs156.example.services.CurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,6 +19,8 @@ public abstract class ControllerTestCase {
   private CurrentUserService currentUserService;
 
   protected void loginAs(User user) {
+    CurrentUser cu = CurrentUser.builder().user(user).build();
     when(currentUserService.getUser()).thenReturn(user);
+    when(currentUserService.getCurrentUser()).thenReturn(cu);
   }
 }
