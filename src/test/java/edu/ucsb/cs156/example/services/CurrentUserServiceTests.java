@@ -6,15 +6,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
 
 import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.entities.User;
 
 class CurrentUserServiceTests extends ControllerTestCase {
 
-  
   @Test
   void test_isLoggedIn_returns_false() {
     CurrentUserService currentUserService = mock(CurrentUserService.class);
