@@ -1,26 +1,23 @@
 package edu.ucsb.cs156.example;
 
-import edu.ucsb.cs156.example.entities.User;
-import edu.ucsb.cs156.example.models.CurrentUser;
-import edu.ucsb.cs156.example.services.CurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.*;
+import edu.ucsb.cs156.example.services.CurrentUserService;
+import edu.ucsb.cs156.example.services.GrantedAuthoritiesService;
+import edu.ucsb.cs156.example.testconfig.TestConfig;
 
 @ActiveProfiles("test")
+@Import(TestConfig.class)
 public abstract class ControllerTestCase {
   @Autowired
-  protected MockMvc mockMvc;
+  public CurrentUserService currentUserService;
 
-  @MockBean
-  private CurrentUserService currentUserService;
+  @Autowired
+  public GrantedAuthoritiesService grantedAuthoritiesService;
 
-  protected void loginAs(User user) {
-    CurrentUser cu = CurrentUser.builder().user(user).build();
-    when(currentUserService.getUser()).thenReturn(user);
-    when(currentUserService.getCurrentUser()).thenReturn(cu);
-  }
+  @Autowired
+  public MockMvc mockMvc;
 }
