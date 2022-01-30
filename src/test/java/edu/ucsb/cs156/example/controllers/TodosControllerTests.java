@@ -272,7 +272,7 @@ public class TodosControllerTests extends ControllerTestCase {
         Todo expectedTodo = Todo.builder()
                 .title("Test Title")
                 .details("Test Details")
-                .done(false)
+                .done(true)
                 .user(u)
                 .id(0L)
                 .build();
@@ -281,7 +281,7 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(
-                post("/api/todos/post?title=Test Title&details=Test Details&done=false")
+                post("/api/todos/post?title=Test Title&details=Test Details&done=true")
                         .with(csrf()))
                 .andExpect(status().isOk()).andReturn();
 
@@ -404,10 +404,16 @@ public class TodosControllerTests extends ControllerTestCase {
         // arrange
 
         User u = currentUserService.getCurrentUser().getUser();
+        User otherUser = User.builder().id(999).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(u).id(67L).build();
-        Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).user(u).id(67L).build();
+        // We deliberately set the user information to another user
+        // This shoudl get ignored and overwritten with currrent user when todo is saved
+
+        Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).user(otherUser).id(67L).build();
+        Todo correctTodo = Todo.builder().title("New Title").details("New Details").done(true).user(u).id(67L).build();
 
         String requestBody = mapper.writeValueAsString(updatedTodo);
+        String expectedReturn = mapper.writeValueAsString(correctTodo);
 
         when(todoRepository.findById(eq(67L))).thenReturn(Optional.of(todo1));
 
@@ -422,9 +428,9 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // assert
         verify(todoRepository, times(1)).findById(67L);
-        verify(todoRepository, times(1)).save(updatedTodo);
+        verify(todoRepository, times(1)).save(correctTodo); // should be saved with correct user
         String responseString = response.getResponse().getContentAsString();
-        assertEquals(requestBody, responseString);
+        assertEquals(expectedReturn, responseString);
     }
 
     @WithMockUser(roles = { "USER" })
@@ -492,10 +498,16 @@ public class TodosControllerTests extends ControllerTestCase {
 
         User otherUser = User.builder().id(255L).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(otherUser).id(77L).build();
-        Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).user(otherUser).id(77L)
+        User yetAnotherUser = User.builder().id(512L).build();
+        // We deliberately put the wrong user on the updated todo
+        // We expect the controller to ignore this and keep the user the same
+        Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).user(yetAnotherUser).id(77L)
+                .build();
+        Todo correctTodo = Todo.builder().title("New Title").details("New Details").done(true).user(otherUser).id(77L)
                 .build();
 
         String requestBody = mapper.writeValueAsString(updatedTodo);
+        String expectedJson = mapper.writeValueAsString(correctTodo);
 
         when(todoRepository.findById(eq(77L))).thenReturn(Optional.of(todo1));
 
@@ -510,9 +522,9 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // assert
         verify(todoRepository, times(1)).findById(77L);
-        verify(todoRepository, times(1)).save(updatedTodo);
+        verify(todoRepository, times(1)).save(correctTodo);
         String responseString = response.getResponse().getContentAsString();
-        assertEquals(requestBody, responseString);
+        assertEquals(expectedJson, responseString);
     }
 
     @WithMockUser(roles = { "ADMIN" })

@@ -133,6 +133,56 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.7.3</version>
+                <dependencies>
+                  <dependency>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-junit5-plugin</artifactId>
+                    <version>0.14</version>
+                  </dependency>
+                </dependencies>
+                <configuration>
+                  <verbose>true</verbose>
+                  <targetClasses>
+                    <param>edu.ucsb.cs156.*</param>
+                  </targetClasses>
+                  <targetTests>
+                    <param>edu.ucsb.cs156.*</param>
+                  </targetTests>
+                  <excludedClasses>
+                    <param>edu.ucsb.cs156.example.services.LoggingService</param>
+                    <param>edu.ucsb.cs156.example.controllers.FrontendController</param>
+                    <param>edu.ucsb.cs156.example.controllers.FrontendProxyController</param>
+                    <param>edu.ucsb.cs156.example.services.CurrentUserServiceImpl</param>
+                    <param>edu.ucsb.cs156.example.ExampleApplication</param>
+                    <param>edu.ucsb.cs156.example.config.SecurityConfig</param>
+                    <param>edu.ucsb.cs156.example.config.SecurityConfig.MyCsrfRequestMatcher</param>
+                    <param>edu.ucsb.cs156.example.config.SpringFoxConfig</param>
+                  </excludedClasses>
+                  <excludedTestClasses>
+                   
+                  </excludedTestClasses>
+                  <outputFormats>
+                    <outputFormat>HTML</outputFormat>
+                    <outputFormat>CSV</outputFormat>
+                    <outputFormat>XML</outputFormat>
+                  </outputFormats>
+                  <avoidCallsTo>
+                    <avoidCallsTo>java.util.logging</avoidCallsTo>
+                    <avoidCallsTo>org.apache.log4j</avoidCallsTo>
+                    <avoidCallsTo>org.slf4j</avoidCallsTo>
+                    <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+                    <avoidCallsTo>edu.ucsb.cs156.example.services.LoggingService</avoidCallsTo>
+                  </avoidCallsTo>
+                  <timestampedReports>false</timestampedReports>
+                </configuration>
+              </plugin>
+
+
         </plugins>
 
     </build>
