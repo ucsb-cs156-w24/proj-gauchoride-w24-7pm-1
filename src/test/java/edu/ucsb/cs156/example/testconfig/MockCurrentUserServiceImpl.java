@@ -68,6 +68,7 @@ public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
     .locale(locale)
     .hostedDomain(hostedDomain)
     .admin(admin)
+    .id(1L)
     .build();
     
     log.info("************** ALERT **********************");
