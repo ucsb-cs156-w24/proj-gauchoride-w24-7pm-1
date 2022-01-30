@@ -1,0 +1,38 @@
+
+name: Publish 00 docs create repos
+  push:
+    branches:
+      - pc-improve-docs-repo-setup
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create -docs repo
+          working-directory: .
+        run: |
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          HOMEPAGE="https://${OWNER}.github.io/${REPOSITORY}${SUFFIX}"
+          NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
+          SUFFIX="-docs"
+          DESC="Documentation for ${OWNER_PLUS_REPOSITORY}"
+          gh repo create ${NEW_REPO} --public --description ${DESC} --homepage ${HOMEPAGE}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create -docs-qa repo
+          working-directory: .
+        run: |
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          HOMEPAGE="https://${OWNER}.github.io/${REPOSITORY}${SUFFIX}"
+          NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
+          SUFFIX="-docs-qa"
+          DESC="Documentation for QA site for ${OWNER_PLUS_REPOSITORY}"
+          gh repo create ${NEW_REPO} --public --description ${DESC} --homepage ${HOMEPAGE}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
