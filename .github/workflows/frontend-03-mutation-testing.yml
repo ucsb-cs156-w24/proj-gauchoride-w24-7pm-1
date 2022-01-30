@@ -1,4 +1,4 @@
-name: Frontend Tests (JavaScript/Jest)
+name: Frontend 03 Mutation Testing (JavaScript/Stryker, testing the test suite)
 
 on:
   pull_request:
@@ -22,6 +22,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npm test
+      - run: npx stryker run
         working-directory: ./frontend
-    

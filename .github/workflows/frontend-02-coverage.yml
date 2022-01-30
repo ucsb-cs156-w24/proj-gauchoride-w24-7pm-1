@@ -1,4 +1,4 @@
-name: ESLint (JavaScript style checking)
+name: Frontend 02 Coverage (JavaScript/Jest)
 
 on:
   pull_request:
@@ -7,18 +7,26 @@ on:
       - main
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [17.x]
     steps:
       - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npx eslint --max-warnings 0 .
+      - run: npm run coverage
         working-directory: ./frontend
+      - name: Upload to Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
+        working-directory: ./frontend
+     
