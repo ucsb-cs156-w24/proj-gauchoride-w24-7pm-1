@@ -13,7 +13,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Append name of site to _config.yml
-        working-directory: ./frontend/docs-qa-index
+        working-directory: ./frontend/docs-index
         run: | 
           OWNER_PLUS_REPOSITORY=${{github.repository}}
           OWNER=${{ github.repository_owner }}
