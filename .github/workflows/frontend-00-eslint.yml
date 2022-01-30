@@ -1,4 +1,4 @@
-name: Frontend Mutation Testing (JavaScript/Stryker, testing the test suite)
+name: Frontend 00 ESLint (JavaScript style checking)
 
 on:
   pull_request:
@@ -7,20 +7,18 @@ on:
       - main
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v2
-        with: 
-          fetch-depth: 2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npx stryker run
+      - run: npx eslint --max-warnings 0 .
         working-directory: ./frontend

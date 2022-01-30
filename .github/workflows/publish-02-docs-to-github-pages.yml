@@ -1,5 +1,5 @@
 
-name: Publish docs (Storybook) to GitHub Pages
+name: Publish 02 docs (Storybook) to GitHub Pages
 on: 
   push:
     branches:

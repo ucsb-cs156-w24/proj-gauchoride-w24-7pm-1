@@ -1,5 +1,5 @@
 
-name: Publish docs (Storybook) to GitHub Pages QA
+name: Publish 01 docs (Storybook) to GitHub Pages QA
 on: 
   pull_request:
     branches:
