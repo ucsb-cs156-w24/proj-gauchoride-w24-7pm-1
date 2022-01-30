@@ -111,6 +111,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/edu/ucsb/cs156/example/config/*</exclude>
+                        <exclude>**/edu/ucsb/cs156/example/services/LoggingService.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/controllers/FrontendController.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/controllers/FrontendProxyController.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/services/CurrentUserServiceImpl.*</exclude>

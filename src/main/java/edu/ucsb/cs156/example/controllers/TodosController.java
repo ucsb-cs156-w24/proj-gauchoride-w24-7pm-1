@@ -59,7 +59,7 @@ public class TodosController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/all")
     public Iterable<Todo> allUsersTodos() {
-        logMethod();
+        loggingService.logMethod();
         Iterable<Todo> todos = todoRepository.findAll();
         return todos;
     }
@@ -68,7 +68,7 @@ public class TodosController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Todo> thisUsersTodos() {
-        logMethod();
+        loggingService.logMethod();
         CurrentUser currentUser = getCurrentUser();
         Iterable<Todo> todos = todoRepository.findAllByUserId(currentUser.getUser().getId());
         return todos;
@@ -79,7 +79,7 @@ public class TodosController extends ApiController {
     @GetMapping("")
     public ResponseEntity<String> getTodoById(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        logMethod();
+        loggingService.logMethod();
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -95,11 +95,11 @@ public class TodosController extends ApiController {
     }
 
     @ApiOperation(value = "Get a single todo (no matter who it belongs to, admin only)")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin")
     public ResponseEntity<String> getTodoById_admin(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        logMethod();
+        loggingService.logMethod();
 
         TodoOrError toe = new TodoOrError(id);
 
@@ -119,7 +119,7 @@ public class TodosController extends ApiController {
             @ApiParam("title") @RequestParam String title,
             @ApiParam("details") @RequestParam String details,
             @ApiParam("done") @RequestParam Boolean done) {
-        logMethod();
+        loggingService.logMethod();
         CurrentUser currentUser = getCurrentUser();
         log.info("currentUser={}", currentUser);
 
@@ -132,12 +132,12 @@ public class TodosController extends ApiController {
         return savedTodo;
     }
 
-    @ApiOperation(value = "Delete a new Todo")
+    @ApiOperation(value = "Delete a Todo owned by this user")
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("")
     public ResponseEntity<String> deleteTodo(
             @ApiParam("id") @RequestParam Long id) {
-        logMethod();
+        loggingService.logMethod();
 
         TodoOrError toe = new TodoOrError(id);
 
@@ -160,7 +160,7 @@ public class TodosController extends ApiController {
     @DeleteMapping("/admin")
     public ResponseEntity<String> deleteTodo_Admin(
             @ApiParam("id") @RequestParam Long id) {
-        logMethod();
+        loggingService.logMethod();
 
         TodoOrError toe = new TodoOrError(id);
 
@@ -181,19 +181,12 @@ public class TodosController extends ApiController {
     public ResponseEntity<String> putTodoById(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid Todo incomingTodo) throws JsonProcessingException {
-        logMethod();
+        loggingService.logMethod();
 
         CurrentUser currentUser = getCurrentUser();
         User user = currentUser.getUser();
 
         TodoOrError toe = new TodoOrError(id);
-        User incomingUser = incomingTodo.getUser();
-
-        if (incomingUser != null && !incomingUser.equals(user)) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("User in incoming Todo does not match current user");
-        }
 
         toe = doesTodoExist(toe);
         if (toe.error != null) {
@@ -217,7 +210,7 @@ public class TodosController extends ApiController {
     public ResponseEntity<String> putTodoById_admin(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid Todo incomingTodo) throws JsonProcessingException {
-        logMethod();
+        loggingService.logMethod();
 
         TodoOrError toe = new TodoOrError(id);
 
