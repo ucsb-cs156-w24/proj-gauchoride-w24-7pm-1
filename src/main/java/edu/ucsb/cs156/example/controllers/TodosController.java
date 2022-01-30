@@ -60,6 +60,8 @@ public class TodosController extends ApiController {
     ) {
         log.info("POST /api/todos/put");
         CurrentUser currentUser = getCurrentUser();
+        log.info("currentUser={}",currentUser);
+
         Todo todo = new Todo();
         todo.setUser(currentUser.getUser());
         todo.setTitle(title);
