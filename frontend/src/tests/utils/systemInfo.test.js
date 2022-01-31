@@ -2,15 +2,13 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useSystemInfo } from "main/utils/systemInfo";
 import { renderHook } from '@testing-library/react-hooks'
 import mockConsole from "jest-mock-console";
-import { act } from 'react-dom/test-utils';
-import { useNavigate } from "react-router-dom"
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 jest.mock('react-router-dom');
-const { MemoryRouter } = jest.requireActual('react-router-dom');
+const { _MemoryRouter } = jest.requireActual('react-router-dom');
 
 describe("utils/systemInfo tests", () => {
     describe("useSystemInfo tests", () => {

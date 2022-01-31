@@ -51,7 +51,7 @@ describe("AppNavbar tests", () => {
 
         const doLogin = jest.fn();
 
-        const { getByText , getByTestId } = render(
+        const { getByText  } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
@@ -72,7 +72,7 @@ describe("AppNavbar tests", () => {
 
         const doLogin = jest.fn();
 
-        const { getByText , getByTestId } = render(
+        const {getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
