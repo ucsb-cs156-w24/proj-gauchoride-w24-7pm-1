@@ -11,8 +11,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 | `npm start`       | Start application on `http://localhost:3000`       |
 | `npm test`        | Run tests                                          |
 | `npm run build`   | Build production ready app in `build` folder       |
-| `npm run coverage` |  Compute test coverage; <br /> report is in `frontend/coverage/lcov-report/index.html`  |
-| `npx stryker run` | Run Mutation testing; <br /> report is in `frontend/reports/mutation/html/index.html`    |
+| `npm run coverage` |  Compute test coverage; <br /> report is in `coverage/lcov-report/index.html`  |
+| `npx stryker run` | Run Mutation testing; <br /> report is in `reports/mutation/html/index.html`    |
 
 There is more information on some of these later in the README file.
 
