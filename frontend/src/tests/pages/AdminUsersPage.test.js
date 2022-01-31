@@ -4,6 +4,8 @@ import { MemoryRouter } from "react-router-dom";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import usersFixtures from "fixtures/usersFixtures";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+
 import nock from "nock";
 
 describe("AdminUsersPage tests",  () => {
@@ -11,10 +13,14 @@ describe("AdminUsersPage tests",  () => {
     test("renders without crashing on two users", async () => {
 
         const _expectation1 = nock('http://localhost')
+        .get('/api/systemInfo')
+        .reply(200, systemInfoFixtures.showBoth);
+
+        const _expectation2 = nock('http://localhost')
         .get('/api/currentUser')
         .reply(200, apiCurrentUserFixtures.adminUser);
 
-        const _expectation2 = nock('http://localhost')
+        const _expectation3 = nock('http://localhost')
             .get('/api/admin/users')
             .reply(200, usersFixtures.threeUsers);
 

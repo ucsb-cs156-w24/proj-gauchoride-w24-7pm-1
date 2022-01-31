@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { hasRole} from "main/utils/currentUser";
 
 export default function AppNavbar({currentUser, systemInfo, doLogout}) { 
-  console.log("systemInfo",systemInfo);
   return (
     <Navbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
@@ -24,6 +23,21 @@ export default function AppNavbar({currentUser, systemInfo, doLogout}) {
             }
           </Nav>
 
+          <>
+           {/* be sure that each NavDropdown has a unique id and data-testid  */}
+          </>
+
+          <Nav className="mr-auto">
+            {
+              hasRole(currentUser,"ROLE_USER") && (
+                <NavDropdown title="Todos" id="appnavbar-todos-dropdown" data-testid="appnavbar-todos-dropdown" >
+                  <NavDropdown.Item href="/todos/list">List Todos</NavDropdown.Item>
+                  <NavDropdown.Item href="/todos/create">Create Todo</NavDropdown.Item>
+                </NavDropdown>
+              )
+            }
+          </Nav>
+
           <Nav className="me-auto">
             {
               systemInfo?.springH2ConsoleEnabled && (
@@ -33,7 +47,7 @@ export default function AppNavbar({currentUser, systemInfo, doLogout}) {
               ) 
             }
             {
-              systemInfo && systemInfo?.showSwaggerUILink && (
+              systemInfo?.showSwaggerUILink && (
                 <>
                    <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
                 </>
