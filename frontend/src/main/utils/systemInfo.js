@@ -9,10 +9,17 @@ export function useSystemInfo() {
       return response.data;
     } catch (e) {
       console.error("Error invoking axios.get: ", e);
-      return { error: true};
+      return {  
+        springH2ConsoleEnabled: false,
+        showSwaggerUILink: false  
+      };
     }
   }, {
-    initialData: { initialData:true }
+    initialData: { 
+      initialData:true, 
+      springH2ConsoleEnabled: false,
+      showSwaggerUILink: false 
+    }
   });
 
 }
