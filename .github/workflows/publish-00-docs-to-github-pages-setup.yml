@@ -1,9 +1,7 @@
 
 name: Publish 00 docs create repos
 on: 
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
