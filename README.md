@@ -103,4 +103,5 @@ To access the swagger API endpoints, use:
   - Enter `psql $DATABASE_URL` and click `Run`
    
     <img alt="Enter psql $DATABASE_URL and click Run" src="https://user-images.githubusercontent.com/1119017/150206174-43193825-1afd-49f4-aeaf-cfadf0c0c6f3.png" width="400" />
+* Cheatsheet of `psql` commands: <https://www.geeksforgeeks.org/postgresql-psql-commands/>
 
