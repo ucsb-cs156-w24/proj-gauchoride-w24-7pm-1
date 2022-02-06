@@ -1,17 +1,24 @@
 
-name: Publish 01 docs (Storybook) to GitHub Pages QA
+name: 00 Publish 01 docs (Storybook) to GitHub Pages QA
 on: 
+  workflow_dispatch:
   pull_request:
     branches:
       - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
+      - name: Figure out Branch name
+        run: | 
+          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
+          echo GITHUB_REF=${GITHUB_REF}
       - name: Append name of site to _config.yml
         working-directory: ./frontend/docs-qa-index
         run: | 
