@@ -1,14 +1,12 @@
 
-name: Publish 01 docs (Storybook) to GitHub Pages QA
+name: 00 Publish 01 docs (Storybook) to GitHub Pages QA
 on: 
-  workflow_dispatch:
   pull_request:
     branches:
       - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
 
     steps:
       - name: Checkout 🛎️
@@ -19,8 +17,7 @@ jobs:
         run: |
           echo 'BRANCH='${{ env.GITHUB_REF }} >> $GITHUB_ENV
           echo "\$GIHTHUB_ENV=${GITHUB_ENV}"
-      - name: If this is a PR, get the head branch (branch pulling from)
-        if: ${{ github.head_ref != "" }}
+      - name: "If this is a PR, get the head branch (branch pulling from)""
         run: |
           echo 'BRANCH='${{ github.head_ref }} >> $GITHUB_ENV
           echo "\$GIHTHUB_ENV=${GITHUB_ENV}"
