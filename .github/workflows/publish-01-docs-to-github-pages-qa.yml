@@ -1,17 +1,29 @@
 
 name: Publish 01 docs (Storybook) to GitHub Pages QA
 on: 
+  workflow_dispatch:
   pull_request:
     branches:
       - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
+      - name: Set default for branch to the branch this is run on
+        run: |
+          echo 'BRANCH='${{ env.GITHUB_REF }} >> $GITHUB_ENV
+          echo "\$GIHTHUB_ENV=${GITHUB_ENV}"
+      - name: If this is a PR, get the head branch (branch pulling from)
+        if: ${{ github.head_ref != "" }}
+        run: |
+          echo 'BRANCH='${{ github.head_ref }} >> $GITHUB_ENV
+          echo "\$GIHTHUB_ENV=${GITHUB_ENV}"
       - name: Append name of site to _config.yml
         working-directory: ./frontend/docs-qa-index
         run: | 
@@ -32,14 +44,14 @@ jobs:
           target-folder: docs
       - name: Generate .md file to add to branch collection
         working-directory: ./frontend
-        run: | 
+        run: |           
           BRANCH_DIR=_branches.tmp
           mkdir -p $BRANCH_DIR
-          FILENAME=${BRANCH_DIR}/${{github.head_ref }}.md
+          FILENAME=${BRANCH_DIR}/${{env.BRANCH}}.md
           rm -f $FILENAME
           touch $FILENAME
           echo "---" >> $FILENAME
-          echo "name: ${{ github.head_ref }}" >> $FILENAME
+          echo "name: ${{ env.BRANCH }}" >> $FILENAME
           echo "actor: ${{ github.actor}}" >> $FILENAME
           echo "pull_request_url: ${{ github.event.pull_request.html_url}}" >> $FILENAME
           echo "pull_request_num: ${{ github.event.pull_request.number}}" >> $FILENAME
@@ -49,10 +61,10 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.DOCS_TOKEN }}
         with:
-          source_file: 'frontend/_branches.tmp/${{github.head_ref }}.md'
+          source_file: 'frontend/_branches.tmp/${{ env.BRANCH }}.md'
           destination_repo: ${{ github.repository }}-docs-qa
           destination_folder: 'docs/_branches'
-          commit_message: 'Add branch ${{ github.head_ref }} to docs-qa repo'
+          commit_message: 'Add branch ${{ env.BRANCH }} to docs-qa repo'
           user_email: phtcon@ucsb.edu
           user_name: "Phill Conrad, UCSB CS machine user"
       - name: Install and Build 🔧
@@ -69,5 +81,5 @@ jobs:
           branch: main # The branch the action should deploy to.
           folder: frontend/storybook-static # The folder that the build-storybook script generates files.
           clean: true # Automatically remove deleted files from the deploy branch
-          target-folder: docs/storybook-qa/${{ github.head_ref}} # The folder that we serve our Storybook files from 
+          target-folder: docs/storybook-qa/${{ env.BRANCH }} # The folder that we serve our Storybook files from 
       
