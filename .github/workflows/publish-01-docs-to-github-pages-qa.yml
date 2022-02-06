@@ -1,5 +1,5 @@
 
-name: Publish 01 docs (Storybook) to GitHub Pages QA
+name: 00 Publish 01 docs (Storybook) to GitHub Pages QA
 on: 
   pull_request:
     branches:
@@ -7,6 +7,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
