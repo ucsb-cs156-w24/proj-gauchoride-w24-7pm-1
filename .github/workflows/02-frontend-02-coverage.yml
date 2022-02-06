@@ -1,4 +1,4 @@
-name: Frontend 01 Tests (JavaScript/Jest)
+name: 02 Frontend 02 Coverage (JavaScript/Jest)
 
 on:
   pull_request:
@@ -24,6 +24,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npm test
+      - run: npm run coverage
         working-directory: ./frontend
-    
+      - name: Upload to Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
+        working-directory: ./frontend
+     
