@@ -1,5 +1,5 @@
 
-name: Publish 02 docs (Storybook) to GitHub Pages
+name: 00 Publish 02 docs (Storybook) to GitHub Pages
 on: 
   workflow_dispatch:
   push:
