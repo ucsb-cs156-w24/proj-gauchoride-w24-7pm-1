@@ -19,14 +19,15 @@ public class FrontendProxyController {
       return proxy.uri("http://localhost:3000/" + path).get();
     } catch (ResourceAccessException e) {
       if (e.getCause() instanceof ConnectException) {
-        String instructions = "<p>Failed to connect to the frontend server...</p>";
-        instructions += "<p>On Heroku, be sure that <code>PRODUCTION</code> is defined.</p>";
-        instructions += "<p>On localhost, open a second terminal window, cd into <code>frontend</code> and type: <code>npm install; npm start</code></p>";
-        instructions += "<p>Or, you may click to access: </p>";
-        instructions += "<ul>";
-        instructions += "<li><a href='/swagger-ui/index.html'>/swagger-ui/index.html</a></li>";
-        instructions += "<li><a href='/h2-console'>/h2-console</a></li>";
-        instructions += "</ul>";
+        String instructions = """
+                <p>Failed to connect to the frontend server...</p>
+                <p>On Heroku, be sure that <code>PRODUCTION</code> is defined.</p>
+                <p>On localhost, open a second terminal window, cd into <code>frontend</code> and type: <code>npm install; npm start</code></p>
+                <p>Or, you may click to access: </p>
+                <ul>
+                  <li><a href='/swagger-ui/index.html'>/swagger-ui/index.html</a></li>
+                  <li><a href='/h2-console'>/h2-console</a></li>
+                </ul>""";
 
         return ResponseEntity.ok(instructions);
       }
