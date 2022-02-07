@@ -9,7 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Profile("development")
-@Api(description = "CSRF (emabled only in development)")
+@Api(description = "CSRF (enabled only in development; can be used with Postman to test APIs)")
 @RestController
 public class CSRFController {
   @ApiOperation(value = "Get a CSRF Token")
