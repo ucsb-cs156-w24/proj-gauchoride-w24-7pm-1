@@ -30,7 +30,7 @@ public class SpringFoxConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(regex("/api/.*"))
+                .paths(regex("/api/.*|/csrf"))
                 .build();
 
     }
