@@ -23,7 +23,7 @@ jobs:
           echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
           GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
           echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          BRANCH="${GITHUB_HEAD_REF:-GITHUB_REF_CLEANED}"
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
           echo "BRANCH=${BRANCH}"
           echo "BRANCH=${BRANCH}" >> $GITHUB_ENV
       - name: Append name of site to _config.yml
