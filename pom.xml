@@ -118,8 +118,8 @@
                 <version>0.8.7</version>
                 <configuration>
                     <excludes>
+                        <exclude>**/edu/ucsb/cs156/example/aop/LoggingAspect.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/config/*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/services/LoggingService.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/controllers/FrontendController.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/controllers/FrontendProxyController.*</exclude>
                         <exclude>**/edu/ucsb/cs156/example/services/CurrentUserServiceImpl.*</exclude>
@@ -163,7 +163,6 @@
                     </targetTests>
                     <excludedClasses>
                         <param>edu.ucsb.cs156.example.aop.LoggingAspect</param>
-                        <param>edu.ucsb.cs156.example.services.LoggingService</param>
                         <param>edu.ucsb.cs156.example.controllers.FrontendController</param>
                         <param>edu.ucsb.cs156.example.controllers.FrontendProxyController</param>
                         <param>edu.ucsb.cs156.example.services.CurrentUserServiceImpl</param>
@@ -183,7 +182,6 @@
                         <avoidCallsTo>org.apache.log4j</avoidCallsTo>
                         <avoidCallsTo>org.slf4j</avoidCallsTo>
                         <avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
-                        <avoidCallsTo>edu.ucsb.cs156.example.services.LoggingService</avoidCallsTo>
                     </avoidCallsTo>
                     <timestampedReports>false</timestampedReports>
                 </configuration>

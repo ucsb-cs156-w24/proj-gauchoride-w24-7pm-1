@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 
 import edu.ucsb.cs156.example.services.CurrentUserService;
 import edu.ucsb.cs156.example.services.GrantedAuthoritiesService;
-import edu.ucsb.cs156.example.services.LoggingService;
 
 @TestConfiguration
 public class TestConfig {
@@ -19,10 +18,4 @@ public class TestConfig {
     public GrantedAuthoritiesService grantedAuthoritiesService() {
         return new GrantedAuthoritiesService();
     }
-
-    @Bean
-    public LoggingService loggingService() {
-        return new LoggingService();
-    }
-
 }

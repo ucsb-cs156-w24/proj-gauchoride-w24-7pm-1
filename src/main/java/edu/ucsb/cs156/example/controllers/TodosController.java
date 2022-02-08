@@ -59,7 +59,6 @@ public class TodosController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/all")
     public Iterable<Todo> allUsersTodos() {
-        loggingService.logMethod();
         Iterable<Todo> todos = todoRepository.findAll();
         return todos;
     }
@@ -68,7 +67,6 @@ public class TodosController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Todo> thisUsersTodos() {
-        loggingService.logMethod();
         CurrentUser currentUser = getCurrentUser();
         Iterable<Todo> todos = todoRepository.findAllByUserId(currentUser.getUser().getId());
         return todos;
@@ -79,7 +77,6 @@ public class TodosController extends ApiController {
     @GetMapping("")
     public ResponseEntity<String> getTodoById(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        loggingService.logMethod();
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -99,8 +96,6 @@ public class TodosController extends ApiController {
     @GetMapping("/admin")
     public ResponseEntity<String> getTodoById_admin(
             @ApiParam("id") @RequestParam Long id) throws JsonProcessingException {
-        loggingService.logMethod();
-
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -119,7 +114,6 @@ public class TodosController extends ApiController {
             @ApiParam("title") @RequestParam String title,
             @ApiParam("details") @RequestParam String details,
             @ApiParam("done") @RequestParam Boolean done) {
-        loggingService.logMethod();
         CurrentUser currentUser = getCurrentUser();
         log.info("currentUser={}", currentUser);
 
@@ -137,8 +131,6 @@ public class TodosController extends ApiController {
     @DeleteMapping("")
     public ResponseEntity<String> deleteTodo(
             @ApiParam("id") @RequestParam Long id) {
-        loggingService.logMethod();
-
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -160,8 +152,6 @@ public class TodosController extends ApiController {
     @DeleteMapping("/admin")
     public ResponseEntity<String> deleteTodo_Admin(
             @ApiParam("id") @RequestParam Long id) {
-        loggingService.logMethod();
-
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -181,8 +171,6 @@ public class TodosController extends ApiController {
     public ResponseEntity<String> putTodoById(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid Todo incomingTodo) throws JsonProcessingException {
-        loggingService.logMethod();
-
         CurrentUser currentUser = getCurrentUser();
         User user = currentUser.getUser();
 
@@ -210,8 +198,6 @@ public class TodosController extends ApiController {
     public ResponseEntity<String> putTodoById_admin(
             @ApiParam("id") @RequestParam Long id,
             @RequestBody @Valid Todo incomingTodo) throws JsonProcessingException {
-        loggingService.logMethod();
-
         TodoOrError toe = new TodoOrError(id);
 
         toe = doesTodoExist(toe);
@@ -232,7 +218,7 @@ public class TodosController extends ApiController {
 
     /**
      * Pre-conditions: toe.id is value to look up, toe.todo and toe.error are null
-     * 
+     *
      * Post-condition: if todo with id toe.id exists, toe.todo now refers to it, and
      * error is null.
      * Otherwise, todo with id toe.id does not exist, and error is a suitable return
@@ -256,7 +242,7 @@ public class TodosController extends ApiController {
     /**
      * Pre-conditions: toe.todo is non-null and refers to the todo with id toe.id,
      * and toe.error is null
-     * 
+     *
      * Post-condition: if todo belongs to current user, then error is still null.
      * Otherwise error is a suitable
      * return value.
