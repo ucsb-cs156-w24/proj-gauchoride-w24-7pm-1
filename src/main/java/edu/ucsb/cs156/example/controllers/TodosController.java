@@ -205,14 +205,16 @@ public class TodosController extends ApiController {
             return toe.error;
         }
 
-        // Even the admin can't change the user; they can change other details
-        // but not that.
+        Todo oldTodo = toe.todo;
+        oldTodo.setTitle(incomingTodo.getTitle());
+        oldTodo.setDetails(incomingTodo.getDetails());
+        oldTodo.setDone(incomingTodo.isDone());
+        // do not change the user; even the admin is not allowed to do that.
+        // note that for objects with no concept of "owner", this doesn't apply.
 
-        User previousUser = toe.todo.getUser();
-        incomingTodo.setUser(previousUser);
-        todoRepository.save(incomingTodo);
+        todoRepository.save(oldTodo);
 
-        String body = mapper.writeValueAsString(incomingTodo);
+        String body = mapper.writeValueAsString(oldTodo);
         return ResponseEntity.ok().body(body);
     }
 
