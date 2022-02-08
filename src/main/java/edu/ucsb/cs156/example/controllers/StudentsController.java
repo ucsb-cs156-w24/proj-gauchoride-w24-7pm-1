@@ -36,7 +36,6 @@ public class StudentsController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Student> allStudents() {
-        loggingService.logMethod();
         Iterable<Student> students = studentCollection.findAll();
         return students;
     }
@@ -48,8 +47,6 @@ public class StudentsController extends ApiController {
             @ApiParam("firstName") @RequestParam String firstName,
             @ApiParam("lastName") @RequestParam String lastName,
             @ApiParam("perm") @RequestParam int perm) {
-        loggingService.logMethod();
-
         Student student = new Student();
         student.setFirstName(firstName);
         student.setLastName(lastName);
