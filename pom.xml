@@ -162,6 +162,7 @@
                         <param>edu.ucsb.cs156.*</param>
                     </targetTests>
                     <excludedClasses>
+                        <param>edu.ucsb.cs156.example.aop.LoggingAspect</param>
                         <param>edu.ucsb.cs156.example.services.LoggingService</param>
                         <param>edu.ucsb.cs156.example.controllers.FrontendController</param>
                         <param>edu.ucsb.cs156.example.controllers.FrontendProxyController</param>
