@@ -36,7 +36,6 @@ public class RedditPostsController extends ApiController {
     @ApiOperation(value = "List all posts")
     @GetMapping("/all")
     public Iterable<RedditPost> allPosts() {
-        loggingService.logMethod();
         Iterable<RedditPost> posts = redditPostsCollection.findAll();
         return posts;
     }
