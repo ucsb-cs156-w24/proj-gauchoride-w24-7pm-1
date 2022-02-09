@@ -1,8 +1,7 @@
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import usersFixtures from "fixtures/usersFixtures";
 import UsersTable from "main/components/Users/UsersTable"
-import { getFirstSmallestLargest } from "main/utils/arrayUtils";
-import userEvent from "@testing-library/user-event";
+
 
 describe("UserTable tests", () => {
 
