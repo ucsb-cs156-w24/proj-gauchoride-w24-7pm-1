@@ -2,8 +2,7 @@ import React from "react";
 import { useTable, useSortBy } from 'react-table'
 import { Table } from "react-bootstrap";
 
-export default function OurTable({ columns, data }) {
-
+export default function OurTable({ columns, data, testid="testid"}) {
 
   const {
     getTableProps,
@@ -21,6 +20,7 @@ export default function OurTable({ columns, data }) {
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
+                data-testid={`table-header-${testid}-${column.id}`}
               >
                 {column.render('Header')}
                 <span>

@@ -5,6 +5,7 @@ import { apiCurrentUserFixtures, currentUserFixtures } from "fixtures/currentUse
 import mockConsole from "jest-mock-console";
 import { act } from 'react-dom/test-utils';
 import { useNavigate } from "react-router-dom"
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
@@ -24,6 +25,7 @@ describe("utils/currentUser tests", () => {
 
             var axiosMock = new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").timeoutOnce();
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
             const restoreConsole = mockConsole();
 
@@ -54,6 +56,7 @@ describe("utils/currentUser tests", () => {
 
             var axiosMock = new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
             const { result, waitFor } = renderHook(() => useCurrentUser(), { wrapper });
 

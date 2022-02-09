@@ -27,5 +27,6 @@ const columns = [
 export default function UsersTable({ users }) {
     return <OurTable
         data={users}
-        columns={columns} />;
+        columns={columns}
+        testid={"UsersTable"} />;
 };
