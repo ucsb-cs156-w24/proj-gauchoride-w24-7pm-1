@@ -1,13 +1,16 @@
 package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.repositories.UserRepository;
-import edu.ucsb.cs156.example.services.RedditFirstPostService;
+import edu.ucsb.cs156.example.services.RedditPostService;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.collections.RedditPostsCollection;
 import edu.ucsb.cs156.example.collections.StudentCollection;
 import edu.ucsb.cs156.example.documents.RedditFlair;
+import edu.ucsb.cs156.example.documents.RedditListing;
+import edu.ucsb.cs156.example.documents.RedditListingData;
 import edu.ucsb.cs156.example.documents.RedditPost;
+import edu.ucsb.cs156.example.documents.RedditT3;
 import edu.ucsb.cs156.example.documents.Student;
 import edu.ucsb.cs156.example.entities.Todo;
 import edu.ucsb.cs156.example.entities.User;
@@ -44,7 +47,7 @@ public class RedditPostsControllerTests extends ControllerTestCase {
         RedditPostsCollection redditPostsCollection;
 
         @MockBean
-        RedditFirstPostService redditFirstPostService;
+        RedditPostService redditFirstPostService;
 
         @MockBean
         UserRepository userRepository;
@@ -91,6 +94,56 @@ public class RedditPostsControllerTests extends ControllerTestCase {
                 String expectedJson = mapper.writeValueAsString(lrp);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void api_redditposts_post__user_logged_in__storeone_adds_post_to_collection() throws Exception {
+
+                // arrange
+
+                RedditFlair rf = RedditFlair.builder()
+                                .t("sampleT")
+                                .e("sampleE")
+                                .build();
+
+                List<RedditFlair> lrf = new ArrayList<>();
+                lrf.add(rf);
+
+                RedditPost rp = RedditPost.builder()
+                                ._id("")
+                                .id("wxyz123")
+                                .author("pconrad0")
+                                .title("A sample post")
+                                .selftext("This is a test.")
+                                .selftext_html("<p>This is a test.</p>")
+                                .subreddit("UCSantaBarbara")
+                                .link_flair_richtext(lrf)
+                                .build();
+
+                String rpAsJson = mapper.writeValueAsString(rp);
+
+                RedditPost savedRp = mapper.readValue(rpAsJson, RedditPost.class);
+                savedRp.set_id("efgh5678");
+                String savedRpAsJson = mapper.writeValueAsString(savedRp);
+
+                when(redditPostsCollection.save(eq(rp))).thenReturn(savedRp);
+
+                when(redditFirstPostService.getRedditPost(eq("UCSantaBarbara"))).thenReturn(rp);
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                post("/api/redditposts/storeone?subreddit=UCSantaBarbara")
+                                                .with(csrf()))
+                                .andExpect(status().isOk())
+                                .andReturn();
+
+                // assert
+
+                verify(redditFirstPostService, times(1)).getRedditPost(eq("UCSantaBarbara"));
+                verify(redditPostsCollection, times(1)).save(eq(rp));
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(savedRpAsJson, responseString);
         }
 
 }

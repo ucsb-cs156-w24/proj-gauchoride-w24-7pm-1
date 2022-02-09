@@ -2,7 +2,7 @@ package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.collections.RedditPostsCollection;
 import edu.ucsb.cs156.example.documents.RedditPost;
-import edu.ucsb.cs156.example.services.RedditFirstPostService;
+import edu.ucsb.cs156.example.services.RedditPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,10 +42,10 @@ public class RedditPostsController extends ApiController {
     }
 
     @Autowired
-    RedditFirstPostService redditFirstPostService;
+    RedditPostService redditFirstPostService;
     @PreAuthorize("hasRole('ROLE_USER')")
     @ApiOperation(value = "Store one post from a subreddit of Reddit.com", notes = "")
-    @PostMapping("/store")
+    @PostMapping("/storeone")
     public ResponseEntity<RedditPost> getSubreddit(
             @ApiParam("subreddit, e.g. UCSantaBarbara") @RequestParam String subreddit) throws JsonProcessingException {
         log.info("getSubreddit: subreddit={}", subreddit);

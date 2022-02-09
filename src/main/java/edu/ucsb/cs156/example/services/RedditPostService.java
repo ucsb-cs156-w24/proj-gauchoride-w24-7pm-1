@@ -25,13 +25,13 @@ import org.springframework.http.ResponseEntity;
 
 @Slf4j
 @Service
-public class RedditFirstPostService {
+public class RedditPostService {
 
     ObjectMapper mapper = new ObjectMapper();
 
     private final RestTemplate restTemplate;
 
-    public RedditFirstPostService(RestTemplateBuilder restTemplateBuilder) {
+    public RedditPostService(RestTemplateBuilder restTemplateBuilder) {
         restTemplate = restTemplateBuilder.build();
     }
 

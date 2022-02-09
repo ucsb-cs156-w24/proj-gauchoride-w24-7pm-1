@@ -22,13 +22,13 @@ import edu.ucsb.cs156.example.documents.RedditListingData;
 import edu.ucsb.cs156.example.documents.RedditPost;
 import edu.ucsb.cs156.example.documents.RedditT3;
 
-@RestClientTest(RedditFirstPostService.class)
-public class RedditFirstPostServiceTests {
+@RestClientTest(RedditPostService.class)
+public class RedditPostServiceTests {
     @Autowired
     private MockRestServiceServer mockRestServiceServer;
 
     @Autowired
-    private RedditFirstPostService redditFirstPostService;
+    private RedditPostService redditPostService;
 
     @Autowired
     private ObjectMapper mapper;
@@ -37,7 +37,7 @@ public class RedditFirstPostServiceTests {
     public void test_getRedditPost() throws JsonProcessingException {
         String subreddit = "UCSantaBarbara";
 
-        String expectedURL = RedditFirstPostService.ENDPOINT.replace("{subreddit}", subreddit);
+        String expectedURL = RedditPostService.ENDPOINT.replace("{subreddit}", subreddit);
 
         RedditFlair rf = RedditFlair.builder()
                         .t("sampleT")
@@ -82,7 +82,7 @@ public class RedditFirstPostServiceTests {
         this.mockRestServiceServer.expect(requestTo(expectedURL))
                 .andRespond(withSuccess(mockJSONFromReddit, MediaType.APPLICATION_JSON));
 
-        RedditPost actualResult = redditFirstPostService.getRedditPost(subreddit);
+        RedditPost actualResult = redditPostService.getRedditPost(subreddit);
         String actualResultAsJSON = mapper.writeValueAsString(actualResult);
         String expectedResultAsJSON = mapper.writeValueAsString(rp);
     
