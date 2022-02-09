@@ -20,10 +20,10 @@ export default function OurTable({ columns, data, testid="testid"}) {
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
-                data-testid={`table-header-${testid}-${column.id}`}
+                data-testid={`${testid}-header-${column.id}`}
               >
                 {column.render('Header')}
-                <span>
+                <span data-testid={`${testid}-header-${column.id}-sort-carets`}>
                     {column.isSorted
                       ? column.isSortedDesc
                         ? ' 🔽'
@@ -40,10 +40,11 @@ export default function OurTable({ columns, data, testid="testid"}) {
           prepareRow(row)
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
+              {row.cells.map( (cell,_index) => {
                 return (
                   <td
                     {...cell.getCellProps()}
+                    data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
                   >
                     {cell.render('Cell')}
                   </td>

@@ -1,4 +1,4 @@
-import { render, waitFor, fireEvent } from "@testing-library/react";
+import { render, waitFor, fireEvent, within } from "@testing-library/react";
 import OurTable from "main/components/OurTable";
 
 describe("OurTable tests", () => {
@@ -40,19 +40,34 @@ describe("OurTable tests", () => {
         );
     });
 
+    test("default testid is testId", async () => {
+        const {getByTestId } = render(
+            <OurTable columns={columns} data={threeRows} />
+        );
+        await waitFor( ()=> expect(getByTestId("testid-header-col1")).toBeInTheDocument() );
+    });
+
     test("click on a header and a sort caret should appear", async () => {
         const {getByTestId, getByText } = render(
             <OurTable columns={columns} data={threeRows} testid={"sampleTestId"} />
         );
 
-        await waitFor( ()=> expect(getByTestId("table-header-sampleTestId-col1")).toBeInTheDocument() );
-        const col1Header = getByTestId("table-header-sampleTestId-col1");
+        await waitFor( ()=> expect(getByTestId("sampleTestId-header-col1")).toBeInTheDocument() );
+        const col1Header = getByTestId("sampleTestId-header-col1");
+
+        const col1SortCarets = getByTestId("sampleTestId-header-col1-sort-carets");
+        expect(col1SortCarets).toHaveTextContent('');
+
+        const col1Row0 = getByTestId("sampleTestId-cell-row-0-col-col1");
+        expect(col1Row0).toHaveTextContent("Hello");
 
         fireEvent.click(col1Header);
         await waitFor( ()=> expect(getByText("🔼")).toBeInTheDocument() );
 
         fireEvent.click(col1Header);
         await waitFor( ()=> expect(getByText("🔽")).toBeInTheDocument() );
+
+        
 
     });
 

@@ -19,17 +19,25 @@ describe("UserTable tests", () => {
     });
 
     test("Has the expected colum headers", () => {
-        const { getByText } = render(
-          <UsersTable users={[]}/>
+        const { getByText, getByTestId } = render(
+          <UsersTable users={usersFixtures.threeUsers}/>
         );
     
         const expectedHeaders = ["id", "First Name", "Last Name", "Email", "Admin"];
-        
+        const expectedFields = ["id", "givenName", "familyName", "email", "admin"];
+        const testId = "UsersTable";
+
         expectedHeaders.forEach( (headerText)=> {
             const header = getByText(headerText);
             expect(header).toBeInTheDocument();
         });
+
+        expectedFields.forEach( (field)=> {
+          const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+          expect(header).toBeInTheDocument();
+        });
+
+        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
       });
-  
 });
 
