@@ -2,14 +2,16 @@ package edu.ucsb.cs156.example.entities;
 
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +30,9 @@ public class UCSBDate {
 
   private String quarterYYYYQ;
   private String name;
-  private  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime;
+
+  // @Temporal(TemporalType.DATE)
+  // Date date;
+  
+  LocalDateTime localDateTime;
 }
