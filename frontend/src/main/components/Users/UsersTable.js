@@ -20,7 +20,8 @@ const columns = [
     },
     {
         Header: 'Admin',
-        accessor: 'admin',
+        id: 'admin',
+        accessor: (row, _rowIndex) => String(row.admin) // hack needed for boolean values to show up
     },
 ];
 

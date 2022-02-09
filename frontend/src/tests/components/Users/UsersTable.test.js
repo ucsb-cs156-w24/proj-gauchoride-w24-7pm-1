@@ -17,7 +17,7 @@ describe("UserTable tests", () => {
         );
     });
 
-    test("Has the expected colum headers", () => {
+    test("Has the expected colum headers and content", () => {
         const { getByText, getByTestId } = render(
           <UsersTable users={usersFixtures.threeUsers}/>
         );
@@ -37,6 +37,10 @@ describe("UserTable tests", () => {
         });
 
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+        expect(getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent("true");
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
+
       });
 });
 
