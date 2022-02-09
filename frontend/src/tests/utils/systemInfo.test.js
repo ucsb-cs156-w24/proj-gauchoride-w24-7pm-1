@@ -22,6 +22,7 @@ describe("utils/systemInfo tests", () => {
 
             var axiosMock = new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/systemInfo").timeoutOnce();
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
             const restoreConsole = mockConsole();
 

@@ -1,8 +1,7 @@
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import usersFixtures from "fixtures/usersFixtures";
 import UsersTable from "main/components/Users/UsersTable"
-import { getFirstSmallestLargest } from "main/utils/arrayUtils";
-import userEvent from "@testing-library/user-event";
+
 
 describe("UserTable tests", () => {
 
@@ -12,94 +11,36 @@ describe("UserTable tests", () => {
         );
     });
 
-    test("renders without crashing for two users", () => {
+    test("renders without crashing for three users", () => {
         render(
             <UsersTable users={usersFixtures.threeUsers} />
         );
     });
 
-    test("Has the expected colum headers", () => {
-        const { getByText } = render(
-          <UsersTable users={[]}/>
+    test("Has the expected colum headers and content", () => {
+        const { getByText, getByTestId } = render(
+          <UsersTable users={usersFixtures.threeUsers}/>
         );
     
         const expectedHeaders = ["id", "First Name", "Last Name", "Email", "Admin"];
-        
+        const expectedFields = ["id", "givenName", "familyName", "email", "admin"];
+        const testId = "UsersTable";
+
         expectedHeaders.forEach( (headerText)=> {
             const header = getByText(headerText);
             expect(header).toBeInTheDocument();
         });
-      });
-    
 
-      const columnIsSortable = async ( mapping, columnHeading, col) => {
-        const { getByText, getByTestId } = render(
-            <UsersTable users={usersFixtures.threeUsers} />
-          );
-      
-          const users = usersFixtures.threeUsers;
-      
-          const { first, smallest, largest } = getFirstSmallestLargest(
-            users,
-            mapping
-          );
-      
-          const header = getByText(columnHeading);
+        expectedFields.forEach( (field)=> {
+          const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
           expect(header).toBeInTheDocument();
-          expect(getByTestId(`row-0-col-${col}`)).toHaveTextContent(first);
-      
-          userEvent.click(header);
-      
-          await waitFor(() =>
-            expect(getByTestId(`row-0-col-${col}`)).toHaveTextContent(largest)
-          );
-      
-          userEvent.click(header);
-      
-          await waitFor(() =>
-            expect(getByTestId(`row-0-col-${col}`)).toHaveTextContent(smallest)
-          );
-      };
+        });
 
-      test("Id column is sortable", async () => {
-        await columnIsSortable((u)=>u.id, "id",0);
-      });
+        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+        expect(getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent("true");
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
 
-      test("First Name column is sortable", async () => {
-        await columnIsSortable((u)=>u.givenName, "First Name",1);
-      });
-
-      test("Last Name column is sortable", async () => {
-        await columnIsSortable((u)=>u.familyName, "Last Name",2);
-      });
-
-      test("Email column is sortable", async () => {
-        await columnIsSortable((u)=>u.email, "Email",3);
-      });
-
-      test("Admin column is sortable", async () => {
-        await columnIsSortable((u)=>u.admin, "Admin",4);
-      });
-
-      test("sort carets appear (i.e. bootstrap4=true is passed)", async () => {
-        const { container, getByText } = render(
-            <UsersTable users={usersFixtures.threeUsers} />
-        );
-    
-        const header = getByText("id");
-        expect(header).toBeInTheDocument();
-    
-        // checks for presence of Bootstrap 4 sort carets
-        userEvent.click(header);
-        await waitFor(() =>
-          expect(container.getElementsByClassName("caret-4-desc").length).toBe(1)
-        );
-    
-        // checks for presence of Bootstrap 4 sort carets
-        userEvent.click(header);
-        await waitFor(() =>
-          expect(container.getElementsByClassName("caret-4-asc").length).toBe(1)
-        );
       });
 });
 
