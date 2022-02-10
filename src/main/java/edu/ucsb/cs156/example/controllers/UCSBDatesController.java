@@ -91,7 +91,7 @@ public class UCSBDatesController extends ApiController {
     public ResponseEntity<String> postUCSBDate(
             @ApiParam("quarterYYYYQ") @RequestParam String quarterYYYYQ,
             @ApiParam("name") @RequestParam String name,
-            @ApiParam("date (in yyyy-mm-dd format)") @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime)
+            @ApiParam("date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("localDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime)
             throws JsonProcessingException {
 
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) 
