@@ -1,10 +1,5 @@
 import { render, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
-import { currentUserFixtures } from "fixtures/currentUserFixtures";
-
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
-import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 describe("AppNavbarLocalhost tests", () => {
 
@@ -17,5 +12,3 @@ describe("AppNavbarLocalhost tests", () => {
     });
 
 });
-
-

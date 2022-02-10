@@ -132,7 +132,7 @@ describe("AppNavbar tests", () => {
         delete window.location
         window.location = new URL('http://127.0.0.1:3000')
 
-        const {getByTestId, queryByTestId } = render(
+        const {getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
