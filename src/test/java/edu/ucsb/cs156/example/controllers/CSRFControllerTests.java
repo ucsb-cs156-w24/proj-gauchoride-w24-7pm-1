@@ -30,7 +30,6 @@ public class CSRFControllerTests extends ControllerTestCase {
               .andReturn();
 
     String responseString = response.getResponse().getContentAsString();
-    assertTrue(!responseString.equals(""));
     assertTrue(responseString.contains("parameterName"));
     assertTrue(responseString.contains("_csrf"));
     assertTrue(responseString.contains("headerName"));
