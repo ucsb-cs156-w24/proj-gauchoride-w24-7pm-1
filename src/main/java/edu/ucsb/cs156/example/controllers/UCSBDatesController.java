@@ -142,7 +142,7 @@ public class UCSBDatesController extends ApiController {
         UCSBDate oldDate = uoe.ucsbDate;
         oldDate.setQuarterYYYYQ(incoming.getQuarterYYYYQ());
         oldDate.setName(incoming.getName());
-        oldDate.setDate(incoming.getDate());
+        oldDate.setLocalDateTime(incoming.getLocalDateTime());
 
         ucsbDateRepository.save(oldDate);
 
