@@ -3,12 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 export default function AppNavbarLocalhost() {
   return (
     <>
-
-
-
-      <Navbar expand="sm" bg="warning" sticky="top">
-
-
+      <Navbar expand="sm" bg="warning" sticky="top" data-testid="AppNavbarLocalhost">
         <Container>
           <Navbar.Brand href="http://localhost:8080">
             Warning
