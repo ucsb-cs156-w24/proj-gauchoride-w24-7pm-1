@@ -1,9 +1,17 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { hasRole} from "main/utils/currentUser";
+import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 export default function AppNavbar({currentUser, systemInfo, doLogout}) { 
   return (
+    <>
+    {
+      ( window.location.href.startsWith("http://localhost:3000") || 
+       window.location.href.startsWith("http://127.0.0.1:3000") ) && (
+        <AppNavbarLocalhost />
+       ) 
+    }
     <Navbar expand="xl" variant="dark" bg="dark" sticky="top">
       <Container>
         <Navbar.Brand as={Link} to="/">
@@ -70,5 +78,6 @@ export default function AppNavbar({currentUser, systemInfo, doLogout}) {
         </Navbar.Collapse>
       </Container >
     </Navbar >
+    </>
   );
 }
