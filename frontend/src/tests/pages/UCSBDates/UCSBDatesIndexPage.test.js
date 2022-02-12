@@ -17,18 +17,16 @@ describe("UCSBDatesIndexPage tests", () => {
 
     const testId = "UCSBDatesTable";
 
-    const resetAxiosMock = () => {
+
+    beforeEach(() => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-    }
-
-
+    });
 
     test("renders without crashing", () => {
         const queryClient = new QueryClient();
-        resetAxiosMock();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
 
         render(
@@ -44,7 +42,6 @@ describe("UCSBDatesIndexPage tests", () => {
 
     test("renders three dates without crashing", async () => {
         const queryClient = new QueryClient();
-        resetAxiosMock();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, ucsbDatesFixtures.threeDates);
 
         const { getByTestId } = render(
@@ -64,7 +61,6 @@ describe("UCSBDatesIndexPage tests", () => {
 
     test("renders empty table when backend unavailable", async () => {
         const queryClient = new QueryClient();
-        resetAxiosMock();
         axiosMock.onGet("/api/ucsbdates/all").timeout();
 
         const restoreConsole = mockConsole();

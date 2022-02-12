@@ -12,20 +12,19 @@ import AxiosMockAdapter from "axios-mock-adapter";
 
 describe("AdminUsersPage tests", () => {
 
-    var axiosMock = new AxiosMockAdapter(axios);
+    const axiosMock = new AxiosMockAdapter(axios);
 
-    const resetAxiosMock = () => {
+    const testId = "UsersTable";
+
+    beforeEach( () => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-    }
-
-    const testId = "UsersTable";
+    });
 
     test("renders without crashing on three users", async () => {
         const queryClient = new QueryClient();
-        resetAxiosMock();
         axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
 
         const { getByText } = render(
@@ -45,7 +44,6 @@ describe("AdminUsersPage tests", () => {
 
     test("renders empty table when backend unavailable", async () => {
         const queryClient = new QueryClient();
-        resetAxiosMock();
         axiosMock.onGet("/api/admin/users").timeout();
 
         const restoreConsole = mockConsole();
