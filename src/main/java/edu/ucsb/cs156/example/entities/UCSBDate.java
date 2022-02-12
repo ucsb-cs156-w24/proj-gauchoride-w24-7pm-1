@@ -30,9 +30,6 @@ public class UCSBDate {
 
   private String quarterYYYYQ;
   private String name;
-
-  // @Temporal(TemporalType.DATE)
-  // Date date;
   
   LocalDateTime localDateTime;
 }
