@@ -162,7 +162,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        @WithMockUser(roles = { "ADMIN" })
+        @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
                 // arrange
@@ -190,7 +190,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
-        @WithMockUser(roles = { "ADMIN" })
+        @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void admin_can_delete_a_date() throws Exception {
                 // arrange
@@ -219,7 +219,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                 assertEquals("UCSBDate with id 15 deleted", responseString);
         }
 
-        @WithMockUser(roles = { "ADMIN" })
+        @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message() throws Exception {
                 // arrange
@@ -239,7 +239,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
         }
 
     
-        @WithMockUser(roles = { "ADMIN" })
+        @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void admin_can_edit_an_existing_ucsbdate() throws Exception {
                 // arrange
@@ -279,7 +279,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                 assertEquals(requestBody, responseString);
         }
 
-        @WithMockUser(roles = { "ADMIN" })
+        @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
                 // arrange

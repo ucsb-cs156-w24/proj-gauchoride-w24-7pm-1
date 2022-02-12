@@ -61,7 +61,7 @@ public class TodosControllerTests extends ControllerTestCase {
                 .andExpect(status().is(403));
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos_admin_all__admin_logged_in__returns_200() throws Exception {
         mockMvc.perform(get("/api/todos/admin/all"))
@@ -160,7 +160,7 @@ public class TodosControllerTests extends ControllerTestCase {
         assertEquals("todo with id 13 not found", responseString);
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__search_for_todo_that_belongs_to_another_user() throws Exception {
 
@@ -185,7 +185,7 @@ public class TodosControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__search_for_todo_that_does_not_exist() throws Exception {
 
@@ -204,7 +204,7 @@ public class TodosControllerTests extends ControllerTestCase {
         assertEquals("todo with id 29 not found", responseString);
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos_admin_all__admin_logged_in__returns_all_todos() throws Exception {
 
@@ -357,7 +357,7 @@ public class TodosControllerTests extends ControllerTestCase {
     }
 
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__delete_todo() throws Exception {
         // arrange
@@ -379,7 +379,7 @@ public class TodosControllerTests extends ControllerTestCase {
         assertEquals("todo with id 16 deleted", responseString);
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__cannot_delete_todo_that_does_not_exist() throws Exception {
         // arrange
@@ -491,7 +491,7 @@ public class TodosControllerTests extends ControllerTestCase {
     }
 
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__put_todo() throws Exception {
         // arrange
@@ -527,7 +527,7 @@ public class TodosControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
-    @WithMockUser(roles = { "ADMIN" })
+    @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
     public void api_todos__admin_logged_in__cannot_put_todo_that_does_not_exist() throws Exception {
         // arrange

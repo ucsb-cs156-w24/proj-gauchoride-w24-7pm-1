@@ -25,13 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Optional;
-import java.util.TimeZone;
 
 @Api(description = "UCSBDates")
 @RequestMapping("/api/ucsbdates")
@@ -45,7 +41,7 @@ public class UCSBDatesController extends ApiController {
      * along with the error messages pertaining to those situations. It
      * bundles together the state needed for those checks.
      */
-    public class UCSBDateOrError {
+    private static class UCSBDateOrError {
         Long id;
         UCSBDate ucsbDate;
         ResponseEntity<String> error;

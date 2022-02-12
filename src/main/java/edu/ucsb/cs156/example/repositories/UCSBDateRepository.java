@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UCSBDateRepository extends CrudRepository<UCSBDate, Long> {
-  Iterable<UCSBDate> findAllByquarterYYYYQ(String quarterYYYYQ);
+  Iterable<UCSBDate> findAllByQuarterYYYYQ(String quarterYYYYQ);
 }

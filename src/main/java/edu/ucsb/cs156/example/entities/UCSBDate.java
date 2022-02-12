@@ -1,17 +1,11 @@
 package edu.ucsb.cs156.example.entities;
 
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
-
-
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,10 +23,6 @@ public class UCSBDate {
   private long id;
 
   private String quarterYYYYQ;
-  private String name;
-
-  // @Temporal(TemporalType.DATE)
-  // Date date;
-  
-  LocalDateTime localDateTime;
+  private String name;  
+  private LocalDateTime localDateTime;
 }

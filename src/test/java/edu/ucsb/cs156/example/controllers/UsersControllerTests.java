@@ -42,7 +42,7 @@ public class UsersControllerTests extends ControllerTestCase {
         .andExpect(status().is(403));
   }
 
-  @WithMockUser(roles = { "ADMIN" })
+  @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void users__admin_logged_in() throws Exception {
 
