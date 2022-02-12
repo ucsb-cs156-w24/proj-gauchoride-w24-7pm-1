@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm"
+import { ucsbDatesFixtures } from 'fixtures/ucsbDatesFixtures';
 
 export default {
     title: 'components/UCSBDates/UCSBDateForm',
@@ -24,12 +25,7 @@ Default.args = {
 export const Show = Template.bind({});
 
 Show.args = {
-    ucsbDate: {
-        "id": 1,
-        "quarterYYYYQ": "20221",
-        "name": "Noon on January 2nd",
-        "localDateTime": "2022-01-02T12:00:00"
-    },
+    ucsbDate: ucsbDatesFixtures.oneDate,
     submitText: "",
     submitAction: () => { }
 };
