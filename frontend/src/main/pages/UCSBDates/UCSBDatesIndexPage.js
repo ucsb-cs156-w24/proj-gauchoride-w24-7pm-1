@@ -1,5 +1,5 @@
 import React from 'react'
-import useBackend from 'main/utils/useBackend';
+import { useBackend } from 'main/utils/useBackend';
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UCSBDatesTable from 'main/components/UCSBDates/UCSBDatesTable';

@@ -4,7 +4,7 @@ import mockConsole from "jest-mock-console";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import useBackend from "main/utils/useBackend";
+import { useBackend } from "main/utils/useBackend";
 
 
 jest.mock('react-router-dom');
