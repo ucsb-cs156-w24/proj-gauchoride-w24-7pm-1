@@ -189,7 +189,7 @@ describe("AppNavbar tests", () => {
 
     });
 
-    test("renders the ucsbdates menu correctly for a user", async () => {
+    test("renders the ucsbdates menu correctly for an admin", async () => {
 
         const currentUser = currentUserFixtures.adminUser;
         const systemInfo = systemInfoFixtures.showingBoth;
