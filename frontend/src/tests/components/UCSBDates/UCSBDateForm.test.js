@@ -1,6 +1,5 @@
 import { render, waitFor, fireEvent } from "@testing-library/react";
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-import { act, renderHook } from '@testing-library/react-hooks';
 
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -53,7 +52,6 @@ describe("UCSBDateForm tests", () => {
         );
         await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
         const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-        const nameField = getByTestId("UCSBDateForm-name");
         const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
         const submitButton = getByTestId("UCSBDateForm-submit");
 
@@ -115,7 +113,7 @@ describe("UCSBDateForm tests", () => {
 
     test("Test that navigate(-1) is called when Cancel is clicked", async () => {
 
-        const { getByTestId, getByText } = render(
+        const { getByTestId } = render(
             <Router  >
                 <UCSBDateForm />
             </Router>
@@ -127,12 +125,7 @@ describe("UCSBDateForm tests", () => {
 
         await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
 
-
-
-
     });
-
-
 
 });
 
