@@ -38,7 +38,7 @@ public class SystemInfoControllerTests extends ControllerTestCase {
         .andExpect(status().is(403));
   }
 
-  @WithMockUser(roles = { "ADMIN" })
+  @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void systemInfo__admin_logged_in() throws Exception {
 

@@ -1,11 +1,14 @@
 package edu.ucsb.cs156.example.entities;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-
-import javax.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.AccessLevel;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Data
 @AllArgsConstructor
