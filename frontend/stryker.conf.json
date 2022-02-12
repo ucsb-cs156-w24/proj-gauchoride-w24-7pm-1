@@ -14,5 +14,6 @@
     "mutate": [
         "src/main/**/*.{js,jsx,ts,tsx}",
         "!src/main/**/*_NoStryker.{js,jsx,ts,tsx}"
-    ]
+    ],
+    "thresholds": { "high": 100, "low": 90, "break": 100 }
 }
