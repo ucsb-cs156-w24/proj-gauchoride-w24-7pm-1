@@ -59,8 +59,11 @@ describe("AdminUsersPage tests", () => {
         );
 
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+
         const errorMessage = console.error.mock.calls[0][0];
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/admin/users");
+        restoreConsole();
+
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
 
     });
