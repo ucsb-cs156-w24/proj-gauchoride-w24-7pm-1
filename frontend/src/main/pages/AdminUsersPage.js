@@ -2,9 +2,7 @@ import React from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UsersTable from "main/components/Users/UsersTable"
 
-// import { useQuery } from 'react-query'
 import useBackend from "main/utils/useBackend";
-// import useUsers from "main/queryclients/useUsers";
 const AdminUsersPage = () => {
 
     const { data: users, error: _error, status: _status } =
