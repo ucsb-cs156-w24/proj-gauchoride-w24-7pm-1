@@ -1,6 +1,6 @@
 import { render, waitFor, fireEvent } from "@testing-library/react";
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-
+import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const mockedNavigate = jest.fn();
@@ -25,21 +25,14 @@ describe("UCSBDateForm tests", () => {
 
     test("renders correctly when passing in a UCSBDate ", async () => {
 
-        const ucsbDate = {
-            "id": 17,
-            "quarterYYYYQ": "20221",
-            "name": "Noon on January 2nd",
-            "localDateTime": "2022-01-02T12:00:00"
-        };
-
         const { getByText, getByTestId } = render(
             <Router  >
-                <UCSBDateForm ucsbDate={ucsbDate} />
+                <UCSBDateForm ucsbDate={ucsbDatesFixtures.oneDate} />
             </Router>
         );
         await waitFor(() => expect(getByTestId(/UCSBDateForm-id/)).toBeInTheDocument());
         expect(getByText(/Id/)).toBeInTheDocument();
-        expect(getByTestId(/UCSBDateForm-id/)).toHaveValue("17");
+        expect(getByTestId(/UCSBDateForm-id/)).toHaveValue("1");
     });
 
 
