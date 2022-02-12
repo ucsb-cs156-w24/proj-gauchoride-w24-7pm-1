@@ -32,6 +32,23 @@ function App() {
             </>
           )
         }
+
+        {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route path="/ucsbdates/list" element={<TodosIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route path="/ucsbdates/edit/:id" element={<TodosEditPage />} />
+              <Route path="/ucsbdates/create" element={<TodosCreatePage />} />
+            </>
+          )
+        }
+
       </Routes>
     </BrowserRouter>
   );

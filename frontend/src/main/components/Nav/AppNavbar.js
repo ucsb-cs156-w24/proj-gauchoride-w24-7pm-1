@@ -20,6 +20,27 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
 
           <Navbar.Toggle />
 
+          <Nav className="me-auto">
+            {
+              systemInfo?.springH2ConsoleEnabled && (
+                <>
+                  <Nav.Link href="/h2-console">H2Console</Nav.Link>
+                </>
+              )
+            }
+            {
+              systemInfo?.showSwaggerUILink && (
+                <>
+                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                </>
+              )
+            }
+          </Nav>
+
+          <>
+            {/* be sure that each NavDropdown has a unique id and data-testid  */}
+          </>
+
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
               {
@@ -30,10 +51,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
-
-            <>
-              {/* be sure that each NavDropdown has a unique id and data-testid  */}
-            </>
 
             <Nav className="mr-auto">
               {
@@ -46,19 +63,17 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
             </Nav>
 
-            <Nav className="me-auto">
+            <Nav className="mr-auto">
               {
-                systemInfo?.springH2ConsoleEnabled && (
-                  <>
-                    <Nav.Link href="/h2-console">H2Console</Nav.Link>
-                  </>
-                )
-              }
-              {
-                systemInfo?.showSwaggerUILink && (
-                  <>
-                    <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
-                  </>
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="UCSBDates" id="appnavbar-ucsbdates-dropdown" data-testid="appnavbar-ucsbdates-dropdown" >
+                    <NavDropdown.Item href="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
                 )
               }
             </Nav>
