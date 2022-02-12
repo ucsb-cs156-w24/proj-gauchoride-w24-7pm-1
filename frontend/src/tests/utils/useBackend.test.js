@@ -2,8 +2,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { renderHook } from '@testing-library/react-hooks'
 import mockConsole from "jest-mock-console";
 
-// import usersFixtures from "fixtures/usersFixtures";
-
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import useBackend from "main/utils/useBackend";
