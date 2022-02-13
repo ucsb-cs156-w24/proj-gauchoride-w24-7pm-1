@@ -13,7 +13,7 @@ import mockConsole from "jest-mock-console";
 
 describe("UCSBDatesIndexPage tests", () => {
 
-    var axiosMock = new AxiosMockAdapter(axios);
+    const axiosMock =new AxiosMockAdapter(axios);
 
     const testId = "UCSBDatesTable";
 

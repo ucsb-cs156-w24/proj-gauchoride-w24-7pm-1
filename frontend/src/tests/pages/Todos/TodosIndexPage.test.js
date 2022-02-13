@@ -10,7 +10,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 
 describe("TodosIndexPage tests", () => {
 
-    var axiosMock = new AxiosMockAdapter(axios);
+    const axiosMock =new AxiosMockAdapter(axios);
     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 

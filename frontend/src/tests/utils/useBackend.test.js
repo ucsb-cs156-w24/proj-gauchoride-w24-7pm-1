@@ -28,7 +28,7 @@ describe("utils/useBackend tests", () => {
             </QueryClientProvider>
         );
 
-        var axiosMock = new AxiosMockAdapter(axios);
+        const axiosMock =new AxiosMockAdapter(axios);
 
         axiosMock.onGet("/api/admin/users").reply(404, {});
 
