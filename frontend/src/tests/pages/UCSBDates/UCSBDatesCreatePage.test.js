@@ -89,13 +89,6 @@ describe("UCSBDatesCreatePage tests", () => {
 
         await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-        // expect(axiosMock.history.post[0].params).toBe(
-        //     JSON.stringify({
-        //     "localDateTime": "2022-02-02T00:00",
-        //     "name": "Groundhog Day",
-        //     "quarterYYYYQ": "20221"
-        // }));
-
         expect(axiosMock.history.post[0].params).toEqual(
             {
             "localDateTime": "2022-02-02T00:00",
