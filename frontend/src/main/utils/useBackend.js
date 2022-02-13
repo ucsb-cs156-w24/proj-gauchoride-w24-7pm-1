@@ -42,14 +42,42 @@ export function useBackend(queryKey, axiosParameters, initialData) {
     });
 }
 
-const wrappedParams = async (params) =>
-    await (await axios(params)).data;
+// const wrappedParams = async (params) =>
+//   await ( await axios(params)).data;
+
+
+const reportAxiosError = (error) => {
+    console.error("Axios Error:", error);
+    toast(`Axios Error: ${error}`);
+    return null;
+};
+
+const wrappedParams = async (params) => {
+    try {
+        return await (await axios(params)).data;
+    } catch (rejectedValue) {
+        reportAxiosError(rejectedValue);
+        throw rejectedValue;
+    }
+};
+
+
+
+
+
+
+// const wrappedParams = async (params) => {
+//     return axios(params)
+//         .then((response) => response.data)
+//         .catch(reportAxiosError)
+// }
 
 export function useBackendMutation(objectToAxiosParams, useMutationParams) {
     return useMutation((object) => wrappedParams(objectToAxiosParams(object)), {
         onError: (data) => {
             toast(`${data}`)
         },
+        retry: false,
         ...useMutationParams
     })
 }

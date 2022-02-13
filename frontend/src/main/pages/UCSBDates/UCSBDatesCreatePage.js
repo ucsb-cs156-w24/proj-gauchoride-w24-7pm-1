@@ -10,28 +10,6 @@ import { toast } from "react-toastify";
 
 export default function UCSBDatesCreatePage() {
 
-  // const postUrl = (ucsbDate) =>
-  //   `/api/ucsbdates/post?quarterYYYYQ=${ucsbDate.quarterYYYYQ}&name=${ucsbDate.name}&localDateTime=${ucsbDate.localDateTime}`;
-
-  // const postUser = async (ucsbDate) =>
-  //   await (await axios.post(
-  //     postUrl(ucsbDate))
-  //     ).data
-
-  // const postUser = async (ucsbDate) =>
-  //   await (await axios({
-  //     url: "/api/ucsbdates/post",
-  //     method: "POST",
-  //     params: {
-  //       quarterYYYYQ: ucsbDate.quarterYYYYQ,
-  //       name: ucsbDate.name,
-  //       localDateTime: ucsbDate.localDateTime
-  //     }
-  //   })).data;
-
-  // const wrappedParams = async (params) =>
-  //   await (await axios(params)).data;
-
   const objectToAxiosParams = (ucsbDate) => ({
     url: "/api/ucsbdates/post",
     method: "POST",
@@ -43,15 +21,15 @@ export default function UCSBDatesCreatePage() {
   });
 
   const onSuccess = (ucsbDate) => {
-    toast( `New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
+    toast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
   }
 
-  const mutation = useBackendMutation(objectToAxiosParams, {onSuccess});
+  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess });
 
-  const { _isLoading, _isError, _error, isSuccess } = mutation
+  const { isSuccess } = mutation
 
   const onSubmit = async (data) => {
-    mutation.mutate(data)
+    mutation.mutate(data);
   }
 
   if (isSuccess) {
