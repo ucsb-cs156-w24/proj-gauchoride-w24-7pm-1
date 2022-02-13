@@ -33,7 +33,7 @@ export default function UCSBDatesCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/" />
+    return <Navigate to="/ucsbdates/list" />
   }
 
   return (

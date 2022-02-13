@@ -104,7 +104,7 @@ describe("UCSBDatesCreatePage tests", () => {
         });
 
         expect(mockToast).toBeCalledWith("New ucsbDate Created - id: 17 name: Groundhog Day");
-        expect(mockNavigate).toBeCalledWith({ "to": "/" });
+        expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
     });
 
 
