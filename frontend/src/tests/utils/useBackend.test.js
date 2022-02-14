@@ -109,7 +109,7 @@ describe("utils/useBackend tests", () => {
             });
 
             const { result, waitFor } = renderHook(
-                () => useBackendMutation(objectToAxiosParams, { onSuccess }), { wrapper }
+                () => useBackendMutation(objectToAxiosParams, { onSuccess }, ["/api/ucsbdates/all"]), { wrapper }
             );
 
             const mutation = result.current;

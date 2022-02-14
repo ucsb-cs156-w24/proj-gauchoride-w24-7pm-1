@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -61,22 +61,19 @@ const wrappedParams = async (params) => {
     }
 };
 
+export function useBackendMutation(objectToAxiosParams, useMutationParams, queryKey=null) {
+    const queryClient = useQueryClient();
 
-
-
-
-
-// const wrappedParams = async (params) => {
-//     return axios(params)
-//         .then((response) => response.data)
-//         .catch(reportAxiosError)
-// }
-
-export function useBackendMutation(objectToAxiosParams, useMutationParams) {
     return useMutation((object) => wrappedParams(objectToAxiosParams(object)), {
         onError: (data) => {
             toast(`${data}`)
         },
+        // Stryker disable all: Not sure how to set up the complex behavior needed to test this
+        onSettled: () => {
+            if (queryKey!==null)
+             queryClient.invalidateQueries(queryKey);
+        },
+        // Stryker enable all
         retry: false,
         ...useMutationParams
     })
