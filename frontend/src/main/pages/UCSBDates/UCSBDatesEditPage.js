@@ -14,9 +14,13 @@ export default function UCSBDatesEditPage() {
       [`/api/ucsbdates?id=${id}`],
       {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
         method: "GET",
-        url: `/api/ucsbdates?id=${id}`
+        url: `/api/ucsbdates`,
+        params: {
+          id
+        }
       }
     );
+
 
   const objectToAxiosPutParams = (ucsbDate) => ({
     url: "/api/ucsbdates",

@@ -32,7 +32,7 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-describe("UCSBDatesCreatePage tests", () => {
+describe("UCSBDatesEditPage tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
 
@@ -41,7 +41,7 @@ describe("UCSBDatesCreatePage tests", () => {
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        axiosMock.onGet("/api/ucsbdates?id=17").reply(200, {
+        axiosMock.onGet("/api/ucsbdates",{params: {id: 17}}).reply(200, {
             id: 17,
             quarterYYYYQ: '20221',
             name: "Pi Day",
