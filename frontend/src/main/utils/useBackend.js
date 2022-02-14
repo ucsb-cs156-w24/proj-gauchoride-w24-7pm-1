@@ -1,6 +1,5 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios from "axios";
-
 import { toast } from "react-toastify";
 
 // example
@@ -26,7 +25,7 @@ import { toast } from "react-toastify";
 //     []
 // );
 
-export default function useBackend(queryKey, axiosParameters, initialData) {
+export function useBackend(queryKey, axiosParameters, initialData) {
 
     return useQuery(queryKey, async () => {
         try {
@@ -35,11 +34,51 @@ export default function useBackend(queryKey, axiosParameters, initialData) {
         } catch (e) {
             const errorMessage = `Error communicating with backend via ${axiosParameters.method} on ${axiosParameters.url}`;
             toast(errorMessage);
-            console.error(errorMessage,e);
+            console.error(errorMessage, e);
             throw e;
         }
     }, {
         initialData
     });
-
 }
+
+// const wrappedParams = async (params) =>
+//   await ( await axios(params)).data;
+
+
+const reportAxiosError = (error) => {
+    console.error("Axios Error:", error);
+    toast(`Axios Error: ${error}`);
+    return null;
+};
+
+const wrappedParams = async (params) => {
+    try {
+        return await (await axios(params)).data;
+    } catch (rejectedValue) {
+        reportAxiosError(rejectedValue);
+        throw rejectedValue;
+    }
+};
+
+
+
+
+
+
+// const wrappedParams = async (params) => {
+//     return axios(params)
+//         .then((response) => response.data)
+//         .catch(reportAxiosError)
+// }
+
+export function useBackendMutation(objectToAxiosParams, useMutationParams) {
+    return useMutation((object) => wrappedParams(objectToAxiosParams(object)), {
+        onError: (data) => {
+            toast(`${data}`)
+        },
+        retry: false,
+        ...useMutationParams
+    })
+}
+
