@@ -29,7 +29,7 @@ describe("UCSBDateForm tests", () => {
 
         const { getByText, getByTestId } = render(
             <Router  >
-                <UCSBDateForm ucsbDate={ucsbDatesFixtures.oneDate} />
+                <UCSBDateForm initialUCSBDate={ucsbDatesFixtures.oneDate} />
             </Router>
         );
         await waitFor(() => expect(getByTestId(/UCSBDateForm-id/)).toBeInTheDocument());

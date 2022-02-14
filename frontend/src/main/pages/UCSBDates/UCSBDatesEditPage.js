@@ -61,7 +61,7 @@ export default function UCSBDatesEditPage() {
       <div className="pt-2">
         <h1>Edit UCSBDate</h1>
         {ucsbDate &&
-          <UCSBDateForm ucsbDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
+          <UCSBDateForm initialUCSBDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
         }
       </div>
     </BasicLayout>

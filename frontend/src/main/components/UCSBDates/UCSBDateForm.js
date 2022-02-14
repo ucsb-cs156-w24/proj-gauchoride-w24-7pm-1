@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 
-function UCSBDateForm({ ucsbDate, submitAction, buttonLabel="Create" }) {
+function UCSBDateForm({ initialUCSBDate, submitAction, buttonLabel="Create" }) {
 
     // Stryker disable all
     const {
@@ -12,7 +12,7 @@ function UCSBDateForm({ ucsbDate, submitAction, buttonLabel="Create" }) {
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: ucsbDate || {}, }
+        { defaultValues: initialUCSBDate || {}, }
     );
     // Stryker enable all
 
@@ -31,7 +31,7 @@ function UCSBDateForm({ ucsbDate, submitAction, buttonLabel="Create" }) {
 
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {ucsbDate && (
+            {initialUCSBDate && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
@@ -39,7 +39,7 @@ function UCSBDateForm({ ucsbDate, submitAction, buttonLabel="Create" }) {
                         id="id"
                         type="text"
                         {...register("id")}
-                        value={ucsbDate.id}
+                        value={initialUCSBDate.id}
                         disabled
                     />
                 </Form.Group>
