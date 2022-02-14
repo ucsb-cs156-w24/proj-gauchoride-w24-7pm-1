@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { apiCurrentUserFixtures, currentUserFixtures } from "fixtures/currentUserFixtures";
 import mockConsole from "jest-mock-console";
 import { act } from 'react-dom/test-utils';
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 import axios from "axios";
