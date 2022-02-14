@@ -47,8 +47,8 @@ describe("UCSBDatesEditPage tests", () => {
         });
 
         const queryClient = new QueryClient();
-        test("renders header but table is not present", () => {
-            const {getByText } = render(
+        test("renders header but table is not present", async () => {
+            const {getByText, queryByTestId} = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
                         <UCSBDatesEditPage />
@@ -56,7 +56,7 @@ describe("UCSBDatesEditPage tests", () => {
                 </QueryClientProvider>
             );
             await waitFor(() => expect(getByText("Edit UCSBDate")).toBeInTheDocument());
-            expect(queryByTestId(UCSBDateForm-quarterYYYYQ)).not.toBeInTheDocument();
+            expect(queryByTestId("UCSBDateForm-quarterYYYYQ")).not.toBeInTheDocument();
         });
     });
 
