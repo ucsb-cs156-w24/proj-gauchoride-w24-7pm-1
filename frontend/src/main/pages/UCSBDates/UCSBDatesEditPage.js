@@ -58,12 +58,12 @@ export default function UCSBDatesEditPage() {
 
   return (
     <BasicLayout>
-      { (status === 'success') && ucsbDate &&
-        <div className="pt-2">
-          <h1>Edit UCSBDate</h1>
+      <div className="pt-2">
+        <h1>Edit UCSBDate</h1>
+        {ucsbDate &&
           <UCSBDateForm ucsbDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
-        </div>
-      }
+        }
+      </div>
     </BasicLayout>
   )
 }

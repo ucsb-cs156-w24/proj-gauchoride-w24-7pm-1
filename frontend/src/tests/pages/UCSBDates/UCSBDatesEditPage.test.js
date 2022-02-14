@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, queryByTestId, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
@@ -34,109 +34,139 @@ jest.mock('react-router-dom', () => {
 
 describe("UCSBDatesEditPage tests", () => {
 
-    const axiosMock = new AxiosMockAdapter(axios);
+    describe("when the backend doesn't return a todo", () => {
 
-    beforeEach(() => {
-        axiosMock.reset();
-        axiosMock.resetHistory();
-        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        axiosMock.onGet("/api/ucsbdates",{params: {id: 17}}).reply(200, {
-            id: 17,
-            quarterYYYYQ: '20221',
-            name: "Pi Day",
-            localDateTime: "2022-03-14T15:00"
+        const axiosMock = new AxiosMockAdapter(axios);
+
+        beforeEach(() => {
+            axiosMock.reset();
+            axiosMock.resetHistory();
+            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+            axiosMock.onGet("/api/ucsbdates", { params: { id: 17 } }).timeout();
         });
-        axiosMock.onPut('/api/ucsbdates').reply(200, {
-            id: "17",
-            quarterYYYYQ: '20224',
-            name: "Christmas Morning",
-            localDateTime: "2022-12-25T08:00"
+
+        const queryClient = new QueryClient();
+        test("renders header but table is not present", () => {
+            const {getByText } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <UCSBDatesEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+            await waitFor(() => expect(getByText("Edit UCSBDate")).toBeInTheDocument());
+            expect(queryByTestId(UCSBDateForm-quarterYYYYQ)).not.toBeInTheDocument();
         });
     });
 
-    const queryClient = new QueryClient();
-    test("renders without crashing", () => {
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <UCSBDatesEditPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    describe("tests where backend is working normally", () => {
+
+        const axiosMock = new AxiosMockAdapter(axios);
+
+        beforeEach(() => {
+            axiosMock.reset();
+            axiosMock.resetHistory();
+            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+            axiosMock.onGet("/api/ucsbdates", { params: { id: 17 } }).reply(200, {
+                id: 17,
+                quarterYYYYQ: '20221',
+                name: "Pi Day",
+                localDateTime: "2022-03-14T15:00"
+            });
+            axiosMock.onPut('/api/ucsbdates').reply(200, {
+                id: "17",
+                quarterYYYYQ: '20224',
+                name: "Christmas Morning",
+                localDateTime: "2022-12-25T08:00"
+            });
+        });
+
+        const queryClient = new QueryClient();
+        test("renders without crashing", () => {
+            render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <UCSBDatesEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+        });
+
+        test("Is populated with the data provided", async () => {
+
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <UCSBDatesEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+
+            await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
+
+            const idField = getByTestId("UCSBDateForm-id");
+            const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
+            const nameField = getByTestId("UCSBDateForm-name");
+            const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
+            const submitButton = getByTestId("UCSBDateForm-submit");
+
+            expect(idField).toHaveValue("17");
+            expect(quarterYYYYQField).toHaveValue("20221");
+            expect(nameField).toHaveValue("Pi Day");
+            expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
+        });
+
+        test("Changes when you click Update", async () => {
+
+
+
+            const { getByTestId } = render(
+                <QueryClientProvider client={queryClient}>
+                    <MemoryRouter>
+                        <UCSBDatesEditPage />
+                    </MemoryRouter>
+                </QueryClientProvider>
+            );
+
+            await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
+
+            const idField = getByTestId("UCSBDateForm-id");
+            const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
+            const nameField = getByTestId("UCSBDateForm-name");
+            const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
+            const submitButton = getByTestId("UCSBDateForm-submit");
+
+            expect(idField).toHaveValue("17");
+            expect(quarterYYYYQField).toHaveValue("20221");
+            expect(nameField).toHaveValue("Pi Day");
+            expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
+
+            expect(submitButton).toBeInTheDocument();
+
+            fireEvent.change(quarterYYYYQField, { target: { value: '20224' } })
+            fireEvent.change(nameField, { target: { value: 'Christmas Morning' } })
+            fireEvent.change(localDateTimeField, { target: { value: "2022-12-25T08:00" } })
+
+            fireEvent.click(submitButton);
+
+            await waitFor(() => expect(mockToast).toBeCalled);
+            expect(mockToast).toBeCalledWith("UCSBDate Updated - id: 17 name: Christmas Morning");
+            expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
+
+            expect(axiosMock.history.put.length).toBe(1); // times called
+            expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
+            expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
+                quarterYYYYQ: '20224',
+                name: "Christmas Morning",
+                localDateTime: "2022-12-25T08:00"
+            })); // posted object
+
+        });
+
+       
     });
-
-    test("Is populated with the data provided", async () => {
-
-        const { getByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <UCSBDatesEditPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
-
-        const idField = getByTestId("UCSBDateForm-id");
-        const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-        const nameField = getByTestId("UCSBDateForm-name");
-        const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-        const submitButton = getByTestId("UCSBDateForm-submit");
-
-        expect(idField).toHaveValue("17");
-        expect(quarterYYYYQField).toHaveValue("20221");
-        expect(nameField).toHaveValue("Pi Day");
-        expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
-    });
-
-    test("Changes when you click Update", async () => {
-
-
-
-        const { getByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <UCSBDatesEditPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await waitFor(() => expect(getByTestId("UCSBDateForm-quarterYYYYQ")).toBeInTheDocument());
-
-        const idField = getByTestId("UCSBDateForm-id");
-        const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
-        const nameField = getByTestId("UCSBDateForm-name");
-        const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-        const submitButton = getByTestId("UCSBDateForm-submit");
-
-        expect(idField).toHaveValue("17");
-        expect(quarterYYYYQField).toHaveValue("20221");
-        expect(nameField).toHaveValue("Pi Day");
-        expect(localDateTimeField).toHaveValue("2022-03-14T15:00");
-
-        expect(submitButton).toBeInTheDocument();
-
-        fireEvent.change(quarterYYYYQField, { target: { value: '20224' } })
-        fireEvent.change(nameField, { target: { value: 'Christmas Morning' } })
-        fireEvent.change(localDateTimeField, { target: { value: "2022-12-25T08:00" } })
-
-        fireEvent.click(submitButton);
-
-        await waitFor(() => expect(mockToast).toBeCalled);
-        expect(mockToast).toBeCalledWith("UCSBDate Updated - id: 17 name: Christmas Morning");
-        expect(mockNavigate).toBeCalledWith({ "to": "/ucsbdates/list" });
-
-        expect(axiosMock.history.put.length).toBe(1); // times called
-        expect(axiosMock.history.put[0].params).toEqual({id: 17});
-        expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-            quarterYYYYQ: '20224',
-            name: "Christmas Morning",
-            localDateTime: "2022-12-25T08:00"
-        })); // posted object
-
-    });
-
 });
 
 
