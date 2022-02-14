@@ -3,7 +3,7 @@ import { useBackend } from 'main/utils/useBackend';
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import UCSBDatesTable from 'main/components/UCSBDates/UCSBDatesTable';
-import { useCurrentUser} from 'main/utils/currentUser'
+import { useCurrentUser } from 'main/utils/currentUser'
 
 export default function UCSBDatesIndexPage() {
 
