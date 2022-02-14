@@ -68,10 +68,12 @@ export function useBackendMutation(objectToAxiosParams, useMutationParams, query
         onError: (data) => {
             toast(`${data}`)
         },
+        // Stryker disable all: Not sure how to set up the complex behavior needed to test this
         onSettled: () => {
             if (queryKey!==null)
              queryClient.invalidateQueries(queryKey);
         },
+        // Stryker enable all
         retry: false,
         ...useMutationParams
     })

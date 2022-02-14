@@ -6,8 +6,18 @@ import { cellToAxiosParamsDelete, onDeleteSuccess, editCallback } from "main/uti
 
 export default function UCSBDatesTable({ dates }) {
   
-    const deleteMutation = useBackendMutation(cellToAxiosParamsDelete, { onSuccess: onDeleteSuccess },  ["/api/ucsbdates/all"]);
-    const deleteCallback = async (cell) => { deleteMutation.mutate(cell);  }
+    // Stryker disable all : hard to test for query caching
+
+    const deleteMutation = useBackendMutation(
+        cellToAxiosParamsDelete, 
+        { onSuccess: onDeleteSuccess }, 
+        ["/api/ucsbdates/all"]
+        );
+    // Stryker enable all 
+
+    // Stryker disable next-line all : TODO try to make a good test for this
+    const deleteCallback = async (cell) => { deleteMutation.mutate(cell); }
+
 
     const columns = [
         {

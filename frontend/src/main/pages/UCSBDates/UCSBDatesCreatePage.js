@@ -24,7 +24,12 @@ export default function UCSBDatesCreatePage() {
     toast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
   }
 
-  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, ["/api/ucsbdates/all"]);
+  const mutation = useBackendMutation(
+    objectToAxiosParams,
+     { onSuccess }, 
+     // Stryker disable next-line all : hard to set up test for caching
+     ["/api/ucsbdates/all"]
+     );
 
   const { isSuccess } = mutation
 
