@@ -1,12 +1,8 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-// import { toast } from "react-toastify";
 import UCSBDateForm from "main/components/UCSBDates/UCSBDateForm";
-// import axios from "axios";
-// import { useMutation } from "react-query";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
-
 
 export default function UCSBDatesCreatePage() {
 

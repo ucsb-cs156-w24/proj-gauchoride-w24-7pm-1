@@ -31,7 +31,7 @@ jest.mock('react-router-dom', () => {
 describe("UCSBDatesCreatePage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
-  
+
     beforeEach(() => {
         axiosMock.reset();
         axiosMock.resetHistory();

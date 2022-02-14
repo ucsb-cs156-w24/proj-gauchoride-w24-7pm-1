@@ -1,8 +1,16 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable"
 import { QueryClient, QueryClientProvider } from "react-query";
+import { MemoryRouter } from "react-router-dom";
 
+
+const mockedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedNavigate
+}));
 
 describe("UserTable tests", () => {
   const queryClient = new QueryClient();
@@ -10,7 +18,9 @@ describe("UserTable tests", () => {
   test("renders without crashing for empty table", () => {
     render(
       <QueryClientProvider client={queryClient}>
-        <UCSBDatesTable dates={[]} />
+        <MemoryRouter>
+          <UCSBDatesTable dates={[]} />
+        </MemoryRouter>
       </QueryClientProvider>
 
     );
@@ -19,7 +29,9 @@ describe("UserTable tests", () => {
   test("Has the expected colum headers and content", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
-        <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} />
+        <MemoryRouter>
+          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} />
+        </MemoryRouter>
       </QueryClientProvider>
 
     );
@@ -50,5 +62,27 @@ describe("UserTable tests", () => {
     expect(deleteButton).toHaveClass("btn-danger");
 
   });
+
+  test("Edit button navigates to the edit page", async () => {
+    const { getByText, getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+
+    await waitFor(() => { expect(getByTestId(`UCSBDatesTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+
+    const editButton = getByTestId(`UCSBDatesTable-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    
+    fireEvent.click(editButton);
+
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsbdates/edit/1'));
+
+  });
+
 });
 

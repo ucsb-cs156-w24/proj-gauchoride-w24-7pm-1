@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom'
 
 export function onDeleteSuccess(message) {
     console.log(message);
@@ -13,9 +14,5 @@ export function cellToAxiosParamsDelete(cell) {
             id: cell.row.values.id
         }
     }
-}
-
-export function editCallback(cell) {
-    toast(`Edit Callback called on id: ${cell.row.values.id} name: ${cell.row.values.name}`);
 }
 

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 
-function UCSBDateForm({ ucsbDate, submitAction }) {
+function UCSBDateForm({ ucsbDate, submitAction, buttonLabel="Create" }) {
 
     // Stryker disable all
     const {
@@ -95,7 +95,7 @@ function UCSBDateForm({ ucsbDate, submitAction }) {
                 type="submit"
                 data-testid="UCSBDateForm-submit"
             >
-                Create
+                {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"

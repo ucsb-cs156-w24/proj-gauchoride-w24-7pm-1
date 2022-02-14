@@ -1,18 +1,25 @@
 import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess, editCallback } from "main/utils/UCSBDateUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess} from "main/utils/UCSBDateUtils"
+import { useNavigate } from "react-router-dom";
 
 export default function UCSBDatesTable({ dates }) {
-  
+
+    const navigate = useNavigate();
+
+    const editCallback = (cell) => {
+        navigate(`/ucsbdates/edit/${cell.row.values.id}`)
+    }
+
     // Stryker disable all : hard to test for query caching
 
     const deleteMutation = useBackendMutation(
-        cellToAxiosParamsDelete, 
-        { onSuccess: onDeleteSuccess }, 
+        cellToAxiosParamsDelete,
+        { onSuccess: onDeleteSuccess },
         ["/api/ucsbdates/all"]
-        );
+    );
     // Stryker enable all 
 
     // Stryker disable next-line all : TODO try to make a good test for this
@@ -45,7 +52,7 @@ export default function UCSBDatesTable({ dates }) {
     const memoizedDates = React.useMemo(() => dates, [dates]);
 
     return <OurTable
-        data={ memoizedDates }
+        data={memoizedDates}
         columns={memoizedColumns}
         testid={"UCSBDatesTable"}
     />;
