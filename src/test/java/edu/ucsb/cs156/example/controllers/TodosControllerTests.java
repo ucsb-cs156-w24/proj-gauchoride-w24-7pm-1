@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -101,7 +102,7 @@ public class TodosControllerTests extends ControllerTestCase {
 
         User u = currentUserService.getCurrentUser().getUser();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(u).id(7L).build();
-        when(todoRepository.findById(eq(7L))).thenReturn(Optional.of(todo1));
+        when(todoRepository.findByIdAndUser(eq(7L), eq(u))).thenReturn(Optional.of(todo1));
 
         // act
         MvcResult response = mockMvc.perform(get("/api/todos?id=7"))
@@ -109,7 +110,7 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // assert
 
-        verify(todoRepository, times(1)).findById(eq(7L));
+        verify(todoRepository, times(1)).findByIdAndUser(7L, u);
         String expectedJson = mapper.writeValueAsString(todo1);
         String responseString = response.getResponse().getContentAsString();
         assertEquals(expectedJson, responseString);
@@ -123,17 +124,18 @@ public class TodosControllerTests extends ControllerTestCase {
 
         User u = currentUserService.getCurrentUser().getUser();
 
-        when(todoRepository.findById(eq(7L))).thenReturn(Optional.empty());
+        when(todoRepository.findByIdAndUser(eq(7L), eq(u))).thenReturn(Optional.empty());
 
         // act
         MvcResult response = mockMvc.perform(get("/api/todos?id=7"))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
 
-        verify(todoRepository, times(1)).findById(eq(7L));
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 7 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(7L, u);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("EntityNotFoundException", json.get("type"));
+        assertEquals("Todo with id 7 not found", json.get("message"));
     }
 
     @WithMockUser(roles = { "USER" })
@@ -147,17 +149,18 @@ public class TodosControllerTests extends ControllerTestCase {
         Todo otherUsersTodo = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(otherUser).id(13L)
                 .build();
 
-        when(todoRepository.findById(eq(13L))).thenReturn(Optional.of(otherUsersTodo));
+        when(todoRepository.findByIdAndUser(eq(13L), eq(otherUser))).thenReturn(Optional.of(otherUsersTodo));
 
         // act
         MvcResult response = mockMvc.perform(get("/api/todos?id=13"))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
 
-        verify(todoRepository, times(1)).findById(eq(13L));
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 13 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(13L, u);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("EntityNotFoundException", json.get("type"));
+        assertEquals("Todo with id 13 not found", json.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
@@ -179,7 +182,7 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // assert
 
-        verify(todoRepository, times(1)).findById(eq(27L));
+        verify(todoRepository, times(1)).findById(27L);
         String expectedJson = mapper.writeValueAsString(otherUsersTodo);
         String responseString = response.getResponse().getContentAsString();
         assertEquals(expectedJson, responseString);
@@ -195,13 +198,14 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // act
         MvcResult response = mockMvc.perform(get("/api/todos/admin?id=29"))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
 
-        verify(todoRepository, times(1)).findById(eq(29L));
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 29 not found", responseString);
+        verify(todoRepository, times(1)).findById(29L);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("EntityNotFoundException", json.get("type"));
+        assertEquals("Todo with id 29 not found", json.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
@@ -299,7 +303,7 @@ public class TodosControllerTests extends ControllerTestCase {
 
         User u = currentUserService.getCurrentUser().getUser();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(u).id(15L).build();
-        when(todoRepository.findById(eq(15L))).thenReturn(Optional.of(todo1));
+        when(todoRepository.findByIdAndUser(eq(15L), eq(u))).thenReturn(Optional.of(todo1));
 
         // act
         MvcResult response = mockMvc.perform(
@@ -308,10 +312,10 @@ public class TodosControllerTests extends ControllerTestCase {
                 .andExpect(status().isOk()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(15L);
-        verify(todoRepository, times(1)).deleteById(15L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 15 deleted", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(15L, u);
+        verify(todoRepository, times(1)).delete(todo1);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("Todo with id 15 deleted", json.get("message"));
     }
 
     @WithMockUser(roles = { "USER" })
@@ -319,27 +323,28 @@ public class TodosControllerTests extends ControllerTestCase {
     public void api_todos__user_logged_in__delete_todo_that_does_not_exist() throws Exception {
         // arrange
 
+        User u = currentUserService.getCurrentUser().getUser();
         User otherUser = User.builder().id(98L).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(otherUser).id(15L).build();
-        when(todoRepository.findById(eq(15L))).thenReturn(Optional.empty());
+        when(todoRepository.findByIdAndUser(eq(15L), eq(otherUser))).thenReturn(Optional.of(todo1));
 
         // act
         MvcResult response = mockMvc.perform(
                 delete("/api/todos?id=15")
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(15L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 15 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(15L, u);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("Todo with id 15 not found", json.get("message"));
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void api_todos__user_logged_in__cannot_delete_todo_belonging_to_another_user() throws Exception {
         // arrange
-
+        User u = currentUserService.getCurrentUser().getUser();
         User otherUser = User.builder().id(98L).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(otherUser).id(31L).build();
         when(todoRepository.findById(eq(31L))).thenReturn(Optional.of(todo1));
@@ -348,12 +353,12 @@ public class TodosControllerTests extends ControllerTestCase {
         MvcResult response = mockMvc.perform(
                 delete("/api/todos?id=31")
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(31L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 31 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(31L, u);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("Todo with id 31 not found", json.get("message"));
     }
 
 
@@ -374,9 +379,9 @@ public class TodosControllerTests extends ControllerTestCase {
 
         // assert
         verify(todoRepository, times(1)).findById(16L);
-        verify(todoRepository, times(1)).deleteById(16L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 16 deleted", responseString);
+        verify(todoRepository, times(1)).delete(todo1);
+        Map<String, Object> output = responseToJson(response);
+        assertEquals("Todo with id 16 deleted", output.get("message"));
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
@@ -390,12 +395,12 @@ public class TodosControllerTests extends ControllerTestCase {
         MvcResult response = mockMvc.perform(
                 delete("/api/todos/admin?id=17")
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
         verify(todoRepository, times(1)).findById(17L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 17 not found", responseString);
+        Map<String, Object> output = responseToJson(response);
+        assertEquals("Todo with id 17 not found", output.get("message"));
     }
 
     @WithMockUser(roles = { "USER" })
@@ -407,7 +412,7 @@ public class TodosControllerTests extends ControllerTestCase {
         User otherUser = User.builder().id(999).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(u).id(67L).build();
         // We deliberately set the user information to another user
-        // This shoudl get ignored and overwritten with currrent user when todo is saved
+        // This should get ignored and overwritten with current user when todo is saved
 
         Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).user(otherUser).id(67L).build();
         Todo correctTodo = Todo.builder().title("New Title").details("New Details").done(true).user(u).id(67L).build();
@@ -415,7 +420,7 @@ public class TodosControllerTests extends ControllerTestCase {
         String requestBody = mapper.writeValueAsString(updatedTodo);
         String expectedReturn = mapper.writeValueAsString(correctTodo);
 
-        when(todoRepository.findById(eq(67L))).thenReturn(Optional.of(todo1));
+        when(todoRepository.findByIdAndUser(eq(67L), eq(u))).thenReturn(Optional.of(todo1));
 
         // act
         MvcResult response = mockMvc.perform(
@@ -427,7 +432,7 @@ public class TodosControllerTests extends ControllerTestCase {
                 .andExpect(status().isOk()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(67L);
+        verify(todoRepository, times(1)).findByIdAndUser(67L, u);
         verify(todoRepository, times(1)).save(correctTodo); // should be saved with correct user
         String responseString = response.getResponse().getContentAsString();
         assertEquals(expectedReturn, responseString);
@@ -438,11 +443,12 @@ public class TodosControllerTests extends ControllerTestCase {
     public void api_todos__user_logged_in__cannot_put_todo_that_does_not_exist() throws Exception {
         // arrange
 
+        User u = currentUserService.getCurrentUser().getUser();
         Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).id(67L).build();
 
         String requestBody = mapper.writeValueAsString(updatedTodo);
 
-        when(todoRepository.findById(eq(67L))).thenReturn(Optional.empty());
+        when(todoRepository.findByIdAndUser(eq(67L), eq(u))).thenReturn(Optional.empty());
 
         // act
         MvcResult response = mockMvc.perform(
@@ -451,12 +457,12 @@ public class TodosControllerTests extends ControllerTestCase {
                         .characterEncoding("utf-8")
                         .content(requestBody)
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(67L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 67 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(67L, u);
+        Map<String, Object> output = responseToJson(response);
+        assertEquals("Todo with id 67 not found", output.get("message"));
     }
 
 
@@ -465,15 +471,14 @@ public class TodosControllerTests extends ControllerTestCase {
     public void api_todos__user_logged_in__cannot_put_todo_for_another_user() throws Exception {
         // arrange
 
+        User u = currentUserService.getCurrentUser().getUser();
         User otherUser = User.builder().id(98L).build();
         Todo todo1 = Todo.builder().title("Todo 1").details("Todo 1").done(false).user(otherUser).id(31L).build();
         Todo updatedTodo = Todo.builder().title("New Title").details("New Details").done(true).id(31L).build();
 
-        when(todoRepository.findById(eq(31L))).thenReturn(Optional.of(todo1));
+        when(todoRepository.findByIdAndUser(eq(31L), eq(otherUser))).thenReturn(Optional.of(todo1));
 
         String requestBody = mapper.writeValueAsString(updatedTodo);
-
-        when(todoRepository.findById(eq(67L))).thenReturn(Optional.empty());
 
         // act
         MvcResult response = mockMvc.perform(
@@ -482,12 +487,13 @@ public class TodosControllerTests extends ControllerTestCase {
                         .characterEncoding("utf-8")
                         .content(requestBody)
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
-        verify(todoRepository, times(1)).findById(31L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 31 not found", responseString);
+        verify(todoRepository, times(1)).findByIdAndUser(31L, u);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("EntityNotFoundException", json.get("type"));
+        assertEquals("Todo with id 31 not found", json.get("message"));
     }
 
 
@@ -547,12 +553,13 @@ public class TodosControllerTests extends ControllerTestCase {
                         .characterEncoding("utf-8")
                         .content(requestBody)
                         .with(csrf()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         // assert
         verify(todoRepository, times(1)).findById(77L);
-        String responseString = response.getResponse().getContentAsString();
-        assertEquals("todo with id 77 not found", responseString);
+        Map<String, Object> json = responseToJson(response);
+        assertEquals("EntityNotFoundException", json.get("type"));
+        assertEquals("Todo with id 77 not found", json.get("message"));
     }
 
 }
