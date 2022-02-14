@@ -21,6 +21,7 @@ describe("UCSBDateForm tests", () => {
             </Router>
         );
         await waitFor(() => expect(getByText(/Quarter YYYYQ/)).toBeInTheDocument());
+        await waitFor(() => expect(getByText(/Create/)).toBeInTheDocument());
     });
 
 

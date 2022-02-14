@@ -3,6 +3,7 @@ import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import UCSBDatesTable from "main/components/UCSBDates/UCSBDatesTable"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import { currentUserFixtures } from "fixtures/currentUserFixtures";
 
 
 const mockedNavigate = jest.fn();
@@ -15,22 +16,53 @@ jest.mock('react-router-dom', () => ({
 describe("UserTable tests", () => {
   const queryClient = new QueryClient();
 
-  test("renders without crashing for empty table", () => {
+
+  test("renders without crashing for empty table with user not logged in", () => {
+    const currentUser = null;
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable dates={[]} />
+          <UCSBDatesTable dates={[]} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+  });
+  test("renders without crashing for empty table for ordinary user", () => {
+    const currentUser = currentUserFixtures.userOnly;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBDatesTable dates={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
   });
 
-  test("Has the expected colum headers and content", () => {
+  test("renders without crashing for empty table for admin", () => {
+    const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBDatesTable dates={[]} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+  });
+
+  test("Has the expected colum headers and content for adminUser", () => {
+
+    const currentUser = currentUserFixtures.adminUser;
+
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} />
+          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -63,11 +95,14 @@ describe("UserTable tests", () => {
 
   });
 
-  test("Edit button navigates to the edit page", async () => {
+  test("Edit button navigates to the edit page for admin user", async () => {
+
+    const currentUser = currentUserFixtures.adminUser;
+
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} />
+          <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 

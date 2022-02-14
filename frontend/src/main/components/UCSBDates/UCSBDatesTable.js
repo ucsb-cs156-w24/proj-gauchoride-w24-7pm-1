@@ -2,10 +2,11 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 // import { toast } from "react-toastify";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess} from "main/utils/UCSBDateUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/UCSBDateUtils"
 import { useNavigate } from "react-router-dom";
+import { hasRole } from "main/utils/currentUser";
 
-export default function UCSBDatesTable({ dates }) {
+export default function UCSBDatesTable({ dates, currentUser }) {
 
     const navigate = useNavigate();
 
@@ -42,10 +43,13 @@ export default function UCSBDatesTable({ dates }) {
         {
             Header: 'Date',
             accessor: 'localDateTime',
-        },
-        ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable")
+        }
     ];
+
+    if (hasRole(currentUser, "ROLE_ADMIN")) {
+        columns.push(ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"));
+        columns.push(ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable"));
+    } 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
     const memoizedColumns = React.useMemo(() => columns, [columns]);

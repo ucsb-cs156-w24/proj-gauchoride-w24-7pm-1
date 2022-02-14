@@ -28,15 +28,22 @@ describe("UCSBDatesIndexPage tests", () => {
 
     const testId = "UCSBDatesTable";
 
-
-    beforeEach(() => {
+    const setupUserOnly = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-    });
+    };
 
-    test("renders without crashing", () => {
+    const setupAdminUser = () => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    };
+
+    test("renders without crashing for regular user", () => {
+        setupUserOnly();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
 
@@ -51,7 +58,24 @@ describe("UCSBDatesIndexPage tests", () => {
 
     });
 
-    test("renders three dates without crashing", async () => {
+    test("renders without crashing for admin user", () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <UCSBDatesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+
+    });
+
+    test("renders three dates without crashing for regular user", async () => {
+        setupUserOnly();
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, ucsbDatesFixtures.threeDates);
 
@@ -69,7 +93,28 @@ describe("UCSBDatesIndexPage tests", () => {
 
     });
 
-    test("renders empty table when backend unavailable", async () => {
+    test("renders three dates without crashing for admin user", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdates/all").reply(200, ucsbDatesFixtures.threeDates);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <UCSBDatesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
+
+    });
+
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
+
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdates/all").timeout();
 
@@ -92,7 +137,9 @@ describe("UCSBDatesIndexPage tests", () => {
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
-    test("test what happens when you click delete", async () => {
+    test("test what happens when you click delete, admin", async () => {
+        setupAdminUser();
+
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdates/all").reply(200, ucsbDatesFixtures.threeDates);
         axiosMock.onDelete("/api/ucsbdates").reply(200, "UCSBDate with id 1 was deleted");

@@ -12,8 +12,15 @@ export default function UCSBDatesEditPage() {
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       [`/api/ucsbdates?id=${id}`],
-      { method: "GET", url: `/api/ucsbdates?id=${id}` }
+      {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
+        method: "GET",
+        url: `/api/ucsbdates`,
+        params: {
+          id
+        }
+      }
     );
+
 
   const objectToAxiosPutParams = (ucsbDate) => ({
     url: "/api/ucsbdates",
@@ -50,15 +57,12 @@ export default function UCSBDatesEditPage() {
   }
 
   return (
-    <>
-      { (status === 'success') && ucsbDate && (
-        <BasicLayout>
-          <div className="pt-2">
-            <h1>Edit UCSBDate</h1>
-            <UCSBDateForm ucsbDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
-          </div>
-        </BasicLayout>
-      )}
-    </>
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Edit UCSBDate</h1>
+        <UCSBDateForm ucsbDate={ucsbDate} submitAction={onSubmit} buttonLabel="Update" />
+      </div>
+    </BasicLayout>
   )
 }
+
