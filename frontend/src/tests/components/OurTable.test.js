@@ -1,5 +1,5 @@
 import { render, waitFor, fireEvent } from "@testing-library/react";
-import OurTable from "main/components/OurTable";
+import OurTable, {ButtonColumn} from "main/components/OurTable";
 
 describe("OurTable tests", () => {
     const threeRows = [
@@ -17,6 +17,8 @@ describe("OurTable tests", () => {
         }
     ];
 
+    const clickMeCallback = jest.fn();
+
     const columns = [
         {
             Header: 'Column 1',
@@ -25,7 +27,8 @@ describe("OurTable tests", () => {
         {
             Header: 'Column 2',
             accessor: 'col2',
-        }
+        },
+        ButtonColumn("Click", "primary", clickMeCallback, "testId"),
     ];
 
     test("renders an empty table without crashing", () => {
@@ -34,10 +37,21 @@ describe("OurTable tests", () => {
         );
     });
 
-    test("renders a table with two rows without crashing", () => {
+    test("renders a table with three rows without crashing", () => {
         render(
             <OurTable columns={columns} data={threeRows} />
         );
+    });
+
+    test("The button appears in the table", async () => {
+        const {getByTestId} = render(
+            <OurTable columns={columns} data={threeRows} />
+        );
+
+        await waitFor(()=> expect(getByTestId("testId-cell-row-0-col-Click-button")).toBeInTheDocument() );
+        const button = getByTestId("testId-cell-row-0-col-Click-button");
+        fireEvent.click(button);
+        await waitFor(()=>expect(clickMeCallback).toBeCalledTimes(1));
     });
 
     test("default testid is testId", async () => {

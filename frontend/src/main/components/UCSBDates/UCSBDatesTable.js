@@ -2,47 +2,12 @@ import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { toast } from "react-toastify";
 import { useBackendMutation } from "main/utils/useBackend";
-// import {useQueryClient} from "react-query";
+import { cellToAxiosParamsDelete, onDeleteSuccess, editCallback } from "main/utils/UCSBDateUtils"
 
 export default function UCSBDatesTable({ dates }) {
-
-    // const queryClient = useQueryClient();
-
-    const editCallback = (cell) =>
-        toast(`Edit Callback called on id: ${cell.row.values.id} name: ${cell.row.values.name}`);
-
-    const cellToAxiosParamsDelete = (cell) => ({
-        url: "/api/ucsbdates",
-        method: "DELETE",
-        params: {
-            id: cell.row.values.id
-        }
-    });
-
-    const onDeleteSuccess = (message) => {
-        // const message = `Delete Callback called on id: ${cell.row.values.id} name: ${cell.row.values.name}`;
-        // const message = `on delete success, cell=${cell}`
-        console.log(message);
-        toast(message);
-    }
-
+  
     const deleteMutation = useBackendMutation(cellToAxiosParamsDelete, { onSuccess: onDeleteSuccess },  ["/api/ucsbdates/all"]);
-
-    const deleteCallback = async (cell) => {
-        console.log(`start deleteCallback: id=${cell.row.values.id}`)
-        deleteMutation.mutate(cell);
-        // If it were possible, we'd do this: 
-        //   dates =  dates.filter ( (date) => date.id != cell.row.values.id );
-        // But for now, we'll just refresh the page.  There should be a better way:
-        // window.location.reload(false);
-
-        // await queryClient.invalidateQueries(["/api/ucsbdates/all"], {
-        //     exact: true,
-        //     refetchActive: true,
-        //     refetchInactive: false
-        //   }, { throwOnError: true, cancelRefetch: true })
-        console.log(`end deleteCallback: id=${cell.row.values.id}`)
-    }
+    const deleteCallback = async (cell) => { deleteMutation.mutate(cell);  }
 
     const columns = [
         {
@@ -65,6 +30,7 @@ export default function UCSBDatesTable({ dates }) {
         ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable")
     ];
 
+    // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
     const memoizedColumns = React.useMemo(() => columns, [columns]);
     const memoizedDates = React.useMemo(() => dates, [dates]);
 
