@@ -14,7 +14,7 @@ describe("ProfilePage tests", () => {
 
     test("renders correctly for regular logged in user", async () => {
 
-        var axiosMock = new AxiosMockAdapter(axios);
+        const axiosMock =new AxiosMockAdapter(axios);
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
@@ -32,7 +32,7 @@ describe("ProfilePage tests", () => {
 
     test("renders correctly for admin user", async () => {
 
-        var axiosMock = new AxiosMockAdapter(axios);
+        const axiosMock =new AxiosMockAdapter(axios);
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 

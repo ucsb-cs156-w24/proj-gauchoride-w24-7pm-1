@@ -20,7 +20,7 @@ describe("utils/systemInfo tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/systemInfo").timeoutOnce();
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
@@ -55,7 +55,7 @@ describe("utils/systemInfo tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingBoth);
 
             const { result, waitFor } = renderHook(() => useSystemInfo(), { wrapper });
@@ -77,7 +77,7 @@ describe("utils/systemInfo tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/systemInfo").reply(404)
 
             const restoreConsole = mockConsole();

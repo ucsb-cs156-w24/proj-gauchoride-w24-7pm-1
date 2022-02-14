@@ -23,7 +23,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").timeoutOnce();
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
@@ -54,7 +54,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
@@ -77,7 +77,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").reply(404)
 
             const restoreConsole = mockConsole();
@@ -103,7 +103,7 @@ describe("utils/currentUser tests", () => {
             );
 
             const apiResult = apiCurrentUserFixtures.missingRolesToTestErrorHandling;
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onGet("/api/currentUser").reply(200, apiResult);
 
             const restoreConsole = mockConsole();
@@ -132,7 +132,7 @@ describe("utils/currentUser tests", () => {
                 </QueryClientProvider>
             );
 
-            var axiosMock = new AxiosMockAdapter(axios);
+            const axiosMock =new AxiosMockAdapter(axios);
             axiosMock.onPost("/logout").reply(200);
 
             const navigateSpy = jest.fn();

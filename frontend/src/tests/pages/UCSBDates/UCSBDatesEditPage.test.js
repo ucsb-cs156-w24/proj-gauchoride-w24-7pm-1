@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
-import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
 import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -11,7 +11,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 
 describe("UCSBDatesCreatePage tests", () => {
 
-    var axiosMock = new AxiosMockAdapter(axios);
+    const axiosMock =new AxiosMockAdapter(axios);
     axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
@@ -20,7 +20,7 @@ describe("UCSBDatesCreatePage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesCreatePage />
+                    <UCSBDatesEditPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
