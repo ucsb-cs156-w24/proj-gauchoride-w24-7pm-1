@@ -24,7 +24,7 @@ export default function UCSBDatesCreatePage() {
     toast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
   }
 
-  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess });
+  const mutation = useBackendMutation(objectToAxiosParams, { onSuccess }, ["/api/ucsbdates/all"]);
 
   const { isSuccess } = mutation
 
