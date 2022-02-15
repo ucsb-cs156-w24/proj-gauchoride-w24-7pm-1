@@ -75,34 +75,12 @@ describe("StudentsTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
+    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("abcd1234abcd1234abcd1234");
+    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("abcd5678abcd5678abcd5678");
     expect(getByTestId(`${testId}-cell-row-0-col-firstName`)).toHaveTextContent("Chris");
     expect(getByTestId(`${testId}-cell-row-1-col-firstName`)).toHaveTextContent("Seth");
 
   });
-
-  // test("Edit button navigates to the edit page for admin user", async () => {
-
-  //   const currentUser = currentUserFixtures.adminUser;
-
-  //   const { getByText, getByTestId } = render(
-  //     <QueryClientProvider client={queryClient}>
-  //       <MemoryRouter>
-  //         <StudentsTable dates={StudentsFixtures.threeDates} currentUser={currentUser} />
-  //       </MemoryRouter>
-  //     </QueryClientProvider>
-
-  //   );
-
-  //   await waitFor(() => { expect(getByTestId(`StudentsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
-
-  //   const editButton = getByTestId(`StudentsTable-cell-row-0-col-Edit-button`);
-  //   expect(editButton).toBeInTheDocument();
-    
-  //   fireEvent.click(editButton);
-
-  //   await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/Students/edit/1'));
-
-  // });
 
 });
 

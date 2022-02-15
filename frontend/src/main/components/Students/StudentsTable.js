@@ -22,9 +22,10 @@ export default function StudentsTable({ students, currentUser }) {
         }
     ];
 
-    // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
+    // Stryker disable ArrayDeclaration : [columns] and [students] are performance optimization; mutation preserves correctness
     const memoizedColumns = React.useMemo(() => columns, [columns]);
     const memoizedDates = React.useMemo(() => students, [students]);
+    // Stryker enable ArrayDeclaration
 
     return <OurTable
         data={memoizedDates}
