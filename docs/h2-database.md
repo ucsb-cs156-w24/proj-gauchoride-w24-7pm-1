@@ -17,6 +17,8 @@ This is both good and bad; the key thing is to be aware of this.
 
 # The H2 Console
 
+* On localhost only: <http://localhost:8080/h2-console>  See also: [docs/h2-console.md](docs/h2-console.md)
+
 It isn't necessarily a course goal for you to become fully proficient in SQL (Structured Query Language, the language used to manipulate databases.)
 
 But a little SQL can go a long way, and it can sometimes be helpful to peek under the hood at the database to see what's going on.
