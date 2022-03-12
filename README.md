@@ -77,31 +77,15 @@ To access the swagger API endpoints, use:
 
 * For documentation on React Storybook, see: https://storybook.js.org/
 
-# Accessing Database Console
+# SQL Database access
 
-* On localhost only: <http://localhost:8080/h2-console>  See also: [docs/h2-console.md](docs/h2-console.md)
-* On Heroku, with CLI:
-  - Use: `heroku psql --app app-name-here` 
-  - Note that this requires that you have the psql CLI tool installed on your system.  
-  - This does work on CSIL, but you may need `heroku login -i` in order to login on CSIL
-  - Example:
-   
-    ```
-    [pconrad@csilvm-03 ~]$ heroku psql --app demo-spring-react-example
-    ›   Warning: heroku update available from 7.59.1 to 7.59.2.
-    --> Connecting to postgresql-tapered-84555
-    psql (13.4, server 13.5 (Ubuntu 13.5-2.pgdg20.04+1))
-    SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
-    Type "help" for help.
+On localhost:
+* The SQL database is an H2 database and the data is stored in a file under `target`
+* Each time you do `mvn clean` the database is completely rebuilt from scratch
+* You can access the database console via a special route, <http://localhost:8080/h2-console>
+* For more info, see [docs/h2-database.md](/docs/h2-database.md)
 
-    demo-spring-react-example::DATABASE=> 
-    ```
-* On Heroku, without CLI: 
-  - Upper right of dashboard, select "More" then "Run Console"
-    
-    <img alt="Heroku Dashboard; More; Run Console" src="https://user-images.githubusercontent.com/1119017/150204550-a1027ab8-6ce7-4770-b566-a43928f5c3a0.png" width="300" />
-  - Enter `psql $DATABASE_URL` and click `Run`
-   
-    <img alt="Enter psql $DATABASE_URL and click Run" src="https://user-images.githubusercontent.com/1119017/150206174-43193825-1afd-49f4-aeaf-cfadf0c0c6f3.png" width="400" />
-* Cheatsheet of `psql` commands: <https://www.geeksforgeeks.org/postgresql-psql-commands/>
-
+On Heroku:
+* The SQL database is a postgres database provisioned automatically by Heroku
+* You can reset it with `heroku pg:reset --app app-name-goes-here`
+* More info and instructions for access the SQL prompt are at [docs/postgres-database.md](/docs/postgres-database.md)
