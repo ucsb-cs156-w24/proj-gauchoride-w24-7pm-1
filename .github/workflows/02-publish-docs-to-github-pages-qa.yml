@@ -1,5 +1,6 @@
 
-name: 00 Publish 01 docs (Storybook) to GitHub Pages QA
+name: "02-publish-docs-to-github-pages-qa: Publish QA Storybook to GitHub Pages"
+
 on: 
   workflow_dispatch:
   pull_request:
