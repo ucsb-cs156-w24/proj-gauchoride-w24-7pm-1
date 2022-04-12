@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   build-and-deploy:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
       - name: "Create -docs repo"
@@ -18,7 +19,6 @@ jobs:
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
           HOMEPAGE="https://${OWNER}.github.io/${REPOSITORY}${SUFFIX}"
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
-          echo $GH_TOKEN | gh auth login --with-token
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
@@ -47,7 +47,6 @@ jobs:
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
           HOMEPAGE="https://${OWNER}.github.io/${REPOSITORY}${SUFFIX}"
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
-          echo $GH_TOKEN | gh auth login --with-token
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
@@ -61,7 +60,6 @@ jobs:
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
           HOMEPAGE="https://${OWNER}.github.io/${REPOSITORY}${SUFFIX}"
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
-          echo $GH_TOKEN | gh auth login --with-token
           gh repo edit ${NEW_REPO} --homepage ${HOMEPAGE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
