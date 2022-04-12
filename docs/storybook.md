@@ -40,7 +40,7 @@ The GitHub actions script to deploy the Storybook to QA requires that a reposito
 
 ![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
 
-Copy the personal access token value, then visit the Settings for this repo, and add a repository secret called `DOCS_TOKEN` and paste in the Personal Access Token value.
+Copy the personal access token value, then visit the Settings for this repo (the main repo, not the `-docs` or `-docs-qa` repos), and add a repository secret called `DOCS_TOKEN` and paste in the Personal Access Token value.
 
 ## Update the links in the README.md
 
