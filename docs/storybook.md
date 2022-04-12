@@ -5,7 +5,16 @@ failures of the GitHub Actions scripts that set up and update the Storybook.
 
 This file describes the one-time setup steps necessary to get that working.
 
-## Setting up the repos
+## Setting up a Personal Access Token for GitHub Actions
+
+The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `DOCS_TOKEN` be set up; this should be an access token for the repository.   This secret can be obtained by visiting the settings page for either the organization, or a user with access to the organization, visiting Developer Settings, and then Personal Access Tokens. 
+
+![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
+
+Copy the personal access token value, then visit the Settings for this repo, and add a repository secret called `DOCS_TOKEN` and paste in the Personal Access Token value.
+
+
+## Setting up the `-docs-` and `-docs-qa` repos.
 
 First, you'll need to set up two repos that have the same name as this repo, in the same organization, but with these suffixes:
 
@@ -17,12 +26,56 @@ For example, for `demo-spring-react-example`, you set up:
 * `demo-spring-react-example-docs`, which is updated when changes are merged to the main branch
 * `demo-spring-react-example-docs-qa`, which is updated each time a pull request to the main branch is made
 
-Note that the contents of the qa repo will reflect the *most recent* push to a branch that has an open pull-request, so if there are multiple pull requests,
-it may be ambiguous.  Future work might include creating separate directories under the docs-qa folder with names for each branch, and a job that deletes these when these branches are merged to `main`.
+There is a GitHub Action that should set these up for you, provided that the personal access token is set up properly.  To run that script, take these steps:
+
+1. Visit this repos's page on GitHub
+2. You should see a tab for Actions like this (`Actions` is fourth from the left, after `Pull Requests`)
+ 
+   <img width="988" alt="image" src="https://user-images.githubusercontent.com/1119017/163041904-af830ecc-8530-4cf6-be18-78a16c3d30d9.png">
+  
+   If there is no `Actions` tab, go under `Settings` and enable it, like this (note that `Actions` is in the left-navigation)
+  
+   <img width="1158" alt="image" src="https://user-images.githubusercontent.com/1119017/163042157-75863770-b595-4ed1-842c-ec390cc402f2.png">
+3. Click on the Actions tab, and you should see this:
+   <img width="1326" alt="image" src="https://user-images.githubusercontent.com/1119017/163042423-526da9fc-3307-4151-a555-a11d28d0c984.png">
+4. Click on the top action, and you should see the title: `00-publish-docs-to-github-pages-setup: set up -docs and -docs-qa repos (run once, manually)`
+   
+   Like this:
+   <img width="1275" alt="image" src="https://user-images.githubusercontent.com/1119017/163042524-7453ea9b-3ad4-483c-8cf9-8a84b86f75f8.png">
+
+   Click where it says: `Run Workflow` at the right, and you should see a dropdown like this with a Green `Run Workflow` button.  
+   Click that button.
+   
+   <img width="413" alt="image" src="https://user-images.githubusercontent.com/1119017/163042648-ac93f982-8e43-4bcf-8b17-69ac81892a67.png">
+
+   After clicking, wait a few seconds; don't click again immediately. It takes 5-10 seconds for the screen to update.
+  
+   Then you should see something like this:
+
+   <img width="965" alt="image" src="https://user-images.githubusercontent.com/1119017/163042766-f075a540-6ed1-4eb7-86a0-129a8a7171fc.png">
+
+   That means the script is running to create the repos.
+
+5. When the script is done, the repos should be created.
+
+But if they are not, then just create them manually.  Be careful that the names match the requested names *exactly* or the other scripts will not work properly.
+
+
+## Run the GitHub Actions to populate the repos
+
+The next step is to manually trigger two GitHub actions that populate the repos:
+
+Those are:
+
+
+* 02-publish-docs-to-github-pages-qa: Publish QA Storybook to GitHub Pages
+* 04-publish-docs-to-github-pages-prod: Publish production Storybook to GitHub Pages
+
+
 
 ## Enable GitHub Pages in the docs repos
 
-Then, for each of those repos, visit the repo settings and go to Pages.
+For each of the two new  repos you create (`-docs` and `-docs-qa`), visit the repo settings and go to Pages.
 
 Enable GitHub Pages on the `main` branch, in the `docs` folder for each repo.
 
@@ -34,13 +87,7 @@ Note that the `main` branch and the `docs/` folder must exist before you can do 
 first create an empty `README.md` to establish the `main` branch, then create an empty file called `docs/.keep` on the main branch to establish the
 `docs/` folder.
 
-## Setting up a Personal Access Token for GitHub Actions
 
-The GitHub actions script to deploy the Storybook to QA requires that a repository secret called `DOCS_TOKEN` be set up; this should be an access token for the repository.   This secret can be obtained by visiting the settings page for either the organization, or a user with access to the organization, visiting Developer Settings, and then Personal Access Tokens. 
-
-![image](https://user-images.githubusercontent.com/1119017/147836507-0190801c-ce94-4e5a-9abe-6a1d2d0455af.png)
-
-Copy the personal access token value, then visit the Settings for this repo (the main repo, not the `-docs` or `-docs-qa` repos), and add a repository secret called `DOCS_TOKEN` and paste in the Personal Access Token value.
 
 ## Update the links in the README.md
 
