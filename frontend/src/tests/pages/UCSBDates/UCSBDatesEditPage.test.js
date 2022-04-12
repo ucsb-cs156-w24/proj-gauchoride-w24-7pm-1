@@ -8,6 +8,7 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
+import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -48,6 +49,9 @@ describe("UCSBDatesEditPage tests", () => {
 
         const queryClient = new QueryClient();
         test("renders header but table is not present", async () => {
+
+            const restoreConsole = mockConsole();
+
             const {getByText, queryByTestId} = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
@@ -57,6 +61,7 @@ describe("UCSBDatesEditPage tests", () => {
             );
             await waitFor(() => expect(getByText("Edit UCSBDate")).toBeInTheDocument());
             expect(queryByTestId("UCSBDateForm-quarterYYYYQ")).not.toBeInTheDocument();
+            restoreConsole();
         });
     });
 

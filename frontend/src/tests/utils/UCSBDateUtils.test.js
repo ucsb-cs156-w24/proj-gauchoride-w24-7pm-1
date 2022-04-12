@@ -50,23 +50,6 @@ describe("UCSBDateUtils", () => {
         });
 
     });
-    // describe("editCallback", () => {
-
-    //     test("It pops up the expected toast", () => {
-    //         // arrange
-    //         const cell = { row: { values: { id: 17, name: "Groundhog Day" } } };
-    //         const expectedToast =  `Edit Callback called on id: 17 name: Groundhog Day`
-
-    //         // act
-    //         const result = editCallback(cell);
-
-    //         // assert
-
-    //         expect(mockToast).toHaveBeenCalledWith(expectedToast);
-           
-    //     });
-
-    // });
 });
 
 

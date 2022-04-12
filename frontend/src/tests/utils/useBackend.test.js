@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { renderHook, act } from '@testing-library/react-hooks'
-import mockConsole from "jest-mock-console";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
@@ -21,6 +20,16 @@ jest.mock('react-toastify', () => {
 
 
 describe("utils/useBackend tests", () => {
+
+    beforeEach(() => {
+        jest.spyOn(console, 'error')
+        console.error.mockImplementation(() => null);
+    });
+
+    afterEach(() => {
+        console.error.mockRestore()
+    });
+ 
     describe("utils/useBackend useBackend tests", () => {
 
         test("test useBackend handles 404 error correctly", async () => {
@@ -44,8 +53,6 @@ describe("utils/useBackend tests", () => {
 
             axiosMock.onGet("/api/admin/users").reply(404, {});
 
-            const restoreConsole = mockConsole();
-
             const { result, waitFor } = renderHook(() => useBackend(
                 ["/api/admin/users"],
                 { method: "GET", url: "/api/admin/users" },
@@ -58,7 +65,6 @@ describe("utils/useBackend tests", () => {
             await waitFor(() => expect(console.error).toHaveBeenCalled());
             const errorMessage = console.error.mock.calls[0][0];
             expect(errorMessage).toMatch("Error communicating with backend via GET on /api/admin/users");
-            restoreConsole();
 
         });
     });
@@ -89,10 +95,6 @@ describe("utils/useBackend tests", () => {
                 localDateTime: '2022-02-02T12:00'
 
             });
-            // axiosMock.onPost("/api/ucsbdate/post").timeout();
-
-
-            // const restoreConsole = mockConsole();
 
             const objectToAxiosParams = (ucsbDate) => ({
                 url: "/api/ucsbdates/post",
@@ -119,19 +121,10 @@ describe("utils/useBackend tests", () => {
                 localDateTime: '2022-02-02T12:00'
             }));
 
-
             await waitFor(() => expect(onSuccess).toHaveBeenCalled());
             expect(mockToast).toHaveBeenCalledWith("New ucsbDate Created - id: 17 name: Groundhog Day");
-
-            // const errorMessage = console.error.mock.calls[0][0];
-            // expect(errorMessage).toMatch("Fake");
-            // restoreConsole();
-
-
         });
         test("test useBackendMutation handles error correctly", async () => {
-
-            const restoreConsole = mockConsole();
 
 
             // See: https://react-query.tanstack.com/guides/testing#turn-off-retries
@@ -166,7 +159,6 @@ describe("utils/useBackend tests", () => {
                 mockToast(`New ucsbDate Created - id: ${ucsbDate.id} name: ${ucsbDate.name}`);
             });
 
-
             const { result, waitFor } = renderHook(
                 () => useBackendMutation(objectToAxiosParams, { onSuccess }), { wrapper }
             );
@@ -175,8 +167,8 @@ describe("utils/useBackend tests", () => {
 
             mutation.mutate({
                 quarterYYYYQ: '20221',
-                name: 'Groundhog Day',
-                localDateTime: '2022-02-02T12:00'
+                name: 'Bastille Day',
+                localDateTime: '2022-06-14T12:00'
             }, {
                 onError: (e) => console.error("onError from mutation.mutate called!", String(e).substring(0, 199))
             });
@@ -186,13 +178,13 @@ describe("utils/useBackend tests", () => {
             expect(mockToast).toHaveBeenCalledWith("Axios Error: Error: Request failed with status code 404");
             expect(mockToast).toHaveBeenCalledWith("Error: Request failed with status code 404");
 
-            expect(console.error).toHaveBeenCalledTimes(2);
+            expect(console.error).toHaveBeenCalledTimes(3);
             const errorMessage0 = console.error.mock.calls[0][0];
             expect(errorMessage0).toMatch(/Axios Error:/);
             const errorMessage1 = console.error.mock.calls[1][0];
-            expect(errorMessage1).toMatch(/onError from mutation.mutate/);
-
-            restoreConsole();
+            expect(errorMessage1.message).toMatch(/Request failed with status code 404/);
+            const errorMessage2 = console.error.mock.calls[2][0];
+            expect(errorMessage2).toMatch(/onError from mutation.mutate called!/);
         });
     });
 });
