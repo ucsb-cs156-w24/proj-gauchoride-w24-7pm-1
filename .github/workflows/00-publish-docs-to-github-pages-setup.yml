@@ -21,8 +21,7 @@ jobs:
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
-          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.DOCS_TOKEN}}
       - name: "Set homepage in -docs repo"
         working-directory: .
         continue-on-error: true
@@ -35,7 +34,7 @@ jobs:
           echo $GH_TOKEN | gh auth login --with-token
           gh repo edit ${NEW_REPO} --homepage ${HOMEPAGE}
         env:
-          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.DOCS_TOKEN}}
       - name: "Create -docs-qa repo"
         working-directory: .
         continue-on-error: true
@@ -50,8 +49,7 @@ jobs:
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
-          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.DOCS_TOKEN}}
       - name: "Set homepage in -docs-qa repo"
         working-directory: .
         continue-on-error: true
@@ -64,7 +62,6 @@ jobs:
           NEW_REPO=${OWNER_PLUS_REPOSITORY}${SUFFIX}
           gh repo edit ${NEW_REPO} --homepage ${HOMEPAGE}
         env:
-          GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.DOCS_TOKEN}}
 
    
