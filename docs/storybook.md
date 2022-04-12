@@ -67,11 +67,10 @@ The next step is to manually trigger two GitHub actions that populate the repos:
 
 Those are:
 
-
 * 02-publish-docs-to-github-pages-qa: Publish QA Storybook to GitHub Pages
 * 04-publish-docs-to-github-pages-prod: Publish production Storybook to GitHub Pages
 
-
+Trigger each of these manually under the `Actions` tab on the main repo.  They should populate the repo with content.
 
 ## Enable GitHub Pages in the docs repos
 
@@ -86,7 +85,6 @@ That looks like this:
 Note that the `main` branch and the `docs/` folder must exist before you can do this.  If necessary, you can use the GitHub web interface to
 first create an empty `README.md` to establish the `main` branch, then create an empty file called `docs/.keep` on the main branch to establish the
 `docs/` folder.
-
 
 
 ## Update the links in the README.md
