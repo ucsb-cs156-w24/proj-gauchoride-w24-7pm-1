@@ -22,6 +22,7 @@ jobs:
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: "Set homepage in -docs repo"
         working-directory: .
         continue-on-error: true
@@ -50,6 +51,7 @@ jobs:
           gh repo create ${NEW_REPO} --public --description "${DESC}" --template ${TEMPLATE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: "Set homepage in -docs-qa repo"
         working-directory: .
         continue-on-error: true
@@ -63,4 +65,6 @@ jobs:
           gh repo edit ${NEW_REPO} --homepage ${HOMEPAGE}
         env:
           GH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
    
