@@ -6,6 +6,9 @@ import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.repositories.UCSBDateRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,14 +19,14 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Optional;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -76,7 +79,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(403)); // only admins can post
         }
 
-        // Tests with mocks for database actions
+        // // Tests with mocks for database actions
 
         @WithMockUser(roles = { "USER" })
         @Test
@@ -115,13 +118,14 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(get("/api/ucsbdates?id=7"))
-                                .andExpect(status().isBadRequest()).andReturn();
+                                .andExpect(status().isNotFound()).andReturn();
 
                 // assert
 
                 verify(ucsbDateRepository, times(1)).findById(eq(7L));
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals("UCSBDate with id 7 not found", responseString);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("EntityNotFoundException", json.get("type"));
+                assertEquals("UCSBDate with id 7 not found", json.get("message"));
         }
 
         @WithMockUser(roles = { "USER" })
@@ -202,8 +206,7 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                                 .quarterYYYYQ("20222")
                                 .localDateTime(ldt1)
                                 .build();
-             
-               
+
                 when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.of(ucsbDate1));
 
                 // act
@@ -214,14 +217,16 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
 
                 // assert
                 verify(ucsbDateRepository, times(1)).findById(15L);
-                verify(ucsbDateRepository, times(1)).deleteById(15L);
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals("UCSBDate with id 15 deleted", responseString);
+                verify(ucsbDateRepository, times(1)).delete(any());
+
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBDate with id 15 deleted", json.get("message"));
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message() throws Exception {
+        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+                        throws Exception {
                 // arrange
 
                 when(ucsbDateRepository.findById(eq(15L))).thenReturn(Optional.empty());
@@ -230,15 +235,14 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                 MvcResult response = mockMvc.perform(
                                 delete("/api/ucsbdates?id=15")
                                                 .with(csrf()))
-                                .andExpect(status().isBadRequest()).andReturn();
+                                .andExpect(status().isNotFound()).andReturn();
 
                 // assert
                 verify(ucsbDateRepository, times(1)).findById(15L);
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals("UCSBDate with id 15 not found", responseString);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBDate with id 15 not found", json.get("message"));
         }
 
-    
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void admin_can_edit_an_existing_ucsbdate() throws Exception {
@@ -252,13 +256,13 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                                 .quarterYYYYQ("20222")
                                 .localDateTime(ldt1)
                                 .build();
-             
+
                 UCSBDate ucsbDateEdited = UCSBDate.builder()
                                 .name("firstDayOfFestivus")
                                 .quarterYYYYQ("20232")
                                 .localDateTime(ldt2)
                                 .build();
-             
+
                 String requestBody = mapper.writeValueAsString(ucsbDateEdited);
 
                 when(ucsbDateRepository.findById(eq(67L))).thenReturn(Optional.of(ucsbDateOrig));
@@ -303,11 +307,12 @@ public class UCSBDatesControllerTests extends ControllerTestCase {
                                                 .characterEncoding("utf-8")
                                                 .content(requestBody)
                                                 .with(csrf()))
-                                .andExpect(status().isBadRequest()).andReturn();
+                                .andExpect(status().isNotFound()).andReturn();
 
                 // assert
                 verify(ucsbDateRepository, times(1)).findById(67L);
-                String responseString = response.getResponse().getContentAsString();
-                assertEquals("UCSBDate with id 67 not found", responseString);
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBDate with id 67 not found", json.get("message"));
+
         }
 }
