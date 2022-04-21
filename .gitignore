@@ -49,4 +49,4 @@ build/
 .vscode/
 
 ### Local Configuration ###
-.env
+.env.DS_Store

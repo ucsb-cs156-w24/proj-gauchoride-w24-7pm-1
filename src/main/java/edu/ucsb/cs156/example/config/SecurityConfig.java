@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           log.info("********** userAttributes={}", userAttributes);
 
           String email = (String) userAttributes.get("email");
-          if (isAdmin(email)) {
+          if (getAdmin(email)) {
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
           }
 
@@ -95,11 +95,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
   }
 
-  public boolean isAdmin(String email) {
+  public boolean getAdmin(String email) {
     if (adminEmails.contains(email)) {
       return true;
     }
     Optional<User> u = userRepository.findByEmail(email);
-    return u.isPresent() && u.get().isAdmin();
+    return u.isPresent() && u.get().getAdmin();
   }
 }

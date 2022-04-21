@@ -61,7 +61,7 @@ public class CurrentUserServiceImpl extends CurrentUserService {
     Optional<User> ou = userRepository.findByEmail(email);
     if (ou.isPresent()) {
       User u = ou.get();
-      if (adminEmails.contains(email) && !u.isAdmin()) {
+      if (adminEmails.contains(email) && !u.getAdmin()) {
         u.setAdmin(true);
         userRepository.save(u);
       }
