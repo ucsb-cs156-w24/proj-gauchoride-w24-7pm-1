@@ -28,6 +28,4 @@ Set up codecov token and codecov badge.
    
    Copy the Markdown for the badge.  
    
-   Put it in your README.md.  (Make a branch and do a PR for this, even
-   though it may seem like a trivial change.  It's good to practice
-   the mechanics here, since you'll need to do them many times in this course.)
+   Put it at the beginning of your README.md under the first header. (Make a branch and do a PR for this, even though it may seem like a trivial change. It's good to practice the mechanics here, since you'll need to do them many times in this course.)

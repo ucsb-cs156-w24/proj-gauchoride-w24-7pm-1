@@ -6,7 +6,7 @@ Create `ArticleController`, add `GET` (index) and `POST` (create)
       in the expected directory.
 - [ ] In `ArticleController.java` there is 
       code for a `GET /api/Article/all` endpoint 
-      that returns a JSON list of all subreddits in the database.
+      that returns a JSON list of all `Article`s in the database.
       (We sometimes call this an *index* action since it lists all
       items in the database.)
 - [ ] In `ArticleController.java` there is 

@@ -6,7 +6,7 @@ Create `UCSBDiningCommonsMenuItemController`, add `GET` (index) and `POST` (crea
       in the expected directory.
 - [ ] In `UCSBDiningCommonsMenuItemController.java` there is 
       code for a `GET /api/UCSBDiningCommonsMenuItem/all` endpoint 
-      that returns a JSON list of all subreddits in the database.
+      that returns a JSON list of all `UCSBDiningCommonsMenuItem`s in the database.
       (We sometimes call this an *index* action since it lists all
       items in the database.)
 - [ ] In `UCSBDiningCommonsMenuItemController.java` there is 

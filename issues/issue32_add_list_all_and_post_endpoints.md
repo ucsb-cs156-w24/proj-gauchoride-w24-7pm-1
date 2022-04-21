@@ -6,7 +6,7 @@ Create `RecommendationController`, add `GET` (index) and `POST` (create)
       in the expected directory.
 - [ ] In `RecommendationController.java` there is 
       code for a `GET /api/Recommendation/all` endpoint 
-      that returns a JSON list of all subreddits in the database.
+      that returns a JSON list of all `Recommendation`s in the database.
       (We sometimes call this an *index* action since it lists all
       items in the database.)
 - [ ] In `RecommendationController.java` there is 
