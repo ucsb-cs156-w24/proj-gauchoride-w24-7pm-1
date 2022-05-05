@@ -1,6 +1,8 @@
 # STARTER-team03
 
-TODO: Add a codecov badge for the main branch here.
+TODO: Add a codecov badge for the main branch here.  What's shown is an example, but you need to visit codecov to get the markdown for your repo; don't just try to edit the markdown in the example below.  The token value won't match your repo.  Be sure to adjust the default branch from `master` to `main`.
+
+[![codecov](https://codecov.io/gh/ucsb-cs156-s22/STARTER-team03/branch/main/graph/badge.svg?token=s3OvSANaki)](https://codecov.io/gh/ucsb-cs156-s22/STARTER-team03)
 
 TODO: Add a link to the deployed Heroku app for your team here, e.g.
 
