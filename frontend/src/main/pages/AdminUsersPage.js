@@ -9,6 +9,7 @@ const AdminUsersPage = () => {
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
             ["/api/admin/users"],
+            // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
             { method: "GET", url: "/api/admin/users" },
             []
         );

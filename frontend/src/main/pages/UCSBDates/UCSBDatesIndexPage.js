@@ -13,7 +13,8 @@ export default function UCSBDatesIndexPage() {
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       ["/api/ucsbdates/all"],
-      { method: "GET", url: "/api/ucsbdates/all" },
+            // Stryker disable next-line StringLiteral,ObjectLiteral : since "GET" is default, "" is an equivalent mutation
+            { method: "GET", url: "/api/ucsbdates/all" },
       []
     );
 
