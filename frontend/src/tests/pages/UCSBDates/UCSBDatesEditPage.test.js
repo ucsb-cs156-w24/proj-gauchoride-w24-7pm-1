@@ -1,4 +1,4 @@
-import { fireEvent, queryByTestId, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
@@ -115,7 +115,6 @@ describe("UCSBDatesEditPage tests", () => {
             const quarterYYYYQField = getByTestId("UCSBDateForm-quarterYYYYQ");
             const nameField = getByTestId("UCSBDateForm-name");
             const localDateTimeField = getByTestId("UCSBDateForm-localDateTime");
-            const submitButton = getByTestId("UCSBDateForm-submit");
 
             expect(idField).toHaveValue("17");
             expect(quarterYYYYQField).toHaveValue("20221");
