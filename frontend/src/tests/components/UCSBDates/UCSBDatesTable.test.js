@@ -99,7 +99,7 @@ describe("UserTable tests", () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDatesTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />

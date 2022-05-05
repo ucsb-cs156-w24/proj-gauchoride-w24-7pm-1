@@ -37,6 +37,7 @@
     "@testing-library/react-hooks": "^5.1.2",
     "axios-mock-adapter": "^1.19.0",
     "env-cmd": "^10.1.0",
+    "eslint": "^8.14.0",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-react-hooks": "^4.2.1-rc.0-next-64223fed8-20220210",
@@ -51,6 +52,12 @@
     "coverage": "react-scripts test --coverage --watchAll=false",
     "storybook": "start-storybook --docs -p 6006 -s public",
     "build-storybook": "build-storybook --docs -s public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
