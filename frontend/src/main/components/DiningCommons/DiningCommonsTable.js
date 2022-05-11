@@ -46,17 +46,20 @@ export default function DiningCommonsTable({ diningCommons, currentUser }) {
         {
             Header: 'Sack Meal?',
             accessor: 'hasSackMeal',
+            id: 'hasSackMeal', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasSackMeal) // hack needed for boolean values to show up
         },
         {
             Header: 'Takeout Meal?',
             accessor: 'hasTakeOutMeal',
+            id: 'hasTakeOutMeal', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasTakeOutMeal) // hack needed for boolean values to show up
 
         },
         {
             Header: 'Dining Cam?',
             accessor: 'hasDiningCam',
+            id: 'hasDiningCam', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasDiningCam) // hack needed for boolean values to show up
         },
         {
@@ -69,10 +72,12 @@ export default function DiningCommonsTable({ diningCommons, currentUser }) {
         }
     ];
 
+    const testid = "DiningCommonsTable";
+
     const columnsIfAdmin = [
         ...columns,
-        // ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable", "code")
+        // ButtonColumn("Edit", "primary", editCallback, testid),
+        ButtonColumn("Delete", "danger", deleteCallback, testid)
     ];
 
     const columnsToDisplay = hasRole(currentUser, "ROLE_ADMIN") ? columnsIfAdmin : columns;
@@ -80,6 +85,6 @@ export default function DiningCommonsTable({ diningCommons, currentUser }) {
     return <OurTable
         data={diningCommons}
         columns={columnsToDisplay}
-        testid={"DiningCommonsTable"}
+        testid={testid}
     />;
 };

@@ -46,7 +46,7 @@ export default function OurTable({ columns, data, testid = "testid" }) {
                     {...cell.getCellProps()}
                     data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}`}
                   >
-                    {cell.render('Cell')}
+                    {cell.render('Cell') } 
                   </td>
                 )
               })}
@@ -83,7 +83,7 @@ export default function OurTable({ columns, data, testid = "testid" }) {
 //   ButtonColumn("Delete", "danger", deleteCallback)
 // ];
 
-export function ButtonColumn(label, variant, callback, testid, idfield="id") {
+export function ButtonColumn(label, variant, callback, testid) {
   const column = {
     Header: label,
     id: label,
@@ -91,7 +91,7 @@ export function ButtonColumn(label, variant, callback, testid, idfield="id") {
       <Button
         variant={variant}
         onClick={() => callback(cell)}
-        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column[idfield]}-button`}
+        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-button`}
       >
         {label}
       </Button>
