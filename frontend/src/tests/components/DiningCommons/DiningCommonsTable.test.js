@@ -87,7 +87,7 @@ describe("DiningCommonsTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
     expect(getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("De La Guerra");
     expect(getByTestId(`${testId}-cell-row-1-col-name`)).toHaveTextContent("Ortega");
-    
+
     // const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     // expect(editButton).toBeInTheDocument();
     // expect(editButton).toHaveClass("btn-primary");
@@ -121,6 +121,7 @@ describe("DiningCommonsTable tests", () => {
   //   await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsbdates/edit/1'));
 
   // });
+
 
 });
 
