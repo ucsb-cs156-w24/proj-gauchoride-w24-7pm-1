@@ -32,7 +32,7 @@ export function useBackend(queryKey, axiosParameters, initialData) {
             const response = await axios(axiosParameters);
             return response.data;
         } catch (e) {
-            // Stryker disable all
+            // Stryker disable next-line OptionalChaining
             if (e.response?.data?.message) {
                 toast.error(e.response.data.message);
             } else {
@@ -40,7 +40,6 @@ export function useBackend(queryKey, axiosParameters, initialData) {
                 toast.error(errorMessage);
             }
             throw e;
-            // Stryker enable all
         }
     }, {
         initialData
