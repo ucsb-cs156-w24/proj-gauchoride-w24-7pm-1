@@ -143,7 +143,7 @@ describe("UCSBDatesIndexPage tests", () => {
 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
-        axiosMock.onDelete("/api/ucsbdiningcommons").reply(200, "DiningCommons with id de-la-guerra was deleted");
+        axiosMock.onDelete("/api/ucsbdiningcommons", {params: {code: "de-la-guerra"}}).reply(200, "DiningCommons with id de-la-guerra was deleted");
 
 
         const { getByTestId } = render(
