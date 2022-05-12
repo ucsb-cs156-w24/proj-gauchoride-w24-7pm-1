@@ -32,7 +32,7 @@ export function useBackend(queryKey, axiosParameters, initialData) {
             const response = await axios(axiosParameters);
             return response.data;
         } catch (e) {
-            // Stryker disable next-line OptionalChaining : we want to check if each nested object is there but we dont want to write tests for each specific case
+            // Stryker disable next-line OptionalChaining
             if (e.response?.data?.message) {
                 toast.error(e.response.data.message);
             } else {
