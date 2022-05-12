@@ -5,14 +5,12 @@ name: "12-backend-jacoco: Java Test Coverage (Jacoco)"
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
   pull_request:
+  push:
     branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     timeout-minutes: 10
 

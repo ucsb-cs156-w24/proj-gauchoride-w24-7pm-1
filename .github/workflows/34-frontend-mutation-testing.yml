@@ -1,4 +1,4 @@
-name: "32-frontend-coverage: Frontend Coverage (JavaScript/Jest)"
+name: "34-frontend-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 40
 
     strategy:
       matrix:
@@ -25,11 +25,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
         working-directory: ./frontend
-      - run: npm run coverage
+      - run: npx stryker run
         working-directory: ./frontend
-      - name: Upload to Codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash)
-        working-directory: ./frontend
-     

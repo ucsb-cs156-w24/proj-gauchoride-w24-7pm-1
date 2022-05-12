@@ -1,18 +1,16 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: "12-backend-pitest: Java Mutation Testing (Pitest)"
+name: "14-backend-pitest: Java Mutation Testing (Pitest)"
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
   pull_request:
+  push:
     branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     timeout-minutes: 10
 

@@ -212,6 +212,8 @@ describe("AppNavbar tests", () => {
         await waitFor( () => expect(getByTestId(/appnavbar-ucsbdates-create/)).toBeInTheDocument() );
 
     });
+
+   
 });
 
 

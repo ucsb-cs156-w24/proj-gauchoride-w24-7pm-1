@@ -7,8 +7,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
   return (
     <>
       {
-        (currentUrl.startsWith("http://localhost:3000") ||
-          currentUrl.startsWith("http://127.0.0.1:3000")) && (
+        (currentUrl.startsWith("http://localhost:3000") || currentUrl.startsWith("http://127.0.0.1:3000")) && (
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
@@ -20,57 +19,49 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
 
           <Navbar.Toggle />
 
-          <Nav className="me-auto">
-            {
-              systemInfo?.springH2ConsoleEnabled && (
-                <>
-                  <Nav.Link href="/h2-console">H2Console</Nav.Link>
-                </>
-              )
-            }
-            {
-              systemInfo?.showSwaggerUILink && (
-                <>
-                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
-                </>
-              )
-            }
-          </Nav>
-
           <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
+            {/* be sure that each NavDropdown has a unique id and data-testid */}
           </>
 
-          <Navbar.Collapse className="justify-content-between">
-            <Nav className="mr-auto">
+          <Navbar.Collapse>
+            {/* This `nav` component contains all navigation items that show up on the left side */}
+            <Nav className="me-auto">
+              {
+                systemInfo?.springH2ConsoleEnabled && (
+                  <>
+                    <Nav.Link href="/h2-console">H2Console</Nav.Link>
+                  </>
+                )
+              }
+              {
+                systemInfo?.showSwaggerUILink && (
+                  <>
+                    <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                  </>
+                )
+              }
               {
                 hasRole(currentUser, "ROLE_ADMIN") && (
                   <NavDropdown title="Admin" id="appnavbar-admin-dropdown" data-testid="appnavbar-admin-dropdown" >
-                    <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/users">Users</NavDropdown.Item>
                   </NavDropdown>
                 )
               }
-            </Nav>
-
-            <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Todos" id="appnavbar-todos-dropdown" data-testid="appnavbar-todos-dropdown" >
-                    <NavDropdown.Item href="/todos/list">List Todos</NavDropdown.Item>
-                    <NavDropdown.Item href="/todos/create">Create Todo</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/todos/list">List Todos</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/todos/create">Create Todo</NavDropdown.Item>
                   </NavDropdown>
                 )
               }
-            </Nav>
-
-            <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="UCSBDates" id="appnavbar-ucsbdates-dropdown" data-testid="appnavbar-ucsbdates-dropdown" >
-                    <NavDropdown.Item href="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list">List</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list">List</NavDropdown.Item>
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
-                        <NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
                       )
                     }
                   </NavDropdown>
@@ -79,6 +70,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             </Nav>
 
             <Nav className="ml-auto">
+              {/* This `nav` component contains all navigation items that show up on the right side */}
               {
                 currentUser && currentUser.loggedIn ? (
                   <>
