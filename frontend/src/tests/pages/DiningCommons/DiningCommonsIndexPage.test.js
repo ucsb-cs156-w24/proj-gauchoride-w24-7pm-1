@@ -1,4 +1,4 @@
-import { _fireEvent, render, _waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import DiningCommonsIndexPage from "main/pages/DiningCommons/DiningCommonsIndexPage";
@@ -6,7 +6,7 @@ import DiningCommonsIndexPage from "main/pages/DiningCommons/DiningCommonsIndexP
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-// import { diningCommonsFixtures } from "fixtures/diningCommonsFixtures";
+import { diningCommonsFixtures } from "fixtures/diningCommonsFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import _mockConsole from "jest-mock-console";
@@ -26,7 +26,7 @@ describe("UCSBDatesIndexPage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
 
-    const _testId = "DiningCommonsTable";
+    const testId = "DiningCommonsTable";
 
     const setupUserOnly = () => {
         axiosMock.reset();
@@ -74,99 +74,99 @@ describe("UCSBDatesIndexPage tests", () => {
 
     });
 
-    // test("renders three diningCommon without crashing for regular user", async () => {
-    //     setupUserOnly();
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
+    test("renders three diningCommon without crashing for regular user", async () => {
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <DiningCommonsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <DiningCommonsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(  () => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); } );
-    //     expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
-    //     expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
+        await waitFor(  () => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); } );
+        expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
+        expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
 
-    // });
+    });
 
-    // test("renders three diningCommons without crashing for admin user", async () => {
-    //     setupAdminUser();
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
+    test("renders three diningCommons without crashing for admin user", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <DiningCommonsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <DiningCommonsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); });
-    //     expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
-    //     expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
+        expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
 
-    // });
+    });
 
-    // test("renders empty table when backend unavailable, user only", async () => {
-    //     setupUserOnly();
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/ucsbdiningcommons/all").timeout();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdiningcommons/all").timeout();
 
-    //     const { queryByTestId, getByText } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <DiningCommonsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { queryByTestId, getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <DiningCommonsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3); });
+        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3); });
 
-    //     const expectedHeaders = ['Code',  'Name', 'Sack Meal?','Takeout Meal?','Dining Cam?','Latitude','Longitude'];
+        const expectedHeaders = ['Code',  'Name', 'Sack Meal?','Takeout Meal?','Dining Cam?','Latitude','Longitude'];
     
-    //     expectedHeaders.forEach((headerText) => {
-    //       const header = getByText(headerText);
-    //       expect(header).toBeInTheDocument();
-    //     });
+        expectedHeaders.forEach((headerText) => {
+          const header = getByText(headerText);
+          expect(header).toBeInTheDocument();
+        });
 
-    //     expect(queryByTestId(`${testId}-cell-row-0-col-code`)).not.toBeInTheDocument();
-    // });
+        expect(queryByTestId(`${testId}-cell-row-0-col-code`)).not.toBeInTheDocument();
+    });
 
-    // test("test what happens when you click delete, admin", async () => {
-    //     setupAdminUser();
+    test("test what happens when you click delete, admin", async () => {
+        setupAdminUser();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
-    //     axiosMock.onDelete("/api/ucsbdiningcommons", {params: {code: "de-la-guerra"}}).reply(200, "DiningCommons with id de-la-guerra was deleted");
-
-
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <DiningCommonsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
-
-    //     await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toBeInTheDocument(); });
-
-    //    expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); 
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/ucsbdiningcommons/all").reply(200, diningCommonsFixtures.threeCommons);
+        axiosMock.onDelete("/api/ucsbdiningcommons", {params: {code: "de-la-guerra"}}).reply(200, "DiningCommons with id de-la-guerra was deleted");
 
 
-    //     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    //     expect(deleteButton).toBeInTheDocument();
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <DiningCommonsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toBeInTheDocument(); });
+
+       expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); 
+
+
+        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        expect(deleteButton).toBeInTheDocument();
        
-    //     fireEvent.click(deleteButton);
+        fireEvent.click(deleteButton);
 
-    //     await waitFor(() => { expect(mockToast).toBeCalledWith("DiningCommons with id de-la-guerra was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("DiningCommons with id de-la-guerra was deleted") });
 
-    // });
+    });
 
 });
 
