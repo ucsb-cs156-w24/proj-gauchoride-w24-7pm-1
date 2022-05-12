@@ -53,6 +53,46 @@ describe("utils/useBackend tests", () => {
 
             console.error.mockRestore()
         });
+
+        test("test useBackend handles 404 error with no message", async () => {
+
+            jest.spyOn(console, 'error')
+            console.error.mockImplementation(() => null);
+
+            // See: https://react-query.tanstack.com/guides/testing#turn-off-retries
+            const queryClient = new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        // ✅ turns retries off
+                        retry: false,
+                    },
+                },
+            })
+            const wrapper = ({ children }) => (
+                <QueryClientProvider client={queryClient}>
+                    {children}
+                </QueryClientProvider>
+            );
+
+            var axiosMock = new AxiosMockAdapter(axios);
+
+            axiosMock.onGet("/api/admin/users").reply(404);
+
+            const { result, waitFor } = renderHook(() => useBackend(
+                ["/api/admin/users"],
+                { method: "GET", url: "/api/admin/users" },
+                ["initialData"]
+            ), { wrapper });
+
+            await waitFor(() => result.current.isError);
+
+            expect(result.current.data).toEqual(["initialData"]);
+            await waitFor(() => expect(mockToast).toHaveBeenCalledTimes(1));
+            expect(mockToast).toHaveBeenCalledWith("Error communicating with backend via GET on /api/admin/users");
+
+            console.error.mockRestore()
+        });
+
     });
     describe("utils/useBackend useBackendMutation tests", () => {
         test("test useBackendMutation handles success correctly", async () => {
