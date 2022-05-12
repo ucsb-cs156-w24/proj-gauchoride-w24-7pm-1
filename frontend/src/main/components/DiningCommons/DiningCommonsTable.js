@@ -45,20 +45,17 @@ export default function DiningCommonsTable({ diningCommons, currentUser }) {
         },
         {
             Header: 'Sack Meal?',
-            accessor: 'hasSackMeal',
             id: 'hasSackMeal', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasSackMeal) // hack needed for boolean values to show up
         },
         {
             Header: 'Takeout Meal?',
-            accessor: 'hasTakeOutMeal',
             id: 'hasTakeOutMeal', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasTakeOutMeal) // hack needed for boolean values to show up
 
         },
         {
             Header: 'Dining Cam?',
-            accessor: 'hasDiningCam',
             id: 'hasDiningCam', // needed for tests
             accessor: (row, _rowIndex) => String(row.hasDiningCam) // hack needed for boolean values to show up
         },
