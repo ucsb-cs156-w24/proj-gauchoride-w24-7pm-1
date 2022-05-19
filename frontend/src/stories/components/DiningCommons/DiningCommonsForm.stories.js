@@ -19,7 +19,7 @@ export const Default = Template.bind({});
 
 Default.args = {
     buttonLabel: "Create",
-    submitAction: () => { console.log("Submit was clicked"); }
+    submitAction: (data) => { console.log('Create was clicked, parameter to submitAction=',data); }
 };
 
 export const Show = Template.bind({});
@@ -27,5 +27,5 @@ export const Show = Template.bind({});
 Show.args = {
     initialCommons: diningCommonsFixtures.oneDiningCommons,
     buttonLabel: "Update",
-    submitAction: () => { }
+    submitAction: (data) => { console.log('Update was clicked, parameter to submitAction=',data); }
 };

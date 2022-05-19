@@ -16,15 +16,6 @@ function DiningCommonsForm({ initialCommons, submitAction, buttonLabel = "Create
 
     const navigate = useNavigate();
 
-
-    // "name": "Carrillo",
-    // "code": "carrillo",
-    // "hasSackMeal": false,
-    // "hasTakeOutMeal": false,
-    // "hasDiningCam": true,
-    // "latitude": 34.409953,
-    // "longitude": -119.85277
-
     const minLat = -90.0;
     const maxLat = 90.0;
     const minLong = -180.0;
@@ -119,6 +110,8 @@ function DiningCommonsForm({ initialCommons, submitAction, buttonLabel = "Create
                     data-testid="DiningCommonsForm-latitude"
                     id="latitude"
                     type="number"
+                    step="0.000001"
+                    precision={6}   
                     isInvalid={Boolean(errors.latitude)}
                     {...register("latitude", { required: true, min: minLat, max: maxLat })}
                 />
@@ -136,6 +129,8 @@ function DiningCommonsForm({ initialCommons, submitAction, buttonLabel = "Create
                     data-testid="DiningCommonsForm-longitude"
                     id="longitude"
                     type="number"
+                    step="0.000001"
+                    precision={6} 
                     isInvalid={Boolean(errors.longitude)}
                     {...register("longitude", { required: true, min: -180.0, max: 180.0 })}
                 />
