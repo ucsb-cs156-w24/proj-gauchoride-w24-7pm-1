@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function DiningCommonssCreatePage() {
+export default function DiningCommonsCreatePage() {
 
   const objectToAxiosParams = (commons) => ({
     url: "/api/ucsbdiningcommons/post",
