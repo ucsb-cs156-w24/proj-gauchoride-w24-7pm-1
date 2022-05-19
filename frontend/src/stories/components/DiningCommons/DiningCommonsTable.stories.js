@@ -2,7 +2,7 @@ import React from 'react';
 
 import DiningCommonsTable from "main/components/DiningCommons/DiningCommonsTable";
 import { diningCommonsFixtures } from 'fixtures/diningCommonsFixtures';
-import { apiCurrentUserFixtures, currentUserFixtures } from 'fixtures/currentUserFixtures';
+import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 
 export default {
     title: 'components/DiningCommons/DiningCommonsTable',
