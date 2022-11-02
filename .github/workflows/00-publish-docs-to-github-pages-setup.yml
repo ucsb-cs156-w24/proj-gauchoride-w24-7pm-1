@@ -12,7 +12,7 @@ jobs:
         run: |
           SUFFIX="-docs"
           DESC="Documentation for ${OWNER_PLUS_REPOSITORY}"
-          TEMPLATE="https://github.com/ucsb-cs156-w22/TEMPLATE-docs"
+          TEMPLATE="https://github.com/ucsb-cs156-f22/TEMPLATE-docs"
           OWNER_PLUS_REPOSITORY=${{github.repository}}
           OWNER=${{ github.repository_owner }}
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
@@ -39,7 +39,7 @@ jobs:
         run: |
           SUFFIX="-docs-qa"
           DESC="Documentation QA site for ${OWNER_PLUS_REPOSITORY}"
-          TEMPLATE="https://github.com/ucsb-cs156-w22/TEMPLATE-docs"
+          TEMPLATE="https://github.com/ucsb-cs156-f22/TEMPLATE-docs"
           OWNER_PLUS_REPOSITORY=${{github.repository}}
           OWNER=${{ github.repository_owner }}
           REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}

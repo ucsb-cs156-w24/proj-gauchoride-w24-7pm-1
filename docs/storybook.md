@@ -94,8 +94,8 @@ Finally, at the top of the README.md there shoudl be two links for the Storybook
 ```
 Storybook is here:
 
-Production: https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs/
-QA: https://ucsb-cs156-w22.github.io/demo-spring-react-example-docs-qa/
+Production: https://ucsb-cs156-f22.github.io/demo-spring-react-example-docs/
+QA: https://ucsb-cs156-f22.github.io/demo-spring-react-example-docs-qa/
 ```
 
 Each of the URLs has this form:

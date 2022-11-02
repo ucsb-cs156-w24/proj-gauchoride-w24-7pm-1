@@ -12,7 +12,7 @@ Set up codecov token and codecov badge.
    (note that you'll have to edit this URL to match your repo). You may
    need to log in first.
 
-   * <https://app.codecov.io/gh/ucsb-cs156-s22/team02-s22-6pm-4/settings>
+   * <https://app.codecov.io/gh/ucsb-cs156-f22/team02-f22-6pm-4/settings>
 
 2. On that page, you'll see a place to set the default branch.  Be sure
    it is set to `main`.
