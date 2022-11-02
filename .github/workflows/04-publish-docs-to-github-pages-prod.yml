@@ -32,7 +32,7 @@ jobs:
           echo "owner: ${OWNER}" >> _config.yml
           echo "repo_name: ${REPOSITORY}" >> _config.yml
       - name: Deploy index.md and jekyll files for production docs site 🚀
-        uses: JamesIves/github-pages-deploy-action@4.2.0
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           repository-name: ${{ github.repository }}-docs
           token: ${{ secrets.DOCS_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
           clean: false 
           target-folder: docs
       - name: Deploy index.md for docs site 🚀
-        uses: JamesIves/github-pages-deploy-action@4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           repository-name: ${{ github.repository }}-docs
           token: ${{ secrets.DOCS_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
           mkdir -p docs-build
           npm run build-storybook
       - name: Deploy 🚀 
-        uses: JamesIves/github-pages-deploy-action@4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           repository-name: ${{ github.repository }}-docs
           token: ${{ secrets.DOCS_TOKEN }}
