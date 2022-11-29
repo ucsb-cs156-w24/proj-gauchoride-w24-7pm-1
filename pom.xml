@@ -9,10 +9,10 @@
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>edu.ucsb.cs156</groupId>
-    <artifactId>example</artifactId>
+    <artifactId>gauchoride</artifactId>
     <version>1.1.0</version>
-    <name>example</name>
-    <description>Spring Boot + React Example</description>
+    <name>GauchoRide</name>
+    <description>App to manage on-demand transportation</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -112,12 +112,12 @@
                 <version>0.8.7</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/edu/ucsb/cs156/example/aop/LoggingAspect.*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/config/*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/controllers/FrontendController.*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/controllers/FrontendProxyController.*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/services/CurrentUserServiceImpl.*</exclude>
-                        <exclude>**/edu/ucsb/cs156/example/ExampleApplication.*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/aop/LoggingAspect.*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/config/*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/controllers/FrontendController.*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/controllers/FrontendProxyController.*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/services/CurrentUserServiceImpl.*</exclude>
+                        <exclude>**/edu/ucsb/cs156/gauchoride/GauchoRideApplication.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -156,14 +156,14 @@
                         <param>edu.ucsb.cs156.*</param>
                     </targetTests>
                     <excludedClasses>
-                        <param>edu.ucsb.cs156.example.aop.LoggingAspect</param>
-                        <param>edu.ucsb.cs156.example.controllers.FrontendController</param>
-                        <param>edu.ucsb.cs156.example.controllers.FrontendProxyController</param>
-                        <param>edu.ucsb.cs156.example.services.CurrentUserServiceImpl</param>
-                        <param>edu.ucsb.cs156.example.ExampleApplication</param>
-                        <param>edu.ucsb.cs156.example.config.SecurityConfig</param>
-                        <param>edu.ucsb.cs156.example.config.SecurityConfig.MyCsrfRequestMatcher</param>
-                        <param>edu.ucsb.cs156.example.config.SpringFoxConfig</param>
+                        <param>edu.ucsb.cs156.gauchoride.aop.LoggingAspect</param>
+                        <param>edu.ucsb.cs156.gauchoride.controllers.FrontendController</param>
+                        <param>edu.ucsb.cs156.gauchoride.controllers.FrontendProxyController</param>
+                        <param>edu.ucsb.cs156.gauchoride.services.CurrentUserServiceImpl</param>
+                        <param>edu.ucsb.cs156.gauchoride.GauchoRideApplication</param>
+                        <param>edu.ucsb.cs156.gauchoride.config.SecurityConfig</param>
+                        <param>edu.ucsb.cs156.gauchoride.config.SecurityConfig.MyCsrfRequestMatcher</param>
+                        <param>edu.ucsb.cs156.gauchoride.config.SpringFoxConfig</param>
                     </excludedClasses>
                     <excludedTestClasses></excludedTestClasses>
                     <outputFormats>
