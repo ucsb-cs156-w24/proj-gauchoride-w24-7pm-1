@@ -3,9 +3,10 @@ name: "34-frontend-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jes
 on:
   workflow_dispatch:
   pull_request:
+    paths: [frontend/**]
   push:
-    branches:
-      - main
+    branches: [main]
+    paths: [frontend/**]
 
 jobs:
   build:
@@ -16,6 +17,9 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
       - uses: actions/checkout@v2
         with: 
           fetch-depth: 2
@@ -27,3 +31,9 @@ jobs:
         working-directory: ./frontend
       - run: npx stryker run
         working-directory: ./frontend
+      - name: Upload stryker report to Artifacts
+        if: always() # always upload artifacts, even if tests fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: stryker-report
+          path: frontend/reports/mutation/html/*

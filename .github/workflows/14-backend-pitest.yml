@@ -6,8 +6,10 @@ name: "14-backend-pitest: Java Mutation Testing (Pitest)"
 on:
   workflow_dispatch:
   pull_request:
+    paths: [src/**, pom.xml, lombok.config]
   push:
     branches: [ main ]
+    paths: [src/**, pom.xml, lombok.config]
 
 jobs:
   build:
@@ -26,9 +28,11 @@ jobs:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn -B test 
     - name: Pitest
-      run: mvn test org.pitest:pitest-maven:mutationCoverage
+      run: mvn test org.pitest:pitest-maven:mutationCoverage -DmutationThreshold=100 
     - name: Upload Pitest to Artifacts
+      if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v2
       with:
         name: pitest-mutation-testing
         path: target/pit-reports/* 
+

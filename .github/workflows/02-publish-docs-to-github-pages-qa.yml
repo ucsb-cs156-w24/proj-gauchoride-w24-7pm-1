@@ -16,12 +16,11 @@ jobs:
         node-version: [16.x]
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.5.0
+        uses: actions/checkout@v2.3.1
         with:
           persist-credentials: false
-          node-version: ${{ matrix.node-version }}
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Figure out Branch name
@@ -46,7 +45,7 @@ jobs:
           echo "owner: ${OWNER}" >> _config.yml
           echo "repo_name: ${REPOSITORY}" >> _config.yml
       - name: Deploy index.md and jekyll files for docs-qa site 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           repository-name: ${{ github.repository }}-docs-qa
           token: ${{ secrets.DOCS_TOKEN }}
@@ -86,7 +85,7 @@ jobs:
           mkdir -p storybook-static
           npm run build-storybook
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           repository-name: ${{ github.repository }}-docs-qa
           token: ${{ secrets.DOCS_TOKEN }}

@@ -3,9 +3,10 @@ name: "30-frontend-tests: JavaScript, Jest Unit tests"
 on:
   workflow_dispatch:
   pull_request:
+    paths: [frontend/**]
   push:
-    branches:
-      - main
+    branches: [main]
+    paths: [frontend/**]
 
 jobs:
   build:
@@ -16,6 +17,9 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
       - uses: actions/checkout@v2
         with: 
           fetch-depth: 2

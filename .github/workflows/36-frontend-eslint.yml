@@ -3,9 +3,10 @@ name: "36-frontend-eslint: JavaScript style checking"
 on:
   workflow_dispatch:
   pull_request:
+    paths: [frontend/**]
   push:
-    branches:
-      - main
+    branches: [main]
+    paths: [frontend/**]
 
 jobs:
   lint:

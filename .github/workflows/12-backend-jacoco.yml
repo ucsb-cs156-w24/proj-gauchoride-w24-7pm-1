@@ -6,8 +6,10 @@ name: "12-backend-jacoco: Java Test Coverage (Jacoco)"
 on:
   workflow_dispatch:
   pull_request:
+    paths: [src/**, pom.xml, lombok.config]
   push:
     branches: [ main ]
+    paths: [src/**, pom.xml, lombok.config]
 
 jobs:
   build:
@@ -24,8 +26,10 @@ jobs:
     - name: Build with Maven
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-      run: mvn -B test jacoco:report 
-    - name: Upload to Codecov
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      run: bash <(curl -s https://codecov.io/bash)
+      run: mvn -B test jacoco:report verify
+    - name: Upload jacoco report to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/*

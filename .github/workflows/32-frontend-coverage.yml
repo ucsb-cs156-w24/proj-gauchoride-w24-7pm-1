@@ -3,9 +3,10 @@ name: "32-frontend-coverage: Frontend Coverage (JavaScript/Jest)"
 on:
   workflow_dispatch:
   pull_request:
+    paths: [frontend/**]
   push:
-    branches:
-      - main
+    branches: [main]
+    paths: [frontend/**]
 
 jobs:
   build:
@@ -16,6 +17,9 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
       - uses: actions/checkout@v2
         with: 
           fetch-depth: 2
@@ -27,9 +31,10 @@ jobs:
         working-directory: ./frontend
       - run: npm run coverage
         working-directory: ./frontend
-      - name: Upload to Codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash)
-        working-directory: ./frontend
+      - name: Upload jest coverage report to Artifacts
+        if: always() # always upload artifacts, even if tests fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: jest-coverage
+          path: frontend/coverage/lcov-report/*
      
