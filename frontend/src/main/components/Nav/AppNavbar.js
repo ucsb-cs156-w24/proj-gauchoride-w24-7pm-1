@@ -14,7 +14,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
       <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
         <Container>
           <Navbar.Brand as={Link} to="/">
-            Example
+            GauchoRide
           </Navbar.Brand>
 
           <Navbar.Toggle />
