@@ -172,10 +172,10 @@ describe("utils/currentUser tests", () => {
 
         test('When rolesList is inside data: root, the correct results are returned', async () => {
             const testFixture1 = { data: { root: { rolesList: [ "ROLE_SAMPLE"] } }};
-            expect(hasRole(testFixture, "ROLE_SAMPLE")).toBeTruthy();
+            expect(hasRole(testFixture1, "ROLE_SAMPLE")).toBeTruthy();
 
             const testFixture2 = { data: { root: { rolesList: [ ] } }};
-            expect(hasRole(testFixture, "ROLE_SAMPLE")).toBeFalsy();
+            expect(hasRole(testFixture2, "ROLE_SAMPLE")).toBeFalsy();
         });
 
     });
