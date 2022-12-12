@@ -170,9 +170,12 @@ describe("utils/currentUser tests", () => {
             expect(hasRole({ loggedIn: true, root: { rolesList: ["ROLE_USER", "ROLE_ADMIN"] } }, "ROLE_ADMIN")).toBeTruthy();
         });
 
-        test('return currentUser.data.root.rolesList.includes(role); is reachable', async () => {
-            const testFixture = { data: { root: { rolesList: [ "ROLE_SAMPLE"] } }};
+        test('When rolesList is inside data: root, the correct results are returned', async () => {
+            const testFixture1 = { data: { root: { rolesList: [ "ROLE_SAMPLE"] } }};
             expect(hasRole(testFixture, "ROLE_SAMPLE")).toBeTruthy();
+
+            const testFixture2 = { data: { root: { rolesList: [ ] } }};
+            expect(hasRole(testFixture, "ROLE_SAMPLE")).toBeFalsy();
         });
 
     });
