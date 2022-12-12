@@ -176,6 +176,9 @@ describe("utils/currentUser tests", () => {
 
             const testFixture2 = { data: { root: { rolesList: [ ] } }};
             expect(hasRole(testFixture2, "ROLE_SAMPLE")).toBeFalsy();
+
+            const testFixtureNullRoot = { data: { root: null }};
+            expect(hasRole(testFixture2, "ROLE_SAMPLE")).toBeFalsy();
         });
 
     });
