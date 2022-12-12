@@ -170,5 +170,10 @@ describe("utils/currentUser tests", () => {
             expect(hasRole({ loggedIn: true, root: { rolesList: ["ROLE_USER", "ROLE_ADMIN"] } }, "ROLE_ADMIN")).toBeTruthy();
         });
 
+        test('return currentUser.data.root.rolesList.includes(role); is reachable', async () => {
+            const testFixture = { data: { root: { rolesList: [ "ROLE_SAMPLE"] } }};
+            expect(hasRole(testFixture, "ROLE_SAMPLE")).toBeTruthy();
+        });
+
     });
 });
