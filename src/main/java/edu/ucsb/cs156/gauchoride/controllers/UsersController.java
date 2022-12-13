@@ -6,17 +6,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ucsb.cs156.gauchoride.entities.User;
 import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
 
+import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
-@Api(description="User information (admin only)")
+@Api(description = "User information (admin only)")
 @RequestMapping("/api/admin/users")
 @RestController
 public class UsersController extends ApiController {
@@ -34,5 +41,29 @@ public class UsersController extends ApiController {
         Iterable<User> users = userRepository.findAll();
         String body = mapper.writeValueAsString(users);
         return ResponseEntity.ok().body(body);
+    }
+
+    @ApiOperation(value = "Get user by id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/get")
+    public User users(
+            @ApiParam("id") @RequestParam Long id)
+            throws JsonProcessingException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+        return user;
+    }
+
+    @ApiOperation(value = "Delete a user (admin)")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/delete")
+    public Object deleteUser_Admin(
+            @ApiParam("id") @RequestParam Long id) {
+              User user = userRepository.findById(id)
+          .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+
+          userRepository.delete(user);
+
+        return genericMessage("User with id %s deleted".formatted(id));
     }
 }

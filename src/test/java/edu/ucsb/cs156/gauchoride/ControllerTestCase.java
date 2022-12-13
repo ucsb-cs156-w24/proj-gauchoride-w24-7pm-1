@@ -1,6 +1,7 @@
 package edu.ucsb.cs156.gauchoride;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,6 @@ public abstract class ControllerTestCase {
 
   protected Map<String, Object> responseToJson(MvcResult result) throws UnsupportedEncodingException, JsonProcessingException {
     String responseString = result.getResponse().getContentAsString();
-    return mapper.readValue(responseString, Map.class);
+    return mapper.readValue(responseString,  new TypeReference<Map<String,Object>>() {});
   }
 }
