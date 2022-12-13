@@ -73,10 +73,12 @@ public class UsersController extends ApiController {
     @ApiOperation(value = "Toggle the admin field")
    // @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/toggleAdmin")
-    /*public User toggleAdmin(){
-                 
+    public Object toggleAdmin( @ApiParam("id") @RequestParam Long id){
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
+            user.setAdmin(!user.getAdmin());
         return user;
-    }*/
+    }
 
 }
