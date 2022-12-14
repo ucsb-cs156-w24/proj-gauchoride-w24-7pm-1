@@ -21,8 +21,13 @@ const columns = [
     {
         Header: 'Admin',
         id: 'admin',
-        accessor: (row, _rowIndex) => String(row.admin) // hack needed for boolean values to show up
+        accessor: (row, _rowIndex) => String(row.admin), // hack needed for boolean values to show up
     },
+    {
+        Header: 'Driver',
+        id: 'driver',
+        accessor: (row, _rowIndex) => String(row.driver) // hack needed for boolean values to show up
+    }
 ];
 
 export default function UsersTable({ users }) {
