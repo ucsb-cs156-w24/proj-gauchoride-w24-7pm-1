@@ -22,8 +22,8 @@ describe("UserTable tests", () => {
           <UsersTable users={usersFixtures.threeUsers}/>
         );
     
-        const expectedHeaders = ["id", "First Name", "Last Name", "Email", "Admin"];
-        const expectedFields = ["id", "givenName", "familyName", "email", "admin"];
+        const expectedHeaders = ["id", "First Name", "Last Name", "Email", "Admin", "Driver"];
+        const expectedFields = ["id", "givenName", "familyName", "email", "admin", "driver"];
         const testId = "UsersTable";
 
         expectedHeaders.forEach( (headerText)=> {
@@ -38,8 +38,10 @@ describe("UserTable tests", () => {
 
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
         expect(getByTestId(`${testId}-cell-row-0-col-admin`)).toHaveTextContent("true");
+        expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("false");
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
+        expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("true");
 
       });
 });
