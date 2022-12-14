@@ -71,6 +71,6 @@ export default function UsersTable({ users, showButtons=true }) {
     return <OurTable
         data={users}
         columns={columnsToDisplay}
-        testid={"AdminUsersTable"}
+        testid={"UsersTable"}
     />;
 };
