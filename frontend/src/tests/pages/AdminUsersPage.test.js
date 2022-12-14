@@ -73,7 +73,7 @@ describe("AdminUsersPage tests", () => {
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
         axiosMock.onPost("/api/admin/users/toggleAdmin").reply(200, "User with id 1 has toggled admin status");
-        const { getByText , getByTestId} = render(
+        const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AdminUsersPage />

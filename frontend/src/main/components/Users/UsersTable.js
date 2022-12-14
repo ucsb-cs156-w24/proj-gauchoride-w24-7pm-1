@@ -1,7 +1,6 @@
 
 import OurTable, { ButtonColumn } from "main/components/OurTable"
 import { useBackendMutation } from "main/utils/useBackend";
-import { toast } from "react-toastify";
 
 
 
@@ -16,14 +15,11 @@ export default function UsersTable({ users}) {
             }
         }
     }
-     function onToggleAdminSuccess(message) {
-    //    console.log(message);
-    //    toast(message);
-    }
+
     // Stryker disable all : hard to test for query caching
     const toggleAdminMutation = useBackendMutation(
         cellToAxiosParamsToggleAdmin,
-        { onSuccess: onToggleAdminSuccess },
+        {},
         ["/api/admin/users"]
     );
     // Stryker enable all 
