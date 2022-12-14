@@ -41,7 +41,7 @@ describe("UserTable tests", () => {
         expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("false");
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-admin`)).toHaveTextContent("false");
-        expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("true");
+        expect(getByTestId(`${testId}-cell-row-1-col-driver`)).toHaveTextContent("true");
 
       });
 });
