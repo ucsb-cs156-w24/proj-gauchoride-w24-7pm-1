@@ -9,7 +9,7 @@ export default function UsersTable({ users, showButtons=true }) {
 
     function cellToAxiosParamsToggleAdmin(cell) {
         return {
-            url: "/api/users/admin/toggleAdmin/",
+            url: "/api/admin/users/toggleAdmin",
             method: "POST",
             params: {
                 id: cell.row.values.id
@@ -61,11 +61,16 @@ export default function UsersTable({ users, showButtons=true }) {
         }
     ];
 
-    const buttonColumns = [
+    const buttonColumn = [
         ...columns,
         ButtonColumn("Toggle Admin", "primary", toggleAdminCallback, "UsersTable"),
     ]
 
-    const columnsToDisplay = showButtons ? buttonColumns : columns;
+    const columnsToDisplay = showButtons ? buttonColumn : columns;
 
+    return <OurTable
+        data={users}
+        columns={columnsToDisplay}
+        testid={"AdminUsersTable"}
+    />;
 };
