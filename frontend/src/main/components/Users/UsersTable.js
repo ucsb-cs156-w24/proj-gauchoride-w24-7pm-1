@@ -4,8 +4,8 @@ import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 
-//sa: check for admin status for showbuttons I assume
-export default function UsersTable({ users, showButtons=true }) {
+
+export default function UsersTable({ users}) {
 
     function cellToAxiosParamsToggleAdmin(cell) {
         return {
@@ -66,11 +66,11 @@ export default function UsersTable({ users, showButtons=true }) {
         ButtonColumn("Toggle Admin", "primary", toggleAdminCallback, "UsersTable"),
     ]
 
-    const columnsToDisplay = showButtons ? buttonColumn : columns;
+    //const columnsToDisplay = showButtons ? buttonColumn : columns;
 
     return <OurTable
         data={users}
-        columns={columnsToDisplay}
+        columns={buttonColumn}
         testid={"UsersTable"}
     />;
 };
