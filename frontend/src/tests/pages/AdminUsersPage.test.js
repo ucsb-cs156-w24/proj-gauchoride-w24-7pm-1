@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor, screen, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import AdminUsersPage from "main/pages/AdminUsersPage";
@@ -23,6 +23,13 @@ describe("AdminUsersPage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     });
 
+    const setupAdminUser = () => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    };
+
     test("renders without crashing on three users", async () => {
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
@@ -34,8 +41,6 @@ describe("AdminUsersPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
-        await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
         await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
@@ -63,6 +68,25 @@ describe("AdminUsersPage tests", () => {
 
     });
 
+    test("usertable toggle admin tests", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onPost("/api/admin/users/toggleAdmin").reply(200, "User with id 1 has toggled admin status");
+        const { getByText , getByTestId} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
+
+        const toggleAdminButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-admin-button`);
+        expect(toggleAdminButton).toBeInTheDocument();
+
+        fireEvent.click(toggleAdminButton);
+    })
 
 });
 
