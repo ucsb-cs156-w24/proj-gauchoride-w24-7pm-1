@@ -17,8 +17,8 @@ export default function UsersTable({ users}) {
         }
     }
      function onToggleAdminSuccess(message) {
-        console.log(message);
-        toast(message);
+    //    console.log(message);
+    //    toast(message);
     }
     // Stryker disable all : hard to test for query caching
     const toggleAdminMutation = useBackendMutation(

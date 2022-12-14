@@ -86,6 +86,12 @@ describe("AdminUsersPage tests", () => {
         expect(toggleAdminButton).toBeInTheDocument();
 
         fireEvent.click(toggleAdminButton);
+
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        expect(axiosMock.history.post[0].url).toBe("/api/admin/users/toggleAdmin");
+        expect(axiosMock.history.post[0].params).toEqual({id:1});
+      
+
     })
 
 });
