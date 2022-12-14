@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.FlashAttributeResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -165,6 +166,91 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals("User with id 15 not found", json.get("message"));
   }
 
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_can_toggle_admin_status_of_a_user_from_false_to_true() throws Exception {
+          // arrange
+          User userBefore = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .admin(false)
+          .build();
 
+          User userAfter = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .admin(true)
+          .build();
 
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
+          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleAdmin?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isOk()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+          verify(userRepository, times(1)).save(userAfter);
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 has toggled admin status", json.get("message"));
+  }
+
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_can_toggle_admin_status_of_a_user_from_true_to_false() throws Exception {
+          // arrange
+          User userBefore = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .admin(true)
+          .build();
+
+          User userAfter = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .admin(false)
+          .build();
+
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
+          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleAdmin?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isOk()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+          verify(userRepository, times(1)).save(userAfter);
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 has toggled admin status", json.get("message"));
+  }
+
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_tries_to_toggle_non_existant_user_and_gets_right_error_message() throws Exception {
+          // arrange
+        
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.empty());
+          
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleAdmin?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isNotFound()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+         
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 not found", json.get("message"));
+  }
 }
