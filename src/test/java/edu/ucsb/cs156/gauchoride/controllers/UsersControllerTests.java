@@ -193,7 +193,7 @@ public class UsersControllerTests extends ControllerTestCase {
 
           // assert
           verify(userRepository, times(1)).findById(15L);
-          verify(userRepository, times(1)).save(any());
+          verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
           assertEquals("User with id 15 has toggled admin status", json.get("message"));
@@ -226,7 +226,7 @@ public class UsersControllerTests extends ControllerTestCase {
 
           // assert
           verify(userRepository, times(1)).findById(15L);
-          verify(userRepository, times(1)).save(any());
+          verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
           assertEquals("User with id 15 has toggled admin status", json.get("message"));
