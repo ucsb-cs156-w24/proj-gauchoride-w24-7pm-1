@@ -52,7 +52,7 @@ jobs:
           if_no_artifact_found: warn
       - name: Debugging output one
         run: |
-          ls -lRt frontend/reports
+          ls -lRt frontend
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -66,7 +66,7 @@ jobs:
 
       - name: Debugging output two
         run: |
-          ls -lRt frontend/reports
+          ls -lRt frontend
 
       - name: Upload stryker incremental file to Artifacts
         uses: actions/upload-artifact@v2
