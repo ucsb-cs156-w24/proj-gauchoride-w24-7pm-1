@@ -71,7 +71,7 @@ jobs:
       - name: Upload stryker incremental file to Artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: stryker-incremental-${{env.branch_name}}
+          name: stryker-incremental-${{env.branch_name}}.json
           path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
 
       - name: Upload stryker report to Artifacts
