@@ -17,14 +17,14 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: szenius/set-timezone@v1.0
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "America/Los_Angeles"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.5.2
         with: 
           fetch-depth: 2
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5.2
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -33,7 +33,7 @@ jobs:
         working-directory: ./frontend
       - name: Upload jest coverage report to Artifacts
         if: always() # always upload artifacts, even if tests fail
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: jest-coverage
           path: frontend/coverage/lcov-report/*
