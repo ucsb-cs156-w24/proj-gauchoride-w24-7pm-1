@@ -1,0 +1,307 @@
+name: "02-gh-pages-rebuild: Rebuild entire gh-pages branch for main and all open PRs"
+on:
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  pull-requests: read
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs: 
+  setup-node-and-cache-it:
+    name: Setup Node.js (and cache it)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+
+  get-pull-requests:
+    name: Get Pull Requests
+    runs-on: ubuntu-latest
+    outputs:
+      pull_requests: ${{ steps.get-prs.outputs.pull_requests }}
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3
+    - name: Get Pull Requests from Github api
+      id: get-prs
+      run: |
+         gh pr list -s open --json url,author,number,title,headRefName 
+         gh pr list -s open --json url,author,number,title,headRefName > prs.json
+         cat prs.json
+         pull_requests=`cat prs.json`
+         echo "pull_requests=${pull_requests}"
+         echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
+
+  build-basic-site:
+    name: Build Basic Site
+    runs-on: ubuntu-latest
+    needs: [get-pull-requests]
+
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - name: Append name of site to _config.yml
+      run: | 
+          CONFIG_YML=frontend/docs-index/_config.yml
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          echo "repo: ${OWNER_PLUS_REPOSITORY}" >> ${CONFIG_YML}
+          echo "owner: ${OWNER}" >> ${CONFIG_YML}
+          echo "repo_name: ${REPOSITORY}" >> ${CONFIG_YML}    
+          cat ${CONFIG_YML}
+
+    - name: Store PRs as JSON in _config.yml
+      run: |
+         pull_requests=${{toJSON(needs.get-pull-requests.outputs.pull_requests)}}
+         CONFIG_YML=frontend/docs-index/_config.yml
+         echo "pull_requests: ${pull_requests}, CONFIG_YML: ${CONFIG_YML}"
+         echo "pull_requests: ${pull_requests}" >> ${CONFIG_YML}
+         cat ${CONFIG_YML}
+
+    - name: Compose web site
+      run: |
+        mkdir -p site
+        cp -r frontend/docs-index/* site
+        mkdir -p site/storybook
+        cp -r frontend/docs-index/storybook_placeholder.html site/storybook/index.html
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: site # The folder the action should deploy.
+        branch: gh-pages
+        clean: true # Automatically remove deleted files from the deploy branch
+
+  build-javadoc-main:
+    name: Build Javadoc (main branch)
+    runs-on: ubuntu-latest
+    needs: [build-basic-site]
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Build javadoc
+      run: mvn -DskipTests javadoc:javadoc
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/apidocs # The folder where the javadoc files are located
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: javadoc # The folder that we serve our javadoc files from
+  
+  build-javadoc-for-each-pr:
+    name: Javadoc (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+
+    needs: [build-basic-site, get-pull-requests]
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 1
+        token: ${{ github.token }}
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+
+    - name: Build javadoc
+      run: mvn -DskipTests javadoc:javadoc
+ 
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/apidocs # The folder where mvn javadoc:javadoc puts the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/javadoc # The folder that we serve our javadoc files from 
+
+  build-storybook-main:
+    name: Storybook (main branch)
+    runs-on: ubuntu-latest
+    needs: [setup-node-and-cache-it, build-basic-site]
+
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Build Storybook for main branch
+      working-directory: frontend
+      run: | # Install npm packages and build the Storybook files
+        npm install
+        npx build-storybook --docs -o storybook_static
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: frontend/storybook_static # The folder that the build-storybook script generates files.
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: storybook # The folder that we serve our Storybook files from
+    
+  build-storybook-for-each-pr:
+    name: Storybook (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    needs: [setup-node-and-cache-it, build-basic-site, get-pull-requests]
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+
+    steps:
+    - name: Debugging Output
+      run: |
+        echo "matrix.value: ${{ matrix.value }}"
+        echo "matrix.value.url: ${{ matrix.value.url }}"
+        echo "matrix.value.author: ${{ matrix.value.author }}"
+        echo "matrix.value.number: ${{ matrix.value.number }}"
+        echo "matrix.value.title:  ${{ matrix.value.title }}"
+        echo "matrix.value.headRefName:  ${{ matrix.value.headRefName }}"
+
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 1
+        token: ${{ github.token }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - name: Build Storybook for PR branch
+      working-directory: frontend
+      run: | # Install npm packages and build the Storybook files
+        npm install
+        npx build-storybook --docs -o storybook_static_${{ matrix.value.number }}
+ 
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: frontend/storybook_static_${{ matrix.value.number }} # The folder that the build-storybook script generates files.
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/storybook # The folder that we serve our Storybook files from 
+    
+  build-jekyll-site-main:
+    name: Build Jekyll Site for Main branch
+    needs: [build-storybook-main, build-javadoc-main]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          fetch-depth: 1
+          token: ${{ github.token }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+
+  # Deployment job
+  deploy-gh-pages-main:
+    name: Deploy to GitHub Pages for main branch
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: [build-jekyll-site-main]
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+  build-jekyll-site-prs:
+    name: Build Jekyll Site for PRs
+    needs: [build-storybook-for-each-pr, build-javadoc-for-each-pr, get-pull-requests]
+    runs-on: ubuntu-latest
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          fetch-depth: 1
+          token: ${{ github.token }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+
+  # Deployment job
+  deploy-gh-pages-prs:
+    name: Deploy to GitHub Pages for PRs
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: [build-jekyll-site-prs, get-pull-requests]
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+ 
