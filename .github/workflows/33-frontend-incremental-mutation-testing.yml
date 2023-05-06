@@ -45,7 +45,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2.27.0
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ env.branch_name }}}
+          branch: ${{ env.branch_name }}
           name: stryker-incremental-${{env.branch_name}}.json
           path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
           check_artifacts: true
