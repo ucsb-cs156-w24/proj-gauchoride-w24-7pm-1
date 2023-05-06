@@ -22,13 +22,13 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: szenius/set-timezone@v1.0
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "America/Los_Angeles"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.5.2
         with: 
           fetch-depth: 2
-      - name: Figure out Branch nam
+      - name: Figure out Branch name
         id: get-branch-name
         run: | 
             GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
@@ -42,7 +42,7 @@ jobs:
             echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"    
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2.5.2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           branch: ${{ env.branch_name }}}
