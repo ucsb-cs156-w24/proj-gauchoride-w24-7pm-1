@@ -1,7 +1,13 @@
-name: "34-frontend-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
+name: "33-frontend-incremental-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
+
+# This workflow pulls incremental mutation testing results
+# if they exist for the named branch, and then 
+# uses those incremental results to run mutation testing faster.
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths: [frontend/**]
   push:
     branches: [main]
     paths: [frontend/**]
