@@ -120,4 +120,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
-        token: ${{ github.token }}
+        with:
+          branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
