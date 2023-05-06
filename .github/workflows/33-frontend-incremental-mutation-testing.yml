@@ -1,0 +1,82 @@
+name: "33-frontend-incremental-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
+
+# This workflow pulls incremental mutation testing results
+# if they exist for the named branch, and then 
+# uses those incremental results to run mutation testing faster.
+# Reference: https://stryker-mutator.io/docs/stryker-js/incremental/
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: [frontend/**]
+  push:
+    branches: [main]
+    paths: [frontend/**]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/Los_Angeles"
+      - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 2
+      - name: Figure out Branch nam
+        id: get-branch-name
+        run: | 
+            GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
+            echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
+            GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
+            echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+            GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
+            echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+            BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
+            echo "branch_name=${BRANCH}"
+            echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"    
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branch: ${{ env.branch_name }}}
+          name: stryker-incremental-${{env.branch_name}}.json
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          check_artifacts: true
+          if_no_artifact_found: warn
+      - name: Debugging output one
+        run: |
+          ls -lRt frontend/reports
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+        working-directory: ./frontend
+      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.branch_name}}.json
+        working-directory: ./frontend
+
+      - name: Debugging output two
+        run: |
+          ls -lRt frontend/reports
+
+      - name: Upload stryker incremental file to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: stryker-incremental-${{env.branch_name}}
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+
+      - name: Upload stryker report to Artifacts
+        if: always() # always upload artifacts, even if tests fail
+        uses: actions/upload-artifact@v2
+        with:
+          name: stryker-report
+          path: frontend/reports/mutation/html/*
