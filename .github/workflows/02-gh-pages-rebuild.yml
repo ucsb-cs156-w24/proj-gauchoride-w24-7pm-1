@@ -11,12 +11,6 @@ permissions:
   id-token: write
   pull-requests: read
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs: 
   setup-node-and-cache-it:
     name: Setup Node.js (and cache it)
@@ -86,9 +80,7 @@ jobs:
       run: |
         mkdir -p site
         cp -r frontend/docs-index/* site
-        mkdir -p site/storybook
-        cp -r frontend/docs-index/storybook_placeholder.html site/storybook/index.html
-
+       
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
@@ -233,75 +225,8 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/storybook # The folder that we serve our Storybook files from 
     
-  build-jekyll-site-main:
-    name: Build Jekyll Site for Main branch
-    needs: [build-storybook-main, build-javadoc-main]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: 'gh-pages'
-          fetch-depth: 1
-          token: ${{ github.token }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-
-  # Deployment job
-  deploy-gh-pages-main:
-    name: Deploy to GitHub Pages for main branch
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: [build-jekyll-site-main]
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
-
-  build-jekyll-site-prs:
-    name: Build Jekyll Site for PRs
-    needs: [build-storybook-for-each-pr, build-javadoc-for-each-pr, get-pull-requests]
-    runs-on: ubuntu-latest
-    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: 'gh-pages'
-          fetch-depth: 1
-          token: ${{ github.token }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-
-  # Deployment job
-  deploy-gh-pages-prs:
-    name: Deploy to GitHub Pages for PRs
-    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: [build-jekyll-site-prs, get-pull-requests]
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+ 
+  
+ 
 
  
