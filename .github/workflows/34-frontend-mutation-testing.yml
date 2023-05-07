@@ -1,3 +1,7 @@
+# Running this script will run a full mutation coverage report
+# on the appropriate branch, and then save the result for
+# future incremental runs.
+
 name: "34-frontend-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
 
 on:
@@ -24,6 +28,21 @@ jobs:
           node-version: 16.x
       - run: npm ci
         working-directory: ./frontend
+
+
+      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.branch_name}}.json
+        working-directory: ./frontend
+
+      # We don't download a previous incrementatl file
+      # but we do upload the current incremental file
+      # so that the next run can use it.
+
+      - name: Upload stryker incremental file to Artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: stryker-incremental-${{env.branch_name}}.json
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+
       - run: npx stryker run
         working-directory: ./frontend
       - name: Upload stryker report to Artifacts
