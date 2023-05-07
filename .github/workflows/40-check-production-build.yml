@@ -18,8 +18,8 @@ jobs:
 
     steps:
     - uses: szenius/set-timezone@v1.2
-        with:
-          timezoneLinux: "America/Los_Angeles"
+      with:
+        timezoneLinux: "America/Los_Angeles"
     - uses: actions/checkout@v3.5.2
     - name: Set up JDK 17
       uses: actions/setup-java@v2
