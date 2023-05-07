@@ -43,12 +43,12 @@ jobs:
             echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"    
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v2.27.0
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          branch: ${{ env.branch_name }}}
+          branch: ${{ env.branch_name }}
           name: stryker-incremental-${{env.branch_name}}.json
-          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          path: frontend/reports
           check_artifacts: true
           if_no_artifact_found: warn
       - name: Debugging output one
@@ -66,7 +66,7 @@ jobs:
       - name: Upload stryker incremental file to Artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: stryker-incremental-${{env.branch_name}}
+          name: stryker-incremental-${{env.branch_name}}.json
           path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
 
       - name: Upload stryker report to Artifacts
