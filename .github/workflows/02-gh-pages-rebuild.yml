@@ -89,7 +89,7 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
 
   build-javadoc-main:
-    name: Build Javadoc (main branch)
+    name: Javadoc (main)
     runs-on: ubuntu-latest
     needs: [build-basic-site]
     steps:
@@ -149,7 +149,7 @@ jobs:
         target-folder: prs/${{ matrix.value.number }}/javadoc # The folder that we serve our javadoc files from 
 
   build-storybook-main:
-    name: Storybook (main branch)
+    name: Storybook (main)
     runs-on: ubuntu-latest
     needs: [setup-node-and-cache-it, build-basic-site]
 
@@ -228,7 +228,7 @@ jobs:
     
  
   build-jacoco-report-main:
-    name: Jacoco (main branch)
+    name: Jacoco (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [build-basic-site]
