@@ -40,7 +40,7 @@ jobs:
     - name: Set path for github pages deploy when there is a PR num
       if: ${{ env.pr_number != 'null' }}
       run: |
-        prefix="pr/${pr_number}"
+        prefix="pr/${pr_number}/"
         echo "prefix=${prefix}"
         echo "prefix=${prefix}" >> "$GITHUB_ENV"
     
@@ -58,7 +58,7 @@ jobs:
         branch: gh-pages # The branch the action should deploy to.
         folder: target/site/jacoco # The folder where the javadoc files are located
         clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: $prefix/jacoco # The folder that we serve our javadoc files from
+        target-folder: {$prefix}jacoco # The folder that we serve our javadoc files from
 
 
   
