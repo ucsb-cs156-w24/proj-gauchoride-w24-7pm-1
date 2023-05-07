@@ -44,7 +44,7 @@ jobs:
         echo "prefix=${prefix}"
         echo "prefix=${prefix}" >> "$GITHUB_ENV"
     
-    - name: Set path for github pages deploy when there is a PR num
+    - name: Set path for github pages deploy when there is NOT a PR num
       if: ${{ env.pr_number == 'null' }}
       run: |
         prefix=""
