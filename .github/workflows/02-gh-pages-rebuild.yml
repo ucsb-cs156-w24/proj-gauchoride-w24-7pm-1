@@ -135,6 +135,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
          distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
 
     - name: Build javadoc
       run: mvn -DskipTests javadoc:javadoc
@@ -227,6 +228,7 @@ jobs:
     
  
   build-jacoco-report-main:
+    name: Jacoco (main branch)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [build-basic-site]
@@ -253,7 +255,44 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: jacoco # The folder that we serve our javadoc files from
 
+  build-jacoco-for-each-pr:
+    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+
+    needs: [build-basic-site, get-pull-requests]
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3.5.2
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 1
+        token: ${{ github.token }}
+
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
+
+    - name: Build with Maven
+      env:
+        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+      run: mvn -B test jacoco:report verify
  
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where mvn puts the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
+
  
 
  
