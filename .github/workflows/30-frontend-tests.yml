@@ -13,20 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    strategy:
-      matrix:
-        node-version: [16.x]
     steps:
-      - uses: szenius/set-timezone@v1.0
+      - uses: szenius/set-timezone@v1.2
         with:
           timezoneLinux: "America/Los_Angeles"
       - uses: actions/checkout@v2
         with: 
           fetch-depth: 2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3.6.0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
       - run: npm ci
         working-directory: ./frontend
       - run: npm test
