@@ -8,6 +8,7 @@ tbody tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 
 * Source Repo: <https://github.com/{{site.repo}}>
+* Github Actions: <https://github.com/{{site.repo}}/actions>
 
 ## Documentation
 
