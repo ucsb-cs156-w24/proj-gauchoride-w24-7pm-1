@@ -40,22 +40,24 @@ jobs:
     - name: Get PR number
       id: get-pr-num
       run: |
-         echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
-         pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-         echo "pr_number=${pr_number}" 
-         echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
-    - name: Figure out Branch name
-      id: get-branch-name
-      run: | 
-          GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
-          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
-          GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
-          echo "branch_name=${BRANCH}"
-          echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
+        echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
+        pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+        echo "pr_number=${pr_number}" 
+        echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
+
+    - name: Set path for github pages deploy when there is a PR num
+      if: ${{ env.pr_number != 'null' }}
+      run: |
+        prefix="pr/${pr_number}/"
+        echo "prefix=${prefix}"
+        echo "prefix=${prefix}" >> "$GITHUB_ENV"
+    
+    - name: Set path for github pages deploy when there is NOT a PR num
+      if: ${{ env.pr_number == 'null' }}
+      run: |
+        prefix=""
+        echo "prefix=${prefix}"
+        echo "prefix=${prefix}" >> "$GITHUB_ENV"
 
     - name: Deploy 🚀
       if: always() # always upload artifacts, even if tests fail
