@@ -316,21 +316,21 @@ jobs:
     - name: Make directory in case it doesn't exist
       run: mkdir -p target/site/jacoco
 
-  #    - name: Download artifact
-  #      id: download-artifact
-  #      uses: dawidd6/action-download-artifact@v2.27.0
-  #      with:
-  #           github_token: ${{secrets.GITHUB_TOKEN}}
-  #           name: pr-${{ matrix.value.number }}-jacoco
-  #           path: target/site/jacoco
-  #           check_artifacts: true
-  #           if_no_artifact_found: error
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: pr-${{ matrix.value.number }}-jacoco
+        path: target/site/jacoco
+        check_artifacts: true
+        if_no_artifact_found: error
 
-  #    - name: Deploy 🚀
-  #      uses: JamesIves/github-pages-deploy-action@v4
-  #      with:
-  #           branch: gh-pages # The branch the action should deploy to.
-  #           folder: target/site/jacoco # The folder where mvn puts the files
-  #           clean: true # Automatically remove deleted files from the deploy branch
-  #           target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where mvn puts the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
