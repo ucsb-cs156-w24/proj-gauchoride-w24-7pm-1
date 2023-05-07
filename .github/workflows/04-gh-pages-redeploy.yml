@@ -1,0 +1,96 @@
+name: "04-gh-pages-redeploy: Redeploy to gh-pages after run of workflow 2"
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["02-gh-pages-rebuild"]
+    types:
+      - completed
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  pull-requests: read
+
+jobs:
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: |
+          echo 'The triggering workflow failed'
+          exit 1
+
+  setup-node-and-cache-it:
+    name: Setup Node.js (and cache it)
+    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+      with:
+        fetch-depth: 1
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+  get-pull-requests:
+    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+    name: Get Pull Requests
+    runs-on: ubuntu-latest
+    outputs:
+      pull_requests: ${{ steps.get-prs.outputs.pull_requests }}
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+    - name: Get Pull Requests from Github api
+      id: get-prs
+      run: |
+         gh pr list -s open --json url,author,number,title,headRefName 
+         gh pr list -s open --json url,author,number,title,headRefName > prs.json
+         cat prs.json
+         pull_requests=`cat prs.json`
+         echo "pull_requests=${pull_requests}"
+         echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
+
+  deploy-jacoco-for-each-pr:
+    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+
+    needs: [get-pull-requests]
+
+    strategy:
+        max-parallel: 1
+        matrix:
+          value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+
+    steps:
+
+    - name: Make directory in case it doesn't exist
+      run: mkdir -p target/site/jacoco
+
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: pr-${{ matrix.value.number }}-jacoco
+        path: target/site/jacoco
+        check_artifacts: true
+        if_no_artifact_found: error
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where mvn puts the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
+
