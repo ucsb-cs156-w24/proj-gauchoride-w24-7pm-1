@@ -4,7 +4,7 @@
 # the rebuild of the storybook or javadoc; that's handled
 # separately based on which files were modified.
 
-name: "03-gh-pages-pr-table: Rebuild table of PRs"
+name: "01-gh-pages-pr-table: Rebuild table of PRs"
 on:
   workflow_dispatch:
   pull_request:
