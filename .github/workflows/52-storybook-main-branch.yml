@@ -29,10 +29,9 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: '16'
+        node-version-file: 'frontend/package.json'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
-
     - name: Build Storybook for main branch
       working-directory: frontend
       run: | # Install npm packages and build the Storybook files
