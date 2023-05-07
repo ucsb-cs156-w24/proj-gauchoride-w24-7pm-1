@@ -1,8 +1,8 @@
-name: "04-gh-pages-redeploy: Redeploy to gh-pages after run of workflow 2"
+name: "04-gh-pages-rebuild-part-2"
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["02-gh-pages-rebuild"]
+    workflows: ["02-gh-pages-rebuild-part-1"]
     types:
       - completed
 
@@ -59,6 +59,34 @@ jobs:
          echo "pull_requests=${pull_requests}"
          echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
+  deploy-javadoc-main:
+    name: Javadoc (Main)
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+    needs: [get-pull-requests]
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+    - name: Make directory in case it doesn't exist
+      run: mkdir -p target/site/jacoco  
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: jacoco
+        path: target/site/jacoco
+        check_artifacts: true
+        if_no_artifact_found: error
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where mvn puts the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: jacoco # The folder that we serve our files from
+
   deploy-jacoco-for-each-pr:
     name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
@@ -74,7 +102,7 @@ jobs:
     steps:
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
-      
+
     - name: Make directory in case it doesn't exist
       run: mkdir -p target/site/jacoco
 

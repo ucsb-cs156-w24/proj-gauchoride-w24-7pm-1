@@ -1,4 +1,4 @@
-name: "02-gh-pages-rebuild" # Note: workflow name is used on workflow 04
+name: "02-gh-pages-rebuild-part-1" # Note: workflow name is used on workflow 04
 on:
   workflow_dispatch:
 
@@ -246,14 +246,11 @@ jobs:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn -B test jacoco:report verify
 
-    - name: Deploy 🚀
-      if: always() # always upload artifacts, even if tests fail
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
       with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: target/site/jacoco # The folder where the javadoc files are located
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: jacoco # The folder that we serve our javadoc files from
+          name: jacoco
+          path: target/site/jacoco
 
   build-jacoco-for-each-pr:
     name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
@@ -290,13 +287,5 @@ jobs:
       with:
           name: pr-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
-
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: target/site/jacoco # The folder where mvn puts the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
   
