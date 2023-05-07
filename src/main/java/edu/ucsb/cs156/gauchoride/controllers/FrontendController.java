@@ -5,6 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * This controller is only used in production. It forwards all requests to the
+ * frontend except for /csrf, which is used by Spring Security.
+ */
+
 @Profile("!development")
 @Controller
 public class FrontendController {

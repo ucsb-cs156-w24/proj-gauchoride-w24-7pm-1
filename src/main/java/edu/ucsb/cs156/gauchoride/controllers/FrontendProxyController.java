@@ -9,6 +9,12 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.net.ConnectException;
 
+/**
+ * This controller is only used in development. It forwards all requests to the
+ * frontend except for requests that specifically are handled by the
+ * backend. 
+ */
+
 @Profile("development")
 @RestController
 public class FrontendProxyController {
