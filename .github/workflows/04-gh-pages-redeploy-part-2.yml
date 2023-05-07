@@ -40,12 +40,29 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
-
   deploy-javadoc-main:
     name: Javadoc (Main)
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     needs: [initialize]
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+    - name: Make directory in case it doesn't exist
+      run: mkdir -p target/site/apidocs  
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: javadoc
+        path: target/site/apidocs
+        check_artifacts: true
+        if_no_artifact_found: error
+
+  deploy-jacoco-main:
+    name: Jacoco (Main)
+    runs-on: ubuntu-latest
+    needs: [deploy-javadoc-main]
     steps:
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
@@ -70,7 +87,7 @@ jobs:
         target-folder: jacoco # The folder that we serve our files from
 
   get-pull-requests:
-    needs: [deploy-javadoc-main]
+    needs: [deploy-jacoco-main]
     if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     name: Get Pull Requests
     runs-on: ubuntu-latest
