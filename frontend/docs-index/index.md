@@ -8,7 +8,6 @@
 <tr>
 <th colspan="3" style="text-align:center">Backend</th>
 <th colspan="3" style="text-align:center">Frontend</th>
-</tr>
 <th>Javadoc</th>
 <th>Jacoco</th>
 <th>Pitest</th>
@@ -41,7 +40,7 @@ table, th, td {
   padding: 2px;
   border-collapse: collapse;
 }
-tr:nth-child(even) {background-color: #f2f2f2;}
+tbody tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 
 <table>
@@ -51,6 +50,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 <th colspan="3" style="text-align:center">Backend</th>
 <th colspan="3" style="text-align:center">Frontend</th>
 </tr>
+<tr>
 <th>PR</th>
 <th>Branch</th>
 <th>Author</th>
