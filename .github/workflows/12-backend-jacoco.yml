@@ -12,7 +12,7 @@ on:
     paths: [src/**, pom.xml, lombok.config]
 
 jobs:
-  build:
+  build-jacoco-report:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -29,6 +29,26 @@ jobs:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn -B test jacoco:report verify
 
+    - name: Get PR number
+      id: get-pr-num
+      run: |
+         echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
+         pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+         echo "pr_number=${pr_number}" 
+         echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
+    - name: Figure out Branch name
+      id: get-branch-name
+      run: | 
+          GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
+          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
+          GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
+          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+          GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
+          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
+          echo "branch_name=${BRANCH}"
+          echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
+
     - name: Deploy 🚀
       if: always() # always upload artifacts, even if tests fail
       uses: JamesIves/github-pages-deploy-action@v4
@@ -37,3 +57,6 @@ jobs:
         folder: target/site/jacoco # The folder where the javadoc files are located
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: jacoco # The folder that we serve our javadoc files from
+
+
+  

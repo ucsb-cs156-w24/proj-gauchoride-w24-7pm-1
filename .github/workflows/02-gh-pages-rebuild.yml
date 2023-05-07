@@ -226,7 +226,34 @@ jobs:
         target-folder: prs/${{ matrix.value.number }}/storybook # The folder that we serve our Storybook files from 
     
  
+  build-jacoco-report-main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build-basic-site]
+
+    steps:
+    - uses: actions/checkout@v3.5.2
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
   
+    - name: Build with Maven
+      env:
+        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+      run: mvn -B test jacoco:report verify
+
+    - name: Deploy 🚀
+      if: always() # always upload artifacts, even if tests fail
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where the javadoc files are located
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: jacoco # The folder that we serve our javadoc files from
+
+ 
  
 
  
