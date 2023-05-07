@@ -1,38 +1,3 @@
-
-* Source Repo: <https://github.com/{{site.repo}}>
-
-## Documentation
-
-<table>
-<thead>
-<tr>
-<th colspan="3" style="text-align:center">Backend</th>
-<th colspan="3" style="text-align:center">Frontend</th>
-</tr>
-<tr>
-<th>Javadoc</th>
-<th>Jacoco</th>
-<th>Pitest</th>
-<th>Storybook</th>
-<th>Coverage</th>
-<th>Stryker</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="javadoc">javadoc</a></td>
-<td><a href="jacoco">jacoco</a></td>
-<td><a href="pitest">pitest</a></td>
-<td><a href="storybook">storybook</a></td>
-<td><a href="coverage">coverage</a></td>
-<td><a href="stryker">stryker</a></td>
-</tr>
-</tbody>
-</table>
-
-
-## Open Pull Requests
-
 <style>
 table, th, td {
   border: 1px solid black;
@@ -42,21 +7,102 @@ table, th, td {
 tbody tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
 
+* Source Repo: <https://github.com/{{site.repo}}>
+
+## Documentation
+
+<table>
+<thead>
+<tr>
+<th colspan="1" style="text-align:center">Backend</th>
+<th colspan="1" style="text-align:center">Frontend</th>
+</tr>
+<tr>
+<th>Javadoc</th>
+<th>Storybook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="javadoc">javadoc</a></td>
+<td><a href="storybook">storybook</a></td>
+</tr>
+</tbody>
+</table>
+
+## Test Coverage
+
+<table>
+<thead>
+<tr>
+<th colspan="2" style="text-align:center">Backend</th>
+<th colspan="2" style="text-align:center">Frontend</th>
+</tr>
+<tr>
+<th>Jacoco</th>
+<th>Pitest</th>
+<th>Coverage</th>
+<th>Stryker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="jacoco">jacoco</a></td>
+<td><a href="pitest">pitest</a></td>
+<td><a href="coverage">coverage</a></td>
+<td><a href="stryker">stryker</a></td>
+</tr>
+</tbody>
+</table>
+
+
+## Open Pull Requests
+
+### Documentation
+
 <table>
 <thead>
 <tr>
 <th colspan="3" style="text-align:center">Pull Request</th>
-<th colspan="3" style="text-align:center">Backend</th>
-<th colspan="3" style="text-align:center">Frontend</th>
+<th colspan="1" style="text-align:center">Backend</th>
+<th colspan="1" style="text-align:center">Frontend</th>
 </tr>
 <tr>
 <th>PR</th>
 <th>Branch</th>
 <th>Author</th>
 <th>Javadoc</th>
+<th>Storybook</th>
+</tr>
+</thead>
+<tbody>
+{% for pr in site.pull_requests %}
+<tr>
+<td><a href="{{pr.url}}">PR {{pr.number}}</a></td>
+<td>{{pr.headRefName}}</td>
+<td>{{pr.author.login}}</td>
+<td><a href="prs/{{pr.number}}/javadoc">javadoc</a></td>
+<td><a href="prs/{{pr.number}}/storybook">storybook</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+### Test Coverage
+
+<table>
+<thead>
+<tr>
+<th colspan="3" style="text-align:center">Pull Request</th>
+<th colspan="2" style="text-align:center">Backend</th>
+<th colspan="2" style="text-align:center">Frontend</th>
+</tr>
+<tr>
+<th>PR</th>
+<th>Branch</th>
+<th>Author</th>
 <th>Jacoco</th>
 <th>Pitest</th>
-<th>Storybook</th>
 <th>Coverage</th>
 <th>Stryker</th>
 </tr>
@@ -67,10 +113,8 @@ tbody tr:nth-child(even) {background-color: #f2f2f2;}
 <td><a href="{{pr.url}}">PR {{pr.number}}</a></td>
 <td>{{pr.headRefName}}</td>
 <td>{{pr.author.login}}</td>
-<td><a href="prs/{{pr.number}}/javadoc">javadoc</a></td>
 <td><a href="prs/{{pr.number}}/jacoco">jacoco</a></td>
 <td><a href="prs/{{pr.number}}/pitest">pitest</a></td>
-<td><a href="prs/{{pr.number}}/storybook">storybook</a></td>
 <td><a href="prs/{{pr.number}}/coverage">coverage</a></td>
 <td><a href="prs/{{pr.number}}/stryker">stryker</a></td>
 </tr>
@@ -78,7 +122,9 @@ tbody tr:nth-child(even) {background-color: #f2f2f2;}
 </tbody>
 </table>
 
-**Note**: If links in the PR tables don't work, note the following:
+## Notes
+
+If links in the PR tables don't work, note the following:
 * Backend links will not be updated for PRs that do not touch the backend code.
 * Frontend links will not be updated for PRs that do not touch the frontend code.
 * If a link doesn't work when you expect that it should, check that the appropriate [Github Actions](https://github.com/{{site.repo}}/actions) workflow completed successfully.
