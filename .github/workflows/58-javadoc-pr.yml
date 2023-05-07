@@ -70,7 +70,10 @@ jobs:
 
     - name: Set up Java (version from .java-version file)
       uses: actions/setup-java@v3
-
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
+  
     - name: Build javadoc
       run: mvn -DskipTests javadoc:javadoc
  
