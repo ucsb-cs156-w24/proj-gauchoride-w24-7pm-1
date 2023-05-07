@@ -14,6 +14,13 @@ import edu.ucsb.cs156.gauchoride.services.CurrentUserService;
 
 import java.util.Map;
 
+/**
+ * Base class for all API controllers.
+ * 
+ * Provides a method to get the current user as well as common methods for
+ * error handling.
+ */
+
 @Slf4j
 public abstract class ApiController {
   @Autowired
