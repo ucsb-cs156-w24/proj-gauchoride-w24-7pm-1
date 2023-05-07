@@ -47,7 +47,7 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           branch: ${{ env.branch_name }}
           name: stryker-incremental-${{env.branch_name}}.json
-          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          path: frontend/reports
           check_artifacts: true
           if_no_artifact_found: warn
       - name: Debugging output one
