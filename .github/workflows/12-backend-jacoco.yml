@@ -28,9 +28,12 @@ jobs:
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn -B test jacoco:report verify
-    - name: Upload jacoco report to Artifacts
+
+    - name: Deploy 🚀
       if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        name: jacoco-report
-        path: target/site/jacoco/*
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/site/jacoco # The folder where the javadoc files are located
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: jacoco # The folder that we serve our javadoc files from
