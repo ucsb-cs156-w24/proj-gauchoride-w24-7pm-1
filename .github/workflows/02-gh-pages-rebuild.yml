@@ -307,8 +307,8 @@ jobs:
     needs: [build-jacoco-for-each-pr]
 
     strategy:
+        max-parallel: 1
         matrix:
-          max-parallel: 1
           value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
 
     steps:
