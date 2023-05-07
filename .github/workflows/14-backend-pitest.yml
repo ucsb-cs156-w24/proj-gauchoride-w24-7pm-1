@@ -64,6 +64,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
-        folder: target/pit-reports # The folder where the javadoc files are located
+        folder: target/pit-reports # The folder where the files we want to publish are located
         clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: pitest # The folder that we serve our javadoc files from
+        target-folder: ${prefix}pitest # The folder that we serve our files from

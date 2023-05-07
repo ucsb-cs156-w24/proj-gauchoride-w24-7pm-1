@@ -28,25 +28,4 @@ jobs:
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn -B test 
-   
-    - name: Get PR number
-      id: get-pr-num
-      run: |
-        echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
-        pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-        echo "pr_number=${pr_number}" 
-        echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
-
-    - name: Set path for github pages deploy when there is a PR num
-      if: ${{ env.pr_number != 'null' }}
-      run: |
-        prefix="pr/${pr_number}/"
-        echo "prefix=${prefix}"
-        echo "prefix=${prefix}" >> "$GITHUB_ENV"
-    
-    - name: Set path for github pages deploy when there is NOT a PR num
-      if: ${{ env.pr_number == 'null' }}
-      run: |
-        prefix=""
-        echo "prefix=${prefix}"
-        echo "prefix=${prefix}" >> "$GITHUB_ENV"
+      
