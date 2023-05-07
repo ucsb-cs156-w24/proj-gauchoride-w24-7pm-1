@@ -11,7 +11,7 @@ permissions:
   id-token: write
   pull-requests: read
 
-jobs: 
+jobs:
   setup-node-and-cache-it:
     name: Setup Node.js (and cache it)
     runs-on: ubuntu-latest
