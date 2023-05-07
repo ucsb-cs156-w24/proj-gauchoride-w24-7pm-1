@@ -12,22 +12,6 @@ permissions:
   pull-requests: read
 
 jobs:
-  setup-node-and-cache-it:
-    name: Setup Node.js (and cache it)
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-      with:
-        fetch-depth: 1
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
-
-
   get-pull-requests:
     name: Get Pull Requests
     runs-on: ubuntu-latest
@@ -56,7 +40,12 @@ jobs:
       uses: actions/checkout@v3.5.2
       with:
         fetch-depth: 1
-
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
     - name: Append name of site to _config.yml
       run: | 
           CONFIG_YML=frontend/docs-index/_config.yml
@@ -151,7 +140,7 @@ jobs:
   build-storybook-main:
     name: Storybook (main)
     runs-on: ubuntu-latest
-    needs: [setup-node-and-cache-it, build-basic-site]
+    needs: [build-basic-site]
 
     steps:
     - name: Checkout local code to establish repo
@@ -181,7 +170,7 @@ jobs:
   build-storybook-for-each-pr:
     name: Storybook (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
-    needs: [setup-node-and-cache-it, build-basic-site, get-pull-requests]
+    needs: [build-basic-site, get-pull-requests]
     if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
     strategy:
