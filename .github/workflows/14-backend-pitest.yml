@@ -36,4 +36,11 @@ jobs:
       with:
         name: pitest-mutation-testing
         path: target/pit-reports/* 
-
+    - name: Deploy 🚀
+      if: always() # always upload artifacts, even if tests fail
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: target/pit-reports # The folder where the javadoc files are located
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: pitest # The folder that we serve our javadoc files from
