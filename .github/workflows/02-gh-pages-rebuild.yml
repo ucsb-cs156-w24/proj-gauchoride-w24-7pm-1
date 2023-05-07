@@ -286,8 +286,8 @@ jobs:
       run: mvn -B test jacoco:report verify
  
     - name: Upload to artifacts
-        uses: actions/upload-artifact@v3.1.2
-        with:
+      uses: actions/upload-artifact@v3.1.2
+      with:
           name: pr-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
 
