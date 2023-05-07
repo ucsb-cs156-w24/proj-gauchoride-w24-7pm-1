@@ -299,22 +299,22 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
-  #  deploy-jacoco-for-each-pr:
-  #    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
-  #    runs-on: ubuntu-latest
-  #    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+  deploy-jacoco-for-each-pr:
+    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
-  #    needs: [build-jacoco-for-each-pr]
+    needs: [build-jacoco-for-each-pr]
 
-  #    strategy:
-  #       matrix:
-  #         max-parallel: 1
-  #         value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+    strategy:
+        matrix:
+          max-parallel: 1
+          value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
 
-  #    steps:
+    steps:
 
-  #    - name: Make directory in case it doesn't exist
-  #      run: mkdir -p target/site/jacoco
+    - name: Make directory in case it doesn't exist
+      run: mkdir -p target/site/jacoco
 
   #    - name: Download artifact
   #      id: download-artifact
