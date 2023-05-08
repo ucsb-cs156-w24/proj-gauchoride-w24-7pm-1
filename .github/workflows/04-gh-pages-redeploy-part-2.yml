@@ -39,6 +39,15 @@ jobs:
         node-version-file: 'frontend/package.json'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
+    - name: Get Pull Requests from Github api
+      id: get-prs
+      run: |
+         gh pr list -s open --json url,author,number,title,headRefName 
+         gh pr list -s open --json url,author,number,title,headRefName > prs.json
+         cat prs.json
+         pull_requests=`cat prs.json`
+         echo "pull_requests=${pull_requests}"
+         echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
   deploy-javadoc-main:
     name: Javadoc (Main)
@@ -176,3 +185,38 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
+  rebuild-basic-site:
+    name: Setup Node.js (and cache it)
+    needs: [ deploy-jacoco-for-each-pr ]
+    runs-on: ubuntu-latest
+
+    - name: Append name of site to _config.yml
+      run: | 
+          CONFIG_YML=frontend/docs-index/_config.yml
+          OWNER_PLUS_REPOSITORY=${{github.repository}}
+          OWNER=${{ github.repository_owner }}
+          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+          echo "repo: ${OWNER_PLUS_REPOSITORY}" >> ${CONFIG_YML}
+          echo "owner: ${OWNER}" >> ${CONFIG_YML}
+          echo "repo_name: ${REPOSITORY}" >> ${CONFIG_YML}    
+          cat ${CONFIG_YML}
+
+    - name: Store PRs as JSON in _config.yml
+      run: |
+         pull_requests=${{toJSON(needs.initialize.outputs.pull_requests)}}
+         CONFIG_YML=frontend/docs-index/_config.yml
+         echo "pull_requests: ${pull_requests}, CONFIG_YML: ${CONFIG_YML}"
+         echo "pull_requests: ${pull_requests}" >> ${CONFIG_YML}
+         cat ${CONFIG_YML}
+
+    - name: Compose web site
+      run: |
+        mkdir -p site
+        cp -r frontend/docs-index/* site
+        
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: site # The folder the action should deploy.
+        branch: gh-pages
+        clean: true # Automatically remove deleted files from the deploy branch
