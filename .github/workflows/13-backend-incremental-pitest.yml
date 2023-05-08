@@ -46,9 +46,11 @@ jobs:
         check_artifacts: true
         if_no_artifact_found: warn
     - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+      continue-on-error: true
       run: |
-        historyFile=target/pit-history/pitest-${{env.branch_name}}-history.bin
+        historyFile=target/pit-history/pitest-main-history.bin
         [ -f "$historyFile" ] && cp $historyFile target/pit-history/history.bin
+
     - name: Build with Maven
       run: mvn -B test 
     - name: Pitest
