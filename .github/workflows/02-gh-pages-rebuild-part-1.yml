@@ -41,6 +41,8 @@ jobs:
     name: Javadoc (main)
     runs-on: ubuntu-latest
     needs: [initialize]
+    env:
+      destination: target/site/apidocs   
     steps:
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
@@ -57,12 +59,14 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: javadoc
-          path: target/site/apidocs
+          path: ${destination}
   
   build-storybook-main:
     name: Storybook (main)
     runs-on: ubuntu-latest
     needs: [initialize]
+    env:
+      destination: frontend/storybook-static   
 
     steps:
     - name: Checkout local code to establish repo
@@ -85,13 +89,15 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: storybook
-          path: frontend/storybook_static
+          path: ${destination}
   
   build-jacoco-main:
     name: Jacoco (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
+    env:
+      destination: target/site/jacoco  
 
     steps:
     - uses: actions/checkout@v3.5.2
@@ -111,13 +117,15 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: jacoco
-          path: target/site/jacoco
+          path: ${destination}
 
   build-pitest-main:
     name: Pitest (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
+    env:
+      destination: target/pit-reports
 
     steps:
     - uses: actions/checkout@v3.5.2
@@ -154,14 +162,15 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: pitest
-          path: target/pit-reports
+          path: ${destination}
 
   build-coverage-main:
     name: Coverage (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
-
+    env:
+      destination: frontend/coverage/lcov-report
     steps:
     - uses: szenius/set-timezone@v1.2
       with:
@@ -185,13 +194,16 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: coverage
-        path: frontend/coverage/lcov-report
+        path: ${destination}
 
   build-stryker-main:
     name: Stryker (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
+    env:
+      destination: frontend/reports
+   
 
     steps:
     - uses: szenius/set-timezone@v1.2
@@ -217,7 +229,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-main.json
-        path: frontend/reports
+        path: ${destination}
         check_artifacts: true
         if_no_artifact_found: warn
 
