@@ -59,7 +59,7 @@ jobs:
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
-      run: mkdir -p target/site/apidocs  
+      run: mkdir -p ${destination}
     - name: Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
