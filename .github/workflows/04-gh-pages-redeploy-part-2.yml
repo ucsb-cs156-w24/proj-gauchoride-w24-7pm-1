@@ -190,6 +190,7 @@ jobs:
     needs: [ deploy-jacoco-for-each-pr ]
     runs-on: ubuntu-latest
 
+    steps:
     - name: Append name of site to _config.yml
       run: | 
           CONFIG_YML=frontend/docs-index/_config.yml
