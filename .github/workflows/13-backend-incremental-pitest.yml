@@ -23,7 +23,7 @@ jobs:
       with:
          distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
          java-version-file: ./.java-version
-    - name: Figure out Branch nam
+    - name: Figure out branch name
       id: get-branch-name
       run: | 
           GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
@@ -47,7 +47,8 @@ jobs:
         if_no_artifact_found: warn
     - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
       run: |
-        cp target/pit-history/pitest-${{env.branch_name}}-history.bin target/pit-history/history.bin
+        historyFile=target/pit-history/pitest-${{env.branch_name}}-history.bin
+        [ -f "$historyFile" ] && cp $historyFile target/pit-history/history.bin
     - name: Build with Maven
       run: mvn -B test 
     - name: Pitest

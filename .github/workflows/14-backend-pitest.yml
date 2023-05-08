@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3.5.2
-    - name: Figure out Branch nam
+    - name: Figure out branch name
       id: get-branch-name
       run: | 
           GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
