@@ -285,7 +285,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
-    needs: [deploy-jacoco-for-each-pr]
+    needs: [deploy-javadoc-for-each-pr]
 
     env:
       destination_directory: target/site/jacoco
