@@ -251,7 +251,7 @@ jobs:
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: javadoc-${{ matrix.value.number }}
+        name: prs-${{ matrix.value.number }}-javadoc
         path: target/site/apidocs
     
   build-storybook-for-each-pr:
@@ -298,7 +298,7 @@ jobs:
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: storybook-${{ matrix.value.number }}
+        name: prs-${{ matrix.value.number }}-storybook
         path: frontend/storybook_static_${{ matrix.value.number }} 
 
   build-jacoco-for-each-pr:
