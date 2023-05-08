@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: "14-backend-pitest: Java Mutation Testing (Pitest)"
+name: "13-backend-incremental-pitest: Java Mutation Testing (Pitest)"
 
 on:
   workflow_dispatch:
@@ -18,6 +18,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3.5.2
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
     - name: Figure out Branch nam
       id: get-branch-name
       run: | 
@@ -30,11 +35,19 @@ jobs:
           BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
           echo "branch_name=${BRANCH}"
           echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"    
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
       with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: ${{ env.branch_name }}
+        name: pitest-${{env.branch_name}}-history.bin
+        path: target/pit-history
+        check_artifacts: true
+        if_no_artifact_found: warn
+    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+      run: |
+        cp target/pit-history/pitest-${{env.branch_name}}-history.bin target/pit-history/history.bin
     - name: Build with Maven
       run: mvn -B test 
     - name: Pitest
@@ -45,7 +58,7 @@ jobs:
       with:
         name: pitest-${{env.branch_name}}-history.bin
         path: target/pit-history/history.bin
-    - name: Upload Pitest to Artifacts
+    - name: Upload Pitest Report to Artifacts
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
