@@ -392,7 +392,7 @@ jobs:
 
     needs: [initialize]
 
-     env:
+    env:
       destination: target/pit-reports
       history_destination: target/pit-history
 
