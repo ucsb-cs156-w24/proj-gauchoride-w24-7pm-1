@@ -126,6 +126,7 @@ jobs:
     needs: [initialize]
     env:
       destination: target/pit-reports
+      history_destination: target/pit-history
 
     steps:
     - uses: actions/checkout@v3.5.2
@@ -134,7 +135,11 @@ jobs:
       with:
          distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
          java-version-file: ./.java-version
-  
+    - name: create directories
+      run: |
+         mkdir -p ${{ env.destination }}
+         mkdir -p ${{ env.history_destination }}
+
     - name: Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
@@ -142,21 +147,28 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: ${{ env.branch_name }}
         name: pitest-main-history.bin
-        path: target/pit-history
+        path: ${{ env.history_destination}}
         check_artifacts: true
         if_no_artifact_found: warn
 
     - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
       continue-on-error: true
       run: |
-        historyFile=target/pit-history/pitest-main-history.bin
-        [ -f "$historyFile" ] && cp $historyFile target/pit-history/history.bin
+        historyFile=${{ env.history_destination}}/pitest-main-history.bin
+        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
 
     - name: Build with Maven
       continue-on-error: true
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+
+    - name: Upload Pitest History to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: pitest-main-history.bin
+        path: ${{ env.history_destination}}/history.bin
 
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
@@ -259,6 +271,8 @@ jobs:
 
     needs: [initialize]
 
+    env:
+      destination: target/site/apidocs   
     strategy:
       matrix:
         value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
@@ -285,7 +299,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: prs-${{ matrix.value.number }}-javadoc
-        path: target/site/apidocs
+        path: ${{ env.destination }}
     
   build-storybook-for-each-pr:
     name: Storybook (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
@@ -371,4 +385,85 @@ jobs:
           name: pr-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
 
-  
+  build-pitest-for-each-pr:
+    name: Pitest (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+
+    needs: [initialize]
+
+     env:
+      destination: target/pit-reports
+      history_destination: target/pit-history
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3.5.2
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 1
+        token: ${{ github.token }}
+    - name: create directories
+      run: |
+         mkdir -p ${{ env.destination }}
+         mkdir -p ${{ env.history_destination }}
+
+    - name: Figure out branch name
+      id: get-branch-name
+      run: | 
+          GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
+          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
+          GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
+          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+          GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
+          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
+          echo "branch_name=${BRANCH}"
+          echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
+
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: ${{ env.branch_name }}
+        name: pitest-${{ env.branch_name }}-history.bin
+        path: ${{ env.history_destination}}
+        check_artifacts: true
+        if_no_artifact_found: warn
+
+    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+      continue-on-error: true
+      run: |
+        historyFile=${{ env.history_destination}}/pitest-${{ env.branch_name }}-history.bin
+        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+
+    - name: Build with Maven
+      continue-on-error: true
+      env:
+        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+      run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+
+    - name: Upload Pitest History to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: pitest-${{ env.branch_name }}-history.bin
+        path: ${{ env.history_destination}}/history.bin
+
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+          name: pr-${{ matrix.value.number }}-pitest
+          path: ${{ env.destination }}
+
+    
