@@ -59,7 +59,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: javadoc
-          path: ${destination}
+          path: ${{ env.destination }}
   
   build-storybook-main:
     name: Storybook (main)
@@ -89,7 +89,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: storybook
-          path: ${destination}
+          path: ${{ env.destination }}
   
   build-jacoco-main:
     name: Jacoco (main)
@@ -117,7 +117,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: jacoco
-          path: ${destination}
+          path: ${{ env.destination }}
 
   build-pitest-main:
     name: Pitest (main)
@@ -162,7 +162,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
           name: pitest
-          path: ${destination}
+          path: ${{ env.destination }}
 
   build-coverage-main:
     name: Coverage (main)
@@ -194,7 +194,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: coverage
-        path: ${destination}
+        path: ${{ env.destination }}
 
   build-stryker-main:
     name: Stryker (main)
@@ -229,7 +229,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-main.json
-        path: ${destination}
+        path: ${{ env.destination }}
         check_artifacts: true
         if_no_artifact_found: warn
 
