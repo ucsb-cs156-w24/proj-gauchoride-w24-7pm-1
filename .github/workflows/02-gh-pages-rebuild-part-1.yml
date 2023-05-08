@@ -126,6 +126,22 @@ jobs:
          distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
          java-version-file: ./.java-version
   
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: ${{ env.branch_name }}
+        name: pitest-main-history.bin
+        path: target/pit-history
+        check_artifacts: true
+        if_no_artifact_found: warn
+
+    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+      run: |
+        historyFile=target/pit-history/pitest-main-history.bin
+        [ -f "$historyFile" ] && cp $historyFile target/pit-history/history.bin
+
     - name: Build with Maven
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
