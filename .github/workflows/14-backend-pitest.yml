@@ -37,6 +37,11 @@ jobs:
          java-version-file: ./.java-version
     - name: Build with Maven
       run: mvn -B test 
+    
+    # Note that we DO NOT download history in this job;
+    # this job is intended as a "reset" of the history each time the 
+    # main branch changes
+
     - name: Pitest
       run: mvn test org.pitest:pitest-maven:mutationCoverage -DmutationThreshold=100 
     - name: Upload Pitest History to Artifacts
