@@ -264,7 +264,7 @@ jobs:
         name: stryker
         path: frontend/reports/mutation
 
-  build-javadoc-for-each-pr:
+  a-build-javadoc-for-each-pr:
     name: Javadoc (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
@@ -301,7 +301,7 @@ jobs:
         name: prs-${{ matrix.value.number }}-javadoc
         path: ${{ env.destination }}
     
-  build-storybook-for-each-pr:
+  b-build-storybook-for-each-pr:
     name: Storybook (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     needs: [initialize]
@@ -348,7 +348,7 @@ jobs:
         name: prs-${{ matrix.value.number }}-storybook
         path: frontend/storybook_static_${{ matrix.value.number }} 
 
-  build-jacoco-for-each-pr:
+  c-build-jacoco-for-each-pr:
     name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
@@ -385,7 +385,7 @@ jobs:
           name: pr-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
 
-  build-pitest-for-each-pr:
+  d-build-pitest-for-each-pr:
     name: Pitest (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
@@ -466,4 +466,114 @@ jobs:
           name: pr-${{ matrix.value.number }}-pitest
           path: ${{ env.destination }}
 
-    
+  e-build-coverage-for-each-pr:
+    name: Coverage (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+
+    needs: [initialize]
+
+    env:
+      destination: frontend/coverage/lcov-report
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3.5.2
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 1
+        token: ${{ github.token }}
+    - name: create directories
+      run: |
+         mkdir -p ${{ env.destination }}
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - run: npm ci
+      working-directory: ./frontend
+
+    - run: npm run coverage
+      continue-on-error: true
+      working-directory: ./frontend
+      
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: pr-${{ matrix.value.number }}-coverage
+        path: ${{ env.destination }}
+
+
+  f-build-stryker-for-each-pr:
+    name: Stryker (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+
+    needs: [initialize]
+
+    env:
+      destination: frontend/reports/mutation
+
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+
+    steps:
+    - uses: szenius/set-timezone@v1.2
+      with:
+        timezoneLinux: "America/Los_Angeles"
+    - name: Checkout repo
+      uses: actions/checkout@v3.5.2
+      with:
+        ref: ${{ matrix.value.headRefName }}
+        fetch-depth: 2
+        token: ${{ github.token }}
+    - name: create directories
+      run: |
+         mkdir -p ${{ env.destination }}
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
+    - run: npm ci
+      working-directory: ./frontend
+
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: main
+        name: stryker-incremental-main.json
+        path: ${{ env.destination }}
+        check_artifacts: true
+        if_no_artifact_found: warn
+
+    - name: Stryker (main, incremental)
+      working-directory: ./frontend
+      continue-on-error: true
+      run: |
+        npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+     
+    - name: Upload stryker incremental file to Artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: stryker-incremental-main.json
+        path: frontend/reports/stryker-incremental-main.json      
+     - name: Upload to artifacts
+       uses: actions/upload-artifact@v3.1.2
+       with:
+         name: pr-${{ matrix.value.number }}-coverage
+         path: ${{ env.destination }}
