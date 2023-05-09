@@ -34,11 +34,11 @@ jobs:
       # so that the next run can use it.
 
       - name: Cache Stryker Incrmental File
-        id: cache-stryker-incremental-file
-        uses: actions/cache@v3
+        uses: actions/cache/save@v3
         with:
-          path: frontend/reports/stryker-incremental-main.json
-          key: stryker-incremental
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          key: stryker-incremental${{ env.pr_number}}
+
 
       # - name: Upload stryker incremental file to Artifacts
       #   uses: actions/upload-artifact@v3.1.2
