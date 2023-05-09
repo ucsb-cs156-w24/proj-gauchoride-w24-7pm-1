@@ -530,8 +530,7 @@ jobs:
 
     env:
       destination: frontend/reports/mutation
-      history_destination: frontend/reports/
-
+      history_destination: frontend/history
 
     strategy:
       matrix:
@@ -580,7 +579,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: stryker-incremental-${{ matrix.value.headRefName }}.json
-        path: ${{ env.history_destination }}/stryker-incremental-${{ matrix.value.headRefName }}.json
+        path: ${{ env.history_destination }}
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
