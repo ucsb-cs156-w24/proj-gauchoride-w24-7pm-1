@@ -37,29 +37,29 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
  
-  # build-javadoc-main:
-  #   name: a - Javadoc (main)
-  #   runs-on: ubuntu-latest
-  #   needs: [initialize]
-  #   env:
-  #     destination: target/site/apidocs   
-  #   steps:
-  #   - name: Checkout local code to establish repo
-  #     uses: actions/checkout@v3.5.2
-  #   - name: Set up Java (version from .java-version file)
-  #     uses: actions/setup-java@v3
-  #     with:
-  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-  #        java-version-file: ./.java-version
+  build-javadoc-main:
+    name: a - Javadoc (main)
+    runs-on: ubuntu-latest
+    needs: [initialize]
+    env:
+      destination: target/site/apidocs   
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
   
-  #   - name: Build javadoc
-  #     run: mvn -DskipTests javadoc:javadoc
+    - name: Build javadoc
+      run: mvn -DskipTests javadoc:javadoc
 
-  #   - name: Upload to artifacts
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #         name: javadoc
-  #         path: ${{ env.destination }}
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+          name: javadoc
+          path: ${{ env.destination }}
   
   # build-storybook-main:
   #   name: b - Storybook (main)
