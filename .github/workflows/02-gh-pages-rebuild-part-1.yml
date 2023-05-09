@@ -415,13 +415,7 @@ jobs:
     - name: Figure out branch name
       id: get-branch-name
       run: | 
-          GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
-          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
-          GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
+          BRANCH=$(echo "${{ matrix.value.headRefName }}" | sed 's/refs\/heads\///g')
           echo "branch_name=${BRANCH}"
           echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
     - name: Set up Java (version from .java-version file)
@@ -555,7 +549,7 @@ jobs:
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
-        name: stryker-incremental-main.json
+        name: stryker-incremental-${{ matrix.value.headRefName }}.json
         path: ${{ env.destination }}
         check_artifacts: true
         if_no_artifact_found: warn
@@ -563,12 +557,12 @@ jobs:
       working-directory: ./frontend
       continue-on-error: true
       run: |
-        npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+        npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{ matrix.value.headRefName }}.json
     - name: Upload stryker incremental file to Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: stryker-incremental-main.json
-        path: frontend/reports/stryker-incremental-main.json
+        name: stryker-incremental-${{ matrix.value.headRefName }}.json
+        path: frontend/reports/stryker-incremental-${{ matrix.value.headRefName }}.json
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
