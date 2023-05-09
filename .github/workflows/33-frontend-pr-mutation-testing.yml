@@ -1,7 +1,7 @@
 name: "33-frontend-pr-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
 
 # This workflow pulls incremental mutation testing results
-# if they exist for the named branch, and then 
+# if they exist for the given PR, and then 
 # uses those incremental results to run mutation testing faster.
 # Reference: https://stryker-mutator.io/docs/stryker-js/incremental/
 
@@ -14,6 +14,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    env:
+      destination: frontend/reports/mutation
 
     steps:
       
@@ -51,7 +53,7 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           branch: main
           name: stryker-incremental-${pr_number}.json
-          path: ${{ env.destination }}
+          path: frontend/reports/stryker-incremental-${pr_number}.json
           check_artifacts: true
           if_no_artifact_found: warn
      
