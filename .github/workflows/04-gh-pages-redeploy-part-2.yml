@@ -8,7 +8,9 @@ on:
 
 env:
   GH_TOKEN: ${{ github.token }}
-  destinations: [{ "javadoc": "target/site/apidocs"},{ "storybook": "frontend/storybook-static" }] 
+  javadoc_dest: target/site/apidocs
+  storybook_dest: frontend/storybook-static
+  jacoco_dest: target/site/jacoco
 
 permissions:
   contents: write
@@ -55,17 +57,11 @@ jobs:
     name: a - Javadoc (Main)
     runs-on: ubuntu-latest
     needs: [initialize]
-    env:
-      destination: target/site/apidocs   
     steps:
-    - name: Debugging output
-      run: | 
-        echo env.destinations.javadoc=${{ env.destinations.javadoc }}
-        echo env.destinations["javadoc"]=${{ env.destinations["javadoc"] }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
+      run: mkdir -p ${{ env.javadoc_dest  }}
     - name: Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
@@ -73,7 +69,7 @@ jobs:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: javadoc
-        path: ${{ env.destination }}
+        path: ${{env.javadoc_dest }}
         check_artifacts: true
         if_no_artifact_found: error
     - name: Debugging output
@@ -83,7 +79,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
+        folder: ${{ env.javadoc_dest }} # The folder where we put the files
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: javadoc # The folder that we serve our files from
 
@@ -91,16 +87,11 @@ jobs:
     name: b - Storybook (Main)
     runs-on: ubuntu-latest
     needs: [deploy-javadoc-main]
-    env:
-      destination: frontend/storybook-static  
     steps:
-    - name: Debugging output
-      run: | 
-        echo env.destinations.javadoc=${{ env.destinations.storybook }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
+      run: mkdir -p ${{ env.storybook_dest }}
     - name: Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
@@ -108,14 +99,14 @@ jobs:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: storybook
-        path: ${{ env.destination }}
+        path: ${{ env.storybook_dest }}
         check_artifacts: true
         if_no_artifact_found: error
     - name: Deploy Storybook (Main) 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
-        folder:  ${{ env.destination }} # The folder where the files come from
+        folder:  ${{ env.storybook_dest}} # The folder where the files come from
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: storybook # The folder that we serve our files from
 
@@ -123,13 +114,11 @@ jobs:
     name: c - Jacoco (Main)
     runs-on: ubuntu-latest
     needs: [deploy-storybook-main]
-    env:
-      destination: target/site/jacoco  
     steps:
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
+      run: mkdir -p ${{ env.jacoco_dest }}
     - name: Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
@@ -137,7 +126,7 @@ jobs:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: jacoco
-        path: ${{ env.destination }}
+        path: ${{ env.jacoco_dest }}
         check_artifacts: true
         if_no_artifact_found: error
 
@@ -145,7 +134,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
+        folder: ${{ env.jacoco_dest }} # The folder where we put the files
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: jacoco # The folder that we serve our files from
 
