@@ -303,7 +303,7 @@ jobs:
       with:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
-        name: prs-${{ matrix.value.number }}-storybook
+        name: prs-${{ matrix.value.number }}-jacoco
         path: ${{ env.jacoco_dest }}
         check_artifacts: true
         if_no_artifact_found: error
@@ -316,3 +316,23 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
+    - name: d-pitest Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.pitest_dest }}
+
+    - name: d-pitest Download artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: prs-${{ matrix.value.number }}-pitest
+        path: ${{ env.pitest_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
+
+    - name: d-pitest Deploy Pitest (PR ${{ matrix.value.number }}) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.pitest_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/pitest # The folder that we serve our files from
