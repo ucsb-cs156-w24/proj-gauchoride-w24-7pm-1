@@ -53,11 +53,13 @@ jobs:
 
 
   rebuild-basic-site:
-    name: Setup Node.js (and cache it)
+    name: Rebuild Basic Site (index.md and _config.yml)
     needs: [get-pull-requests]
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
     - name: Append name of site to _config.yml
       run: | 
           CONFIG_YML=frontend/docs-index/_config.yml
@@ -90,7 +92,7 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
 
   deploy-main-docs:
-    name: Deploy Documentation
+    name: Deploy Documentation for main branch
     needs: [ rebuild-basic-site ]
     if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     runs-on: ubuntu-latest
