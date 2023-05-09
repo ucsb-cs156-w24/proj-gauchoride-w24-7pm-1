@@ -59,7 +59,6 @@ jobs:
     - name: a-javadoc Make directory in case it doesn't exist
       run: mkdir -p ${{ env.javadoc_dest  }}
     - name: a-javadoc Download artifact
-      id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
         workflow: 02-gh-pages-rebuild-part-1.yml
@@ -82,7 +81,6 @@ jobs:
     - name: b-storybook Make directory in case it doesn't exist
       run: mkdir -p ${{ env.storybook_dest }}
     - name: b-storybook Download artifact
-      id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
         workflow: 02-gh-pages-rebuild-part-1.yml
@@ -104,7 +102,6 @@ jobs:
     - name: c-jacoco Make directory in case it doesn't exist
       run: mkdir -p ${{ env.jacoco_dest }}
     - name: c-jacoco Download artifact
-      id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
         workflow: 02-gh-pages-rebuild-part-1.yml
