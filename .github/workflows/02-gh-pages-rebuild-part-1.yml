@@ -229,8 +229,11 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
 
-    - run: npm ci
+    - name: npm clean install, and create directories 
       working-directory: ./frontend
+      run: | 
+        npm ci
+        mkdir -p history
 
     - name: Download artifact
       id: download-artifact
@@ -240,7 +243,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-main.json
-        path:  frontend/reports/stryker-incremental-main.json
+        path:  frontend/history
         check_artifacts: true
         if_no_artifact_found: warn
 
@@ -248,20 +251,20 @@ jobs:
       working-directory: ./frontend
       continue-on-error: true
       run: |
-        npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+        npx stryker run --incremental --incrementalFile history/stryker-incremental-main.json
      
     - name: Upload stryker incremental file to Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
         name: stryker-incremental-main.json
-        path: frontend/reports/stryker-incremental-main.json
+        path: frontend/history
 
     - name: Upload report to Artifacts
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
         name: stryker
-        path: frontend/reports/mutation
+        path: frontend/reports/mutation/mutation.html
 
   a-build-javadoc-for-each-pr:
     name: a - Javadoc (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
@@ -549,6 +552,7 @@ jobs:
     - name: create directories
       run: |
          mkdir -p ${{ env.destination }}
+         mkdir -p ${{ env.history_destination}}
     - name: Setup Node.js
       uses: actions/setup-node@v3.6.0
       with:
@@ -574,7 +578,7 @@ jobs:
       working-directory: ./frontend
       continue-on-error: true
       run: |
-        npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{ matrix.value.headRefName }}.json
+        npx stryker run --incremental --incrementalFile history/stryker-incremental-${{ matrix.value.headRefName }}.json
     - name: Upload stryker incremental file to Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
@@ -584,4 +588,4 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: pr-${{ matrix.value.number }}-coverage
-        path: ${{ env.destination }}
+        path: ${{ env.destination }}/mutation.html
