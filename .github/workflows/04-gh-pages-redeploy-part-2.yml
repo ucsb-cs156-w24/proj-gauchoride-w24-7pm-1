@@ -336,3 +336,46 @@ jobs:
         folder: ${{ env.pitest_dest }} # The folder where we put the files
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/pitest # The folder that we serve our files from
+
+
+    - name: e-coverage Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.coverage_dest }}
+
+    - name: e-coverage Download artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: prs-${{ matrix.value.number }}-coverage
+        path: ${{ env.coverage_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
+
+    - name: e-coverage Deploy Coverage (PR ${{ matrix.value.number }}) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.coverage_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/coverage # The folder that we serve our files from
+
+    - name: f-stryker Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.stryker_dest }}
+
+    - name: f-stryker Download artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: prs-${{ matrix.value.number }}-stryker
+        path: ${{ env.stryker_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
+
+    - name: f-stryker Deploy Stryker (PR ${{ matrix.value.number }}) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.stryker_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/stryker # The folder that we serve our files from
