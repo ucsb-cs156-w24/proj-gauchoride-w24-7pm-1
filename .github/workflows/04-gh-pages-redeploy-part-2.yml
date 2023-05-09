@@ -8,6 +8,9 @@ on:
 
 env:
   GH_TOKEN: ${{ github.token }}
+  destinations: 
+    - javadoc: target/site/apidocs   
+    - storybook: frontend/storybook-static  
 
 permissions:
   contents: write
@@ -57,6 +60,9 @@ jobs:
     env:
       destination: target/site/apidocs   
     steps:
+    - name: Debugging output
+      run: | 
+        echo env.destinations.javadoc=${{ env.destinations.javadoc }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
@@ -89,6 +95,9 @@ jobs:
     env:
       destination: frontend/storybook-static  
     steps:
+    - name: Debugging output
+       run: | 
+        echo env.destinations.javadoc=${{ env.destinations.storybook }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
