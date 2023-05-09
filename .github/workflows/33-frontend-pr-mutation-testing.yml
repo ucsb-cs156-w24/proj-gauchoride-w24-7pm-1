@@ -32,7 +32,7 @@ jobs:
           echo "pr_number=${pr_number}" 
           if [[ "${pr_number}" == "null" ]]; then
             echo "This is not a PR"
-            pr_number=""
+            pr_number="main"
           fi
           echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
           
@@ -43,14 +43,18 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
   
-
-      - name: Restore Stryker Incremental File from Cache
-        uses: actions/cache/restore@v3.3.1
-        id: cache-stryker-restore
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2.27.0
         with:
-          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
-          key: stryker-incremental${{ env.pr_number}}
-
+          workflow: 02-gh-pages-rebuild-part-1.yml
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branch: main
+          name: stryker-incremental-${pr_number}.json
+          path: ${{ env.destination }}
+          check_artifacts: true
+          if_no_artifact_found: warn
+     
       - name: Debugging output one
         run: |
           ls -lRt frontend
@@ -65,25 +69,11 @@ jobs:
         run: |
           ls -lRt frontend
 
-      - name: Cache Stryker Incrmental File
-        uses: actions/cache/save@v3.3.1
-        id: cache-stryker-save
+      - name: Upload stryker incremental file to Artifacts
+        uses: actions/upload-artifact@v3.1.2
         with:
-          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
-          key: stryker-incremental${{ env.pr_number}}
-
-      # - name: Upload stryker incremental file to Artifacts
-      #   uses: actions/upload-artifact@v3.1.2
-      #   with:
-      #     name: stryker-incremental-${{env.branch_name}}.json
-      #     path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
-
-      # - name: Upload stryker report to Artifacts
-      #   if: always() # always upload artifacts, even if tests fail
-      #   uses: actions/upload-artifact@v3.1.2
-      #   with:
-      #     name: stryker-report
-      #     path: frontend/reports/mutation/*
+          name: stryker-incremental-${{env.pr_number}}.json
+          path: frontend/reports/stryker-incremental-${{env.pr_number}}.json
 
       - name: Deploy 🚀
         if: always() # always upload artifacts, even if tests fail
