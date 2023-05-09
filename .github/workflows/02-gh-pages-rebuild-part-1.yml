@@ -530,6 +530,8 @@ jobs:
 
     env:
       destination: frontend/reports/mutation
+      history_destination: frontend/reports/
+
 
     strategy:
       matrix:
@@ -565,7 +567,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-${{ matrix.value.headRefName }}.json
-        path: ${{ env.destination }}
+        path: ${{ env.history_destination }}
         check_artifacts: true
         if_no_artifact_found: warn
     - name: Stryker (main, incremental)
@@ -577,7 +579,7 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         name: stryker-incremental-${{ matrix.value.headRefName }}.json
-        path: frontend/reports/stryker-incremental-${{ matrix.value.headRefName }}.json
+        path: ${{ env.history_destination }}/stryker-incremental-${{ matrix.value.headRefName }}.json
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
