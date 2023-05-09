@@ -244,7 +244,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
-    needs: [ deploy-main-docs ]
+    needs: [ get-pull-requests, deploy-main-docs ]
 
     strategy:
         max-parallel: 1
