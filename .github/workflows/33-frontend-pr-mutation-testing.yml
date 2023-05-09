@@ -44,12 +44,12 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
   
 
-      # - name: Restore Stryker Incremental File from Cache
-      #   uses: actions/cache@v3.3.1
-      #   id: cache-stryker-restore
-      #   with:
-      #     path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
-      #     key: stryker-incremental${{ env.pr_number}}
+      - name: Restore Stryker Incremental File from Cache
+        uses: actions/cache/restore@v3.3.1
+        id: cache-stryker-restore
+        with:
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          key: stryker-incremental${{ env.pr_number}}
 
       - name: Debugging output one
         run: |
@@ -65,12 +65,12 @@ jobs:
         run: |
           ls -lRt frontend
 
-      # - name: Cache Stryker Incrmental File
-      #   uses: actions/cache@v3.3.1
-      #   id: cache-stryker-save
-      #   with:
-      #     path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
-      #     key: stryker-incremental${{ env.pr_number}}
+      - name: Cache Stryker Incrmental File
+        uses: actions/cache/save@v3.3.1
+        id: cache-stryker-save
+        with:
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          key: stryker-incremental${{ env.pr_number}}
 
       # - name: Upload stryker incremental file to Artifacts
       #   uses: actions/upload-artifact@v3.1.2
