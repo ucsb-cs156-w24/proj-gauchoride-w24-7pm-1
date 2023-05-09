@@ -82,293 +82,293 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: javadoc # The folder that we serve our files from
 
-  deploy-storybook-main:
-    name: Storybook (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-javadoc-main]
-    env:
-      destination: frontend/storybook-static  
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: storybook
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
-    - name: Deploy Storybook (Main) 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder:  ${{ env.destination }} # The folder where the files come from
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: storybook # The folder that we serve our files from
+  # deploy-storybook-main:
+  #   name: Storybook (Main)
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy-javadoc-main]
+  #   env:
+  #     destination: frontend/storybook-static  
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: storybook
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
+  #   - name: Deploy Storybook (Main) 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder:  ${{ env.destination }} # The folder where the files come from
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: storybook # The folder that we serve our files from
 
-  deploy-jacoco-main:
-    name: Jacoco (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-storybook-main]
-    env:
-      destination: target/site/jacoco  
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: jacoco
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
+  # deploy-jacoco-main:
+  #   name: Jacoco (Main)
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy-storybook-main]
+  #   env:
+  #     destination: target/site/jacoco  
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: jacoco
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: jacoco # The folder that we serve our files from
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder: ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: jacoco # The folder that we serve our files from
 
-  deploy-pitest-main:
-    name: Pitest (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-jacoco-main]
-    env:
-      destination: target/pit-reports
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: pitest
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: pitest # The folder that we serve our files from
+  # deploy-pitest-main:
+  #   name: Pitest (Main)
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy-jacoco-main]
+  #   env:
+  #     destination: target/pit-reports
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: pitest
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder: ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: pitest # The folder that we serve our files from
 
-  deploy-coverage-main:
-    name: Coverage (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-pitest-main]
-    env:
-      destination: frontend/coverage/lcov-report
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: coverage
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
+  # deploy-coverage-main:
+  #   name: Coverage (Main)
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy-pitest-main]
+  #   env:
+  #     destination: frontend/coverage/lcov-report
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: coverage
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder:  ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: coverage # The folder that we serve our files from
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder:  ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: coverage # The folder that we serve our files from
 
-  deploy-stryker-main:
-    name: Coverage (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-coverage-main]
-    env:
-      destination: frontend/reports/mutation
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: stryker
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
+  # deploy-stryker-main:
+  #   name: Coverage (Main)
+  #   runs-on: ubuntu-latest
+  #   needs: [deploy-coverage-main]
+  #   env:
+  #     destination: frontend/reports/mutation
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: stryker
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder:  ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: stryker # The folder that we serve our files from
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder:  ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: stryker # The folder that we serve our files from
 
-  get-pull-requests:
-    needs: [deploy-stryker-main]
-    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
-    name: Get Pull Requests
-    runs-on: ubuntu-latest
-    outputs:
-      pull_requests: ${{ steps.get-prs.outputs.pull_requests }}
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Get Pull Requests from Github api
-      id: get-prs
-      run: |
-        gh pr list -s open --json url,author,number,title,headRefName 
-        gh pr list -s open --json url,author,number,title,headRefName > prs.json
-        cat prs.json
-        pull_requests=`cat prs.json`
-        echo "pull_requests=${pull_requests}"
-        echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
+  # get-pull-requests:
+  #   needs: [deploy-stryker-main]
+  #   if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+  #   name: Get Pull Requests
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     pull_requests: ${{ steps.get-prs.outputs.pull_requests }}
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Get Pull Requests from Github api
+  #     id: get-prs
+  #     run: |
+  #       gh pr list -s open --json url,author,number,title,headRefName 
+  #       gh pr list -s open --json url,author,number,title,headRefName > prs.json
+  #       cat prs.json
+  #       pull_requests=`cat prs.json`
+  #       echo "pull_requests=${pull_requests}"
+  #       echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
-  deploy-javadoc-for-each-pr:
-    name: Javadoc (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+  # deploy-javadoc-for-each-pr:
+  #   name: Javadoc (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
-    needs: [get-pull-requests]
+  #   needs: [get-pull-requests]
 
-    env:
-      destination: target/site/apidocs
+  #   env:
+  #     destination: target/site/apidocs
 
-    strategy:
-        max-parallel: 1
-        matrix:
-          value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+  #   strategy:
+  #       max-parallel: 1
+  #       matrix:
+  #         value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
 
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
 
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: jacoco-${{ matrix.value.number }}
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: jacoco-${{ matrix.value.number }}
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: prs/${{ matrix.value.number }}/javadoc # The folder that we serve our files from
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder: ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: prs/${{ matrix.value.number }}/javadoc # The folder that we serve our files from
 
-  deploy-jacoco-for-each-pr:
-    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+  # deploy-jacoco-for-each-pr:
+  #   name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
-    needs: [deploy-javadoc-for-each-pr]
+  #   needs: [deploy-javadoc-for-each-pr]
 
-    env:
-      destination: target/site/jacoco
+  #   env:
+  #     destination: target/site/jacoco
 
-    strategy:
-        max-parallel: 1
-        matrix:
-          value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
+  #   strategy:
+  #       max-parallel: 1
+  #       matrix:
+  #         value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
 
-    - name: Make directory in case it doesn't exist
-      run: mkdir -p ${{ env.destination }}
+  #   - name: Make directory in case it doesn't exist
+  #     run: mkdir -p ${{ env.destination }}
 
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        name: prs-${{ matrix.value.number }}-jacoco
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: error
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       name: prs-${{ matrix.value.number }}-jacoco
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: error
 
-    - name: Debugging Output
-      run: |
-        ls -lRt
+  #   - name: Debugging Output
+  #     run: |
+  #       ls -lRt
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: ${{ env.destination }} # The folder where we put the files
-        clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       branch: gh-pages # The branch the action should deploy to.
+  #       folder: ${{ env.destination }} # The folder where we put the files
+  #       clean: true # Automatically remove deleted files from the deploy branch
+  #       target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
-  rebuild-basic-site:
-    name: Setup Node.js (and cache it)
-    needs: [ deploy-jacoco-for-each-pr ]
-    runs-on: ubuntu-latest
+  # rebuild-basic-site:
+  #   name: Setup Node.js (and cache it)
+  #   needs: [ deploy-jacoco-for-each-pr ]
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Append name of site to _config.yml
-      run: | 
-          CONFIG_YML=frontend/docs-index/_config.yml
-          OWNER_PLUS_REPOSITORY=${{github.repository}}
-          OWNER=${{ github.repository_owner }}
-          REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
-          echo "repo: ${OWNER_PLUS_REPOSITORY}" >> ${CONFIG_YML}
-          echo "owner: ${OWNER}" >> ${CONFIG_YML}
-          echo "repo_name: ${REPOSITORY}" >> ${CONFIG_YML}    
-          cat ${CONFIG_YML}
+  #   steps:
+  #   - name: Append name of site to _config.yml
+  #     run: | 
+  #         CONFIG_YML=frontend/docs-index/_config.yml
+  #         OWNER_PLUS_REPOSITORY=${{github.repository}}
+  #         OWNER=${{ github.repository_owner }}
+  #         REPOSITORY=${OWNER_PLUS_REPOSITORY/$OWNER\//}
+  #         echo "repo: ${OWNER_PLUS_REPOSITORY}" >> ${CONFIG_YML}
+  #         echo "owner: ${OWNER}" >> ${CONFIG_YML}
+  #         echo "repo_name: ${REPOSITORY}" >> ${CONFIG_YML}    
+  #         cat ${CONFIG_YML}
 
-    - name: Store PRs as JSON in _config.yml
-      run: |
-         pull_requests=${{toJSON(needs.initialize.outputs.pull_requests)}}
-         CONFIG_YML=frontend/docs-index/_config.yml
-         echo "pull_requests: ${pull_requests}, CONFIG_YML: ${CONFIG_YML}"
-         echo "pull_requests: ${pull_requests}" >> ${CONFIG_YML}
-         cat ${CONFIG_YML}
+  #   - name: Store PRs as JSON in _config.yml
+  #     run: |
+  #        pull_requests=${{toJSON(needs.initialize.outputs.pull_requests)}}
+  #        CONFIG_YML=frontend/docs-index/_config.yml
+  #        echo "pull_requests: ${pull_requests}, CONFIG_YML: ${CONFIG_YML}"
+  #        echo "pull_requests: ${pull_requests}" >> ${CONFIG_YML}
+  #        cat ${CONFIG_YML}
 
-    - name: Compose web site
-      run: |
-        mkdir -p site
-        cp -r frontend/docs-index/* site
+  #   - name: Compose web site
+  #     run: |
+  #       mkdir -p site
+  #       cp -r frontend/docs-index/* site
         
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: site # The folder the action should deploy.
-        branch: gh-pages
-        clean: true # Automatically remove deleted files from the deploy branch
+  #   - name: Deploy 🚀
+  #     uses: JamesIves/github-pages-deploy-action@v4
+  #     with:
+  #       folder: site # The folder the action should deploy.
+  #       branch: gh-pages
+  #       clean: true # Automatically remove deleted files from the deploy branch
