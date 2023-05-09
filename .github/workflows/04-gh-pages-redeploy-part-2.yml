@@ -51,7 +51,7 @@ jobs:
          echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
   deploy-javadoc-main:
-    name: Javadoc (Main)
+    name: a - Javadoc (Main)
     runs-on: ubuntu-latest
     needs: [initialize]
     env:
@@ -83,7 +83,7 @@ jobs:
         target-folder: javadoc # The folder that we serve our files from
 
   deploy-storybook-main:
-    name: Storybook (Main)
+    name: b - Storybook (Main)
     runs-on: ubuntu-latest
     needs: [deploy-javadoc-main]
     env:
@@ -112,7 +112,7 @@ jobs:
         target-folder: storybook # The folder that we serve our files from
 
   deploy-jacoco-main:
-    name: Jacoco (Main)
+    name: c - Jacoco (Main)
     runs-on: ubuntu-latest
     needs: [deploy-storybook-main]
     env:
