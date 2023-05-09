@@ -51,7 +51,7 @@ tbody tr:nth-child(even) {background-color: #f2f2f2;}
 <td><a href="jacoco">jacoco</a></td>
 <td><a href="pitest">pitest</a></td>
 <td><a href="coverage">coverage</a></td>
-<td><a href="stryker">stryker</a></td>
+<td><a href="stryker/mutation.html">stryker</a></td>
 </tr>
 </tbody>
 </table>
@@ -117,7 +117,7 @@ tbody tr:nth-child(even) {background-color: #f2f2f2;}
 <td><a href="prs/{{pr.number}}/jacoco">jacoco</a></td>
 <td><a href="prs/{{pr.number}}/pitest">pitest</a></td>
 <td><a href="prs/{{pr.number}}/coverage">coverage</a></td>
-<td><a href="prs/{{pr.number}}/stryker">stryker</a></td>
+<td><a href="prs/{{pr.number}}/stryker/mutation.html">stryker</a></td>
 </tr>
 {% endfor %}
 </tbody>

@@ -214,10 +214,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
-    env:
-      destination: frontend/reports
    
-
     steps:
     - uses: szenius/set-timezone@v1.2
       with:
