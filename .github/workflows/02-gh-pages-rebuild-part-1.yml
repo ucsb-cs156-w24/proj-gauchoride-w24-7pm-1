@@ -91,33 +91,33 @@ jobs:
           name: storybook
           path: ${{ env.destination }}
   
-  # build-jacoco-main:
-  #   name: c - Jacoco (main)
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   needs: [initialize]
-  #   env:
-  #     destination: target/site/jacoco  
+  build-jacoco-main:
+    name: c - Jacoco (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [initialize]
+    env:
+      destination: target/site/jacoco  
 
-  #   steps:
-  #   - uses: actions/checkout@v3.5.2
-  #   - name: Set up Java (version from .java-version file)
-  #     uses: actions/setup-java@v3
-  #     with:
-  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-  #        java-version-file: ./.java-version
+    steps:
+    - uses: actions/checkout@v3.5.2
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
   
-  #   - name: Build with Maven
-  #     continue-on-error: true
-  #     env:
-  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-  #     run: mvn -B test jacoco:report verify
+    - name: Build with Maven
+      continue-on-error: true
+      env:
+        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+      run: mvn -B test jacoco:report verify
 
-  #   - name: Upload to artifacts
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #         name: jacoco
-  #         path: ${{ env.destination }}
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+          name: jacoco
+          path: ${{ env.destination }}
 
   # build-pitest-main:
   #   name: d - Pitest (main)

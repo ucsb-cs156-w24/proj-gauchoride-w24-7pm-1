@@ -111,35 +111,35 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: storybook # The folder that we serve our files from
 
-  # deploy-jacoco-main:
-  #   name: Jacoco (Main)
-  #   runs-on: ubuntu-latest
-  #   needs: [deploy-storybook-main]
-  #   env:
-  #     destination: target/site/jacoco  
-  #   steps:
-  #   - name: Checkout local code to establish repo
-  #     uses: actions/checkout@v3.5.2
-  #   - name: Make directory in case it doesn't exist
-  #     run: mkdir -p ${{ env.destination }}
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       name: jacoco
-  #       path: ${{ env.destination }}
-  #       check_artifacts: true
-  #       if_no_artifact_found: error
+  deploy-jacoco-main:
+    name: Jacoco (Main)
+    runs-on: ubuntu-latest
+    needs: [deploy-storybook-main]
+    env:
+      destination: target/site/jacoco  
+    steps:
+    - name: Checkout local code to establish repo
+      uses: actions/checkout@v3.5.2
+    - name: Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.destination }}
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: jacoco
+        path: ${{ env.destination }}
+        check_artifacts: true
+        if_no_artifact_found: error
 
-  #   - name: Deploy 🚀
-  #     uses: JamesIves/github-pages-deploy-action@v4
-  #     with:
-  #       branch: gh-pages # The branch the action should deploy to.
-  #       folder: ${{ env.destination }} # The folder where we put the files
-  #       clean: true # Automatically remove deleted files from the deploy branch
-  #       target-folder: jacoco # The folder that we serve our files from
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.destination }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: jacoco # The folder that we serve our files from
 
   # deploy-pitest-main:
   #   name: Pitest (Main)
