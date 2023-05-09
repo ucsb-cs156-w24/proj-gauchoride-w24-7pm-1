@@ -576,5 +576,5 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: prs-${{ matrix.value.number }}-coverage
+        name: prs-${{ matrix.value.number }}-stryker
         path: ${{ env.destination }}/mutation.html
