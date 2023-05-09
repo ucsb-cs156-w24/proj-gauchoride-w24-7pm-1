@@ -38,7 +38,7 @@ jobs:
         cache-dependency-path: frontend/package-lock.json
  
   build-javadoc-main:
-    name: A - Javadoc (main)
+    name: a - Javadoc (main)
     runs-on: ubuntu-latest
     needs: [initialize]
     env:
@@ -62,7 +62,7 @@ jobs:
           path: ${{ env.destination }}
   
   build-storybook-main:
-    name: B - Storybook (main)
+    name: b - Storybook (main)
     runs-on: ubuntu-latest
     needs: [initialize]
     env:
@@ -92,7 +92,7 @@ jobs:
           path: ${{ env.destination }}
   
   build-jacoco-main:
-    name: C - Jacoco (main)
+    name: c - Jacoco (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
@@ -120,7 +120,7 @@ jobs:
           path: ${{ env.destination }}
 
   build-pitest-main:
-    name: D - Pitest (main)
+    name: d - Pitest (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
@@ -177,7 +177,7 @@ jobs:
           path: ${{ env.destination }}
 
   build-coverage-main:
-    name: E - Coverage (main)
+    name: e - Coverage (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
@@ -209,7 +209,7 @@ jobs:
         path: ${{ env.destination }}
 
   build-stryker-main:
-    name: F - Stryker (main)
+    name: f - Stryker (main)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [initialize]
@@ -265,7 +265,7 @@ jobs:
         path: frontend/reports/mutation
 
   a-build-javadoc-for-each-pr:
-    name: Javadoc (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: a - Javadoc (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
@@ -302,7 +302,7 @@ jobs:
         path: ${{ env.destination }}
     
   b-build-storybook-for-each-pr:
-    name: Storybook (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: b - Storybook (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     needs: [initialize]
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
@@ -349,7 +349,7 @@ jobs:
         path: frontend/storybook_static_${{ matrix.value.number }} 
 
   c-build-jacoco-for-each-pr:
-    name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: c - Jacoco (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
@@ -386,7 +386,7 @@ jobs:
           path: target/site/jacoco
 
   d-build-pitest-for-each-pr:
-    name: Pitest (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: d - Pitest (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
@@ -467,7 +467,7 @@ jobs:
           path: ${{ env.destination }}
 
   e-build-coverage-for-each-pr:
-    name: Coverage (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: e - Coverage (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
@@ -513,7 +513,7 @@ jobs:
 
 
   f-build-stryker-for-each-pr:
-    name: Stryker (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
+    name: f - Stryker (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
     runs-on: ubuntu-latest
     if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
