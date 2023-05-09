@@ -45,6 +45,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
   
+
+      - name: Create directory in case it doesn't exist
+        run: |
+          mkdir -p frontend/history
+
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2.27.0
         with:
@@ -52,18 +57,14 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           branch: main
           name: stryker-incremental-${{env.pr_number}}.json
-          path: frontend/reports/stryker-incremental-${{ env.pr_number }}.json
+          path: frontend/history/stryker-incremental-${{ env.pr_number }}.json
           check_artifacts: true
           if_no_artifact_found: warn
-     
-      - name: Debugging output one
-        run: |
-          ls -lRt frontend
-
+    
       - run: npm ci
         working-directory: ./frontend
 
-      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.pr_number}}.json
+      - run: npx stryker run --incremental --incrementalFile history/stryker-incremental-${{env.pr_number}}.json
         working-directory: ./frontend
 
       - name: Debugging output two
@@ -74,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: stryker-incremental-${{env.pr_number}}.json
-          path: frontend/reports/stryker-incremental-${{env.pr_number}}.json
+          path: frontend/history/stryker-incremental-${{env.pr_number}}.json
 
       - name: Deploy 🚀
         if: always() # always upload artifacts, even if tests fail
