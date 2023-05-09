@@ -68,7 +68,7 @@ jobs:
     - name: Set path for github pages deploy when there is a PR num
       if: ${{ env.pr_number != 'null' }}
       run: |
-        prefix="pr/${pr_number}/"
+        prefix="prs/${pr_number}/"
         echo "prefix=${prefix}"
         echo "prefix=${prefix}" >> "$GITHUB_ENV"
     
@@ -86,4 +86,4 @@ jobs:
         branch: gh-pages # The branch the action should deploy to.
         folder: target/pit-reports # The folder where the files we want to publish are located
         clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: ${prefix}pitest # The folder that we serve our files from
+        target-folder: ${{env.prefix}}pitest # The folder that we serve our files from
