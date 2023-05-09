@@ -37,555 +37,555 @@ jobs:
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
  
-  build-javadoc-main:
-    name: a - Javadoc (main)
-    runs-on: ubuntu-latest
-    needs: [initialize]
-    env:
-      destination: target/site/apidocs   
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+  # build-javadoc-main:
+  #   name: a - Javadoc (main)
+  #   runs-on: ubuntu-latest
+  #   needs: [initialize]
+  #   env:
+  #     destination: target/site/apidocs   
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
   
-    - name: Build javadoc
-      run: mvn -DskipTests javadoc:javadoc
+  #   - name: Build javadoc
+  #     run: mvn -DskipTests javadoc:javadoc
 
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: javadoc
-          path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: javadoc
+  #         path: ${{ env.destination }}
   
-  build-storybook-main:
-    name: b - Storybook (main)
-    runs-on: ubuntu-latest
-    needs: [initialize]
-    env:
-      destination: frontend/storybook-static   
+  # build-storybook-main:
+  #   name: b - Storybook (main)
+  #   runs-on: ubuntu-latest
+  #   needs: [initialize]
+  #   env:
+  #     destination: frontend/storybook-static   
 
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
+  #   steps:
+  #   - name: Checkout local code to establish repo
+  #     uses: actions/checkout@v3.5.2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
 
-    - name: Build Storybook for main branch
-      working-directory: frontend
-      run: | # Install npm packages and build the Storybook files
-        npm install
-        npx build-storybook --docs -o storybook_static
+  #   - name: Build Storybook for main branch
+  #     working-directory: frontend
+  #     run: | # Install npm packages and build the Storybook files
+  #       npm install
+  #       npx build-storybook --docs -o storybook_static
 
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: storybook
-          path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: storybook
+  #         path: ${{ env.destination }}
   
-  build-jacoco-main:
-    name: c - Jacoco (main)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: [initialize]
-    env:
-      destination: target/site/jacoco  
+  # build-jacoco-main:
+  #   name: c - Jacoco (main)
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   needs: [initialize]
+  #   env:
+  #     destination: target/site/jacoco  
 
-    steps:
-    - uses: actions/checkout@v3.5.2
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+  #   steps:
+  #   - uses: actions/checkout@v3.5.2
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
   
-    - name: Build with Maven
-      continue-on-error: true
-      env:
-        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-      run: mvn -B test jacoco:report verify
+  #   - name: Build with Maven
+  #     continue-on-error: true
+  #     env:
+  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+  #     run: mvn -B test jacoco:report verify
 
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: jacoco
-          path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: jacoco
+  #         path: ${{ env.destination }}
 
-  build-pitest-main:
-    name: d - Pitest (main)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: [initialize]
-    env:
-      destination: target/pit-reports
-      history_destination: target/pit-history
+  # build-pitest-main:
+  #   name: d - Pitest (main)
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   needs: [initialize]
+  #   env:
+  #     destination: target/pit-reports
+  #     history_destination: target/pit-history
 
-    steps:
-    - uses: actions/checkout@v3.5.2
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
-    - name: create directories
-      run: |
-         mkdir -p ${{ env.destination }}
-         mkdir -p ${{ env.history_destination }}
+  #   steps:
+  #   - uses: actions/checkout@v3.5.2
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
+  #   - name: create directories
+  #     run: |
+  #        mkdir -p ${{ env.destination }}
+  #        mkdir -p ${{ env.history_destination }}
 
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        branch: ${{ env.branch_name }}
-        name: pitest-main-history.bin
-        path: ${{ env.history_destination}}
-        check_artifacts: true
-        if_no_artifact_found: warn
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       branch: ${{ env.branch_name }}
+  #       name: pitest-main-history.bin
+  #       path: ${{ env.history_destination}}
+  #       check_artifacts: true
+  #       if_no_artifact_found: warn
 
-    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
-      continue-on-error: true
-      run: |
-        historyFile=${{ env.history_destination}}/pitest-main-history.bin
-        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+  #   - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+  #     continue-on-error: true
+  #     run: |
+  #       historyFile=${{ env.history_destination}}/pitest-main-history.bin
+  #       [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
 
-    - name: Build with Maven
-      continue-on-error: true
-      env:
-        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-      run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+  #   - name: Build with Maven
+  #     continue-on-error: true
+  #     env:
+  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+  #     run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
 
-    - name: Upload Pitest History to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: pitest-main-history.bin
-        path: ${{ env.history_destination}}/history.bin
+  #   - name: Upload Pitest History to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: pitest-main-history.bin
+  #       path: ${{ env.history_destination}}/history.bin
 
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: pitest
-          path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: pitest
+  #         path: ${{ env.destination }}
 
-  build-coverage-main:
-    name: e - Coverage (main)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: [initialize]
-    env:
-      destination: frontend/coverage/lcov-report
-    steps:
-    - uses: szenius/set-timezone@v1.2
-      with:
-        timezoneLinux: "America/Los_Angeles"
-    - uses: actions/checkout@v3.5.2
-      with: 
-        fetch-depth: 2
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
-    - run: npm ci
-      working-directory: ./frontend
-    - run: npm run coverage
-      continue-on-error: true
-      working-directory: ./frontend
-    - name: Upload jest coverage report to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: coverage
-        path: ${{ env.destination }}
+  # build-coverage-main:
+  #   name: e - Coverage (main)
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   needs: [initialize]
+  #   env:
+  #     destination: frontend/coverage/lcov-report
+  #   steps:
+  #   - uses: szenius/set-timezone@v1.2
+  #     with:
+  #       timezoneLinux: "America/Los_Angeles"
+  #   - uses: actions/checkout@v3.5.2
+  #     with: 
+  #       fetch-depth: 2
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
+  #   - run: npm ci
+  #     working-directory: ./frontend
+  #   - run: npm run coverage
+  #     continue-on-error: true
+  #     working-directory: ./frontend
+  #   - name: Upload jest coverage report to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: coverage
+  #       path: ${{ env.destination }}
 
-  build-stryker-main:
-    name: f - Stryker (main)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: [initialize]
-    env:
-      destination: frontend/reports
+  # build-stryker-main:
+  #   name: f - Stryker (main)
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+  #   needs: [initialize]
+  #   env:
+  #     destination: frontend/reports
    
 
-    steps:
-    - uses: szenius/set-timezone@v1.2
-      with:
-        timezoneLinux: "America/Los_Angeles"
-    - uses: actions/checkout@v3.5.2
-      with: 
-        fetch-depth: 2
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+  #   steps:
+  #   - uses: szenius/set-timezone@v1.2
+  #     with:
+  #       timezoneLinux: "America/Los_Angeles"
+  #   - uses: actions/checkout@v3.5.2
+  #     with: 
+  #       fetch-depth: 2
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
 
-    - run: npm ci
-      working-directory: ./frontend
+  #   - run: npm ci
+  #     working-directory: ./frontend
 
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        branch: main
-        name: stryker-incremental-main.json
-        path: ${{ env.destination }}
-        check_artifacts: true
-        if_no_artifact_found: warn
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       branch: main
+  #       name: stryker-incremental-main.json
+  #       path: ${{ env.destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: warn
 
-    - name: Stryker (main, incremental)
-      working-directory: ./frontend
-      continue-on-error: true
-      run: |
-        npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+  #   - name: Stryker (main, incremental)
+  #     working-directory: ./frontend
+  #     continue-on-error: true
+  #     run: |
+  #       npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
      
-    - name: Upload stryker incremental file to Artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: stryker-incremental-main.json
-        path: frontend/reports/stryker-incremental-main.json
+  #   - name: Upload stryker incremental file to Artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: stryker-incremental-main.json
+  #       path: frontend/reports/stryker-incremental-main.json
 
-    - name: Upload report to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: stryker
-        path: frontend/reports/mutation
+  #   - name: Upload report to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: stryker
+  #       path: frontend/reports/mutation
 
-  a-build-javadoc-for-each-pr:
-    name: a - Javadoc (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # a-build-javadoc-for-each-pr:
+  #   name: a - Javadoc (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    needs: [initialize]
+  #   needs: [initialize]
 
-    env:
-      destination: target/site/apidocs   
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   env:
+  #     destination: target/site/apidocs   
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 1
-        token: ${{ github.token }}
+  #   steps:
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 1
+  #       token: ${{ github.token }}
 
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
 
-    - name: Build javadoc
-      run: mvn -DskipTests javadoc:javadoc
+  #   - name: Build javadoc
+  #     run: mvn -DskipTests javadoc:javadoc
  
-    - name: Upload javadoc to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: prs-${{ matrix.value.number }}-javadoc
-        path: ${{ env.destination }}
+  #   - name: Upload javadoc to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: prs-${{ matrix.value.number }}-javadoc
+  #       path: ${{ env.destination }}
     
-  b-build-storybook-for-each-pr:
-    name: b - Storybook (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    needs: [initialize]
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # b-build-storybook-for-each-pr:
+  #   name: b - Storybook (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   needs: [initialize]
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - name: Debugging Output
-      run: |
-        echo "matrix.value: ${{ matrix.value }}"
-        echo "matrix.value.url: ${{ matrix.value.url }}"
-        echo "matrix.value.author: ${{ matrix.value.author }}"
-        echo "matrix.value.number: ${{ matrix.value.number }}"
-        echo "matrix.value.title:  ${{ matrix.value.title }}"
-        echo "matrix.value.headRefName:  ${{ matrix.value.headRefName }}"
+  #   steps:
+  #   - name: Debugging Output
+  #     run: |
+  #       echo "matrix.value: ${{ matrix.value }}"
+  #       echo "matrix.value.url: ${{ matrix.value.url }}"
+  #       echo "matrix.value.author: ${{ matrix.value.author }}"
+  #       echo "matrix.value.number: ${{ matrix.value.number }}"
+  #       echo "matrix.value.title:  ${{ matrix.value.title }}"
+  #       echo "matrix.value.headRefName:  ${{ matrix.value.headRefName }}"
 
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 1
-        token: ${{ github.token }}
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 1
+  #       token: ${{ github.token }}
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
 
-    - name: Build Storybook for PR branch
-      working-directory: frontend
-      run: | # Install npm packages and build the Storybook files
-        npm install
-        npx build-storybook --docs -o storybook_static_${{ matrix.value.number }}
+  #   - name: Build Storybook for PR branch
+  #     working-directory: frontend
+  #     run: | # Install npm packages and build the Storybook files
+  #       npm install
+  #       npx build-storybook --docs -o storybook_static_${{ matrix.value.number }}
  
-    - name: Upload Storybook to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: prs-${{ matrix.value.number }}-storybook
-        path: frontend/storybook_static_${{ matrix.value.number }} 
+  #   - name: Upload Storybook to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: prs-${{ matrix.value.number }}-storybook
+  #       path: frontend/storybook_static_${{ matrix.value.number }} 
 
-  c-build-jacoco-for-each-pr:
-    name: c - Jacoco (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # c-build-jacoco-for-each-pr:
+  #   name: c - Jacoco (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    needs: [initialize]
+  #   needs: [initialize]
 
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 1
-        token: ${{ github.token }}
+  #   steps:
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 1
+  #       token: ${{ github.token }}
 
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
 
-    - name: Build with Maven
-      continue-on-error: true
-      env:
-        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-      run: mvn -B test jacoco:report verify
+  #   - name: Build with Maven
+  #     continue-on-error: true
+  #     env:
+  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+  #     run: mvn -B test jacoco:report verify
  
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: pr-${{ matrix.value.number }}-jacoco
-          path: target/site/jacoco
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: pr-${{ matrix.value.number }}-jacoco
+  #         path: target/site/jacoco
 
-  d-build-pitest-for-each-pr:
-    name: d - Pitest (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # d-build-pitest-for-each-pr:
+  #   name: d - Pitest (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    needs: [initialize]
+  #   needs: [initialize]
 
-    env:
-      destination: target/pit-reports
-      history_destination: target/pit-history
+  #   env:
+  #     destination: target/pit-reports
+  #     history_destination: target/pit-history
 
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 1
-        token: ${{ github.token }}
-    - name: create directories
-      run: |
-         mkdir -p ${{ env.destination }}
-         mkdir -p ${{ env.history_destination }}
+  #   steps:
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 1
+  #       token: ${{ github.token }}
+  #   - name: create directories
+  #     run: |
+  #        mkdir -p ${{ env.destination }}
+  #        mkdir -p ${{ env.history_destination }}
 
-    - name: Figure out branch name
-      id: get-branch-name
-      run: | 
-          BRANCH=$(echo "${{ matrix.value.headRefName }}" | sed 's/refs\/heads\///g')
-          echo "branch_name=${BRANCH}"
-          echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
-    - name: Set up Java (version from .java-version file)
-      uses: actions/setup-java@v3
-      with:
-         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-         java-version-file: ./.java-version
+  #   - name: Figure out branch name
+  #     id: get-branch-name
+  #     run: | 
+  #         BRANCH=$(echo "${{ matrix.value.headRefName }}" | sed 's/refs\/heads\///g')
+  #         echo "branch_name=${BRANCH}"
+  #         echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"
+  #   - name: Set up Java (version from .java-version file)
+  #     uses: actions/setup-java@v3
+  #     with:
+  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+  #        java-version-file: ./.java-version
 
-    - name: Download artifact
-      id: download-artifact
-      uses: ≈
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        branch: ${{ env.branch_name }}
-        name: pitest-${{ env.branch_name }}-history.bin
-        path: ${{ env.history_destination}}
-        check_artifacts: true
-        if_no_artifact_found: warn
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: ≈
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       branch: ${{ env.branch_name }}
+  #       name: pitest-${{ env.branch_name }}-history.bin
+  #       path: ${{ env.history_destination}}
+  #       check_artifacts: true
+  #       if_no_artifact_found: warn
 
-    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
-      continue-on-error: true
-      run: |
-        historyFile=${{ env.history_destination}}/pitest-${{ env.branch_name }}-history.bin
-        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+  #   - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+  #     continue-on-error: true
+  #     run: |
+  #       historyFile=${{ env.history_destination}}/pitest-${{ env.branch_name }}-history.bin
+  #       [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
   
-    - name: Debugging output before mvn pitest ...
-      run: |
-        ls -lRt target
+  #   - name: Debugging output before mvn pitest ...
+  #     run: |
+  #       ls -lRt target
 
-    - name: Build with Maven
-      continue-on-error: true
-      env:
-        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-      run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+  #   - name: Build with Maven
+  #     continue-on-error: true
+  #     env:
+  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+  #     run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
 
-    - name: Copy artifact to name for branch 
-      continue-on-error: true
-      run: |
-        historyFileSrc=${{ env.history_destination}}/history.bin # specified in pom.xml as historyOutputFile
-        historyFileDest=pit-history/pitest-${{ env.branch_name }}-history.bin
-        [ -f "$historyFile" ] && cp $historyFileSrc $historyFileDest
+  #   - name: Copy artifact to name for branch 
+  #     continue-on-error: true
+  #     run: |
+  #       historyFileSrc=${{ env.history_destination}}/history.bin # specified in pom.xml as historyOutputFile
+  #       historyFileDest=pit-history/pitest-${{ env.branch_name }}-history.bin
+  #       [ -f "$historyFile" ] && cp $historyFileSrc $historyFileDest
   
-    - name: Debugging output after mvn pitest ...
-      run: |
-        ls -lRt target
+  #   - name: Debugging output after mvn pitest ...
+  #     run: |
+  #       ls -lRt target
 
-    - name: Upload Pitest History to Artifacts
-      if: always() # always upload artifacts, even if tests fail
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: pitest-${{ env.branch_name }}-history.bin
-        path: ${{ env.history_destination}}/history.bin
+  #   - name: Upload Pitest History to Artifacts
+  #     if: always() # always upload artifacts, even if tests fail
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: pitest-${{ env.branch_name }}-history.bin
+  #       path: ${{ env.history_destination}}/history.bin
 
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: pr-${{ matrix.value.number }}-pitest
-          path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #         name: pr-${{ matrix.value.number }}-pitest
+  #         path: ${{ env.destination }}
 
-  e-build-coverage-for-each-pr:
-    name: e - Coverage (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # e-build-coverage-for-each-pr:
+  #   name: e - Coverage (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    needs: [initialize]
+  #   needs: [initialize]
 
-    env:
-      destination: frontend/coverage/lcov-report
+  #   env:
+  #     destination: frontend/coverage/lcov-report
 
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 1
-        token: ${{ github.token }}
-    - name: create directories
-      run: |
-         mkdir -p ${{ env.destination }}
+  #   steps:
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 1
+  #       token: ${{ github.token }}
+  #   - name: create directories
+  #     run: |
+  #        mkdir -p ${{ env.destination }}
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
 
-    - run: npm ci
-      working-directory: ./frontend
+  #   - run: npm ci
+  #     working-directory: ./frontend
 
-    - run: npm run coverage
-      continue-on-error: true
-      working-directory: ./frontend
+  #   - run: npm run coverage
+  #     continue-on-error: true
+  #     working-directory: ./frontend
       
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: pr-${{ matrix.value.number }}-coverage
-        path: ${{ env.destination }}
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: pr-${{ matrix.value.number }}-coverage
+  #       path: ${{ env.destination }}
 
 
-  f-build-stryker-for-each-pr:
-    name: f - Stryker (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
-    runs-on: ubuntu-latest
-    if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
+  # f-build-stryker-for-each-pr:
+  #   name: f - Stryker (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.initialize.outputs.pull_requests != '[]' && needs.initialize.outputs.pull_requests != '' }}
 
-    needs: [initialize]
+  #   needs: [initialize]
 
-    env:
-      destination: frontend/reports/mutation
-      history_destination: frontend/reports/
+  #   env:
+  #     destination: frontend/reports/mutation
+  #     history_destination: frontend/reports/
 
 
-    strategy:
-      matrix:
-        value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
+  #   strategy:
+  #     matrix:
+  #       value: ${{ fromJSON(needs.initialize.outputs.pull_requests)}}
 
-    steps:
-    - uses: szenius/set-timezone@v1.2
-      with:
-        timezoneLinux: "America/Los_Angeles"
-    - name: Checkout repo
-      uses: actions/checkout@v3.5.2
-      with:
-        ref: ${{ matrix.value.headRefName }}
-        fetch-depth: 2
-        token: ${{ github.token }}
-    - name: create directories
-      run: |
-         mkdir -p ${{ env.destination }}
-    - name: Setup Node.js
-      uses: actions/setup-node@v3.6.0
-      with:
-        node-version-file: 'frontend/package.json'
-        cache: 'npm'
-        cache-dependency-path: frontend/package-lock.json
+  #   steps:
+  #   - uses: szenius/set-timezone@v1.2
+  #     with:
+  #       timezoneLinux: "America/Los_Angeles"
+  #   - name: Checkout repo
+  #     uses: actions/checkout@v3.5.2
+  #     with:
+  #       ref: ${{ matrix.value.headRefName }}
+  #       fetch-depth: 2
+  #       token: ${{ github.token }}
+  #   - name: create directories
+  #     run: |
+  #        mkdir -p ${{ env.destination }}
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3.6.0
+  #     with:
+  #       node-version-file: 'frontend/package.json'
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend/package-lock.json
 
-    - run: npm ci
-      working-directory: ./frontend
+  #   - run: npm ci
+  #     working-directory: ./frontend
 
-    - name: Download artifact
-      id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
-      with:
-        workflow: 02-gh-pages-rebuild-part-1.yml
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        branch: main
-        name: stryker-incremental-${{ matrix.value.headRefName }}.json
-        path: ${{ env.history_destination }}
-        check_artifacts: true
-        if_no_artifact_found: warn
-    - name: Stryker (main, incremental)
-      working-directory: ./frontend
-      continue-on-error: true
-      run: |
-        npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{ matrix.value.headRefName }}.json
-    - name: Upload stryker incremental file to Artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: stryker-incremental-${{ matrix.value.headRefName }}.json
-        path: ${{ env.history_destination }}/stryker-incremental-${{ matrix.value.headRefName }}.json
-    - name: Upload to artifacts
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: pr-${{ matrix.value.number }}-coverage
-        path: ${{ env.destination }}
+  #   - name: Download artifact
+  #     id: download-artifact
+  #     uses: dawidd6/action-download-artifact@v2.27.0
+  #     with:
+  #       workflow: 02-gh-pages-rebuild-part-1.yml
+  #       github_token: ${{secrets.GITHUB_TOKEN}}
+  #       branch: main
+  #       name: stryker-incremental-${{ matrix.value.headRefName }}.json
+  #       path: ${{ env.history_destination }}
+  #       check_artifacts: true
+  #       if_no_artifact_found: warn
+  #   - name: Stryker (main, incremental)
+  #     working-directory: ./frontend
+  #     continue-on-error: true
+  #     run: |
+  #       npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{ matrix.value.headRefName }}.json
+  #   - name: Upload stryker incremental file to Artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: stryker-incremental-${{ matrix.value.headRefName }}.json
+  #       path: ${{ env.history_destination }}/stryker-incremental-${{ matrix.value.headRefName }}.json
+  #   - name: Upload to artifacts
+  #     uses: actions/upload-artifact@v3.1.2
+  #     with:
+  #       name: pr-${{ matrix.value.number }}-coverage
+  #       path: ${{ env.destination }}
