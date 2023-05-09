@@ -177,94 +177,94 @@ jobs:
           name: pitest
           path: ${{ env.destination }}
 
-  # build-coverage-main:
-  #   name: e - Coverage (main)
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   needs: [initialize]
-  #   env:
-  #     destination: frontend/coverage/lcov-report
-  #   steps:
-  #   - uses: szenius/set-timezone@v1.2
-  #     with:
-  #       timezoneLinux: "America/Los_Angeles"
-  #   - uses: actions/checkout@v3.5.2
-  #     with: 
-  #       fetch-depth: 2
-  #   - name: Setup Node.js
-  #     uses: actions/setup-node@v3.6.0
-  #     with:
-  #       node-version-file: 'frontend/package.json'
-  #       cache: 'npm'
-  #       cache-dependency-path: frontend/package-lock.json
-  #   - run: npm ci
-  #     working-directory: ./frontend
-  #   - run: npm run coverage
-  #     continue-on-error: true
-  #     working-directory: ./frontend
-  #   - name: Upload jest coverage report to Artifacts
-  #     if: always() # always upload artifacts, even if tests fail
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #       name: coverage
-  #       path: ${{ env.destination }}
+  build-coverage-main:
+    name: e - Coverage (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [initialize]
+    env:
+      destination: frontend/coverage/lcov-report
+    steps:
+    - uses: szenius/set-timezone@v1.2
+      with:
+        timezoneLinux: "America/Los_Angeles"
+    - uses: actions/checkout@v3.5.2
+      with: 
+        fetch-depth: 2
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    - run: npm ci
+      working-directory: ./frontend
+    - run: npm run coverage
+      continue-on-error: true
+      working-directory: ./frontend
+    - name: Upload jest coverage report to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: coverage
+        path: ${{ env.destination }}
 
-  # build-stryker-main:
-  #   name: f - Stryker (main)
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   needs: [initialize]
-  #   env:
-  #     destination: frontend/reports
+  build-stryker-main:
+    name: f - Stryker (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [initialize]
+    env:
+      destination: frontend/reports
    
 
-  #   steps:
-  #   - uses: szenius/set-timezone@v1.2
-  #     with:
-  #       timezoneLinux: "America/Los_Angeles"
-  #   - uses: actions/checkout@v3.5.2
-  #     with: 
-  #       fetch-depth: 2
-  #   - name: Setup Node.js
-  #     uses: actions/setup-node@v3.6.0
-  #     with:
-  #       node-version-file: 'frontend/package.json'
-  #       cache: 'npm'
-  #       cache-dependency-path: frontend/package-lock.json
+    steps:
+    - uses: szenius/set-timezone@v1.2
+      with:
+        timezoneLinux: "America/Los_Angeles"
+    - uses: actions/checkout@v3.5.2
+      with: 
+        fetch-depth: 2
+    - name: Setup Node.js
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version-file: 'frontend/package.json'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
 
-  #   - run: npm ci
-  #     working-directory: ./frontend
+    - run: npm ci
+      working-directory: ./frontend
 
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       branch: main
-  #       name: stryker-incremental-main.json
-  #       path:  frontend/reports/stryker-incremental-main.json
-  #       check_artifacts: true
-  #       if_no_artifact_found: warn
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: main
+        name: stryker-incremental-main.json
+        path:  frontend/reports/stryker-incremental-main.json
+        check_artifacts: true
+        if_no_artifact_found: warn
 
-  #   - name: Stryker (main, incremental)
-  #     working-directory: ./frontend
-  #     continue-on-error: true
-  #     run: |
-  #       npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+    - name: Stryker (main, incremental)
+      working-directory: ./frontend
+      continue-on-error: true
+      run: |
+        npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
      
-  #   - name: Upload stryker incremental file to Artifacts
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #       name: stryker-incremental-main.json
-  #       path: frontend/reports/stryker-incremental-main.json
+    - name: Upload stryker incremental file to Artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: stryker-incremental-main.json
+        path: frontend/reports/stryker-incremental-main.json
 
-  #   - name: Upload report to Artifacts
-  #     if: always() # always upload artifacts, even if tests fail
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #       name: stryker
-  #       path: frontend/reports/mutation
+    - name: Upload report to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: stryker
+        path: frontend/reports/mutation
 
   # a-build-javadoc-for-each-pr:
   #   name: a - Javadoc (${{ matrix.value.number }}, ${{ matrix.value.headRefName }})
