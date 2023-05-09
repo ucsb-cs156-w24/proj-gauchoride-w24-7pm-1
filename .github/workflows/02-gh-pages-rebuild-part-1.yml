@@ -440,12 +440,27 @@ jobs:
       run: |
         historyFile=${{ env.history_destination}}/pitest-${{ env.branch_name }}-history.bin
         [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+  
+    - name: Debugging output before mvn pitest ...
+      run: |
+        ls -lRt target
 
     - name: Build with Maven
       continue-on-error: true
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+
+    - name: Copy artifact to name for branch 
+      continue-on-error: true
+      run: |
+        historyFileSrc=${{ env.history_destination}}/history.bin # specified in pom.xml as historyOutputFile
+        historyFileDest=pit-history/pitest-${{ env.branch_name }}-history.bin
+        [ -f "$historyFile" ] && cp $historyFileSrc $historyFileDest
+  
+    - name: Debugging output after mvn pitest ...
+      run: |
+        ls -lRt target
 
     - name: Upload Pitest History to Artifacts
       if: always() # always upload artifacts, even if tests fail
