@@ -296,48 +296,25 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: prs/${{ matrix.value.number }}/storybook # The folder that we serve our files from
 
-  # deploy-jacoco-for-each-pr:
-  #   name: Jacoco (PR ${{ matrix.value.number }}, Branch ${{ matrix.value.headRefName }})
-  #   runs-on: ubuntu-latest
-  #   if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
+    - name: c-jacoco Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.jacoco_dest }}
 
-  #   needs: [deploy-javadoc-for-each-pr]
+    - name:  c-jacoco Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: prs-${{ matrix.value.number }}-storybook
+        path: ${{ env.jacoco_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
 
-  #   env:
-  #     destination: target/site/jacoco
-
-  #   strategy:
-  #       max-parallel: 1
-  #       matrix:
-  #         value: ${{ fromJSON(needs.get-pull-requests.outputs.pull_requests)}}
-
-  #   steps:
-  #   - name: Checkout local code to establish repo
-  #     uses: actions/checkout@v3.5.2
-
-  #   - name: Make directory in case it doesn't exist
-  #     run: mkdir -p ${{ env.destination }}
-
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       name: prs-${{ matrix.value.number }}-jacoco
-  #       path: ${{ env.destination }}
-  #       check_artifacts: true
-  #       if_no_artifact_found: error
-
-  #   - name: Debugging Output
-  #     run: |
-  #       ls -lRt
-
-  #   - name: Deploy 🚀
-  #     uses: JamesIves/github-pages-deploy-action@v4
-  #     with:
-  #       branch: gh-pages # The branch the action should deploy to.
-  #       folder: ${{ env.destination }} # The folder where we put the files
-  #       clean: true # Automatically remove deleted files from the deploy branch
-  #       target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
+    - name: c-jacoco Deploy Jacoco (PR ${{ matrix.value.number }}) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.jacoco_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: prs/${{ matrix.value.number }}/jacoco # The folder that we serve our files from
 
