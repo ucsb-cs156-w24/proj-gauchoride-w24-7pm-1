@@ -156,7 +156,9 @@ jobs:
       continue-on-error: true
       run: |
         historyFile=${{ env.history_destination}}/pitest-main-history.bin
-        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+        if [ -f "$historyFile" ] ; do
+          cp $historyFile ${{ env.history_destination}}/history.bin
+        fi
 
     - name: Build with Maven
       continue-on-error: true
