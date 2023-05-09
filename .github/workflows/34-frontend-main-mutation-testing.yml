@@ -34,7 +34,7 @@ jobs:
       # so that the next run can use it.
 
       - name: Cache Stryker Incrmental File
-        uses: actions/cache@v3
+        uses: actions/cache@v3.3.1
         id: cache-stryker-save
         with:
           path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
