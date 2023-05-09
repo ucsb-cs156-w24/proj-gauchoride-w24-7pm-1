@@ -12,6 +12,7 @@ env:
   storybook_dest: frontend/storybook_static
   jacoco_dest: target/site/jacoco
   pitest_dest: target/pit-reports
+  coverage_dest: frontend/coverage/lcov-report
 
 permissions:
   contents: write
@@ -54,8 +55,6 @@ jobs:
          echo "pull_requests=${pull_requests}"
          echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
-    - name: a-javadoc Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
     - name: a-javadoc Make directory in case it doesn't exist
       run: mkdir -p ${{ env.javadoc_dest  }}
     - name: a-javadoc Download artifact
@@ -138,35 +137,26 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: pitest # The folder that we serve our files from
 
-  # deploy-coverage-main:
-  #   name: Coverage (Main)
-  #   runs-on: ubuntu-latest
-  #   needs: [deploy-pitest-main]
-  #   env:
-  #     destination: frontend/coverage/lcov-report
-  #   steps:
-  #   - name: Checkout local code to establish repo
-  #     uses: actions/checkout@v3.5.2
-  #   - name: Make directory in case it doesn't exist
-  #     run: mkdir -p ${{ env.destination }}
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       name: coverage
-  #       path: ${{ env.destination }}
-  #       check_artifacts: true
-  #       if_no_artifact_found: error
+    - name: e-coverage Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.coverage_dest }}
+    - name: e-coverage Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: coverage
+        path: ${{ env.coverage_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
 
-  #   - name: Deploy 🚀
-  #     uses: JamesIves/github-pages-deploy-action@v4
-  #     with:
-  #       branch: gh-pages # The branch the action should deploy to.
-  #       folder:  ${{ env.destination }} # The folder where we put the files
-  #       clean: true # Automatically remove deleted files from the deploy branch
-  #       target-folder: coverage # The folder that we serve our files from
+    - name: e-coverage Deploy Coverage (main) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder:  ${{ env.coverage_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: coverage # The folder that we serve our files from
 
   # deploy-stryker-main:
   #   name: Coverage (Main)
