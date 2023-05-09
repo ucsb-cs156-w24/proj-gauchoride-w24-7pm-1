@@ -53,7 +53,7 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           branch: main
           name: stryker-incremental-${pr_number}.json
-          path: frontend/reports/stryker-incremental-${pr_number}.json
+          path: frontend/reports/stryker-incremental-${{ env.pr_number }}.json
           check_artifacts: true
           if_no_artifact_found: warn
      
@@ -64,7 +64,7 @@ jobs:
       - run: npm ci
         working-directory: ./frontend
 
-      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.branch_name}}.json
+      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.pr_number}}.json
         working-directory: ./frontend
 
       - name: Debugging output two
