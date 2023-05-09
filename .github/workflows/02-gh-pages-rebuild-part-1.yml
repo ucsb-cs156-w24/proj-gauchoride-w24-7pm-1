@@ -144,6 +144,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: ${{ env.branch_name }}
         name: pitest-main-history.bin
@@ -238,6 +239,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-main.json
@@ -426,8 +428,9 @@ jobs:
 
     - name: Download artifact
       id: download-artifact
-      uses: dawidd6/action-download-artifact@v2.27.0
+      uses: ≈
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: ${{ env.branch_name }}
         name: pitest-${{ env.branch_name }}-history.bin
@@ -564,6 +567,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
         name: stryker-incremental-${{ matrix.value.headRefName }}.json

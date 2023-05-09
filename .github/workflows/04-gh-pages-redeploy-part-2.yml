@@ -65,6 +65,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: javadoc
         path: ${{ env.destination }}
@@ -96,6 +97,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: storybook
         path: ${{ env.destination }}
@@ -124,6 +126,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: jacoco
         path: ${{ env.destination }}
@@ -153,6 +156,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: pitest
         path: ${{ env.destination }}
@@ -181,6 +185,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: coverage
         path: ${{ env.destination }}
@@ -210,6 +215,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: stryker
         path: ${{ env.destination }}
@@ -270,6 +276,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: jacoco-${{ matrix.value.number }}
         path: ${{ env.destination }}
@@ -310,6 +317,7 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: prs-${{ matrix.value.number }}-jacoco
         path: ${{ env.destination }}
