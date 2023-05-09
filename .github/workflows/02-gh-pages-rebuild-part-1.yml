@@ -570,7 +570,7 @@ jobs:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main
-        name: stryker-incremental-${{ matrix.value.headRefName }}.json
+        name: stryker-incremental-${{ matrix.value.number }}.json
         path: ${{ env.history_destination }}
         check_artifacts: true
         if_no_artifact_found: warn
@@ -578,11 +578,11 @@ jobs:
       working-directory: ./frontend
       continue-on-error: true
       run: |
-        npx stryker run --incremental --incrementalFile history/stryker-incremental-${{ matrix.value.headRefName }}.json
+        npx stryker run --incremental --incrementalFile history/stryker-incremental-${{ matrix.value.number }}.json
     - name: Upload stryker incremental file to Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: stryker-incremental-${{ matrix.value.headRefName }}.json
+        name: stryker-incremental-${{ matrix.value.number }}.json
         path: ${{ env.history_destination }}
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
