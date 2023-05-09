@@ -539,7 +539,6 @@ jobs:
     - name: create directories
       run: |
          mkdir -p ${{ env.destination }}
-      
     - name: Setup Node.js
       uses: actions/setup-node@v3.6.0
       with:
@@ -560,18 +559,16 @@ jobs:
         path: ${{ env.destination }}
         check_artifacts: true
         if_no_artifact_found: warn
-
     - name: Stryker (main, incremental)
       working-directory: ./frontend
       continue-on-error: true
       run: |
         npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
-     
     - name: Upload stryker incremental file to Artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
         name: stryker-incremental-main.json
-        path: frontend/reports/stryker-incremental-main.json      
+        path: frontend/reports/stryker-incremental-main.json
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
