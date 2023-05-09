@@ -29,22 +29,22 @@ jobs:
           echo 'The triggering workflow failed'
           exit 1
 
-  initialize:
-    name: Setup Node.js (and cache it)
+  deploy-documentation:
+    name: Deploy Documentation
     if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout local code to establish repo
+    - name: setup - Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
       with:
         fetch-depth: 1
-    - name: Setup Node.js
+    - name: setup - Setup Node.js
       uses: actions/setup-node@v3.6.0
       with:
         node-version-file: 'frontend/package.json'
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
-    - name: Get Pull Requests from Github api
+    - name: setup - Get Pull Requests from Github api
       id: get-prs
       run: |
          gh pr list -s open --json url,author,number,title,headRefName 
@@ -53,7 +53,6 @@ jobs:
          pull_requests=`cat prs.json`
          echo "pull_requests=${pull_requests}"
          echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
-
 
     - name: a-javadoc Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
