@@ -69,6 +69,9 @@ jobs:
         path: ${{ env.destination }}
         check_artifacts: true
         if_no_artifact_found: error
+    - name: Debugging output
+      run: | 
+        ls -lRt
     - name: Deploy Javadoc (Main) 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
@@ -288,7 +291,7 @@ jobs:
     needs: [deploy-javadoc-for-each-pr]
 
     env:
-      destination_directory: target/site/jacoco
+      destination: target/site/jacoco
 
     strategy:
         max-parallel: 1
@@ -308,9 +311,13 @@ jobs:
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         name: prs-${{ matrix.value.number }}-jacoco
-        path: ${desintation}
+        path: ${{ env.destination }}
         check_artifacts: true
         if_no_artifact_found: error
+
+    - name: Debugging Output
+      run: |
+        ls -lRt
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4
