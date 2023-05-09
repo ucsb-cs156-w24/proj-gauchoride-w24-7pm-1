@@ -64,6 +64,7 @@ jobs:
     - name: Debugging output
       run: | 
         echo env.destinations.javadoc=${{ env.destinations.javadoc }}
+        echo env.destinations["javadoc"]=${{ env.destinations["javadoc"] }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
     - name: Make directory in case it doesn't exist
