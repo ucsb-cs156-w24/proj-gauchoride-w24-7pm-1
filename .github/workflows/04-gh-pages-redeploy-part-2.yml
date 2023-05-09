@@ -96,7 +96,7 @@ jobs:
       destination: frontend/storybook-static  
     steps:
     - name: Debugging output
-       run: | 
+      run: | 
         echo env.destinations.javadoc=${{ env.destinations.storybook }}
     - name: Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
