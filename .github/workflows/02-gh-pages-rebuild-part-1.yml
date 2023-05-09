@@ -119,63 +119,63 @@ jobs:
           name: jacoco
           path: ${{ env.destination }}
 
-  # build-pitest-main:
-  #   name: d - Pitest (main)
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 10
-  #   needs: [initialize]
-  #   env:
-  #     destination: target/pit-reports
-  #     history_destination: target/pit-history
+  build-pitest-main:
+    name: d - Pitest (main)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [initialize]
+    env:
+      destination: target/pit-reports
+      history_destination: target/pit-history
 
-  #   steps:
-  #   - uses: actions/checkout@v3.5.2
-  #   - name: Set up Java (version from .java-version file)
-  #     uses: actions/setup-java@v3
-  #     with:
-  #        distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
-  #        java-version-file: ./.java-version
-  #   - name: create directories
-  #     run: |
-  #        mkdir -p ${{ env.destination }}
-  #        mkdir -p ${{ env.history_destination }}
+    steps:
+    - uses: actions/checkout@v3.5.2
+    - name: Set up Java (version from .java-version file)
+      uses: actions/setup-java@v3
+      with:
+         distribution: semeru # See: https://github.com/actions/setup-java#supported-distributions
+         java-version-file: ./.java-version
+    - name: create directories
+      run: |
+         mkdir -p ${{ env.destination }}
+         mkdir -p ${{ env.history_destination }}
 
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       branch: ${{ env.branch_name }}
-  #       name: pitest-main-history.bin
-  #       path: ${{ env.history_destination}}
-  #       check_artifacts: true
-  #       if_no_artifact_found: warn
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        branch: ${{ env.branch_name }}
+        name: pitest-main-history.bin
+        path: ${{ env.history_destination}}
+        check_artifacts: true
+        if_no_artifact_found: warn
 
-  #   - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
-  #     continue-on-error: true
-  #     run: |
-  #       historyFile=${{ env.history_destination}}/pitest-main-history.bin
-  #       [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
+    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
+      continue-on-error: true
+      run: |
+        historyFile=${{ env.history_destination}}/pitest-main-history.bin
+        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
 
-  #   - name: Build with Maven
-  #     continue-on-error: true
-  #     env:
-  #       TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
-  #     run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
+    - name: Build with Maven
+      continue-on-error: true
+      env:
+        TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
+      run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
 
-  #   - name: Upload Pitest History to Artifacts
-  #     if: always() # always upload artifacts, even if tests fail
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #       name: pitest-main-history.bin
-  #       path: ${{ env.history_destination}}/history.bin
+    - name: Upload Pitest History to Artifacts
+      if: always() # always upload artifacts, even if tests fail
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: pitest-main-history.bin
+        path: ${{ env.history_destination}}/history.bin
 
-  #   - name: Upload to artifacts
-  #     uses: actions/upload-artifact@v3.1.2
-  #     with:
-  #         name: pitest
-  #         path: ${{ env.destination }}
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v3.1.2
+      with:
+          name: pitest
+          path: ${{ env.destination }}
 
   # build-coverage-main:
   #   name: e - Coverage (main)
