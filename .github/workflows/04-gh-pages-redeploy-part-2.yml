@@ -8,10 +8,7 @@ on:
 
 env:
   GH_TOKEN: ${{ github.token }}
-  destinations: [
-   { "javadoc": "target/site/apidocs"   },
-   { "storybook": "frontend/storybook-static" }
-  ] 
+  destinations: [{ "javadoc": "target/site/apidocs"},{ "storybook": "frontend/storybook-static" }] 
 
 permissions:
   contents: write
