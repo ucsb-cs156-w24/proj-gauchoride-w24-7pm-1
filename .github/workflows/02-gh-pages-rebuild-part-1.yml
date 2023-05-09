@@ -433,16 +433,10 @@ jobs:
         workflow: 02-gh-pages-rebuild-part-1.yml
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: ${{ env.branch_name }}
-        name: pitest-${{ env.branch_name }}-history.bin
+        name: pitest-${{ matrix.value.number }}-history.bin
         path: ${{ env.history_destination}}
         check_artifacts: true
         if_no_artifact_found: warn
-
-    - name: Copy artifact to pit-history/history.bin # specified in pom.xml as historyInputFile
-      continue-on-error: true
-      run: |
-        historyFile=${{ env.history_destination}}/pitest-${{ env.branch_name }}-history.bin
-        [ -f "$historyFile" ] && cp $historyFile ${{ env.history_destination}}/history.bin
   
     - name: Debugging output before mvn pitest ...
       run: |
@@ -453,13 +447,6 @@ jobs:
       env:
         TEST_PROPERTIES: ${{ secrets.TEST_PROPERTIES }}
       run: mvn test pitest:mutationCoverage -DmutationThreshold=100 
-
-    - name: Copy artifact to name for branch 
-      continue-on-error: true
-      run: |
-        historyFileSrc=${{ env.history_destination}}/history.bin # specified in pom.xml as historyOutputFile
-        historyFileDest=pit-history/pitest-${{ env.branch_name }}-history.bin
-        [ -f "$historyFile" ] && cp $historyFileSrc $historyFileDest
   
     - name: Debugging output after mvn pitest ...
       run: |
@@ -469,7 +456,7 @@ jobs:
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: pitest-${{ env.branch_name }}-history.bin
+        name: pitest-${{ matrix.value.number }}-history.bin
         path: ${{ env.history_destination}}/history.bin
 
     - name: Upload to artifacts
