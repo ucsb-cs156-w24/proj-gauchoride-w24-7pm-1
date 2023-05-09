@@ -43,14 +43,12 @@ jobs:
     - name: Get Pull Requests from Github api
       id: get-prs
       run: |
-        gh pr list -s open --json url,author,number,title,headRefName 
-        gh pr list -s open --json url,author,number,title,headRefName > prs.json
-        cat prs.json
-        pull_requests=`cat prs.json`
-        echo "pull_requests=${pull_requests}"
-        echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
-
-
+         gh pr list -s open --json url,author,number,title,headRefName 
+         gh pr list -s open --json url,author,number,title,headRefName > prs.json
+         cat prs.json
+         pull_requests=`cat prs.json`
+         echo "pull_requests=${pull_requests}"
+         echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
   rebuild-basic-site:
     name: Rebuild Basic Site (index.md and _config.yml)
@@ -240,7 +238,7 @@ jobs:
 
 
   deploy-doc-for-each-pr:
-    name: PR ${{ matrix.value.number }} ${{ matrix.value.headRefName }}
+    name: PR ${{ matrix.value.number }} 
     runs-on: ubuntu-latest
     if: ${{ needs.get-pull-requests.outputs.pull_requests != '[]' && needs.get-pull-requests.outputs.pull_requests != '' }}
 
