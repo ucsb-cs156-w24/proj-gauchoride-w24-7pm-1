@@ -9,7 +9,7 @@ on:
 env:
   GH_TOKEN: ${{ github.token }}
   javadoc_dest: target/site/apidocs
-  storybook_dest: frontend/storybook-static
+  storybook_dest: frontend/storybook_static
   jacoco_dest: target/site/jacoco
 
 permissions:
@@ -53,16 +53,12 @@ jobs:
          echo "pull_requests=${pull_requests}"
          echo "pull_requests=${pull_requests}" >> "$GITHUB_OUTPUT"
 
-  deploy-javadoc-main:
-    name: a - Javadoc (Main)
-    runs-on: ubuntu-latest
-    needs: [initialize]
-    steps:
-    - name: Checkout local code to establish repo
+
+    - name: a-javadoc Checkout local code to establish repo
       uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
+    - name: a-javadoc Make directory in case it doesn't exist
       run: mkdir -p ${{ env.javadoc_dest  }}
-    - name: Download artifact
+    - name: a-javadoc Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
@@ -72,10 +68,10 @@ jobs:
         path: ${{env.javadoc_dest }}
         check_artifacts: true
         if_no_artifact_found: error
-    - name: Debugging output
+    - name: a-javadoc Debugging output
       run: | 
         ls -lRt
-    - name: Deploy Javadoc (Main) 🚀
+    - name: a-javadoc Deploy Javadoc (Main) 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
@@ -83,16 +79,9 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: javadoc # The folder that we serve our files from
 
-  deploy-storybook-main:
-    name: b - Storybook (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-javadoc-main]
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
+    - name: b-storybook Make directory in case it doesn't exist
       run: mkdir -p ${{ env.storybook_dest }}
-    - name: Download artifact
+    - name: b-storybook Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
@@ -102,7 +91,7 @@ jobs:
         path: ${{ env.storybook_dest }}
         check_artifacts: true
         if_no_artifact_found: error
-    - name: Deploy Storybook (Main) 🚀
+    - name: b-storybook Deploy Storybook (Main) 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
@@ -110,16 +99,11 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: storybook # The folder that we serve our files from
 
-  deploy-jacoco-main:
-    name: c - Jacoco (Main)
-    runs-on: ubuntu-latest
-    needs: [deploy-storybook-main]
-    steps:
-    - name: Checkout local code to establish repo
-      uses: actions/checkout@v3.5.2
-    - name: Make directory in case it doesn't exist
+
+
+    - name: c-jacoco Make directory in case it doesn't exist
       run: mkdir -p ${{ env.jacoco_dest }}
-    - name: Download artifact
+    - name: c-jacoco Download artifact
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2.27.0
       with:
@@ -130,7 +114,7 @@ jobs:
         check_artifacts: true
         if_no_artifact_found: error
 
-    - name: Deploy 🚀
+    - name: c-jacoco Deploy Jacoco (Main) 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
