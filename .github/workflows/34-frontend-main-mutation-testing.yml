@@ -1,0 +1,63 @@
+# Running this script will run a full mutation coverage report
+# on the appropriate branch, and then save the result for
+# future incremental runs.
+
+name: "34-frontend-main-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [frontend/**]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "America/Los_Angeles"
+      - uses: actions/checkout@v3.5.2
+        with: 
+          fetch-depth: 2
+
+      - run: npm ci
+        working-directory: ./frontend
+
+      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
+        working-directory: ./frontend
+
+      # We don't download a previous incremental file
+      # but we do upload the current incremental file
+      # so that the next run can use it.
+
+      - name: Cache Stryker Incrmental File
+        id: cache-stryker-incremental-file
+        uses: actions/cache@v3
+        with:
+          path: frontend/reports/stryker-incremental-main.json
+          key: stryker-incremental
+
+      # - name: Upload stryker incremental file to Artifacts
+      #   uses: actions/upload-artifact@v3.1.2
+      #   with:
+      #     name: stryker-incremental-${{env.branch_name}}.json
+      #     path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+
+      - name: Upload stryker report to Artifacts
+        if: always() # always upload artifacts, even if tests fail
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: stryker-report
+          path: frontend/reports/mutation/*
+  
+      - name: Deploy 🚀
+        if: always() # always upload artifacts, even if tests fail
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: frontend/reports/mutation # The folder where the javadoc files are located
+          clean: true # Automatically remove deleted files from the deploy branch
+          target-folder: stryker # The folder that we serve our javadoc files from

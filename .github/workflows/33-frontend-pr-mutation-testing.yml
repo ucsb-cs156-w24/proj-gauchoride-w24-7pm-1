@@ -1,0 +1,93 @@
+name: "33-frontend-pr-mutation-testing: Stryker JS Mutation Testing (JavaScript/Jest)"
+
+# This workflow pulls incremental mutation testing results
+# if they exist for the named branch, and then 
+# uses those incremental results to run mutation testing faster.
+# Reference: https://stryker-mutator.io/docs/stryker-js/incremental/
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: [frontend/**]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      
+      - uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "America/Los_Angeles"
+      - uses: actions/checkout@v3.5.2
+        with: 
+          fetch-depth: 2
+
+      - name: Get PR number
+        id: get-pr-num
+        run: |
+          echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
+          pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          echo "pr_number=${pr_number}" 
+          if [[ "${pr_number}" == "null" ]]; then
+            echo "This is not a PR"
+            pr_number=""
+          fi
+          echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version-file: 'frontend/package.json'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+  
+
+      - name: Restore Stryker Incremental File from Cache
+        uses: actions/cache/restore@v3
+        with:
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          key: stryker-incremental${{ env.pr_number}}
+
+      - name: Debugging output one
+        run: |
+          ls -lRt frontend
+
+      - run: npm ci
+        working-directory: ./frontend
+        
+      - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-${{env.branch_name}}.json
+        working-directory: ./frontend
+
+      - name: Debugging output two
+        run: |
+          ls -lRt frontend
+
+      - name: Cache Stryker Incrmental File
+        uses: actions/cache/save@v3
+        with:
+          path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+          key: stryker-incremental${{ env.pr_number}}
+
+      # - name: Upload stryker incremental file to Artifacts
+      #   uses: actions/upload-artifact@v3.1.2
+      #   with:
+      #     name: stryker-incremental-${{env.branch_name}}.json
+      #     path: frontend/reports/stryker-incremental-${{env.branch_name}}.json
+
+      # - name: Upload stryker report to Artifacts
+      #   if: always() # always upload artifacts, even if tests fail
+      #   uses: actions/upload-artifact@v3.1.2
+      #   with:
+      #     name: stryker-report
+      #     path: frontend/reports/mutation/*
+
+      - name: Deploy 🚀
+        if: always() # always upload artifacts, even if tests fail
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: frontend/reports/mutation # The folder where the javadoc files are located
+          clean: true # Automatically remove deleted files from the deploy branch
+          target-folder: prs/${{ env.pr_number}}/stryker # The folder that we serve our javadoc files from
