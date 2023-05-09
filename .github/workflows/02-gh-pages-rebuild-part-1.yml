@@ -384,7 +384,7 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-          name: pr-${{ matrix.value.number }}-jacoco
+          name: prs-${{ matrix.value.number }}-jacoco
           path: target/site/jacoco
 
   d-build-pitest-for-each-pr:
@@ -475,7 +475,7 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-          name: pr-${{ matrix.value.number }}-pitest
+          name: prs-${{ matrix.value.number }}-pitest
           path: ${{ env.destination }}
 
   e-build-coverage-for-each-pr:
@@ -520,7 +520,7 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: pr-${{ matrix.value.number }}-coverage
+        name: prs-${{ matrix.value.number }}-coverage
         path: ${{ env.destination }}
 
 
@@ -587,5 +587,5 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: pr-${{ matrix.value.number }}-coverage
+        name: prs-${{ matrix.value.number }}-coverage
         path: ${{ env.destination }}/mutation.html
