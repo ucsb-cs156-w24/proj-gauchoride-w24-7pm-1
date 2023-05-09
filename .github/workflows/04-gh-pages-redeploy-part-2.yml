@@ -11,6 +11,7 @@ env:
   javadoc_dest: target/site/apidocs
   storybook_dest: frontend/storybook_static
   jacoco_dest: target/site/jacoco
+  pitest_dest: target/pit-reports
 
 permissions:
   contents: write
@@ -97,8 +98,6 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: storybook # The folder that we serve our files from
 
-
-
     - name: c-jacoco Make directory in case it doesn't exist
       run: mkdir -p ${{ env.jacoco_dest }}
     - name: c-jacoco Download artifact
@@ -119,34 +118,26 @@ jobs:
         clean: true # Automatically remove deleted files from the deploy branch
         target-folder: jacoco # The folder that we serve our files from
 
-  # deploy-pitest-main:
-  #   name: Pitest (Main)
-  #   runs-on: ubuntu-latest
-  #   needs: [deploy-jacoco-main]
-  #   env:
-  #     destination: target/pit-reports
-  #   steps:
-  #   - name: Checkout local code to establish repo
-  #     uses: actions/checkout@v3.5.2
-  #   - name: Make directory in case it doesn't exist
-  #     run: mkdir -p ${{ env.destination }}
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: dawidd6/action-download-artifact@v2.27.0
-  #     with:
-  #       workflow: 02-gh-pages-rebuild-part-1.yml
-  #       github_token: ${{secrets.GITHUB_TOKEN}}
-  #       name: pitest
-  #       path: ${{ env.destination }}
-  #       check_artifacts: true
-  #       if_no_artifact_found: error
-  #   - name: Deploy 🚀
-  #     uses: JamesIves/github-pages-deploy-action@v4
-  #     with:
-  #       branch: gh-pages # The branch the action should deploy to.
-  #       folder: ${{ env.destination }} # The folder where we put the files
-  #       clean: true # Automatically remove deleted files from the deploy branch
-  #       target-folder: pitest # The folder that we serve our files from
+ 
+    - name: d-pitest Make directory in case it doesn't exist
+      run: mkdir -p ${{ env.pitest_dest }}
+    - name:  d-pitest Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2.27.0
+      with:
+        workflow: 02-gh-pages-rebuild-part-1.yml
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        name: pitest
+        path: ${{ env.pitest_dest }}
+        check_artifacts: true
+        if_no_artifact_found: error
+    - name:  d-pitest Deploy Pitest (main) 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: ${{ env.pitest_dest }} # The folder where we put the files
+        clean: true # Automatically remove deleted files from the deploy branch
+        target-folder: pitest # The folder that we serve our files from
 
   # deploy-coverage-main:
   #   name: Coverage (Main)
