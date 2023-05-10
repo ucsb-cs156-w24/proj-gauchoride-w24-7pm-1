@@ -22,17 +22,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - name: Workflow 2 failed
-        run: |
-          echo 'The triggering workflow failed'
-          exit 1
-
   get-pull-requests:
-    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     name: Get Pull Requests
     runs-on: ubuntu-latest
     outputs:
@@ -92,7 +82,6 @@ jobs:
   deploy-main-docs:
     name: Deploy Documentation for main branch
     needs: [ rebuild-basic-site ]
-    if: ${{ github.event.workflow_run.conclusion != 'failure' }}
     runs-on: ubuntu-latest
     steps:
     - name: setup - Checkout local code to establish repo
