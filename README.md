@@ -1,13 +1,12 @@
 # proj-gauchoride
 
+# Deployments
 
+| Type | Link       | 
+|------|------------|
+| prod | <https://proj-gauchoride.dokku-00.cs.ucsb.edu/> | 
+| qa | <https://proj-gauchoride-qa.dokku-00.cs.ucsb.edu/>  | 
 
-* Prod: <https://proj-gauchoride.herokuapp.com>
-* QA: <https://proj-gauchoride-qa.herokuapp.com>
-
-
-* Storybook (production): <https://ucsb-cs156.github.io/proj-gauchoride-docs>
-* Storybook (development/qa): <https://ucsb-cs156.github.io/proj-gauchoride-docs-qa>
 
 
 # Setup before running application
