@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.ucsb.cs156.gauchoride.models.SystemInfo;
 import edu.ucsb.cs156.gauchoride.services.SystemInfoService;
 
+/**
+ * SystemInfoController returns information about the application; typically
+ * the values of environment variables that may be needed by the frontend.
+ */
+
 @Api(description = "System Information")
 @RequestMapping("/api/systemInfo")
 @RestController
