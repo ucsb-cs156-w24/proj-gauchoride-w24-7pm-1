@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
+
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
+  const styles = {
+    navbar: {
+      backgroundColor: "#003660",
+    }
+  }
+  
   return (
     <>
       {
@@ -11,7 +18,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
-      <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
+      <Navbar expand="xl" variant="dark" sticky="top" data-testid="AppNavbar" style={styles.navbar}>
         <Container>
           <Navbar.Brand as={Link} to="/">
             GauchoRide
@@ -25,7 +32,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
 
           <Navbar.Collapse>
             {/* This `nav` component contains all navigation items that show up on the left side */}
-            <Nav className="me-auto">
+            <Nav className="me-auto" >
               {
                 systemInfo?.springH2ConsoleEnabled && (
                   <>

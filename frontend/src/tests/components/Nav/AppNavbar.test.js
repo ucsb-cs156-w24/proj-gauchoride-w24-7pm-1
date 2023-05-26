@@ -149,7 +149,40 @@ describe("AppNavbar tests", () => {
     });
 
 
-   
+    test("Navbar has UCSB-blue background color, regular user", () => {
+        
+        const currentUser = currentUserFixtures.userOnly;
+        const doLogin = jest.fn();
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+       
+        const navbar = getByTestId("AppNavbar");
+        expect(navbar).toHaveStyle("background-color: #003660");
+      });
+
+      test("Navbar has UCSB-blue background color, admin user", () => {
+        
+        const currentUser = currentUserFixtures.adminUser;
+        const doLogin = jest.fn();
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+       
+        const navbar = getByTestId("AppNavbar");
+        expect(navbar).toHaveStyle("background-color: #003660");
+      });
+
 });
 
 
