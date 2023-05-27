@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import HomePage from "main/pages/HomePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
@@ -15,6 +15,7 @@ describe("HomePage tests", () => {
     axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
     const queryClient = new QueryClient();
+    
     test("renders without crashing", () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -23,6 +24,19 @@ describe("HomePage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+    });
+
+    test("contains proper text", async () => {
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <HomePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor( () => expect(getByText("Hey there!")).toBeInTheDocument() );
+        expect(getByText("This app is being built by the students of CMPSC 156 at UCSB to assist an effort to provide transportation for UCSB students with mobility issues to be better able to get to and from class.")).toBeInTheDocument();
     });
 
 });
