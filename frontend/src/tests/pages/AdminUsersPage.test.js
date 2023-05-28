@@ -92,6 +92,32 @@ describe("AdminUsersPage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual({id:1});
       
 
+    });
+
+    test("usertable toggle driver tests", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onPost("/api/admin/users/toggleDriver").reply(200, "User with id 1 has toggled driver status");
+        const { getByText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
+
+        const toggleDriverButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-driver-button`);
+        expect(toggleDriverButton).toBeInTheDocument();
+
+        fireEvent.click(toggleDriverButton);
+
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        expect(axiosMock.history.post[0].url).toBe("/api/admin/users/toggleDriver");
+        expect(axiosMock.history.post[0].params).toEqual({id:1});
+      
+
     })
 
 });
