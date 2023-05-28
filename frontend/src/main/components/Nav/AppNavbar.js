@@ -11,7 +11,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
-      <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
+      <Navbar expand="xl" variant="dark" style={{backgroundColor: "#003660"}} sticky="top" data-testid="AppNavbar">
         <Container>
           <Navbar.Brand as={Link} to="/">
             GauchoRide
