@@ -23,7 +23,7 @@ describe("UserTable tests", () => {
         );
     });
 
-    test("Has the expected colum headers and content", () => {
+    test("Has the expected column headers and content", () => {
         const { getByText, getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <UsersTable users={usersFixtures.threeUsers}/>
