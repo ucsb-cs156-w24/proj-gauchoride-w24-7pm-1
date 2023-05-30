@@ -19,7 +19,6 @@ public class Shift {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  
   private String day;
   private String shift;
   private String driver;
