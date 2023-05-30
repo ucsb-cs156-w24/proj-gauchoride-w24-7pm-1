@@ -12,7 +12,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
-      <Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar">
+      <Navbar expand="xl" variant="dark" style={{backgroundColor: "#003660"}} sticky="top" data-testid="AppNavbar">
         <Container>
           <img data-testid="gauchoride-nav-logo" src={require('../../../assets/stork.png')} alt="" style={{width: 80, height: 80, marginRight: 15}} />
           <Navbar.Brand as={Link} to="/">

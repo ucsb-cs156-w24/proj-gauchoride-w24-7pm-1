@@ -158,11 +158,26 @@ describe("AppNavbar tests", () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                    </MemoryRouter>
+            </QueryClientProvider>
+        );
+        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');
+    });
+                    
+    test("background of AppNavbar is UCSB's navy color", async () => {
+
+        const currentUser = currentUserFixtures;
+        const doLogin = jest.fn();
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
-        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');     
+     
+        await waitFor(() => expect(getByTestId(`AppNavbar`)).toHaveStyle(`backgroundColor: #003660`));
     });
 });
 
