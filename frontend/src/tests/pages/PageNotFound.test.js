@@ -7,7 +7,6 @@ import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import mockConsole from "jest-mock-console";
 
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -33,7 +32,6 @@ describe("PageNotFound tests", () => {
     });
     test("redirects to /movies on submit", async () => {
 
-       const restoreConsole = mockConsole();
 
        render(
           <QueryClientProvider client={queryClient}>
