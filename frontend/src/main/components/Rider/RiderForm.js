@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     const navigate = useNavigate();
-    const [timeError, setTimeError] = useState('');
     
     // Stryker disable all
     const {
@@ -71,22 +70,15 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     data-testid={testIdPrefix + "-start"}
                     id="start"
                     type="text"
-                    isInvalid={Boolean(errors.start) || Boolean(timeError)}
+                    isInvalid={Boolean(errors.start)}
                     {...register("start", {
                         required: "Start time is required.",
                         pattern: {
-                            value: /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/,
+                            value: /^(0?[1-9]|1[0-2]):[0-5][0-9](AM|PM)$/,
                             message: "Please enter time in the format HH:MM AM/PM (e.g., 3:30PM)."
                           }
                     })}
-                    onChange={(e) => {
-                        if (!e.target.value.match(/^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/)) {
-                          setTimeError("Please enter time in the format HH:MM AM/PM (e.g., 3:30PM).");
-                        } else {
-                          setTimeError("");
-                        }
-                      }}
-                      placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"
+                    placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.start?.message}
@@ -99,21 +91,14 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     data-testid={testIdPrefix + "-end"}
                     id="end"
                     type="text"
-                    isInvalid={Boolean(errors.start) || Boolean(timeError)}
+                    isInvalid={Boolean(errors.start) }
                     {...register("end", {
                         required: "End time is required.",
                         pattern: {
-                            value: /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/,
+                            value: /^(0?[1-9]|1[0-2]):[0-5][0-9](AM|PM)$/,
                             message: "Please enter time in the format HH:MM AM/PM (e.g., 3:30PM)."
                           }
                     })}
-                    onChange={(e) => {
-                        if (!e.target.value.match(/^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/)) {
-                          setTimeError("Please enter time in the format HH:MM AM/PM (e.g., 3:30PM).");
-                        } else {
-                          setTimeError("");
-                        }
-                      }}
                     placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"      
                 />
                 <Form.Control.Feedback type="invalid">
