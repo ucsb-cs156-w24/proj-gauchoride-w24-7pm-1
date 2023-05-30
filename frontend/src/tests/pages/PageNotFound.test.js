@@ -35,15 +35,6 @@ describe("PageNotFound tests", () => {
 
        const restoreConsole = mockConsole();
 
-       // mockAdd.mockReturnValue({
-       //     "movie": {
-       //         id: 3,
-       //         name: "Cinderella",
-       //         releasedate: "March 13, 2015",
-       //         director: "Kenneth Branagh"
-       //     }
-       // });
-
        render(
           <QueryClientProvider client={queryClient}>
               <MemoryRouter>
@@ -61,13 +52,9 @@ describe("PageNotFound tests", () => {
 
        await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
 
-       // assert - check that the console.log was called with the expected message
-
-
    });
 
 
 });
-
 
 

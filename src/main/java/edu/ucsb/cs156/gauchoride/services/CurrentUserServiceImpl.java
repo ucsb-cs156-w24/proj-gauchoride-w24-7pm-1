@@ -66,6 +66,7 @@ public class CurrentUserServiceImpl extends CurrentUserService {
         u.setAdmin(true);
         userRepository.save(u);
       }
+      
       return u;
     }
 
@@ -82,6 +83,7 @@ public class CurrentUserServiceImpl extends CurrentUserService {
         .admin(adminEmails.contains(email))
         .build();
     userRepository.save(u);
+  
     return u;
   }
 

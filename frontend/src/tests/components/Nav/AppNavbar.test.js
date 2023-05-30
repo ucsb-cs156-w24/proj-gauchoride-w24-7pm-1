@@ -1,4 +1,4 @@
-import { render, waitFor} from "@testing-library/react";
+import { render, waitFor, screen} from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -23,7 +23,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
     });
 
     test("renders correctly for admin user", async () => {
@@ -39,7 +39,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, phtcon@ucsb.edu")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
         const adminMenu = getByTestId("appnavbar-admin-dropdown");
         expect(adminMenu).toBeInTheDocument();        
     });
@@ -148,8 +148,37 @@ describe("AppNavbar tests", () => {
         expect(queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
     });
 
+    test("renders image correctly", async () => {
+        const currentUser = currentUserFixtures.adminUser;
+        const systemInfo = systemInfoFixtures.showingBoth;
 
-   
+        const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                    </MemoryRouter>
+            </QueryClientProvider>
+        );
+        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');
+    });
+                    
+    test("background of AppNavbar is UCSB's navy color", async () => {
+
+        const currentUser = currentUserFixtures;
+        const doLogin = jest.fn();
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+     
+        await waitFor(() => expect(getByTestId(`AppNavbar`)).toHaveStyle(`backgroundColor: #003660`));
+    });
 });
 
 
