@@ -67,30 +67,24 @@ jobs:
       - run: npx stryker run --incremental --incrementalFile history/stryker-incremental-${{env.pr_number}}.json
         working-directory: ./frontend
 
-      - name: Debugging output two
-        run: |
-          ls -lRt frontend
-
       - name: Upload stryker incremental file to Artifacts
+        if: always() # always upload artifacts, even if tests fail
         uses: actions/upload-artifact@v3.1.2
         with:
           name: stryker-incremental-${{env.pr_number}}.json
           path: frontend/history/stryker-incremental-${{env.pr_number}}.json
 
       - name: Set path for github pages deploy when there is a PR num
-        if: ${{ env.pr_number != 'main' }}
+        if: always() # always upload artifacts, even if tests fail
         run: |
-          prefix="prs/${pr_number}/"
+          if [ "${{env.pr_number }}" = "main" ]; then
+             prefix=""
+          else
+             prefix="prs/${{ env.pr_number }}/"
+          fi
           echo "prefix=${prefix}"
           echo "prefix=${prefix}" >> "$GITHUB_ENV"
       
-      - name: Set path for github pages deploy when there is NOT a PR num
-        if: ${{ env.pr_number == 'main' }}
-        run: |
-          prefix=""
-          echo "prefix=${prefix}"
-          echo "prefix=${prefix}" >> "$GITHUB_ENV"
-
       - name: Deploy 🚀
         if: always() # always upload artifacts, even if tests fail
         uses: JamesIves/github-pages-deploy-action@v4
