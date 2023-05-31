@@ -4,8 +4,6 @@ const riderFixtures = {
       {
        "id": 1,
         "day": "Monday",
-        "student": "CGaucho",
-        "driver": "Chris",
         "start": "3:30PM",
         "end": "4:45PM",
         "pickup": "Cambell",
@@ -14,7 +12,6 @@ const riderFixtures = {
         "course": "CMPSC111"    
       }
     ],
-
     threeRidesTable:
     [
         {
@@ -48,6 +45,42 @@ const riderFixtures = {
             "day": "Thursday",
             "student": "CGaucho",
             "driver": "Chris",
+            "start": "4:15PM",
+            "end": "5:30PM",
+            "pickup": "Buchanan",
+            "dropoff": "Phelps",
+            "room": "123",
+            "course": "CMPSC156"   
+        },
+        
+    ],
+    threeRides:
+    [
+        {
+            "id": 2,
+            "day": "Tuesday",
+            "start": "5:00PM",
+            "end": "5:50PM",
+            "pickup": "Girvetz",
+            "dropoff": "Phelps",
+            "room": "123",
+            "course": "CMPSC64"      
+        },
+
+        {
+            "id": 3,
+            "day": "Wednesday",
+            "start": "11:00AM",
+            "end": "11:15AM",
+            "pickup": "SRB",
+            "dropoff": "HFH",
+            "room": "123",
+            "course": "CMPSC138"  
+        },
+
+        {
+            "id": 4,
+            "day": "Thursday",
             "start": "4:15PM",
             "end": "5:30PM",
             "pickup": "Buchanan",
