@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { riderFixtures } from "fixtures/riderFixtures";
 import RiderTable from "main/components/Rider/RiderTable";
-import { QueryClient, QueryClientProvider, useMutation } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 
@@ -151,7 +151,7 @@ describe("RiderTable tests", () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
@@ -175,7 +175,7 @@ describe("RiderTable tests", () => {
 
     const currentUser = currentUserFixtures.userOnly;
 
-    const { getByText, getByTestId } = render(
+    const {getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
