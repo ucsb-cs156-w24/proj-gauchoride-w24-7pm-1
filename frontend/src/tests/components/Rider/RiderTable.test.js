@@ -1,12 +1,21 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { riderFixtures } from "fixtures/riderFixtures";
 import RiderTable from "main/components/Rider/RiderTable";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, useMutation } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 
 
 const mockedNavigate = jest.fn();
+
+const mockDeleteMutation = jest.fn();
+jest.mock('react-query', () => ({
+  ...jest.requireActual('react-query'),
+  useMutation: () => ({
+    mutate: mockDeleteMutation,
+  }),
+}));
+
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -63,7 +72,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRides} currentUser={currentUser} />
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -105,7 +114,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRides} currentUser={currentUser} />
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -145,7 +154,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRides} currentUser={currentUser} />
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -169,7 +178,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRides} currentUser={currentUser} />
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -187,5 +196,26 @@ describe("RiderTable tests", () => {
   });
 
   
-
+  test("Delete button calls deleteMutation for admin user", async () => {
+    const currentUser = currentUserFixtures.adminUser;
+  
+    const { getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+  
+    await waitFor(() => { expect(getByTestId(`RiderTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+  
+    const deleteButton = getByTestId(`RiderTable-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    
+    fireEvent.click(deleteButton);
+  
+    expect(mockDeleteMutation).toHaveBeenCalled();
+  });
+  
+  
 });

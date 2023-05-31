@@ -79,17 +79,18 @@ export default function RiderTable({
         ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
     ]
 
+    // TODO: NEED TO ADD DRIVER ROLE THAT DOES NOT HAVE BUTTONS, NEED TO WAIT FOR DRIVER ROLE TO BE DEFINED
 
-    const columnsToDisplay = (showButtons && hasRole(currentUser, "ROLE_USER")) ? buttonColumns : columns;
+    //const columnsToDisplay = (showButtons && hasRole(currentUser, "ROLE_USER")) ? buttonColumns : columns;
 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
-    const memoizedColumns = React.useMemo(() => columnsToDisplay, [columnsToDisplay]);
+    const memoizedColumns = React.useMemo(() => buttonColumns, [buttonColumns]);
     const memoizedRides = React.useMemo(() => ride, [ride]);
 
     return <OurTable
         data={memoizedRides}
-        columns={memoizedColumns}
+        columns={buttonColumns}
         testid={"RiderTable"}
     />;
 };

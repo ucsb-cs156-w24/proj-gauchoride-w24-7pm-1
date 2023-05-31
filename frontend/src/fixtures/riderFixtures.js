@@ -15,7 +15,7 @@ const riderFixtures = {
       }
     ],
 
-    threeRides:
+    threeRidesTable:
     [
         {
             "id": 2,

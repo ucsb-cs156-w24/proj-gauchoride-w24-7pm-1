@@ -1,6 +1,7 @@
 import React from 'react';
 import RiderTable from 'main/components/Rider/RiderTable';
 import { riderFixtures } from 'fixtures/riderFixtures';
+//import { useCurrentUser } from 'main/utils/currentUser';
 
 export default {
     title: 'components/Rider/RiderTable',
@@ -19,15 +20,17 @@ Empty.args = {
     ride: []
 };
 
+
 export const ThreeSubjectsNoButtons = Template.bind({});
 
 ThreeSubjectsNoButtons.args = {
-    ride: riderFixtures.threeRides,
-    showButtons: false
+    ride: riderFixtures.threeRidesTable,
+    showButtons: false,
 };
+
 
 export const ThreeSubjectsWithButtons = Template.bind({});
 ThreeSubjectsWithButtons.args = {
-    ride: riderFixtures.threeRides,
+    ride: riderFixtures.threeRidesTable,
     showButtons: true
 };
