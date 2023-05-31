@@ -3,12 +3,12 @@ import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
 import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/riderUtils"
 import { useNavigate } from "react-router-dom";
-import { hasRole } from "main/utils/currentUser";
+//import { hasRole } from "main/utils/currentUser";
 
 export default function RiderTable({
-        ride,
-        currentUser,
-        showButtons = true
+        ride
+        //currentUser,
+        //showButtons = true
     }) {
 
     const navigate = useNavigate();
@@ -90,7 +90,7 @@ export default function RiderTable({
 
     return <OurTable
         data={memoizedRides}
-        columns={buttonColumns}
+        columns={memoizedColumns}
         testid={"RiderTable"}
     />;
 };
