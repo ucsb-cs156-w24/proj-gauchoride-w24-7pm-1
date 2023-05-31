@@ -4,6 +4,7 @@ import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
+
   return (
     <>
       {
@@ -13,6 +14,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
       }
       <Navbar expand="xl" variant="dark" style={{backgroundColor: "#003660"}} sticky="top" data-testid="AppNavbar">
         <Container>
+          <img data-testid="gauchoride-nav-logo" src={require('../../../assets/stork.png')} alt="" style={{width: 80, height: 80, marginRight: 15}} />
           <Navbar.Brand as={Link} to="/">
             GauchoRide
           </Navbar.Brand>

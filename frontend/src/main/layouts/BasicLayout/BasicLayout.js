@@ -17,7 +17,7 @@ export default function BasicLayout({ children }) {
       <Container expand="xl" className="pt-4 flex-grow-1">
         {children}
       </Container>
-      <Footer />
+      <Footer/>
     </div>
   );
 }
