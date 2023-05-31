@@ -85,12 +85,12 @@ export default function RiderTable({
 
 
     // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
-    const memoizedColumns = React.useMemo(() => buttonColumns, [buttonColumns]);
+    //const memoizedColumns = React.useMemo(() => buttonColumns, [buttonColumns]);
     const memoizedRides = React.useMemo(() => ride, [ride]);
 
     return <OurTable
         data={memoizedRides}
-        columns={memoizedColumns}
+        columns={buttonColumns}
         testid={"RiderTable"}
     />;
 };
