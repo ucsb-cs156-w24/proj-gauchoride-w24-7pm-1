@@ -12,7 +12,7 @@ const apiCurrentUserFixtures = {
             "locale": "en",
             "hostedDomain": "ucsb.edu",
             "admin": true,
-            "driver": false
+            "driver": true
         },
         "roles": [
             {
@@ -39,6 +39,19 @@ const apiCurrentUserFixtures = {
                     "email_verified": true,
                     "locale": "en",
                     "hd": "ucsb.edu"
+                }
+            },
+            {
+                "authority": "ROLE_DRIVER",
+                "attributes": {
+                    "sub": "102656447703889917227",
+                    "name": "Phillip Conrad",
+                    "given_name": "Phillip",
+                    "family_name": "Conrad",
+                    "picture": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+                    "email": "pconrad.cis@gmail.com",
+                    "email_verified": true,
+                    "locale": "en"
                 }
             },
             {
