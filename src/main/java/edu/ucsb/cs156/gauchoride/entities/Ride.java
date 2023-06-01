@@ -23,16 +23,16 @@ public class Ride {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private long rider_id;
+  private long riderId;
 
   @ApiModelProperty(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
   private String day;
   
-  private String start_time; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
-  private String end_time; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
+  private String startTime; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
+  private String endTime; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
 
-  private String pickup_location;
-  private String dropoff_location;
+  private String pickupLocation;
+  private String dropoffLocation;
   
   private String room;
   private String course; // e.g. CMPSC 156

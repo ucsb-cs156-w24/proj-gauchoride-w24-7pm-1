@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RideRepository extends CrudRepository<Ride, Long> {
-  Iterable<Ride> findAllByRiderId(long rider_id);
+  Iterable<Ride> findAllByRiderId(long riderId);
 }
