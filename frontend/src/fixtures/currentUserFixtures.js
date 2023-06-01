@@ -172,6 +172,7 @@ const currentUserFixtures = {
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_USER",
+                "ROLE_DRIVER",
                 "ROLE_ADMIN"
             ]
         },
