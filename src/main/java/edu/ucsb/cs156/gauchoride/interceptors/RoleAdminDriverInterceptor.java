@@ -9,6 +9,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +28,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import edu.ucsb.cs156.gauchoride.entities.User;
 
+@Slf4j
 @Component
 public class RoleAdminDriverInterceptor implements HandlerInterceptor {
 
@@ -38,7 +41,8 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Authentication newAuth = null;
-        if (authentication instanceof OAuth2AuthenticationToken) {
+        log.info("authentication.getClass() = {}", authentication.getClass());
+        if (authentication.getClass() == OAuth2AuthenticationToken.class) {
             OAuth2User principal = ((OAuth2AuthenticationToken) authentication).getPrincipal();
             if (principal != null) {
                 String email = principal.getAttribute("email");
