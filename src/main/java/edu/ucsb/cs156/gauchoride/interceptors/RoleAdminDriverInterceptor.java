@@ -41,7 +41,6 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Authentication newAuth = null;
-        log.info("authentication.getClass() = {}", authentication.getClass());
         if (authentication.getClass() == OAuth2AuthenticationToken.class) {
             OAuth2User principal = ((OAuth2AuthenticationToken) authentication).getPrincipal();
             if (principal != null) {
@@ -49,9 +48,9 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
                 Optional<User> optionalUser = userRepository.findByEmail(email);
                 if (optionalUser.isPresent()) {
                     User user = optionalUser.get();
-                    Set<GrantedAuthority> revisedAuthorities = new HashSet<>();
                     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-                    revisedAuthorities = authorities.stream().filter(grantedAuth -> !grantedAuth.equals("ROLE_ADMIN") && !grantedAuth.equals("ROLE_DRIVER"))
+                    Set<GrantedAuthority> revisedAuthorities = authorities.stream().filter(
+                            grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN") && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
                             .collect(Collectors.toSet());
                     if (user.getAdmin()) {
                         revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
