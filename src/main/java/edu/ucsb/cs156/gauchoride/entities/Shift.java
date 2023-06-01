@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,8 @@ public class Shift {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String day;
-  private String shift;
+  private LocalTime shiftStart;
+  private LocalTime shiftEnd;
   private long driverID;
   private long driverBackupID;
 }

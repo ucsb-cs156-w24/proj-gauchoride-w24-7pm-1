@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import edu.ucsb.cs156.gauchoride.entities.Shift;
+import java.time.LocalTime;
 
 import java.util.Optional;
 
@@ -11,6 +12,5 @@ import java.util.Optional;
 public interface ShiftRepository extends CrudRepository<Shift, Long> {
   Optional<Shift> findByDay(String day);
   Optional<Shift> findByDriver(Long driverID);
-  // TODO: Find by shift would be nice to have, it might be a little difficult to implement
-  //Optional<Shift> findByShift(String shift);
+  Optional<Shift> findByShift(LocalTime shiftStart, LocalTime shiftEnd);
 }
