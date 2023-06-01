@@ -76,7 +76,7 @@ export default function RiderTable({
         ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
     ]
 
-    // TODO: NEED TO ADD DRIVER ROLE THAT DOES NOT HAVE BUTTONS, NEED TO WAIT FOR DRIVER ROLE TO BE DEFINED
+   
     const memoizedRides = React.useMemo(() => ride, [ride]);
 
     return <OurTable
