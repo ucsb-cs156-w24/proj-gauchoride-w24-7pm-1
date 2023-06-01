@@ -39,7 +39,6 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Authentication newAuth = null;
         if (authentication.getClass() == OAuth2AuthenticationToken.class) {
             OAuth2User principal = ((OAuth2AuthenticationToken) authentication).getPrincipal();
             if (principal != null) {
@@ -58,12 +57,12 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
                     if (user.getDriver()) {
                         revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
                     }
-                    newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,
+                    Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,
                             (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));
+                    SecurityContextHolder.getContext().setAuthentication(newAuth);
                 }
             }
         }
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
         return true;
     }
 }
