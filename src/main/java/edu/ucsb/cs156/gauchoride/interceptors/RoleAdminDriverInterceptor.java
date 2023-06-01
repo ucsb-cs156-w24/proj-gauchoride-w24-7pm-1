@@ -36,8 +36,7 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
     UserRepository userRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Authentication newAuth = null;
@@ -50,7 +49,8 @@ public class RoleAdminDriverInterceptor implements HandlerInterceptor {
                     User user = optionalUser.get();
                     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
                     Set<GrantedAuthority> revisedAuthorities = authorities.stream().filter(
-                            grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN") && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
+                            grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN")
+                                    && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
                             .collect(Collectors.toSet());
                     if (user.getAdmin()) {
                         revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
