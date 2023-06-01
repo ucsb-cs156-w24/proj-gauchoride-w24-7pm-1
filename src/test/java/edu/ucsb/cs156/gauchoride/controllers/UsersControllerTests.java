@@ -341,4 +341,93 @@ public class UsersControllerTests extends ControllerTestCase {
           Map<String, Object> json = responseToJson(response);
           assertEquals("User with id 15 not found", json.get("message"));
   }
+
+
+  // rider toggle tests
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_can_toggle_rider_status_of_a_user_from_false_to_true() throws Exception {
+          // arrange
+          User userBefore = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .rider(false)
+          .build();
+
+          User userAfter = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .rider(true)
+          .build();
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
+          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleRider?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isOk()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+          verify(userRepository, times(1)).save(userAfter);
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 has toggled rider status", json.get("message"));
+  }
+
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_can_toggle_rider_status_of_a_user_from_true_to_false() throws Exception {
+          // arrange
+          User userBefore = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .rider(true)
+          .build();
+
+          User userAfter = User.builder()
+          .email("cgaucho@ucsb.edu")
+          .id(15L)
+          .rider(false)
+          .build();
+
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
+          when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleRider?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isOk()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+          verify(userRepository, times(1)).save(userAfter);
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 has toggled rider status", json.get("message"));
+  }
+
+  @WithMockUser(roles = { "ADMIN", "USER" })
+  @Test
+  public void admin_tries_to_toggle_rider_for_non_existant_user_and_gets_right_error_message() throws Exception {
+          // arrange
+        
+    
+          when(userRepository.findById(eq(15L))).thenReturn(Optional.empty());
+          
+          // act
+          MvcResult response = mockMvc.perform(
+                          post("/api/admin/users/toggleRider?id=15")
+                                          .with(csrf()))
+                          .andExpect(status().isNotFound()).andReturn();
+
+          // assert
+          verify(userRepository, times(1)).findById(15L);
+         
+
+          Map<String, Object> json = responseToJson(response);
+          assertEquals("User with id 15 not found", json.get("message"));
+  }
 }
