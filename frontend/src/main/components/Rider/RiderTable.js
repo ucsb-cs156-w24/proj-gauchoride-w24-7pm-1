@@ -3,12 +3,9 @@ import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
 import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/riderUtils"
 import { useNavigate } from "react-router-dom";
-//import { hasRole } from "main/utils/currentUser";
 
 export default function RiderTable({
         ride
-        //currentUser,
-        //showButtons = true
     }) {
 
     const navigate = useNavigate();
@@ -80,12 +77,6 @@ export default function RiderTable({
     ]
 
     // TODO: NEED TO ADD DRIVER ROLE THAT DOES NOT HAVE BUTTONS, NEED TO WAIT FOR DRIVER ROLE TO BE DEFINED
-
-    //const columnsToDisplay = (showButtons && hasRole(currentUser, "ROLE_USER")) ? buttonColumns : columns;
-
-
-    // Stryker disable next-line ArrayDeclaration : [columns] is a performance optimization
-    //const memoizedColumns = React.useMemo(() => buttonColumns, [buttonColumns]);
     const memoizedRides = React.useMemo(() => ride, [ride]);
 
     return <OurTable

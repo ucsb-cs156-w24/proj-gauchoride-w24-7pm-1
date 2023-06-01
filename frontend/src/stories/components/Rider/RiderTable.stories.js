@@ -1,7 +1,6 @@
 import React from 'react';
 import RiderTable from 'main/components/Rider/RiderTable';
 import { riderFixtures } from 'fixtures/riderFixtures';
-//import { useCurrentUser } from 'main/utils/currentUser';
 
 export default {
     title: 'components/Rider/RiderTable',
