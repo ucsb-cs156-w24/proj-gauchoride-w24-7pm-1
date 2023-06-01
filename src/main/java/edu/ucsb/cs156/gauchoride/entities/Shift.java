@@ -21,6 +21,6 @@ public class Shift {
   private long id;
   private String day;
   private String shift;
-  private String driver;
-  private String driverBackup;
+  private long driverID;
+  private long driverBackupID;
 }
