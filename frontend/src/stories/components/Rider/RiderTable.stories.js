@@ -20,16 +20,22 @@ Empty.args = {
 };
 
 
-export const ThreeSubjectsNoButtons = Template.bind({});
+export const DriverThreeSubjectsNoButtons = Template.bind({});
 
-ThreeSubjectsNoButtons.args = {
+DriverThreeSubjectsNoButtons.args = {
     ride: riderFixtures.threeRidesTable,
-    showButtons: false,
+    //currentUser: "ROLE_DRIVER"
 };
 
 
-export const ThreeSubjectsWithButtons = Template.bind({});
-ThreeSubjectsWithButtons.args = {
+export const RiderThreeSubjectsWithButtons = Template.bind({});
+RiderThreeSubjectsWithButtons.args = {
     ride: riderFixtures.threeRidesTable,
-    showButtons: true
+    //currentUser: "ROLE_USER"
+};
+
+export const AdminThreeSubjectsWithButtons = Template.bind({});
+AdminThreeSubjectsWithButtons.args = {
+    ride: riderFixtures.threeRidesTable,
+    //currentUser: "ROLE_ADMIN"
 };
