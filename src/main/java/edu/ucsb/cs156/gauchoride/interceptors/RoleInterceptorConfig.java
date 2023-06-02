@@ -6,10 +6,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
-public class RoleAdminDriverInterceptorConfiguration implements WebMvcConfigurer {
+public class RoleInterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
-    private RoleAdminDriverInterceptor roleAdminDriverInterceptor;
+    private RoleInterceptor roleAdminDriverInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -30,7 +30,7 @@ import edu.ucsb.cs156.gauchoride.entities.User;
 
 @Slf4j
 @Component
-public class RoleAdminDriverInterceptor implements HandlerInterceptor {
+public class RoleInterceptor implements HandlerInterceptor {
 
     @Autowired
     UserRepository userRepository;
