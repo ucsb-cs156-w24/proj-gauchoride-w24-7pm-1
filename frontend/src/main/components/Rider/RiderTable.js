@@ -167,13 +167,9 @@ export default function RiderTable({
     const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : (hasRole(currentUser, "ROLE_DRIVER")) ? columnsDriver: buttonColumnsRider;
     
     
-
-    const memoizedColumns = React.useMemo(() => columnsToDisplay, [columnsToDisplay]);
-    const memoizedRides = React.useMemo(() => ride, [ride]);
-
     return <OurTable
-        data={memoizedRides}
-        columns={memoizedColumns}
+        data={ride}
+        columns={columnsToDisplay}
         testid={"RiderTable"}
     />;
 };
