@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { riderFixtures } from "fixtures/riderFixtures";
 import RiderTable from "main/components/Rider/RiderTable";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -38,7 +38,7 @@ describe("RiderTable tests", () => {
 
     );
   });
-  test("renders without crashing for empty table for ordinary user", () => {
+  test("renders without crashing for empty table for ordinary rider", () => {
     const currentUser = currentUserFixtures.userOnly;
 
     render(
@@ -53,6 +53,19 @@ describe("RiderTable tests", () => {
 
   test("renders without crashing for empty table for admin", () => {
     const currentUser = currentUserFixtures.adminUser;
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <RiderTable ride={[]} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+  });
+
+  test("renders without crashing for empty table for driver", () => {
+    const currentUser = currentUserFixtures.driverOnly;
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -107,7 +120,7 @@ describe("RiderTable tests", () => {
 
 
 
-  test("Has the expected column headers and content for ordinary User", () => {
+  test("Has the expected column headers and content for ordinary rider", () => {
 
     const currentUser = currentUserFixtures.userOnly;
 
@@ -147,6 +160,42 @@ describe("RiderTable tests", () => {
 
   });
 
+  test("Has the expected column headers and content for ordinary driver", () => {
+
+    const currentUser = currentUserFixtures.driverOnly;
+
+    const { getByText, getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+
+    const expectedHeaders = ['id','Day','Student', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
+    const expectedFields = ['id', 'day', 'student', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
+    const testId = "RiderTable";
+
+    expectedHeaders.forEach((headerText) => {
+      const header = getByText(headerText);
+      expect(header).toBeInTheDocument();
+    });
+
+    expectedFields.forEach((field) => {
+      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+      expect(header).toBeInTheDocument();
+    });
+
+    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+
+
+    expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+    expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+
+  });
+
   test("Edit button navigates to the edit page for admin user", async () => {
 
     const currentUser = currentUserFixtures.adminUser;
@@ -171,7 +220,7 @@ describe("RiderTable tests", () => {
 
   });
 
-  test("Edit button navigates to the edit page for ordinary user", async () => {
+  test("Edit button navigates to the edit page for ordinary rider", async () => {
 
     const currentUser = currentUserFixtures.userOnly;
 
@@ -196,8 +245,8 @@ describe("RiderTable tests", () => {
   });
 
   
-  test("Delete button calls deleteMutation for admin user", async () => {
-    const currentUser = currentUserFixtures.adminUser;
+  test("Delete button calls deleteMutation for rider (which admin is classifed as)", async () => {
+    const currentUser = currentUserFixtures.userOnly;
   
     const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>

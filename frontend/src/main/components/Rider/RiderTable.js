@@ -149,13 +149,7 @@ export default function RiderTable({
             accessor: 'room',
         }
     ];
-    /*
 
-    const buttonColumns = [
-        ...columns,
-        ButtonColumn("Edit", "primary", editCallback, "RiderTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
-    ]*/
 
     const buttonColumnsRider = [
         ...columnsRider,
@@ -169,7 +163,8 @@ export default function RiderTable({
         ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
     ]
 
-    const columnsToDisplay = (hasRole(currentUser, "ROLE_USER")) ? buttonColumnsRider : (hasRole(currentUser, "ROLE_DRIVER")) ? columnsDriver: buttonColumnsAdmin;
+   
+    const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : (hasRole(currentUser, "ROLE_DRIVER")) ? columnsDriver: buttonColumnsRider;
     
     
 

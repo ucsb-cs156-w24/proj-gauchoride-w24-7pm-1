@@ -1,6 +1,7 @@
 import React from 'react';
 import RiderTable from 'main/components/Rider/RiderTable';
 import { riderFixtures } from 'fixtures/riderFixtures';
+import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 
 export default {
     title: 'components/Rider/RiderTable',
@@ -24,18 +25,18 @@ export const DriverThreeSubjectsNoButtons = Template.bind({});
 
 DriverThreeSubjectsNoButtons.args = {
     ride: riderFixtures.threeRidesTable,
-    //currentUser: "ROLE_DRIVER"
+    currentUser: currentUserFixtures.driverOnly
 };
 
 
 export const RiderThreeSubjectsWithButtons = Template.bind({});
 RiderThreeSubjectsWithButtons.args = {
     ride: riderFixtures.threeRidesTable,
-    //currentUser: "ROLE_USER"
+    currentUser: currentUserFixtures.userOnly
 };
 
 export const AdminThreeSubjectsWithButtons = Template.bind({});
 AdminThreeSubjectsWithButtons.args = {
     ride: riderFixtures.threeRidesTable,
-    //currentUser: "ROLE_ADMIN"
+    currentUser: currentUserFixtures.adminUser
 };
