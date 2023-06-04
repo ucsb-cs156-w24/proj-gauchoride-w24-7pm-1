@@ -51,7 +51,13 @@ public class RoleInterceptorTests extends ControllerTestCase {
                 Map<String, Object> attributes = new HashMap<>();
                 attributes.put("sub", "sub");
                 attributes.put("name", "name");
-                attributes.put("email", "cgaucho@ucsb.edu");
+                attributes.put("email", "cgaucho@ucsb.edu"); // this needs to match email below
+                attributes.put("picture", "picture");
+                attributes.put("given_name", "given_name");
+                attributes.put("family_name", "family_name");
+                attributes.put("email_verified", true);
+                attributes.put("locale", "locale");
+                attributes.put("hd", "hd");
 
                 Set<GrantedAuthority> authorities = new HashSet<>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
