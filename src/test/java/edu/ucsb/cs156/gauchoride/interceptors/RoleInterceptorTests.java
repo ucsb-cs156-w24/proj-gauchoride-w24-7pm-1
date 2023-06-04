@@ -21,7 +21,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import java.util.Collection;
 import java.util.Map;
@@ -37,7 +36,7 @@ import static org.mockito.Mockito.times;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@WebMvcTest
+@SpringBootTest
 @AutoConfigureMockMvc
 public class RoleInterceptorTests extends ControllerTestCase {
 
