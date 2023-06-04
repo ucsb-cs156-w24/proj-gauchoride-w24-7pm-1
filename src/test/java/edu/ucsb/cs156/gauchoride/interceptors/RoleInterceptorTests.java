@@ -36,9 +36,6 @@ import static org.mockito.Mockito.times;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-// Implements tests loosely following 
-// https://medium.com/@nooneypradeep/spring-boot-interceptor-with-unit-testing-825cda41f618
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RoleInterceptorTests extends ControllerTestCase {
