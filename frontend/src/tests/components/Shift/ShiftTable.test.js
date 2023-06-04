@@ -46,9 +46,11 @@ describe("ShiftTable tests", () => {
 
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
         expect(getByTestId(`${testId}-cell-row-0-col-day`)).toHaveTextContent("Monday");
+        expect(getByTestId(`${testId}-cell-row-0-col-shift`)).toHaveTextContent("8AM-11AM");
         expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("Adam");
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-day`)).toHaveTextContent("Tuesday");
+        expect(getByTestId(`${testId}-cell-row-1-col-shift`)).toHaveTextContent("11AM-2PM");
         expect(getByTestId(`${testId}-cell-row-1-col-driver`)).toHaveTextContent("Bob");
 
       });
