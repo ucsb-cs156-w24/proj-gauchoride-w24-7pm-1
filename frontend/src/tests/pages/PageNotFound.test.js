@@ -30,7 +30,7 @@ describe("PageNotFound tests", () => {
             </QueryClientProvider>
         );
     });
-    test("redirects to /movies on submit", async () => {
+    test("redirects to PageNotFound", async () => {
        render(
           <QueryClientProvider client={queryClient}>
               <MemoryRouter>
@@ -48,7 +48,20 @@ describe("PageNotFound tests", () => {
 
        await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
 
+<<<<<<< HEAD
    });
 
 
 });
+=======
+       // assert - check that the console.log was called with the expected message
+
+
+   });
+
+
+});
+
+
+
+>>>>>>> 7a1588b1ce753eed256b1ff379b15450a3e1e362
