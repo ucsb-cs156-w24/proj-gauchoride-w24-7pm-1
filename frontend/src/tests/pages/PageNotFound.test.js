@@ -31,8 +31,6 @@ describe("PageNotFound tests", () => {
         );
     });
     test("redirects to /movies on submit", async () => {
-
-
        render(
           <QueryClientProvider client={queryClient}>
               <MemoryRouter>
@@ -54,5 +52,3 @@ describe("PageNotFound tests", () => {
 
 
 });
-
-
