@@ -43,26 +43,24 @@ public class RoleInterceptor implements HandlerInterceptor {
 
         if (authentication.getClass() == OAuth2AuthenticationToken.class) {
             OAuth2User principal = ((OAuth2AuthenticationToken) authentication).getPrincipal();
-            if (principal != null) {
-                String email = principal.getAttribute("email");
-                Optional<User> optionalUser = userRepository.findByEmail(email);
-                if (optionalUser.isPresent()) {
-                    User user = optionalUser.get();
-                    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-                    Set<GrantedAuthority> revisedAuthorities = authorities.stream().filter(
-                            grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN")
-                                    && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
-                            .collect(Collectors.toSet());
-                    if (user.getAdmin()) {
-                        revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                    }
-                    if (user.getDriver()) {
-                        revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
-                    }
-                    Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,
-                            (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));
-                    SecurityContextHolder.getContext().setAuthentication(newAuth);
+            String email = principal.getAttribute("email");
+            Optional<User> optionalUser = userRepository.findByEmail(email);
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                Set<GrantedAuthority> revisedAuthorities = authorities.stream().filter(
+                        grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN")
+                                && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
+                        .collect(Collectors.toSet());
+                if (user.getAdmin()) {
+                    revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 }
+                if (user.getDriver()) {
+                    revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
+                }
+                Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,
+                        (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
             }
         }
         return true;
