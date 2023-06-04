@@ -48,20 +48,7 @@ describe("PageNotFound tests", () => {
 
        await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
 
-<<<<<<< HEAD
    });
 
 
 });
-=======
-       // assert - check that the console.log was called with the expected message
-
-
-   });
-
-
-});
-
-
-
->>>>>>> 7a1588b1ce753eed256b1ff379b15450a3e1e362
