@@ -32,7 +32,6 @@ import java.util.Optional;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
-import static org.mockito.ArgumentMatchers.eq;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -120,7 +119,7 @@ public class RoleInterceptorTests extends ControllerTestCase {
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_DRIVER"));
                 boolean role_member = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_MEMBER"));
-                assertTrue(!role_admin, "ROLE_ADMIN should not be in roles list");
+                assertFalse(role_admin, "ROLE_ADMIN should not be in roles list");
                 assertTrue(role_driver, "ROLE_DRIVER should be in roles list");
                 assertTrue(role_member, "ROLE_MEMBER should be in roles list");
         }
@@ -161,7 +160,7 @@ public class RoleInterceptorTests extends ControllerTestCase {
                 boolean role_member = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_MEMBER"));
                 assertTrue(role_admin, "ROLE_ADMIN should not be in roles list");
-                assertTrue(!role_driver, "ROLE_DRIVER should be in roles list");
+                assertFalse(role_driver, "ROLE_DRIVER should be in roles list");
                 assertTrue(role_member, "ROLE_MEMBER should be in roles list");
         }
 
