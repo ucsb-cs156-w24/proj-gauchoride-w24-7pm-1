@@ -28,8 +28,6 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import edu.ucsb.cs156.gauchoride.entities.User;
 
-// Implements a solution to loginBug from https://stackoverflow.com/a/50954035/6454116
-
 @Slf4j
 @Component
 public class RoleInterceptor implements HandlerInterceptor {
