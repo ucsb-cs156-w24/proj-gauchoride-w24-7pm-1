@@ -11,7 +11,8 @@ const apiCurrentUserFixtures = {
             "emailVerified": true,
             "locale": "en",
             "hostedDomain": "ucsb.edu",
-            "admin": true
+            "admin": true,
+            "driver": true
         },
         "roles": [
             {
@@ -41,6 +42,19 @@ const apiCurrentUserFixtures = {
                 }
             },
             {
+                "authority": "ROLE_DRIVER",
+                "attributes": {
+                    "sub": "102656447703889917227",
+                    "name": "Phillip Conrad",
+                    "given_name": "Phillip",
+                    "family_name": "Conrad",
+                    "picture": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+                    "email": "pconrad.cis@gmail.com",
+                    "email_verified": true,
+                    "locale": "en"
+                }
+            },
+            {
                 "authority": "ROLE_ADMIN"
             }
         ]
@@ -59,7 +73,8 @@ const apiCurrentUserFixtures = {
             "emailVerified": true,
             "locale": "en",
             "hostedDomain": null,
-            "admin": false
+            "admin": false,
+            "driver": false
         },
         "roles": [
             {
@@ -67,6 +82,48 @@ const apiCurrentUserFixtures = {
             },
             {
                 "authority": "ROLE_USER",
+                "attributes": {
+                    "sub": "102656447703889917227",
+                    "name": "Phillip Conrad",
+                    "given_name": "Phillip",
+                    "family_name": "Conrad",
+                    "picture": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+                    "email": "pconrad.cis@gmail.com",
+                    "email_verified": true,
+                    "locale": "en"
+                }
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            }
+        ]
+
+    },
+    driverOnly: {
+
+        "driver": {
+            "id": 2,
+            "email": "pconrad.cis@gmail.com",
+            "googleSub": "102656447703889917227",
+            "pictureUrl": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+            "fullName": "Phillip Conrad",
+            "givenName": "Phillip",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": null,
+            "admin": false,
+            "driver": true
+        },
+        "roles": [
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "ROLE_DRIVER",
                 "attributes": {
                     "sub": "102656447703889917227",
                     "name": "Phillip Conrad",
@@ -115,6 +172,7 @@ const currentUserFixtures = {
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_USER",
+                "ROLE_DRIVER",
                 "ROLE_ADMIN"
             ]
         },
@@ -126,6 +184,18 @@ const currentUserFixtures = {
             rolesList: [
                 "SCOPE_openid",
                 "ROLE_USER",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
+            ]
+        },
+    },
+    driverOnly: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.driverOnly),
+            rolesList: [
+                "SCOPE_openid",
+                "ROLE_DRIVER",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
             ]
