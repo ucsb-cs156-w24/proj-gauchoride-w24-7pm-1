@@ -1,11 +1,11 @@
 import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/riderUtils"
+import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/rideUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
-export default function RiderTable({
+export default function RideTable({
         ride,
         currentUser
     }) {
@@ -153,14 +153,14 @@ export default function RiderTable({
 
     const buttonColumnsRider = [
         ...columnsRider,
-        ButtonColumn("Edit", "primary", editCallback, "RiderTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
+        ButtonColumn("Edit", "primary", editCallback, "RideTable"),
+        ButtonColumn("Delete", "danger", deleteCallback, "RideTable")
     ]
 
     const buttonColumnsAdmin = [
         ...columns,
-        ButtonColumn("Edit", "primary", editCallback, "RiderTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "RiderTable")
+        ButtonColumn("Edit", "primary", editCallback, "RideTable"),
+        ButtonColumn("Delete", "danger", deleteCallback, "RideTable")
     ]
 
    
@@ -170,6 +170,6 @@ export default function RiderTable({
     return <OurTable
         data={ride}
         columns={columnsToDisplay}
-        testid={"RiderTable"}
+        testid={"RideTable"}
     />;
 };

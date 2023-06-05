@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
-import { riderFixtures } from "fixtures/riderFixtures";
-import RiderTable from "main/components/Rider/RiderTable";
+import { rideFixtures } from "fixtures/rideFixtures";
+import RideTable from "main/components/Ride/RideTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }));
 
-describe("RiderTable tests", () => {
+describe("RideTable tests", () => {
   const queryClient = new QueryClient();
 
 
@@ -32,7 +32,7 @@ describe("RiderTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={[]} currentUser={currentUser} />
+          <RideTable ride={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -44,7 +44,7 @@ describe("RiderTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={[]} currentUser={currentUser} />
+          <RideTable ride={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -57,7 +57,7 @@ describe("RiderTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={[]} currentUser={currentUser} />
+          <RideTable ride={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -70,7 +70,7 @@ describe("RiderTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={[]} currentUser={currentUser} />
+          <RideTable ride={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -85,7 +85,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -93,7 +93,7 @@ describe("RiderTable tests", () => {
 
     const expectedHeaders = ['id','Day','Student','Driver', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
     const expectedFields = ['id', 'day', 'student', 'driver', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
-    const testId = "RiderTable";
+    const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -127,7 +127,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -135,7 +135,7 @@ describe("RiderTable tests", () => {
 
     const expectedHeaders = ['id','Day','Driver', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
     const expectedFields = ['id', 'day',  'driver', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
-    const testId = "RiderTable";
+    const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -167,7 +167,7 @@ describe("RiderTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -175,7 +175,7 @@ describe("RiderTable tests", () => {
 
     const expectedHeaders = ['id','Day','Student', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
     const expectedFields = ['id', 'day', 'student', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
-    const testId = "RiderTable";
+    const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -203,15 +203,15 @@ describe("RiderTable tests", () => {
     const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    await waitFor(() => { expect(getByTestId(`RiderTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+    await waitFor(() => { expect(getByTestId(`RideTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
 
-    const editButton = getByTestId(`RiderTable-cell-row-0-col-Edit-button`);
+    const editButton = getByTestId(`RideTable-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     
     fireEvent.click(editButton);
@@ -227,15 +227,15 @@ describe("RiderTable tests", () => {
     const {getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    await waitFor(() => { expect(getByTestId(`RiderTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+    await waitFor(() => { expect(getByTestId(`RideTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
 
-    const editButton = getByTestId(`RiderTable-cell-row-0-col-Edit-button`);
+    const editButton = getByTestId(`RideTable-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
     
     fireEvent.click(editButton);
@@ -251,14 +251,14 @@ describe("RiderTable tests", () => {
     const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderTable ride={riderFixtures.threeRidesTable} currentUser={currentUser} />
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
     );
   
-    await waitFor(() => { expect(getByTestId(`RiderTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+    await waitFor(() => { expect(getByTestId(`RideTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
   
-    const deleteButton = getByTestId(`RiderTable-cell-row-0-col-Delete-button`);
+    const deleteButton = getByTestId(`RideTable-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
     
     fireEvent.click(deleteButton);

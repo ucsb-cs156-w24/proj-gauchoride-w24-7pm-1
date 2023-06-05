@@ -1,16 +1,16 @@
 import React from 'react';
-import RiderTable from 'main/components/Rider/RiderTable';
-import { riderFixtures } from 'fixtures/riderFixtures';
+import RideTable from 'main/components/Ride/RideTable';
+import { rideFixtures } from 'fixtures/rideFixtures';
 import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 
 export default {
-    title: 'components/Rider/RiderTable',
-    component: RiderTable
+    title: 'components/Rider/RideTable',
+    component: RideTable
 };
 
 const Template = (args) => {
     return (
-        <RiderTable {...args} />
+        <RideTable {...args} />
     )
 };
 
@@ -24,19 +24,19 @@ Empty.args = {
 export const DriverThreeSubjectsNoButtons = Template.bind({});
 
 DriverThreeSubjectsNoButtons.args = {
-    ride: riderFixtures.threeRidesTable,
+    ride: rideFixtures.threeRidesTable,
     currentUser: currentUserFixtures.driverOnly
 };
 
 
 export const RiderThreeSubjectsWithButtons = Template.bind({});
 RiderThreeSubjectsWithButtons.args = {
-    ride: riderFixtures.threeRidesTable,
+    ride: rideFixtures.threeRidesTable,
     currentUser: currentUserFixtures.userOnly
 };
 
 export const AdminThreeSubjectsWithButtons = Template.bind({});
 AdminThreeSubjectsWithButtons.args = {
-    ride: riderFixtures.threeRidesTable,
+    ride: rideFixtures.threeRidesTable,
     currentUser: currentUserFixtures.adminUser
 };

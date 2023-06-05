@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 
 
-function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     const navigate = useNavigate();
     
@@ -18,7 +18,7 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     );
     // Stryker enable all
    
-    const testIdPrefix = "RiderForm";
+    const testIdPrefix = "RideForm";
 
     return (
 
@@ -194,4 +194,4 @@ function RiderForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     )
 }
 
-export default RiderForm;
+export default RideForm;
