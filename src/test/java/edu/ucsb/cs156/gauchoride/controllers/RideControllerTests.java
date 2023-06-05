@@ -127,13 +127,6 @@ public class RideControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(403));
         }
 
-        @WithMockUser(roles = { "USER" })
-        @Test
-        public void logged_in_regular_users_cannot_post() throws Exception {
-                mockMvc.perform(post("/api/ride_request/post"))
-                                .andExpect(status().is(403)); // only admins can post
-        }
-
         // // Tests with mocks for database actions
 
 
@@ -397,43 +390,42 @@ public class RideControllerTests extends ControllerTestCase {
 
 
 
-
         // POST
 
 
 
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void a_user_can_post_a_new_ride() throws Exception {
+                // arrange
 
+                long userId = currentUserService.getCurrentUser().getUser().getId();
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void an_admin_user_can_post_a_new_ride() throws Exception {
-        //         // arrange
+                Ride ride1 = Ride.builder()
+                        .riderId(userId)
+                        .day("Monday")
+                        .course("CMPSC 156")
+                        .startTime("2:00PM")
+                        .endTime("3:15PM")
+                        .dropoffLocation("South Hall")
+                        .pickupLocation("Phelps Hall")
+                        .room("1431")
+                        .build();
 
-        //         Ride ride1 = Ride.builder()
-        //                 .day("Monday")
-        //                 .student("CGaucho")
-        //                 .course("CMPSC 156")
-        //                 .start("2:00PM")
-        //                 .end("3:15PM")
-        //                 .dropoff("South Hall")
-        //                 .room("1431")
-        //                 .pickup("Phelps Hall")
-        //                 .build();
+                when(rideRepository.save(eq(ride1))).thenReturn(ride1);
 
-        //         when(rideRepository.save(eq(ride1))).thenReturn(ride1);
+                String postRequesString = "day=Monday&course=CMPSC 156&startTime=2:00PM&endTime=3:15PM&pickupLocation=Phelps Hall&dropoffLocation=South Hall&room=1431";
 
-        //         String postRequesString = "day=Monday&student=CGaucho&course=CMPSC 156&start=2:00PM&end=3:15PM&dropoff=South Hall&room=1431&pickup=Phelps Hall";
+                // act
+                MvcResult response = mockMvc.perform(
+                                post("/api/ride_request/post?" + postRequesString)
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         post("/api/ride_request/post?" + postRequesString)
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk()).andReturn();
-
-        //         // assert
-        //         verify(rideRepository, times(1)).save(ride1);
-        //         String expectedJson = mapper.writeValueAsString(ride1);
-        //         String responseString = response.getResponse().getContentAsString();
-        //         assertEquals(expectedJson, responseString);
-        // }
+                // assert
+                verify(rideRepository, times(1)).save(ride1);
+                String expectedJson = mapper.writeValueAsString(ride1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 }
