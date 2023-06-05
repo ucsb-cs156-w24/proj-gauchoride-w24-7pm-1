@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [frontend/**]
+    paths: [frontend/**, .github/workflows/34-frontend-main-testing-stryker-js-mutation-testing.yml]
 
 jobs:
   build:
