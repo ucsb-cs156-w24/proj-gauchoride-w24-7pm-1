@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.AccessLevel;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,7 @@ import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Builder
 @Entity(name = "shift")
 public class Shift {
@@ -21,8 +20,10 @@ public class Shift {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private String day;
-  private LocalTime shiftStart;
-  private LocalTime shiftEnd;
+  // private LocalTime shiftStart;
+  // private LocalTime shiftEnd;
+  private String shiftStart; //format "HH:MM"
+  private String shiftEnd; //format "HH:MM"
   private long driverID;
   private long driverBackupID;
 }
