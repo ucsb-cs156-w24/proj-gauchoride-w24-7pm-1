@@ -68,7 +68,7 @@ describe("RideRequestIndexPage tests", () => {
     test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ride_request/admin/all").reply(200, []);
+        axiosMock.onGet("/api/ride_request/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -77,14 +77,12 @@ describe("RideRequestIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
-
     });
 
     test("renders without crashing for driver", () => {
         setupDriverOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ride_request/admin/all").reply(200, []);
+        axiosMock.onGet("/api/ride_request/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -119,7 +117,7 @@ describe("RideRequestIndexPage tests", () => {
     test("renders three rides without crashing for admin user", async () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ride_request/admin/all").reply(200, rideFixtures.threeRidesTable);
+        axiosMock.onGet("/api/ride_request/all").reply(200, rideFixtures.threeRidesTable);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -138,7 +136,7 @@ describe("RideRequestIndexPage tests", () => {
     test("renders three rides without crashing for driver", async () => {
         setupDriverOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ride_request/admin/all").reply(200, rideFixtures.threeRidesTable);
+        axiosMock.onGet("/api/ride_request/all").reply(200, rideFixtures.threeRidesTable);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -171,8 +169,10 @@ describe("RideRequestIndexPage tests", () => {
         );
 
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
-
+        console.debug(axiosMock.history);
+        console.debug(console.error.mock);
         const errorMessage = console.error.mock.calls[0][0];
+        
         expect(errorMessage).toMatch("Error communicating with backend via GET on /api/ride_request/all");
         restoreConsole();
 
@@ -183,7 +183,7 @@ describe("RideRequestIndexPage tests", () => {
         setupUserOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ride_request/admin/all").reply(200, rideFixtures.threeRidesTable);
+        axiosMock.onGet("/api/ride_request/all").reply(200, rideFixtures.threeRidesTable);
         axiosMock.onDelete("/api/ride_request").reply(200, "Ride with id 2 was deleted");
 
 
