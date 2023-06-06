@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import RiderForm from "main/components/Rider/RiderForm";
-import { riderFixtures } from "fixtures/riderFixtures";
+import RideForm from "main/components/Ride/RideForm";
+import { rideFixtures } from "fixtures/rideFixtures";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -13,17 +13,17 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }));
 
-describe("RiderForm tests", () => {
+describe("RideForm tests", () => {
     const queryClient = new QueryClient();
 
     const expectedHeaders = ["Day of Week", "Start Time", "End Time", "Pick Up Location", "Drop Off Location", "Room Number for Dropoff", "Course Number"];
-    const testId = "RiderForm";
+    const testId = "RideForm";
 
     test("renders correctly with no initialContents", async () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RiderForm />
+                    <RideForm />
                 </Router>
             </QueryClientProvider>
         );
@@ -41,7 +41,7 @@ describe("RiderForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RiderForm initialContents={riderFixtures.oneRide} />
+                    <RideForm initialContents={rideFixtures.oneRide} />
                 </Router>
             </QueryClientProvider>
         );
@@ -62,7 +62,7 @@ describe("RiderForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RiderForm />
+                    <RideForm />
                 </Router>
             </QueryClientProvider>
         );

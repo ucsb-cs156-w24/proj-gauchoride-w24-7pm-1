@@ -1,15 +1,15 @@
 import React from 'react';
-import RiderForm from "main/components/Rider/RiderForm"
-import { riderFixtures } from 'fixtures/riderFixtures';
+import RideForm from "main/components/Ride/RideForm"
+import { rideFixtures } from 'fixtures/rideFixtures';
 
 export default {
-    title: 'components/Rider/RiderForm',
-    component: RiderForm
+    title: 'components/Ride/RideForm',
+    component: RideForm
 };
 
 const Template = (args) => {
     return (
-        <RiderForm {...args} />
+        <RideForm {...args} />
     )
 };
 
@@ -23,7 +23,7 @@ Default.args = {
 export const Show = Template.bind({});
 
 Show.args = {
-    Rider: riderFixtures.oneRide,
+    Ride: rideFixtures.oneRide,
     submitText: "",
     submitAction: () => { }
 };
