@@ -113,6 +113,14 @@ public class RideControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(403));
         }
 
+        // Authorization tests for delete /api/ride_request
+
+        @Test
+         public void logged_out_users_cannot_delete() throws Exception {
+                 mockMvc.perform(delete("/api/ride_request?id=9"))
+                                 .andExpect(status().is(403));
+        }
+
         // // Tests with mocks for database actions
 
 
