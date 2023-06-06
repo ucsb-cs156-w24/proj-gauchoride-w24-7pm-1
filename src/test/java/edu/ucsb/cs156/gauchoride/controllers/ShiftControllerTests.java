@@ -132,8 +132,8 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:00")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:00AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
@@ -184,8 +184,8 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:00")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:00AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
@@ -210,13 +210,12 @@ public class ShiftControllerTests extends ControllerTestCase {
                 // arrange
 
                 long userId = currentUserService.getCurrentUser().getUser().getId();
-                long otherUserId = userId + 1;
 
                 Shift shift = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:00")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:00AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
@@ -287,16 +286,16 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift1 = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
                 Shift shift2 = Shift.builder()
                                 .driverID(userId)
                                 .day("Tuesday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(userId + 1)
                                 .build();
 
@@ -326,16 +325,16 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift1 = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
                 Shift shift2 = Shift.builder()
                                 .driverID(userId)
                                 .day("Tuesday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(userId + 1)
                                 .build();
 
@@ -366,16 +365,16 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift1 = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
                 Shift shift2 = Shift.builder()
                                 .driverID(userId)
                                 .day("Tuesday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(userId + 1)
                                 .build();
 
@@ -410,14 +409,14 @@ public class ShiftControllerTests extends ControllerTestCase {
                 Shift shift1 = Shift.builder()
                                 .driverID(userId)
                                 .day("Monday")
-                                .shiftStart("10:30")
-                                .shiftEnd("12:30")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
                                 .driverBackupID(1)
                                 .build();
 
                 when(shiftRepository.save(eq(shift1))).thenReturn(shift1);
 
-                String postRequestString = "day=Monday&shiftStart=10:30&shiftEnd=12:30&driverID="+userId+"&driverBackupID=1";
+                String postRequestString = "day=Monday&shiftStart=10:30AM&shiftEnd=12:30PM&driverID="+userId+"&driverBackupID=1";
 
                 // act
                 MvcResult response = mockMvc.perform(
