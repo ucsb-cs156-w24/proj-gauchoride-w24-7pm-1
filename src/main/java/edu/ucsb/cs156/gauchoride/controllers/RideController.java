@@ -31,8 +31,8 @@ public class RideController extends ApiController {
     @Autowired
     RideRepository rideRepository;
 
-    @ApiOperation(value = "List all rides")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "List all rides (admin/driver only)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @GetMapping("/admin/all")
     public Iterable<Ride> allRides() {
         Iterable<Ride> rides = rideRepository.findAll();
@@ -47,8 +47,8 @@ public class RideController extends ApiController {
         return rides;
     }
 
-    @ApiOperation(value = "Get any single ride")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "Get any single ride (admin/driver only)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @GetMapping("/admin")
     public Ride getById(
             @ApiParam("id") @RequestParam Long id) {

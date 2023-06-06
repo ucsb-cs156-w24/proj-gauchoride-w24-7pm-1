@@ -21,8 +21,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
-// import java.time.LocalDateTime;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,6 +62,13 @@ public class RideControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(200)); // logged
         }
 
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_can_get_all_admin_backend() throws Exception {
+                mockMvc.perform(get("/api/ride_request/admin/all"))
+                                .andExpect(status().is(200)); // logged
+        }
+
         // Authorization tests for /api/ride_request/all
 
         @Test
@@ -77,6 +82,13 @@ public class RideControllerTests extends ControllerTestCase {
         public void logged_in_users_can_get_their_rides() throws Exception {
                 mockMvc.perform(get("/api/ride_request/all"))
                                 .andExpect(status().is(200)); // logged in users can't get all unless admin
+        }
+
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_drivers_cannot_get_their_rides() throws Exception {
+                mockMvc.perform(get("/api/ride_request/all"))
+                                .andExpect(status().is(403)); // drivers don't have rides
         }
 
         // Authorization tests for /api/ride_request/admin?id={}
@@ -101,6 +113,13 @@ public class RideControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(404)); // logged, but no id exists
         }
 
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_can_get_by_id_admin_backend() throws Exception {
+                mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                                .andExpect(status().is(404)); // logged, but no id exists
+        }
+
         // Authorization tests for /api/ride_request?id={}
 
         @Test
@@ -117,12 +136,26 @@ public class RideControllerTests extends ControllerTestCase {
                 // logged in users can get their rides by id unless their ride matches, no ride with id 7 exists
         }
 
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_cannot_get_by_id_in_simple_test() throws Exception {
+                mockMvc.perform(get("/api/ride_request?id=7"))
+                                .andExpect(status().is(403)); 
+                // logged in drivers don't have rides
+        }
+
 
         // Authorization tests for /api/ride_request/post
-        // (Perhaps should also have these for put and delete)
 
         @Test
         public void logged_out_users_cannot_post() throws Exception {
+                mockMvc.perform(post("/api/ride_request/post"))
+                                .andExpect(status().is(403));
+        }
+
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_cannot_post() throws Exception {
                 mockMvc.perform(post("/api/ride_request/post"))
                                 .andExpect(status().is(403));
         }
@@ -262,9 +295,63 @@ public class RideControllerTests extends ControllerTestCase {
                 assertEquals(expectedJson, responseString);
         }
 
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void test_that_logged_in_driver_can_get_by_id_when_the_id_exists() throws Exception {
+
+                // arrange
+
+                long userId = currentUserService.getCurrentUser().getUser().getId();
+                long otherUserId = userId + 1;
+
+                Ride ride = Ride.builder()
+                                .riderId(otherUserId)
+                                .day("Monday")
+                                .course("CMPSC 156")
+                                .startTime("2:00PM")
+                                .endTime("3:15PM")
+                                .dropoffLocation("South Hall")
+                                .pickupLocation("Phelps Hall")
+                                .room("1431")
+                                .build();
+
+                when(rideRepository.findById(eq(7L))).thenReturn(Optional.of(ride));
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+
+                verify(rideRepository, times(1)).findById(eq(7L));
+                String expectedJson = mapper.writeValueAsString(ride);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
         @WithMockUser(roles = { "ADMIN" , "USER" })
         @Test
         public void test_that_logged_in_admin_can_get_by_id_when_the_id_does_not_exist() throws Exception {
+
+                // arrange
+
+                when(rideRepository.findById(eq(7L))).thenReturn(Optional.empty());
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                                .andExpect(status().isNotFound()).andReturn();
+
+                // assert
+
+                verify(rideRepository, times(1)).findById(eq(7L));
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("EntityNotFoundException", json.get("type"));
+                assertEquals("Ride with id 7 not found", json.get("message"));
+        }
+
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void test_that_logged_in_driver_can_get_by_id_when_the_id_does_not_exist() throws Exception {
 
                 // arrange
 
@@ -334,6 +421,63 @@ public class RideControllerTests extends ControllerTestCase {
         @WithMockUser(roles = { "ADMIN" , "USER" })
         @Test
         public void logged_in_admin_can_get_all_rides() throws Exception {
+
+                long userId = currentUserService.getCurrentUser().getUser().getId();
+                long otherUserId = userId + 1;
+
+                Ride ride1 = Ride.builder()
+                                .riderId(userId)
+                                .day("Monday")
+                                .course("CMPSC 156")
+                                .startTime("2:00PM")
+                                .endTime("3:15PM")
+                                .dropoffLocation("South Hall")
+                                .pickupLocation("Phelps Hall")
+                                .room("1431")
+                                .build();
+
+                Ride ride2 = Ride.builder()
+                                .riderId(otherUserId)
+                                .day("Thursday")
+                                .course("MATH 118C")
+                                .startTime("12:30PM")
+                                .endTime("1:45PM")
+                                .dropoffLocation("Phelps Hall")
+                                .pickupLocation("UCen")
+                                .room("3505")
+                                .build();
+
+                Ride ride3 = Ride.builder()
+                                .riderId(userId)
+                                .day("Thursday")
+                                .course("MATH 111C")
+                                .startTime("9:30AM")
+                                .endTime("10:45AM")
+                                .dropoffLocation("Phelps Hall")
+                                .pickupLocation("Student Resource Building")
+                                .room("3505")
+                                .build();
+
+                ArrayList<Ride> expectedRides = new ArrayList<>();
+                expectedRides.addAll(Arrays.asList(ride1, ride2, ride3));
+
+                when(rideRepository.findAll()).thenReturn(expectedRides);
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ride_request/admin/all"))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+
+                verify(rideRepository, times(1)).findAll();
+                String expectedJson = mapper.writeValueAsString(expectedRides);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_can_get_all_rides() throws Exception {
 
                 long userId = currentUserService.getCurrentUser().getUser().getId();
                 long otherUserId = userId + 1;
