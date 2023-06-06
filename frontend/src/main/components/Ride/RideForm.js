@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
     const navigate = useNavigate();
     
@@ -18,6 +19,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     );
     // Stryker enable all
    
+    const testIdPrefix = "RideForm";
     const testIdPrefix = "RideForm";
 
     return (
@@ -80,6 +82,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     })}
                     placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"
                     value={initialContents?.startTime}
+                    value={initialContents?.startTime}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.start?.message}
@@ -100,7 +103,8 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                             message: "Please enter time in the format HH:MM AM/PM (e.g., 3:30PM)."
                           }
                     })}
-                    placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"      
+                    placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"   
+                    value={initialContents?.endTime}    
                     value={initialContents?.endTime}    
                 />
                 <Form.Control.Feedback type="invalid">
@@ -120,6 +124,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     })}
                     placeholder="e.g. Anacapa Residence Hall"  
                     value={initialContents?.pickupLocation} 
+                    value={initialContents?.pickupLocation}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.pickup?.message}
@@ -137,6 +142,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Drop Off Location is required."
                     })}
                     placeholder="e.g. Phelps"  
+                    value={initialContents?.dropoffLocation}
                     value={initialContents?.dropoffLocation}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -156,6 +162,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     })}
                     placeholder="e.g. 2225"  
                     value={initialContents?.room} 
+                    value={initialContents?.room} 
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.room?.message}
@@ -173,6 +180,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Course number is required."
                     })}
                     placeholder="e.g. CMPSC 156"  
+                    value={initialContents?.course} 
                     value={initialContents?.course} 
                 />
                 <Form.Control.Feedback type="invalid">
@@ -200,4 +208,5 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     )
 }
 
+export default RideForm;
 export default RideForm;
