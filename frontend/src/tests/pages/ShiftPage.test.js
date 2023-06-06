@@ -23,7 +23,7 @@ describe("ShiftPage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     });
 
-    const setupAdminUser = () => {
+    const setupDriverUser = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
@@ -70,7 +70,7 @@ describe("ShiftPage tests", () => {
 
     // WIP will change to driver user
     // test("shifttable toggle admin tests (dont need this when table is fixed)", async ()=>{
-    //     setupAdminUser();
+    //     setupDriverUser();
     //     const queryClient = new QueryClient();
     //     axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
     //     axiosMock.onPost("/api/admin/users/toggleAdmin").reply(200, "User with id 1 has toggled admin status");
