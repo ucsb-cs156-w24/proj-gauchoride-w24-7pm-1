@@ -66,7 +66,7 @@ describe("AppNavbar tests", () => {
 
     test("renders shift table links correctly for admin user", async () => {
 
-        const currentUser = currentUserFixtures.adminUser;
+        const currentUser = currentUserFixtures.adminOnly;
         const doLogin = jest.fn();
 
         const { getByText , getByTestId } = render(
@@ -85,6 +85,24 @@ describe("AppNavbar tests", () => {
     test("renders shift table links correctly for driver", async () => {
 
         const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        const shiftMenu = getByTestId("appnavbar-shift-dropdown");
+        expect(shiftMenu).toBeInTheDocument();        
+    });
+
+    test("renders shift table links correctly for rider", async () => {
+
+        const currentUser = currentUserFixtures.riderOnly;
         const doLogin = jest.fn();
 
         const { getByText , getByTestId } = render(
