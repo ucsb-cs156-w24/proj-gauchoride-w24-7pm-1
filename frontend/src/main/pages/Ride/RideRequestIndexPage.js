@@ -4,6 +4,8 @@ import { useBackend } from 'main/utils/useBackend';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import RideTable from 'main/components/Ride/RideTable';
 import {useCurrentUser } from 'main/utils/currentUser'
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 export default function RideRequestIndexPage() {
 
@@ -20,6 +22,9 @@ export default function RideRequestIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
+        <Button style={{ float: "right" }} as={Link} to="/rideRequest/create">
+          Create Ride Request
+        </Button>
         <h1>Ride Requests</h1>
         <RideTable ride={rides} currentUser={currentUser} />
       </div>
