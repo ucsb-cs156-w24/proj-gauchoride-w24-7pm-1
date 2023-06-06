@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, screen, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
@@ -62,6 +62,10 @@ describe("RideRequestIndexPage tests", () => {
             </QueryClientProvider>
         );
 
+        const createRideButton = screen.getByText("Create Ride Request");
+        expect(createRideButton).toBeInTheDocument();
+        expect(createRideButton).toHaveAttribute("style", "float: right;");
+
 
     });
 
@@ -77,6 +81,9 @@ describe("RideRequestIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+        const createRideButton = screen.getByText("Create Ride Request");
+        expect(createRideButton).toBeInTheDocument();
+        expect(createRideButton).toHaveAttribute("style", "float: right;");
     });
 
     test("renders without crashing for driver", () => {
@@ -91,6 +98,9 @@ describe("RideRequestIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
+        const createRideButton = screen.getByText("Create Ride Request");
+        expect(createRideButton).toBeInTheDocument();
+        expect(createRideButton).toHaveAttribute("style", "float: right;");
 
 
     });

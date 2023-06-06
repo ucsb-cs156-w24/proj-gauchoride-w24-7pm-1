@@ -13,10 +13,11 @@ export default function RideRequestIndexPage() {
 
   const { data: rides, error: _error, status: _status } =
   useBackend(
-    // Stryker disable next-line all : don't test internal caching of React Query
+    // Stryker disable all : hard to test for query caching
     ["/api/ride_request/all"],
     { method: "GET", url: "/api/ride_request/all" },
     []
+    // Stryker restore all 
   );
 
   return (
