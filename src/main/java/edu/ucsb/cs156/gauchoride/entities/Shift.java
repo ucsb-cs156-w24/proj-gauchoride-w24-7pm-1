@@ -23,9 +23,9 @@ public class Shift {
   @ApiModelProperty(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
   private String day;
 
-  private String shiftStart; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
-  private String shiftEnd; //format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
-  
+  private String shiftStart; // format: HH:MM(A/P)M e.g. "11:00AM" or "01:37PM"
+  private String shiftEnd; //format: HH:MM(A/P)M e.g. "11:00AM" or "01:37PM"
+
   private long driverID;
   private long driverBackupID;
 }
