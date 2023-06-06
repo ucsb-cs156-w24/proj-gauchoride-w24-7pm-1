@@ -71,7 +71,7 @@ describe("ShiftPage tests", () => {
     test("shifttable toggle admin tests (dont need this when table is fixed)", async ()=>{
         setupDriverUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/shift").reply(200, usersFixtures.threeUsers);
+        axiosMock.onGet("/api/shift").reply(200, shiftFixtures.threeShifts);
         const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
