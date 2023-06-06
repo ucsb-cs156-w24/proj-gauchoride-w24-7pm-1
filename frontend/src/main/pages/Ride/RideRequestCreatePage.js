@@ -3,11 +3,8 @@ import RideForm from "main/components/Ride/RideForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
-import { useCurrentUser } from "main/utils/currentUser";
 
 export default function RideRequestCreatePage() {
-
-    const { data: currentUser } = useCurrentUser();
 
     const objectToAxiosParams = (ride) => ({
         url: "/api/ride_request/post",
