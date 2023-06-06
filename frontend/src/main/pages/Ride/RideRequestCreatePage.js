@@ -13,7 +13,6 @@ export default function RideRequestCreatePage() {
         url: "/api/ride_request/post",
         method: "POST",
         params: {
-            riderId: currentUser.root.user.id,
             day: ride.day,
             startTime: ride.start,
             endTime: ride.end, 
@@ -25,7 +24,7 @@ export default function RideRequestCreatePage() {
     });
 
     const onSuccess = (ride) => {
-        toast(`New Ride Created - id: ${ride.id} riderId: ${currentUser.root.user.id}`);
+        toast(`New Ride Created - id: ${ride.id}`);
     }
 
     const mutation = useBackendMutation(

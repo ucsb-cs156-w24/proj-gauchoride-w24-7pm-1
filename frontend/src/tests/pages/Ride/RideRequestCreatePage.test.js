@@ -55,7 +55,6 @@ describe("RideRequestCreatePage tests", () => {
         const queryClient = new QueryClient();
         const ride = {
             id: 17,
-            riderId: 2,
             day: "Monday",
             startTime: "3:30PM",
             endTime: "4:30PM", 
@@ -105,7 +104,6 @@ describe("RideRequestCreatePage tests", () => {
 
         expect(axiosMock.history.post[0].params).toEqual(
             {
-                "riderId": 2,
                 "day": "Monday",
                 "startTime": "3:30PM",
                 "endTime": "4:30PM", 
@@ -115,7 +113,7 @@ describe("RideRequestCreatePage tests", () => {
                 "course": "WRIT 105CD"
         });
 
-        expect(mockToast).toBeCalledWith("New Ride Created - id: 17 riderId: 2");
+        expect(mockToast).toBeCalledWith("New Ride Created - id: 17");
         expect(mockNavigate).toBeCalledWith({ "to": "/ride/" });
     });
 
