@@ -52,7 +52,9 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
     public Ride getByIdForUser(
-            @ApiParam("id") @RequestParam Long id) {
+            @ApiParam(name="id", type="long", value = "Id of the Ride", 
+            required = true)  
+            @RequestParam Long id) {
         Ride ride;
         
         if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
@@ -71,13 +73,27 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
     public Ride postRide(
-        @ApiParam("day") @RequestParam String day,
-        @ApiParam("startTime") @RequestParam String startTime,
-        @ApiParam("endTime") @RequestParam String endTime,
-        @ApiParam("pickupLocation") @RequestParam String pickupLocation,
-        @ApiParam("dropoffLocation") @RequestParam String dropoffLocation,
-        @ApiParam("room") @RequestParam String room,
-        @ApiParam("course") @RequestParam String course
+        @ApiParam(name="day", type="String", value = "Day of the week ride is requested (Monday - Sunday)", example="Tuesday", 
+                    required = true, allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday") 
+        @RequestParam String day,
+
+        @ApiParam(name="startTime", type="String", value = "Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
+        @RequestParam String startTime,
+
+        @ApiParam(name="endTime", type="String", value = "Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
+        @RequestParam String endTime,
+
+        @ApiParam(name="pickupLocation", type="String", value = "Location the ride starts", example="Phelps Hall", required = true)
+        @RequestParam String pickupLocation,
+
+        @ApiParam(name="dropoffLocation", type="String", value = "Location the ride ends", example="South Hall", required = true)
+        @RequestParam String dropoffLocation,
+
+        @ApiParam(name="room", type="String", value = "Room number for the dropoffLocation", example="1431", required = true)
+        @RequestParam String room,
+
+        @ApiParam(name="course", type="String", value = "Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
+        @RequestParam String course
         )
         {
 
