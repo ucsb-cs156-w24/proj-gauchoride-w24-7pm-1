@@ -12,5 +12,4 @@ import java.util.Optional;
 public interface ShiftRepository extends CrudRepository<Shift, Long> {
   Optional<Shift> findByDay(String day);
   Optional<Shift> findByDriverID(Long driverID);
-  Optional<Shift> findByShiftStartAndShiftEnd(LocalTime shiftStart, LocalTime shiftEnd);
 }
