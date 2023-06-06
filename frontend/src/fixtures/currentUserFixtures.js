@@ -104,7 +104,7 @@ const apiCurrentUserFixtures = {
     },
     driverOnly: {
 
-        "driver": {
+        "user": {
             "id": 2,
             "email": "pconrad.cis@gmail.com",
             "googleSub": "102656447703889917227",

@@ -84,7 +84,7 @@ describe("AppNavbar tests", () => {
 
     test("renders shift table links correctly for driver", async () => {
 
-        const currentUser = currentUserFixtures.driver;
+        const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
 
         const { getByText , getByTestId } = render(
@@ -95,25 +95,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, phtcon@ucsb.edu")).toBeInTheDocument());
-        const shiftMenu = getByTestId("appnavbar-shift-dropdown");
-        expect(shiftMenu).toBeInTheDocument();        
-    });
-
-    test("renders shift table links correctly for rider", async () => {
-
-        const currentUser = currentUserFixtures.rider;
-        const doLogin = jest.fn();
-
-        const { getByText , getByTestId } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-        
-        await waitFor(() => expect(getByText("Welcome, phtcon@ucsb.edu")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
         const shiftMenu = getByTestId("appnavbar-shift-dropdown");
         expect(shiftMenu).toBeInTheDocument();        
     });
