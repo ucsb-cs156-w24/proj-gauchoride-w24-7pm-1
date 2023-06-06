@@ -40,110 +40,63 @@ public class RideControllerTests extends ControllerTestCase {
         @MockBean
         UserRepository userRepository;
 
-        // Authorization tests for /api/ride_request/admin/all
-
-        @Test
-        public void logged_out_users_cannot_get_all_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin/all"))
-                                .andExpect(status().is(403)); // logged out users can't get all
-        }
-
-        @WithMockUser(roles = { "USER" })
-        @Test
-        public void logged_in_users_not_admin_cannot_get_all_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin/all"))
-                                .andExpect(status().is(403)); // logged in users can't get all unless admin
-        }
-
-        @WithMockUser(roles = { "ADMIN" })
-        @Test
-        public void logged_in_admin_can_get_all_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin/all"))
-                                .andExpect(status().is(200)); // logged
-        }
-
-        @WithMockUser(roles = { "DRIVER" })
-        @Test
-        public void logged_in_driver_can_get_all_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin/all"))
-                                .andExpect(status().is(200)); // logged
-        }
-
         // Authorization tests for /api/ride_request/all
 
         @Test
-        public void logged_out_users_cannot_get_any_rides() throws Exception {
+        public void logged_out_users_cannot_get_all() throws Exception {
                 mockMvc.perform(get("/api/ride_request/all"))
                                 .andExpect(status().is(403)); // logged out users can't get all
         }
 
         @WithMockUser(roles = { "USER" })
         @Test
-        public void logged_in_users_can_get_their_rides() throws Exception {
+        public void logged_in_users_can_get_all_of_theirs() throws Exception {
                 mockMvc.perform(get("/api/ride_request/all"))
-                                .andExpect(status().is(200)); // logged in users can't get all unless admin
+                                .andExpect(status().is(200)); // logged
         }
 
         @WithMockUser(roles = { "DRIVER" })
         @Test
-        public void logged_in_drivers_cannot_get_their_rides() throws Exception {
+        public void logged_in_driver_can_get_all() throws Exception {
                 mockMvc.perform(get("/api/ride_request/all"))
-                                .andExpect(status().is(403)); // drivers don't have rides
-        }
-
-        // Authorization tests for /api/ride_request/admin?id={}
-
-        @Test
-        public void logged_out_users_cannot_get_by_id_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin?id=7"))
-                                .andExpect(status().is(403)); // logged out users can't get by id
-        }
-
-        @WithMockUser(roles = { "USER" })
-        @Test
-        public void logged_in_users_not_admin_cannot_get_by_id_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin?id=7"))
-                                .andExpect(status().is(403)); // logged in users can't get by id using admin backend
+                                .andExpect(status().is(200)); // logged
         }
 
         @WithMockUser(roles = { "ADMIN" })
         @Test
-        public void logged_in_admin_can_get_by_id_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin?id=7"))
-                                .andExpect(status().is(404)); // logged, but no id exists
-        }
-
-        @WithMockUser(roles = { "DRIVER" })
-        @Test
-        public void logged_in_driver_can_get_by_id_admin_backend() throws Exception {
-                mockMvc.perform(get("/api/ride_request/admin?id=7"))
-                                .andExpect(status().is(404)); // logged, but no id exists
+        public void logged_in_admin_can_get_all() throws Exception {
+                mockMvc.perform(get("/api/ride_request/all"))
+                                .andExpect(status().is(200)); // logged
         }
 
         // Authorization tests for /api/ride_request?id={}
 
         @Test
-        public void logged_out_users_cannot_get_any_by_id() throws Exception {
+        public void logged_out_users_cannot_get_by_id() throws Exception {
                 mockMvc.perform(get("/api/ride_request?id=7"))
                                 .andExpect(status().is(403)); // logged out users can't get by id
         }
 
         @WithMockUser(roles = { "USER" })
         @Test
-        public void logged_in_users_cannot_get_by_id_in_simple_test() throws Exception {
+        public void logged_in_users_can_get_by_id_that_is_theirs() throws Exception {
                 mockMvc.perform(get("/api/ride_request?id=7"))
-                                .andExpect(status().is(404)); 
-                // logged in users can get their rides by id unless their ride matches, no ride with id 7 exists
+                                .andExpect(status().is(404)); // logged, but no id exists
         }
 
         @WithMockUser(roles = { "DRIVER" })
         @Test
-        public void logged_in_driver_cannot_get_by_id_in_simple_test() throws Exception {
+        public void logged_in_driver_can_get_by_id() throws Exception {
                 mockMvc.perform(get("/api/ride_request?id=7"))
-                                .andExpect(status().is(403)); 
-                // logged in drivers don't have rides
+                                .andExpect(status().is(404)); // logged, but no id exists
         }
 
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void logged_in_admin_can_get_by_id() throws Exception {
+                mockMvc.perform(get("/api/ride_request?id=7"))
+                                .andExpect(status().is(404)); // logged, but no id exists
+        }
 
         // Authorization tests for /api/ride_request/post
 
@@ -161,8 +114,6 @@ public class RideControllerTests extends ControllerTestCase {
         }
 
         // // Tests with mocks for database actions
-
-
 
 
 
@@ -284,7 +235,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findById(eq(7L))).thenReturn(Optional.of(ride));
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request?id=7"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -318,7 +269,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findById(eq(7L))).thenReturn(Optional.of(ride));
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request?id=7"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -338,7 +289,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request?id=7"))
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
@@ -358,7 +309,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin?id=7"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request?id=7"))
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
@@ -464,7 +415,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findAll()).thenReturn(expectedRides);
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin/all"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request/all"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
@@ -521,7 +472,7 @@ public class RideControllerTests extends ControllerTestCase {
                 when(rideRepository.findAll()).thenReturn(expectedRides);
 
                 // act
-                MvcResult response = mockMvc.perform(get("/api/ride_request/admin/all"))
+                MvcResult response = mockMvc.perform(get("/api/ride_request/all"))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert

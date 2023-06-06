@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder.SecretKeyReactiveJwtDecoderBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,40 +32,37 @@ public class RideController extends ApiController {
     @Autowired
     RideRepository rideRepository;
 
-    @ApiOperation(value = "List all rides (admin/driver only)")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
-    @GetMapping("/admin/all")
-    public Iterable<Ride> allRides() {
-        Iterable<Ride> rides = rideRepository.findAll();
-        return rides;
-    }
-
-    @ApiOperation(value = "List all user's rides")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @ApiOperation(value = "List all rides, only users if not admin/driver")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Ride> allRidesForUser() {
-        Iterable<Ride> rides = rideRepository.findAllByRiderId(getCurrentUser().getUser().getId());
+        Iterable<Ride> rides;
+
+        if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
+            getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_DRIVER"))) {
+            rides = rideRepository.findAll();
+        } else {
+            rides = rideRepository.findAllByRiderId(getCurrentUser().getUser().getId());
+        }
+
         return rides;
     }
 
-    @ApiOperation(value = "Get any single ride (admin/driver only)")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
-    @GetMapping("/admin")
-    public Ride getById(
-            @ApiParam("id") @RequestParam Long id) {
-        Ride ride = rideRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));
-
-        return ride;
-    }
-
-    @ApiOperation(value = "Get a single ride, if it belongs to user")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @ApiOperation(value = "Get a single ride by id, only if users if not admin/driver")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
     public Ride getByIdForUser(
             @ApiParam("id") @RequestParam Long id) {
-        Ride ride = rideRepository.findByIdAndRiderId(id, getCurrentUser().getUser().getId())
+        Ride ride;
+        
+        if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
+            getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_DRIVER"))) {
+            ride = rideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));;
+        } else {
+            ride = rideRepository.findByIdAndRiderId(id, getCurrentUser().getUser().getId())
                 .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));
+        }
 
         return ride;
     }
