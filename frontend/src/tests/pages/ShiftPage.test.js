@@ -1,4 +1,4 @@
-import { render, waitFor, screen, fireEvent } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import ShiftPage from "main/pages/ShiftPage";
@@ -26,7 +26,7 @@ describe("ShiftPage tests", () => {
     const setupDriverUser = () => {
         axiosMock.reset();
         axiosMock.resetHistory();
-        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.driverOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
     };
 
@@ -68,32 +68,20 @@ describe("ShiftPage tests", () => {
 
     });
 
-    // WIP will change to driver user
-    // test("shifttable toggle admin tests (dont need this when table is fixed)", async ()=>{
-    //     setupDriverUser();
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
-    //     axiosMock.onPost("/api/admin/users/toggleAdmin").reply(200, "User with id 1 has toggled admin status");
-    //     const { getByText} = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <ShiftPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
-    //     await waitFor(() => expect(getByText("Shift")).toBeInTheDocument());
+    test("shifttable toggle admin tests (dont need this when table is fixed)", async ()=>{
+        setupDriverUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/shift").reply(200, usersFixtures.threeUsers);
+        const { getByText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ShiftPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Shift")).toBeInTheDocument());
 
-    //     const toggleAdminButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-admin-button`);
-    //     expect(toggleAdminButton).toBeInTheDocument();
-
-    //     fireEvent.click(toggleAdminButton);
-
-    //     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
-    //     expect(axiosMock.history.post[0].url).toBe("/api/admin/users/toggleAdmin");
-    //     expect(axiosMock.history.post[0].params).toEqual({id:1});
-      
-
-    // })
+    })
 
 });
 
