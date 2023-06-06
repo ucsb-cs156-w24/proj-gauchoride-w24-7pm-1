@@ -76,7 +76,6 @@ describe("RideRequestEditPage tests", () => {
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/ride_request", { params: { id: 17 } }).reply(200, {
                 id: 17,
-                riderId: 2,
                 day: "Tuesday",
                 startTime: "5:00PM",
                 endTime: "7:30PM", 
@@ -87,7 +86,6 @@ describe("RideRequestEditPage tests", () => {
             });
             axiosMock.onPut('/api/ride_request').reply(200, {
                 id: "17",
-                riderId: 2,
                 day: "Monday",
                 startTime: "3:30PM",
                 endTime: "4:30PM", 
@@ -192,7 +190,6 @@ describe("RideRequestEditPage tests", () => {
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                riderId: 2,
                 day: "Monday",
                 startTime: "3:30PM",
                 endTime: "4:30PM", 

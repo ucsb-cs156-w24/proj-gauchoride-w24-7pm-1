@@ -6,7 +6,7 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 
 import { toast } from "react-toastify";
 
-export default function RideEditPage() {
+export default function RideRequestEditPage() {
   let { id } = useParams();
 
   const { data: ride, _error, _status } =
@@ -30,7 +30,6 @@ export default function RideEditPage() {
       id: ride.id,
     },
     data: {
-        riderId: ride.riderId,
         day: ride.day,
         startTime: ride.start,
         endTime: ride.end, 
