@@ -417,7 +417,7 @@ public class ShiftControllerTests extends ControllerTestCase {
 
                 when(shiftRepository.save(eq(shift1))).thenReturn(shift1);
 
-                String postRequestString = "day=Monday&shiftStart=10:30&shiftEnd=12:30";
+                String postRequestString = "day=Monday&shiftStart=10:30&shiftEnd=12:30&driverID="+userId+"&driverBackupID=1";
 
                 // act
                 MvcResult response = mockMvc.perform(
