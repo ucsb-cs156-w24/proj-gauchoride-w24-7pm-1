@@ -5,11 +5,9 @@ name: "14-backend-pitest: Java Mutation Testing (Pitest)"
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths: [src/**, pom.xml, lombok.config]
   push:
     branches: [ main ]
-    paths: [src/**, pom.xml, lombok.config]
+    paths: [src/**, pom.xml, lombok.config, .github/workflows/14-backend-pitest.yml]
 
 jobs:
   build:
@@ -18,18 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3.5.2
-    - name: Figure out branch name
-      id: get-branch-name
-      run: | 
-          GITHUB_HEAD_REF="${GITHUB_HEAD_REF}"
-          echo GITHUB_HEAD_REF=${GITHUB_HEAD_REF}
-          GITHUB_REF_CLEANED=${GITHUB_REF/refs\/heads\//}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED//\//-}
-          echo GITHUB_REF_CLEANED=${GITHUB_REF_CLEANED}
-          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_CLEANED}}"
-          echo "branch_name=${BRANCH}"
-          echo "branch_name=${BRANCH}" >> "$GITHUB_ENV"    
+     
     - name: Set up Java (version from .java-version file)
       uses: actions/setup-java@v3
       with:
@@ -39,8 +26,8 @@ jobs:
       run: mvn -B test 
     
     # Note that we DO NOT download history in this job;
-    # this job is intended as a "reset" of the history each time the 
-    # main branch changes
+    # this job is intended as a "reset" of the history for the main
+    # branch each time the main branch changes
 
     - name: Pitest
       run: mvn test org.pitest:pitest-maven:mutationCoverage -DmutationThreshold=100 
@@ -48,7 +35,7 @@ jobs:
       if: always() # always upload artifacts, even if tests fail
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: pitest-${{env.branch_name}}-history.bin
+        name: pitest-main-history.bin
         path: target/pit-history/history.bin
     - name: Upload Pitest to Artifacts
       if: always() # always upload artifacts, even if tests fail
@@ -56,29 +43,6 @@ jobs:
       with:
         name: pitest
         path: target/pit-reports/* 
-
-    - name: Get PR number
-      id: get-pr-num
-      run: |
-        echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
-        pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-        echo "pr_number=${pr_number}" 
-        echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
-
-    - name: Set path for github pages deploy when there is a PR num
-      if: ${{ env.pr_number != 'null' }}
-      run: |
-        prefix="prs/${pr_number}/"
-        echo "prefix=${prefix}"
-        echo "prefix=${prefix}" >> "$GITHUB_ENV"
-    
-    - name: Set path for github pages deploy when there is NOT a PR num
-      if: ${{ env.pr_number == 'null' }}
-      run: |
-        prefix=""
-        echo "prefix=${prefix}"
-        echo "prefix=${prefix}" >> "$GITHUB_ENV"
-
     - name: Deploy 🚀
       if: always() # always upload artifacts, even if tests fail
       uses: JamesIves/github-pages-deploy-action@v4
@@ -86,4 +50,4 @@ jobs:
         branch: gh-pages # The branch the action should deploy to.
         folder: target/pit-reports # The folder where the files we want to publish are located
         clean: true # Automatically remove deleted files from the deploy branch
-        target-folder: ${{env.prefix}}pitest # The folder that we serve our files from
+        target-folder: pitest # The folder that we serve our files from
