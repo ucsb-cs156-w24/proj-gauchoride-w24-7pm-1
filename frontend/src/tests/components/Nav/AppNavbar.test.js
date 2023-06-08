@@ -414,6 +414,36 @@ describe("AppNavbar tests", () => {
 
     });
 
+    test("renders ride links correctly for admin", async () => {
+
+        const currentUser = currentUserFixtures.adminOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId, findByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
+        
+        const rideMenu = getByTestId("appnavbar-ride-dropdown");
+        expect(rideMenu).toBeInTheDocument(); 
+
+        await findByTestId("appnavbar-ride-dropdown");
+        const dropdown = getByTestId("appnavbar-ride-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+        await findByTestId(/appnavbar-ride-create-dropdown/);   
+        
+        const rideCreate = screen.queryByTestId("appnavbar-ride-create-dropdown");
+        expect(rideCreate).toBeInTheDocument();        
+
+    });
+
     test("not render ride links for regular user", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
