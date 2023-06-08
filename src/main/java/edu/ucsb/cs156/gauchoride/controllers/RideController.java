@@ -51,7 +51,6 @@ public class RideController extends ApiController {
     @ApiOperation(value = "Get a single ride by id, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
-
     public Ride getById(
             @ApiParam(name="id", type="long", value = "Id of the Ride to get", 
             required = true)  
@@ -135,5 +134,39 @@ public class RideController extends ApiController {
 
         rideRepository.delete(ride);
         return genericMessage("Ride with id %s deleted".formatted(id));
+    }
+
+
+    @ApiOperation(value = "Update a single ride, only user's if not admin/driver")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
+    @PutMapping("")
+    public Ride updateRide(
+            @ApiParam(name="id", type="long", value = "Id of the Ride to be edited", 
+            required = true)
+            @RequestParam Long id,
+            @RequestBody @Valid Ride incoming) {
+
+        Ride ride;
+
+        if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
+            getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_DRIVER"))) {
+            ride = rideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));;
+        } else {
+            ride = rideRepository.findByIdAndRiderId(id, getCurrentUser().getUser().getId())
+                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));
+        }
+
+        ride.setDay(incoming.getDay());
+        ride.setStartTime(incoming.getStartTime());
+        ride.setEndTime(incoming.getEndTime());
+        ride.setPickupLocation(incoming.getPickupLocation());
+        ride.setDropoffLocation(incoming.getDropoffLocation());
+        ride.setRoom(incoming.getRoom());
+        ride.setCourse(incoming.getCourse());
+
+        rideRepository.save(ride);
+
+        return ride;
     }
 }
