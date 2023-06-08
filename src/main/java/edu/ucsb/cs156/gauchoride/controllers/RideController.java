@@ -32,10 +32,10 @@ public class RideController extends ApiController {
     @Autowired
     RideRepository rideRepository;
 
-    @ApiOperation(value = "List all rides, only users if not admin/driver")
+    @ApiOperation(value = "List all rides, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<Ride> allRidesForUser() {
+    public Iterable<Ride> allRides() {
         Iterable<Ride> rides;
 
         if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
@@ -48,11 +48,12 @@ public class RideController extends ApiController {
         return rides;
     }
 
-    @ApiOperation(value = "Get a single ride by id, only if users if not admin/driver")
+    @ApiOperation(value = "Get a single ride by id, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
-    public Ride getByIdForUser(
-            @ApiParam(name="id", type="long", value = "Id of the Ride", 
+
+    public Ride getById(
+            @ApiParam(name="id", type="long", value = "Id of the Ride to get", 
             required = true)  
             @RequestParam Long id) {
         Ride ride;
@@ -111,5 +112,28 @@ public class RideController extends ApiController {
         Ride savedRide = rideRepository.save(ride);
 
         return savedRide;
+    }
+
+    @ApiOperation(value = "Delete a ride, only user's if not admin/driver")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
+    @DeleteMapping("")
+    public Object deleteRide(
+        @ApiParam(name="id", type="long", value = "Id of the Ride to be deleted", 
+        required = true)
+        @RequestParam Long id) {
+
+        Ride ride;
+
+        if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
+            getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_DRIVER"))) {
+            ride = rideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));;
+        } else {
+            ride = rideRepository.findByIdAndRiderId(id, getCurrentUser().getUser().getId())
+                .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));
+        }
+
+        rideRepository.delete(ride);
+        return genericMessage("Ride with id %s deleted".formatted(id));
     }
 }
