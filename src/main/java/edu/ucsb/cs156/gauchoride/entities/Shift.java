@@ -4,25 +4,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.AccessLevel;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.time.LocalTime;
+import io.swagger.annotations.ApiModelProperty;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Builder
 @Entity(name = "shift")
 public class Shift {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+
+  @ApiModelProperty(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
   private String day;
-  private LocalTime shiftStart;
-  private LocalTime shiftEnd;
+
+  private String shiftStart; // format: HH:MM(A/P)M e.g. "11:00AM" or "01:37PM"
+  private String shiftEnd; //format: HH:MM(A/P)M e.g. "11:00AM" or "01:37PM"
+
   private long driverID;
   private long driverBackupID;
 }
