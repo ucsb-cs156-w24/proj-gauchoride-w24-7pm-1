@@ -30,8 +30,8 @@ describe("ShiftTable tests", () => {
             </QueryClientProvider>
         );
     
-        const expectedHeaders = ["id", "day", "shift", "driver", "driver backup"];
-        const expectedFields = ["id", "day", "shift", "driver", "driverBackup"];
+        const expectedHeaders = ["id", "Day", "Shift start", "Shift end", "Driver", "Backup driver"];
+        const expectedFields = ["id", "day", "shiftStart", "shiftEnd", "driverID", "driverBackupID"];
         const testId = "ShiftTable";
 
         expectedHeaders.forEach( (headerText)=> {
@@ -46,13 +46,14 @@ describe("ShiftTable tests", () => {
 
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
         expect(getByTestId(`${testId}-cell-row-0-col-day`)).toHaveTextContent("Monday");
-        expect(getByTestId(`${testId}-cell-row-0-col-shift`)).toHaveTextContent("8AM-11AM");
-        expect(getByTestId(`${testId}-cell-row-0-col-driver`)).toHaveTextContent("Adam");
+        expect(getByTestId(`${testId}-cell-row-0-col-shiftStart`)).toHaveTextContent("08:00AM");
+        expect(getByTestId(`${testId}-cell-row-0-col-shiftEnd`)).toHaveTextContent("11:00AM");
+        expect(getByTestId(`${testId}-cell-row-0-col-driverID`)).toHaveTextContent("1");
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-day`)).toHaveTextContent("Tuesday");
-        expect(getByTestId(`${testId}-cell-row-1-col-shift`)).toHaveTextContent("11AM-2PM");
-        expect(getByTestId(`${testId}-cell-row-1-col-driver`)).toHaveTextContent("Bob");
+        expect(getByTestId(`${testId}-cell-row-1-col-shiftStart`)).toHaveTextContent("11:00AM");
+        expect(getByTestId(`${testId}-cell-row-1-col-shiftEnd`)).toHaveTextContent("02:00PM");
+        expect(getByTestId(`${testId}-cell-row-1-col-driverID`)).toHaveTextContent("2");
 
       });
 });
-
