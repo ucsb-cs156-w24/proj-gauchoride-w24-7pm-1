@@ -455,7 +455,7 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
 
-        const { getByText, getByTestId, findByTestId } = render(
+        const { getByTestId, findByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} doLogin={doLogin} />
@@ -477,7 +477,6 @@ describe("AppNavbar tests", () => {
         
         const NOrideCreate = screen.queryByTestId("NO-appnavbar-ride-create-dropdown");
         expect(NOrideCreate).toBeInTheDocument();  
-
 
     });
 
