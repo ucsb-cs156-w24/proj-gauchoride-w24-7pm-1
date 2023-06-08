@@ -15,7 +15,7 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
 
-        const { getByText,  queryByTestId, findByTestId,getByTestId } = render(
+        const { getByText,  queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} doLogin={doLogin} />
