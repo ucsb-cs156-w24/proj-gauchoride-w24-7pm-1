@@ -11,20 +11,24 @@ export default function ShiftTable({ shift }) {
             accessor: 'id', // accessor is the "key" in the data
         },
         {
-            Header: 'day',
+            Header: 'Day',
             accessor: 'day',
         },
         {
-            Header: 'shift',
-            accessor: 'shift',
+            Header: 'Shift start',
+            accessor: 'shiftStart',
         },
         {
-            Header: 'driver',
-            accessor: 'driver'
+            Header: 'Shift end',
+            accessor: 'shiftEnd',
         },
         {
-            Header: 'driver backup',
-            accessor: 'driverBackup',
+            Header: 'Driver',
+            accessor: 'driverID'
+        },
+        {
+            Header: 'Backup driver',
+            accessor: 'driverBackupID',
         }
     ];
 

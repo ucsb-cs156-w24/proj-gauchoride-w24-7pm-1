@@ -4,6 +4,13 @@ import { hasRole } from "main/utils/currentUser";
 import headerImg from "../../../assets/header-logo-240.png"
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
+function isParticipant(currentUser) {
+  return (
+    hasRole(currentUser, "ROLE_ADMIN")
+    || hasRole(currentUser, "ROLE_DRIVER")
+    || hasRole(currentUser, "ROLE_RIDER")
+  );
+}
 
 function isParticipant(currentUser) {
   return (
@@ -73,6 +80,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                         <NavDropdown.Item data-testid="appnavbar-ride-create-dropdown" as={Link} to="/ride/create">Request Ride</NavDropdown.Item>
                       )
                     }
+              }
+              {
+                isParticipant(currentUser) && (
+                  <NavDropdown title="Shift" id="appnavbar-shift-dropdown" data-testid="appnavbar-shift-dropdown" >
+                    <NavDropdown.Item as={Link} to="/shift/list">Driver shift table</NavDropdown.Item>
                   </NavDropdown>
                 )
               }

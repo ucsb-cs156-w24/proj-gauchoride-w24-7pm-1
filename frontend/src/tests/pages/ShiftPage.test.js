@@ -32,7 +32,7 @@ describe("ShiftPage tests", () => {
 
     test("renders without crashing on three users", async () => {
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/shift").reply(200, shiftFixtures.threeShifts);
+        axiosMock.onGet("/api/shift/all").reply(200, shiftFixtures.threeShifts);
 
         const { getByText } = render(
             <QueryClientProvider client={queryClient}>
@@ -49,7 +49,7 @@ describe("ShiftPage tests", () => {
 
     test("renders empty table when backend unavailable", async () => {
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/shift").timeout();
+        axiosMock.onGet("/api/shift/all").timeout();
 
         const restoreConsole = mockConsole();
 
@@ -71,7 +71,7 @@ describe("ShiftPage tests", () => {
     test("shifttable toggle admin tests (dont need this when table is fixed)", async ()=>{
         setupDriverUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/shift").reply(200, shiftFixtures.threeShifts);
+        axiosMock.onGet("/api/shift/all").reply(200, shiftFixtures.threeShifts);
         const { getByText} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -84,5 +84,4 @@ describe("ShiftPage tests", () => {
     })
 
 });
-
 

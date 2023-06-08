@@ -6,6 +6,8 @@ import AdminUsersPage from "main/pages/AdminUsersPage";
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
+import ShiftPage from "main/pages/ShiftPage";
+
 
 
 
@@ -35,6 +37,15 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN")  || hasRole(currentUser, "ROLE_RIDER") )&& <Route exact path="/ride/edit:id" element={<RideRequestEditPage />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/shift/list" element={<ShiftPage />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/shift/list" element={<ShiftPage />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_RIDER") && <Route exact path="/shift/list" element={<ShiftPage />} />
         }
         {
           hasRole(currentUser, "ROLE_USER")
