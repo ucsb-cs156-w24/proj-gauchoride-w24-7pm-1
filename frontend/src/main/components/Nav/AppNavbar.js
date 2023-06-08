@@ -62,7 +62,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                     <NavDropdown.Item as={Link} to="/ride/">Rides</NavDropdown.Item>
                     {
                       (hasRole(currentUser, "ROLE_USER") || hasRole(currentUser, "ROLE_ADMIN")) && (
-                        <NavDropdown.Item as={Link} to="/ride/create">Request Ride</NavDropdown.Item>
+                        <NavDropdown.Item data-testid="appnavbar-ride-create-dropdown" as={Link} to="/ride/create">Request Ride</NavDropdown.Item>
                       )
                     }
                   </NavDropdown>
