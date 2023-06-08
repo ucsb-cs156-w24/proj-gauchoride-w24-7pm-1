@@ -446,6 +446,24 @@ describe("AppNavbar tests", () => {
         expect(rideMenu).not.toBeInTheDocument();        
     });
 
+    test("Create ride should not be available for user that is a Driver and neither Admin nor Rider", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const rideMenu = screen.queryByTestId("appnavbar-ride-create-dropdown");
+        expect(rideMenu).not.toBeInTheDocument();        
+    });
+
 });
 
 
