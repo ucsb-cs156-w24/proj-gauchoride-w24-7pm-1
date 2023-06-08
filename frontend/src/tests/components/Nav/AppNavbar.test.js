@@ -77,7 +77,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, phtcon@ucsb.edu")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
         const shiftMenu = getByTestId("appnavbar-shift-dropdown");
         expect(shiftMenu).toBeInTheDocument();        
     });
@@ -95,7 +95,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const shiftMenu = getByTestId("appnavbar-shift-dropdown");
         expect(shiftMenu).toBeInTheDocument();        
     });
@@ -113,7 +113,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const shiftMenu = getByTestId("appnavbar-shift-dropdown");
         expect(shiftMenu).toBeInTheDocument();        
     });
@@ -131,7 +131,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const shiftMenu = screen.queryByTestId("appnavbar-shift-dropdown");
         expect(shiftMenu).not.toBeInTheDocument();        
     });
