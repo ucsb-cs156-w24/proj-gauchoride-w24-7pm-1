@@ -141,7 +141,9 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @PutMapping("")
     public Ride updateRide(
-            @ApiParam("id") @RequestParam Long id,
+            @ApiParam(name="id", type="long", value = "Id of the Ride to be deleted", 
+            required = true)
+            @RequestParam Long id,
             @RequestBody @Valid Ride incoming) {
 
         Ride ride;
