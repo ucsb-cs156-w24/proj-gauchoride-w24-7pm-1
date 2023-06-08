@@ -6,7 +6,6 @@ import edu.ucsb.cs156.gauchoride.ControllerTestCase;
 import edu.ucsb.cs156.gauchoride.entities.Shift;
 import edu.ucsb.cs156.gauchoride.repositories.ShiftRepository;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -25,7 +23,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -70,7 +67,7 @@ public class ShiftControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(200)); // logged
         }
 
-        // Authorization tests for /api/ride_request?id={}
+        // Authorization tests for /api/shift/get?id={}
 
         @Test
         public void logged_out_users_cannot_get_by_id() throws Exception {
@@ -78,12 +75,6 @@ public class ShiftControllerTests extends ControllerTestCase {
                                 .andExpect(status().is(403)); // logged out users can't get by id
         }
 
-        // @WithMockUser(roles = { "USER" })
-        // @Test
-        // public void logged_in_users_can_get_by_id_that_is_theirs() throws Exception {
-        //         mockMvc.perform(get("/api/shift/get?id=7"))
-        //                         .andExpect(status().is(404)); // logged, but no id exists
-        // }
 
         @WithMockUser(roles = { "DRIVER" })
         @Test
@@ -156,8 +147,6 @@ public class ShiftControllerTests extends ControllerTestCase {
         public void test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist() throws Exception {
 
                 // arrange
-
-                long userId = currentUserService.getCurrentUser().getUser().getId();
 
                 when(shiftRepository.findById(eq(7L))).thenReturn(Optional.empty());
 
@@ -396,8 +385,6 @@ public class ShiftControllerTests extends ControllerTestCase {
 
 
         // POST
-
-
 
         @WithMockUser(roles = { "DRIVER" })
         @Test
