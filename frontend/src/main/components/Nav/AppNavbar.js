@@ -12,14 +12,6 @@ function isParticipant(currentUser) {
   );
 }
 
-function isParticipant(currentUser) {
-  return (
-    hasRole(currentUser, "ROLE_ADMIN")
-    || hasRole(currentUser, "ROLE_DRIVER")
-    || hasRole(currentUser, "ROLE_RIDER")
-  );
-}
-
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
   const styles = {
     navbar: {
@@ -73,6 +65,13 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
               {
                 isParticipant(currentUser) && (
+                  <NavDropdown title="Shift" id="appnavbar-shift-dropdown" data-testid="appnavbar-shift-dropdown" >
+                    <NavDropdown.Item as={Link} to="/shift/list">Driver shift table</NavDropdown.Item>
+                  </NavDropdown>
+                )
+              }
+              {
+                isParticipant(currentUser) && (
                   <NavDropdown title="Ride Request" id="appnavbar-ride-dropdown" data-testid="appnavbar-ride-dropdown" >
                     <NavDropdown.Item as={Link} to="/ride/">Rides</NavDropdown.Item>
                     {
@@ -80,12 +79,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                         <NavDropdown.Item data-testid="appnavbar-ride-create-dropdown" as={Link} to="/ride/create">Request Ride</NavDropdown.Item>
                       )
                     }
-              }
-              {
-                isParticipant(currentUser) && (
-                  <NavDropdown title="Shift" id="appnavbar-shift-dropdown" data-testid="appnavbar-shift-dropdown" >
-                    <NavDropdown.Item as={Link} to="/shift/list">Driver shift table</NavDropdown.Item>
-                  </NavDropdown>
+                    </NavDropdown>
                 )
               }
             </Nav>
