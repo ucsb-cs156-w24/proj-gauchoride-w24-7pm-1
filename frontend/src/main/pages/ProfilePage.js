@@ -4,7 +4,6 @@ import RoleBadge from "main/components/Profile/RoleBadge";
 import { useCurrentUser } from "main/utils/currentUser";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
-import ReactJson from "react-json-view";
 const ProfilePage = () => {
 
     const { data: currentUser } = useCurrentUser();
@@ -32,10 +31,10 @@ const ProfilePage = () => {
                     <RoleBadge role={"ROLE_USER"} currentUser={currentUser}/>
                     <RoleBadge role={"ROLE_MEMBER"} currentUser={currentUser}/>
                     <RoleBadge role={"ROLE_ADMIN"} currentUser={currentUser}/>
+                    <RoleBadge role={"ROLE_DRIVER"} currentUser={currentUser}/>
+                    <RoleBadge role={"ROLE_RIDER"} currentUser={currentUser}/>
+
                 </Col>
-            </Row>
-            <Row className="text-left">
-                <ReactJson src={currentUser.root} />
             </Row>
         </BasicLayout>
     );
