@@ -443,7 +443,7 @@ describe("AppNavbar tests", () => {
         
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const rideMenu = screen.queryByTestId("appnavbar-ride-create-dropdown");
-        expect(rideMenu).not.toBeInTheDocument();        
+        expect(rideMenu).not.toBeInTheDocument(); 
     });
 
 });
