@@ -121,6 +121,7 @@ public class RideControllerTests extends ControllerTestCase {
                                  .andExpect(status().is(403));
         }
 
+
         // Authorization tests for put /api/ride_request
 
         @Test
