@@ -82,6 +82,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     })}
                     placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"
                     defaultValue={initialContents?.startTime}
+
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.start?.message}

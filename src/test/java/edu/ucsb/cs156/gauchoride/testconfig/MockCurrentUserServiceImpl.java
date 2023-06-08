@@ -23,7 +23,7 @@ import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
 import edu.ucsb.cs156.gauchoride.services.CurrentUserServiceImpl;
 
 @Slf4j
-@Service("currentUser")
+@Service("mockCurrentUser")
 public class MockCurrentUserServiceImpl extends CurrentUserServiceImpl {
 
   public User getMockUser(SecurityContext securityContext, Authentication authentication) {

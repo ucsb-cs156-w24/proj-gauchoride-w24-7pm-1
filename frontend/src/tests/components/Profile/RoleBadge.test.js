@@ -11,6 +11,20 @@ describe("RoleBadge tests", () => {
         await waitFor( ()=> expect(getByTestId("role-badge-user")).toBeInTheDocument() );
     });
 
+    test("renders without crashing for ROLE_DRIVER when user has ROLE_DRIVER", async () => {
+        const {getByTestId} = render(
+            <RoleBadge currentUser={currentUserFixtures.driverOnly} role={"ROLE_DRIVER"} />
+        );
+        await waitFor( ()=> expect(getByTestId("role-badge-driver")).toBeInTheDocument() );
+    });
+
+    test("renders without crashing for ROLE_DRIVER when user does NOT have ROLE_DRIVER", async () => {
+        const {getByTestId } = render(
+            <RoleBadge currentUser={currentUserFixtures.userOnly} role={"ROLE_DRIVER"} />
+        );
+        await waitFor( ()=> expect(getByTestId("role-missing-driver")).toBeInTheDocument() );
+    });
+
     test("renders without crashing for ROLE_ADMIN when user has ROLE_ADMIN", async () => {
         const {getByTestId} = render(
             <RoleBadge currentUser={currentUserFixtures.adminUser} role={"ROLE_ADMIN"} />
@@ -25,4 +39,10 @@ describe("RoleBadge tests", () => {
         await waitFor( ()=> expect(getByTestId("role-missing-admin")).toBeInTheDocument() );
     });
 
+    test("renders without crashing for no role", async () => {
+        const {getByTestId } = render(
+            <RoleBadge currentUser={currentUserFixtures.driverOnly} role={""} />
+        );
+        await waitFor( ()=> expect(getByTestId("role-missing-")).toBeInTheDocument() );
+    });
 });
