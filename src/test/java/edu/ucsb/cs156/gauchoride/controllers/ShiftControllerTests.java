@@ -417,4 +417,36 @@ public class ShiftControllerTests extends ControllerTestCase {
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
+
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void an_admin_can_post_a_new_shift() throws Exception {
+                // arrange
+
+                long userId = currentUserService.getCurrentUser().getUser().getId();
+
+                Shift shift1 = Shift.builder()
+                                .driverID(userId)
+                                .day("Monday")
+                                .shiftStart("10:30AM")
+                                .shiftEnd("12:30PM")
+                                .driverBackupID(1)
+                                .build();
+
+                when(shiftRepository.save(eq(shift1))).thenReturn(shift1);
+
+                String postRequestString = "day=Monday&shiftStart=10:30AM&shiftEnd=12:30PM&driverID="+userId+"&driverBackupID=1";
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                post("/api/shift/post?" + postRequestString)
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+                verify(shiftRepository, times(1)).save(shift1);
+                String expectedJson = mapper.writeValueAsString(shift1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 }

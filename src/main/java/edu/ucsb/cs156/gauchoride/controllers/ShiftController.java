@@ -59,7 +59,7 @@ public class ShiftController extends ApiController {
     }
 
     @ApiOperation(value = "Create a new shift for the table")
-    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @PostMapping("/post")
     public Shift postShift(
         @ApiParam("day") @RequestParam String day,
