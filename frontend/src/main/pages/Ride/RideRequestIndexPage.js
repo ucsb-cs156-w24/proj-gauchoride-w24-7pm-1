@@ -23,7 +23,7 @@ export default function RideRequestIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        <Button style={{ float: "right" }} as={Link} to="/rideRequest/create">
+        <Button style={{ float: "right" }} as={Link} to="/ride/create">
           Create Ride Request
         </Button>
         <h1>Ride Requests</h1>
