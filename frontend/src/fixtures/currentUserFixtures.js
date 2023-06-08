@@ -174,7 +174,6 @@ const apiCurrentUserFixtures = {
 
     },
     driverOnly: {
-
         "user": {
             "id": 2,
             "email": "pconrad.cis@gmail.com",
@@ -207,7 +206,6 @@ const apiCurrentUserFixtures = {
 
     },
     riderOnly: {
-
         "user": {
             "id": 2,
             "email": "pconrad.cis@gmail.com",
