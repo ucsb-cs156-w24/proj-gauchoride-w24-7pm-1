@@ -35,7 +35,7 @@ public class RideController extends ApiController {
     @ApiOperation(value = "List all rides, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<Ride> allRidesForUser() {
+    public Iterable<Ride> allRides() {
         Iterable<Ride> rides;
 
         if (getCurrentUser().getRoles().contains(new SimpleGrantedAuthority("ROLE_ADMIN")) ||
@@ -51,8 +51,8 @@ public class RideController extends ApiController {
     @ApiOperation(value = "Get a single ride by id, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
-    public Ride getByIdForUser(
-            @ApiParam(name="id", type="long", value = "Id of the Ride", 
+    public Ride getById(
+            @ApiParam(name="id", type="long", value = "Id of the Ride to get", 
             required = true)  
             @RequestParam Long id) {
         Ride ride;
@@ -116,8 +116,10 @@ public class RideController extends ApiController {
     @ApiOperation(value = "Delete a ride, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @DeleteMapping("")
-    public Object deleteRideForUser(
-            @ApiParam("id") @RequestParam Long id) {
+    public Object deleteRide(
+        @ApiParam(name="id", type="long", value = "Id of the Ride to be deleted", 
+        required = true)
+        @RequestParam Long id) {
 
         Ride ride;
 
