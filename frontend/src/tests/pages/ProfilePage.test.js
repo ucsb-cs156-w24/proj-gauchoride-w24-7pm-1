@@ -36,7 +36,7 @@ describe("ProfilePage tests", () => {
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-        const { getByText, getByTestId } = render(
+        const { getByText, getByTestId, queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -49,6 +49,53 @@ describe("ProfilePage tests", () => {
         expect(getByTestId("role-badge-user")).toBeInTheDocument();
         expect(getByTestId("role-badge-admin")).toBeInTheDocument();
         expect(getByTestId("role-badge-member")).toBeInTheDocument();
+
+        expect(getByTestId("role-missing-driver")).toBeInTheDocument();
+        expect(getByTestId("role-missing-rider")).toBeInTheDocument();
+
+        expect(queryByTestId("role-badge-driver")).not.toBeInTheDocument();
+        expect(queryByTestId("role-badge-rider")).not.toBeInTheDocument();
+    });
+
+
+    test("renders correctly for driver", async () => {
+
+        const axiosMock =new AxiosMockAdapter(axios);
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.driverOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ProfilePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor( () =>  expect(getByTestId("role-badge-driver")).toBeInTheDocument() );
+        expect(getByTestId("role-missing-admin")).toBeInTheDocument();
+        expect(getByTestId("role-missing-member")).toBeInTheDocument();
+        expect(getByTestId("role-missing-rider")).toBeInTheDocument();
+    });
+
+    test("renders correctly for rider", async () => {
+
+        const axiosMock =new AxiosMockAdapter(axios);
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.riderOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ProfilePage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor( () => expect(getByTestId("role-badge-rider")).toBeInTheDocument() );        
+        expect(getByTestId("role-missing-driver")).toBeInTheDocument();
+        expect(getByTestId("role-missing-admin")).toBeInTheDocument();
+        expect(getByTestId("role-missing-member")).toBeInTheDocument();
     });
 });
 

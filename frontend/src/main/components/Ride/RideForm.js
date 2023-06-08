@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
-
     const navigate = useNavigate();
     
     // Stryker disable all
@@ -79,6 +78,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                           }
                     })}
                     placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"
+                    value={initialContents?.startTime}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.start?.message}
@@ -99,7 +99,8 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                             message: "Please enter time in the format HH:MM AM/PM (e.g., 3:30PM)."
                           }
                     })}
-                    placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"      
+                    placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"   
+                    value={initialContents?.endTime}    
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.end?.message}
@@ -117,6 +118,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Pick Up Location is required."
                     })}
                     placeholder="e.g. Anacapa Residence Hall"  
+                    value={initialContents?.pickupLocation}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.pickup?.message}
@@ -134,6 +136,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Drop Off Location is required."
                     })}
                     placeholder="e.g. Phelps"  
+                    value={initialContents?.dropoffLocation}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.dropoff?.message}
@@ -151,6 +154,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Room number is required."
                     })}
                     placeholder="e.g. 2225"  
+                    value={initialContents?.room} 
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.room?.message}
@@ -168,6 +172,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                         required: "Course number is required."
                     })}
                     placeholder="e.g. CMPSC 156"  
+                    value={initialContents?.course} 
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.course?.message}

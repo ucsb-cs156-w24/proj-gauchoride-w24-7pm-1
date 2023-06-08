@@ -51,6 +51,7 @@ public class RideController extends ApiController {
     @ApiOperation(value = "Get a single ride by id, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
+
     public Ride getById(
             @ApiParam(name="id", type="long", value = "Id of the Ride to get", 
             required = true)  

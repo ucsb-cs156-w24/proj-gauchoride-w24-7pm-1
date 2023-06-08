@@ -23,7 +23,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, pconrad.cis@gmail.com")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
     });
 
     test("renders correctly for admin user", async () => {
@@ -39,7 +39,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, phtcon@ucsb.edu")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
         const adminMenu = getByTestId("appnavbar-admin-dropdown");
         expect(adminMenu).toBeInTheDocument();        
     });
