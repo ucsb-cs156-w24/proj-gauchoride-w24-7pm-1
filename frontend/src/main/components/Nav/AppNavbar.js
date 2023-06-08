@@ -5,6 +5,14 @@ import headerImg from "../../../assets/header-logo-240.png"
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 
+function isParticipant(currentUser) {
+  return (
+    hasRole(currentUser, "ROLE_ADMIN")
+    || hasRole(currentUser, "ROLE_DRIVER")
+    || hasRole(currentUser, "ROLE_RIDER")
+  );
+}
+
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
   const styles = {
     navbar: {
@@ -57,7 +65,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
               {
-                (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER")) && (
+                isParticipant(currentUser) && (
                   <NavDropdown title="Ride Request" id="appnavbar-ride-dropdown" data-testid="appnavbar-ride-dropdown" >
                     <NavDropdown.Item as={Link} to="/ride/">Rides</NavDropdown.Item>
                     {
