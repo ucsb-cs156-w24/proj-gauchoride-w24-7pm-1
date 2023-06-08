@@ -92,7 +92,7 @@ describe("RideTable tests", () => {
     );
 
     const expectedHeaders = ['id','Day','Student','Driver', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
-    const expectedFields = ['id', 'day', 'student', 'driver', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
+    const expectedFields = ['id', 'day', 'student', 'driver', 'course', 'startTime', 'endTime', 'pickupLocation', 'dropoffLocation','room'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -134,7 +134,7 @@ describe("RideTable tests", () => {
     );
 
     const expectedHeaders = ['id','Day','Driver', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
-    const expectedFields = ['id', 'day',  'driver', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
+    const expectedFields = ['id', 'day',  'driver', 'course', 'startTime', 'endTime', 'pickupLocation', 'dropoffLocation','room'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -174,7 +174,7 @@ describe("RideTable tests", () => {
     );
 
     const expectedHeaders = ['id','Day','Student', 'Course #', 'Start Time', 'End Time', 'Pick Up', 'Drop Off', 'Room #'];
-    const expectedFields = ['id', 'day', 'student', 'course', 'start', 'end', 'pickup', 'dropoff','room'];
+    const expectedFields = ['id', 'day', 'student', 'course', 'startTime', 'endTime', 'pickupLocation', 'dropoffLocation','room'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -216,7 +216,7 @@ describe("RideTable tests", () => {
     
     fireEvent.click(editButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ride_request/edit/2'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ride/edit/2'));
 
   });
 
@@ -240,7 +240,7 @@ describe("RideTable tests", () => {
     
     fireEvent.click(editButton);
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ride_request/edit/2'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ride/edit/2'));
 
   });
 

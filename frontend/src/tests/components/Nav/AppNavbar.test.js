@@ -15,7 +15,7 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
 
-        const { getByText } = render(
+        const { getByText, getByTestId  } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} doLogin={doLogin} />
@@ -24,6 +24,26 @@ describe("AppNavbar tests", () => {
         );
 
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const rideMenu = getByTestId("appnavbar-ride-dropdown");
+        expect(rideMenu).toBeInTheDocument();  
+    });
+
+    test("renders correctly for regular logged in driver", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText, getByTestId  } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const rideMenu = getByTestId("appnavbar-ride-dropdown");
+        expect(rideMenu).toBeInTheDocument();  
     });
 
     test("renders correctly for admin user", async () => {
@@ -42,6 +62,8 @@ describe("AppNavbar tests", () => {
         await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
         const adminMenu = getByTestId("appnavbar-admin-dropdown");
         expect(adminMenu).toBeInTheDocument();        
+        const rideMenu = getByTestId("appnavbar-ride-dropdown");
+        expect(rideMenu).toBeInTheDocument();        
     });
 
     test("renders H2Console and Swagger links correctly", async () => {

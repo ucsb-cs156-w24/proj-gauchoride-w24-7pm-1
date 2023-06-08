@@ -13,6 +13,7 @@ const Template = (args) => {
     )
 };
 
+
 export const Default = Template.bind({});
 
 Default.args = {
@@ -23,7 +24,7 @@ Default.args = {
 export const Show = Template.bind({});
 
 Show.args = {
-    Ride: rideFixtures.oneRide,
-    submitText: "",
-    submitAction: () => { }
+    intitialContents: rideFixtures.oneRide,
+    submitText: "Create",
+    submitAction: () => { console.log("Submit was clicked"); }
 };

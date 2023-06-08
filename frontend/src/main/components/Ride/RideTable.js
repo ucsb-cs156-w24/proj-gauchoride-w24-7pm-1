@@ -13,7 +13,7 @@ export default function RideTable({
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/ride_request/edit/${cell.row.values.id}`)
+        navigate(`/ride/edit/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -52,19 +52,19 @@ export default function RideTable({
         },
         {
             Header: 'Start Time',
-            accessor: 'start',
+            accessor: 'startTime',
         },
         {
             Header: 'End Time',
-            accessor: 'end',
+            accessor: 'endTime',
         },
         {
             Header: 'Pick Up',
-            accessor: 'pickup',
+            accessor: 'pickupLocation',
         },
         {
             Header: 'Drop Off',
-            accessor: 'dropoff',
+            accessor: 'dropoffLocation',
         },
         {
             Header: 'Room #',
@@ -91,19 +91,19 @@ export default function RideTable({
         },
         {
             Header: 'Start Time',
-            accessor: 'start',
+            accessor: 'startTime',
         },
         {
             Header: 'End Time',
-            accessor: 'end',
+            accessor: 'endTime',
         },
         {
             Header: 'Pick Up',
-            accessor: 'pickup',
+            accessor: 'pickupLocation',
         },
         {
             Header: 'Drop Off',
-            accessor: 'dropoff',
+            accessor: 'dropoffLocation',
         },
         {
             Header: 'Room #',
@@ -130,19 +130,19 @@ export default function RideTable({
         },
         {
             Header: 'Start Time',
-            accessor: 'start',
+            accessor: 'startTime',
         },
         {
             Header: 'End Time',
-            accessor: 'end',
+            accessor: 'endTime',
         },
         {
             Header: 'Pick Up',
-            accessor: 'pickup',
+            accessor: 'pickupLocation',
         },
         {
             Header: 'Drop Off',
-            accessor: 'dropoff',
+            accessor: 'dropoffLocation',
         },
         {
             Header: 'Room #',

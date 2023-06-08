@@ -4,7 +4,7 @@ import { rideFixtures } from 'fixtures/rideFixtures';
 import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 
 export default {
-    title: 'components/Rider/RideTable',
+    title: 'components/Ride/RideTable',
     component: RideTable
 };
 
