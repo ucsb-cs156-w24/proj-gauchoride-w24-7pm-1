@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-      <h1 data-testid= "welcome-header" style = {{ padding: "20px"}}>Welcome to<b data-testid = "UCSB" style = {{backgroundColor:"#003660", padding: "0px 10px"}}> <font data-testid = "red" color = "#FFFFFF"  >UCSB</font></b> GauchoRide!</h1>
+      <h1 data-testid= "welcome-header" style = {{ padding: "20px"}}>Welcome to <b data-testid = "UCSB" style = {{backgroundColor:"#003660", padding: "0px 10px"}}> <font data-testid = "white" color = "#FFFFFF"  >UCSB</font></b> GauchoRide!</h1>
       <div data-testid = "about-application" style={{margin:"0px 20px", backgroundColor:"#d6d2d2", padding: "20px"}}>
       <h3>About this application</h3>
         <p>

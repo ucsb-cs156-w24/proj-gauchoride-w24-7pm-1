@@ -51,9 +51,9 @@ describe("HomePage tests", () => {
         expect(boldUCSBHeader).toBeInTheDocument();
         expect(boldUCSBHeader).toHaveStyle({backgroundColor: "#003660", padding: "0px 10px"});
        
-        await waitFor(() => screen.getByTestId("red"));
-        const red = screen.getByTestId("red");
-        expect(red).toHaveStyle({color: "#FFFFF"});
+        await waitFor(() => screen.getByTestId("white"));
+        const white = screen.getByTestId("white");
+        expect(white).toHaveStyle({color: "#FFFFF"});
 
     });
 
