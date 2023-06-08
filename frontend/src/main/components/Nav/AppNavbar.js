@@ -57,11 +57,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
               {
-                (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_USER")) && (
+                (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER")) && (
                   <NavDropdown title="Ride Request" id="appnavbar-ride-dropdown" data-testid="appnavbar-ride-dropdown" >
                     <NavDropdown.Item as={Link} to="/ride/">Rides</NavDropdown.Item>
                     {
-                      (hasRole(currentUser, "ROLE_USER") || hasRole(currentUser, "ROLE_ADMIN")) && (
+                      (hasRole(currentUser, "ROLE_RIDER") || hasRole(currentUser, "ROLE_ADMIN")) && (
                         <NavDropdown.Item data-testid="appnavbar-ride-create-dropdown" as={Link} to="/ride/create">Request Ride</NavDropdown.Item>
                       )
                     }

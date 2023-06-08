@@ -15,6 +15,25 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
 
+        const { getByText,  queryByTestId, findByTestId,getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        
+        const rideMenu = queryByTestId("appnavbar-ride-dropdown");
+        expect(rideMenu).not.toBeInTheDocument();
+    });
+
+    test("renders correctly for regular logged in rider", async () => {
+
+        const currentUser = currentUserFixtures.riderOnly;
+        const doLogin = jest.fn();
+
         const { getByText, getByTestId, findByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -34,6 +53,8 @@ describe("AppNavbar tests", () => {
         expect(aElement).toBeInTheDocument();
         aElement?.click();
         await findByTestId(/appnavbar-ride-create-dropdown/);
+
+        
 
     });
 
