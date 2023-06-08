@@ -147,6 +147,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -204,6 +205,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -240,6 +242,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -274,6 +277,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -349,6 +353,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -360,6 +365,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride3 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 111C")
                                 .startTime("9:30AM")
@@ -395,6 +401,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -406,6 +413,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride2 = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -417,6 +425,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride3 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 111C")
                                 .startTime("9:30AM")
@@ -452,6 +461,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -463,6 +473,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride2 = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -474,6 +485,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride3 = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 111C")
                                 .startTime("9:30AM")
@@ -515,6 +527,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                         .riderId(userId)
+                        .student("Fake user")
                         .day("Monday")
                         .course("CMPSC 156")
                         .startTime("2:00PM")
@@ -556,6 +569,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                         .riderId(userId)
+                        .student("CGaucho")
                         .day("Monday")
                         .course("CMPSC 156")
                         .startTime("2:00PM")
@@ -592,6 +606,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                         .riderId(otherUserId)
+                        .student("CGaucho")
                         .day("Monday")
                         .course("CMPSC 156")
                         .startTime("2:00PM")
@@ -648,6 +663,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                         .riderId(otherUserId)
+                        .student("DGaucho")
                         .day("Monday")
                         .course("CMPSC 156")
                         .startTime("2:00PM")
@@ -683,6 +699,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride1 = Ride.builder()
                         .riderId(otherUserId)
+                        .student("DGaucho")
                         .day("Monday")
                         .course("CMPSC 156")
                         .startTime("2:00PM")
@@ -763,6 +780,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_original = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -774,6 +792,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -814,6 +833,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_original = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -825,6 +845,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -862,6 +883,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -903,6 +925,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_original = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -914,6 +937,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -953,6 +977,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_original = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Monday")
                                 .course("CMPSC 156")
                                 .startTime("2:00PM")
@@ -964,6 +989,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(otherUserId)
+                                .student("DGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -1002,6 +1028,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
@@ -1039,6 +1066,7 @@ public class RideControllerTests extends ControllerTestCase {
 
                 Ride ride_edited = Ride.builder()
                                 .riderId(userId)
+                                .student("CGaucho")
                                 .day("Thursday")
                                 .course("MATH 118C")
                                 .startTime("12:30PM")
