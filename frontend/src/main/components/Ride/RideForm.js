@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
-
     const navigate = useNavigate();
     
     // Stryker disable all
