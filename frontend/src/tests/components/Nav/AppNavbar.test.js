@@ -407,7 +407,11 @@ describe("AppNavbar tests", () => {
         const aElement = dropdown.querySelector("a");
         expect(aElement).toBeInTheDocument();
         aElement?.click();
-        await findByTestId(/appnavbar-ride-create-dropdown/);      
+        await findByTestId(/appnavbar-ride-create-dropdown/);   
+        
+        const rideCreate = screen.queryByTestId("appnavbar-ride-create-dropdown");
+        expect(rideCreate).toBeInTheDocument();        
+
     });
 
     test("not render ride links for regular user", async () => {
@@ -451,7 +455,7 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
 
-        const { getByText } = render(
+        const { getByText, getByTestId, findByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} doLogin={doLogin} />
@@ -459,9 +463,22 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
-        const rideMenu = screen.queryByTestId("appnavbar-ride-create-dropdown");
-        expect(rideMenu).not.toBeInTheDocument();        
+        await findByTestId("appnavbar-ride-dropdown");
+        const dropdown = getByTestId("appnavbar-ride-dropdown");
+        const aElement = dropdown.querySelector("a");
+        expect(aElement).toBeInTheDocument();
+        aElement?.click();
+        
+        const rides = screen.queryByTestId("appnavbar-ride-dropdown-rides");
+        expect(rides).toBeInTheDocument();
+
+        const rideCreate = screen.queryByTestId("appnavbar-ride-create-dropdown");
+        expect(rideCreate).not.toBeInTheDocument(); 
+        
+        const NOrideCreate = screen.queryByTestId("NO-appnavbar-ride-create-dropdown");
+        expect(NOrideCreate).toBeInTheDocument();  
+
+
     });
 
 });
