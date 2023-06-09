@@ -24,6 +24,7 @@ public class Ride {
   private long id;
 
   private long riderId;
+  private String student;
 
   @ApiModelProperty(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
   private String day;

@@ -96,6 +96,40 @@ const apiCurrentUserFixtures = {
         ]
 
     },
+    adminOnlyNoUser: {
+        "user": {
+            "id": 1,
+            "email": "phtcon@ucsb.edu",
+            "googleSub": "115856948234298493496",
+            "pictureUrl": "https://lh3.googleusercontent.com/-bQynVrzVIrU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmkGuVsELD1ZeV5iDUAUfe6_K-p8w/s96-c/photo.jpg",
+            "fullName": "Phill Conrad",
+            "givenName": "Phill",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": "ucsb.edu",
+            "admin": true,
+            "driver": true
+        },
+        "roles": [
+            {
+                "authority": "ROLE_MEMBER"
+            },
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            },
+            {
+                "authority": "ROLE_ADMIN"
+            }
+        ]
+
+    },
     userOnly: {
 
         "user": {
@@ -140,7 +174,6 @@ const apiCurrentUserFixtures = {
 
     },
     driverOnly: {
-
         "user": {
             "id": 2,
             "email": "pconrad.cis@gmail.com",
@@ -173,7 +206,6 @@ const apiCurrentUserFixtures = {
 
     },
     riderOnly: {
-
         "user": {
             "id": 2,
             "email": "pconrad.cis@gmail.com",
@@ -247,6 +279,19 @@ const currentUserFixtures = {
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_USER",
+                "ROLE_ADMIN"
+            ]
+        },
+    },
+    adminOnlyNoUser: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.adminOnlyNoUser),
+            rolesList: [
+                "ROLE_MEMBER",
+                "SCOPE_openid",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_ADMIN"
             ]
         },
