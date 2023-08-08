@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 
-@Api(description = "Shift information")
+@Tag(name = "Shift information")
 @RequestMapping("/api/shift")
 @RestController
 public class ShiftController extends ApiController {
@@ -37,7 +37,7 @@ public class ShiftController extends ApiController {
     @Autowired
     ObjectMapper mapper;
 
-    @ApiOperation(value = "Get a list of all shifts")
+    @Operation(summary = "Get a list of all shifts")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/all")
     public ResponseEntity<String> allShifts()
@@ -47,26 +47,26 @@ public class ShiftController extends ApiController {
         return ResponseEntity.ok().body(body);
     }
 
-    @ApiOperation(value = "Get shift by id")
+    @Operation(summary = "Get shift by id")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/get")
     public Shift shiftByID(
-            @ApiParam(name = "id", type = "Long", value = "id number of shift to get", example = "1", required = true) @RequestParam Long id)
+            @Parameter(name = "id", type = "Long", value = "id number of shift to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
         Shift shift = shiftRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Shift.class, id));
         return shift;
     }
 
-    @ApiOperation(value = "Create a new shift for the table")
+    @Operation(summary = "Create a new shift for the table")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @PostMapping("/post")
     public Shift postShift(
-        @ApiParam("day") @RequestParam String day,
-        @ApiParam("shiftStart") @RequestParam String shiftStart,
-        @ApiParam("shiftEnd") @RequestParam String shiftEnd,
-        @ApiParam("driverID") @RequestParam long driverID ,
-        @ApiParam("driverBackupID") @RequestParam long driverBackupID
+        @Parameter(name="day") @RequestParam String day,
+        @Parameter(name="shiftStart") @RequestParam String shiftStart,
+        @Parameter(name="shiftEnd") @RequestParam String shiftEnd,
+        @Parameter(name="driverID") @RequestParam long driverID ,
+        @Parameter(name="driverBackupID") @RequestParam long driverBackupID
         )
         {
 
