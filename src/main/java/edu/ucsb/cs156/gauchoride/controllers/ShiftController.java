@@ -51,7 +51,7 @@ public class ShiftController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/get")
     public Shift shiftByID(
-            @Parameter(name = "id", type = "Long", value = "id number of shift to get", example = "1", required = true) @RequestParam Long id)
+            @Parameter(name = "id", description = "Long, id number of shift to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
         Shift shift = shiftRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Shift.class, id));

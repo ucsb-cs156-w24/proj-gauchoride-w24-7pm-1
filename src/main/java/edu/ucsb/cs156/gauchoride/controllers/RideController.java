@@ -53,7 +53,7 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
     public Ride getById(
-            @Parameter(name="id", type="long", value = "Id of the Ride to get", 
+            @Parameter(name="id", description = "long, Id of the Ride to get", 
             required = true)  
             @RequestParam Long id) {
         Ride ride;
@@ -74,26 +74,26 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
     public Ride postRide(
-        @Parameter(name="day", type="String", value = "Day of the week ride is requested (Monday - Sunday)", example="Tuesday", 
-                    required = true, allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday") 
+        @Parameter(name="day", description="String, Day of the week ride is requested (Monday - Sunday) and allows Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday", 
+                    example="Tuesday", required = true) 
         @RequestParam String day,
 
-        @Parameter(name="startTime", type="String", value = "Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
+        @Parameter(name="startTime", description="String, Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
         @RequestParam String startTime,
 
-        @Parameter(name="endTime", type="String", value = "Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
+        @Parameter(name="endTime", description="String, Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
         @RequestParam String endTime,
 
-        @Parameter(name="pickupLocation", type="String", value = "Location the ride starts", example="Phelps Hall", required = true)
+        @Parameter(name="pickupLocation", description="String, Location the ride starts", example="Phelps Hall", required = true)
         @RequestParam String pickupLocation,
 
-        @Parameter(name="dropoffLocation", type="String", value = "Location the ride ends", example="South Hall", required = true)
+        @Parameter(name="dropoffLocation", description="String, Location the ride ends", example="South Hall", required = true)
         @RequestParam String dropoffLocation,
 
-        @Parameter(name="room", type="String", value = "Room number for the dropoffLocation", example="1431", required = true)
+        @Parameter(name="room", description="String, Room number for the dropoffLocation", example="1431", required = true)
         @RequestParam String room,
 
-        @Parameter(name="course", type="String", value = "Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
+        @Parameter(name="course", description="String, Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
         @RequestParam String course
         )
         {
@@ -119,7 +119,7 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @DeleteMapping("")
     public Object deleteRide(
-        @Parameter(name="id", type="long", value = "Id of the Ride to be deleted", 
+        @Parameter(name="id", description="long, Id of the Ride to be deleted", 
         required = true)
         @RequestParam Long id) {
 
@@ -143,7 +143,7 @@ public class RideController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @PutMapping("")
     public Ride updateRide(
-            @Parameter(name="id", type="long", value = "Id of the Ride to be edited", 
+            @Parameter(name="id", description="long, Id of the Ride to be edited", 
             required = true)
             @RequestParam Long id,
             @RequestBody @Valid Ride incoming) {

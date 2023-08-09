@@ -49,7 +49,7 @@ public class UsersController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get")
     public User users(
-            @Parameter(name = "id", type = "Long", value = "id number of user to get", example = "1", required = true) @RequestParam Long id)
+            @Parameter(name = "id", description = "Long, id number of user to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
@@ -60,7 +60,7 @@ public class UsersController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public Object deleteUser_Admin(
-            @Parameter(name = "id", type = "Long", value = "id number of user to delete", example = "1", required = true) @RequestParam Long id) {
+            @Parameter(name = "id", description = "Long, id number of user to delete", example = "1", required = true) @RequestParam Long id) {
               User user = userRepository.findById(id)
           .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
@@ -73,7 +73,7 @@ public class UsersController extends ApiController {
     @Operation(summary = "Toggle the admin field")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/toggleAdmin")
-    public Object toggleAdmin( @Parameter(name = "id", type = "Long", value = "id number of user to toggle their admin field", example = "1", required = true) @RequestParam Long id){
+    public Object toggleAdmin( @Parameter(name = "id", description = "Long, id number of user to toggle their admin field", example = "1", required = true) @RequestParam Long id){
         User user = userRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
@@ -85,7 +85,7 @@ public class UsersController extends ApiController {
     @Operation(summary = "Toggle the driver field")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/toggleDriver")
-    public Object toggleDriver( @Parameter(name = "id", type = "Long", value = "id number of user to toggle their driver field", example = "1", required = true) @RequestParam Long id){
+    public Object toggleDriver( @Parameter(name = "id", description = "Long, id number of user to toggle their driver field", example = "1", required = true) @RequestParam Long id){
         User user = userRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
