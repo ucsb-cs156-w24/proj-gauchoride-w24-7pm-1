@@ -49,7 +49,7 @@ public class UsersController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get")
     public User users(
-            @ApiParam("id") @RequestParam Long id)
+            @ApiParam(name = "id", type = "Long", value = "id number of user to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
@@ -60,7 +60,7 @@ public class UsersController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public Object deleteUser_Admin(
-            @ApiParam("id") @RequestParam Long id) {
+            @ApiParam(name = "id", type = "Long", value = "id number of user to delete", example = "1", required = true) @RequestParam Long id) {
               User user = userRepository.findById(id)
           .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
@@ -73,13 +73,25 @@ public class UsersController extends ApiController {
     @ApiOperation(value = "Toggle the admin field")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/toggleAdmin")
-    public Object toggleAdmin( @ApiParam("id") @RequestParam Long id){
+    public Object toggleAdmin( @ApiParam(name = "id", type = "Long", value = "id number of user to toggle their admin field", example = "1", required = true) @RequestParam Long id){
         User user = userRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
         user.setAdmin(!user.getAdmin());
         userRepository.save(user);
         return genericMessage("User with id %s has toggled admin status".formatted(id));
+    }
+
+    @ApiOperation(value = "Toggle the driver field")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/toggleDriver")
+    public Object toggleDriver( @ApiParam(name = "id", type = "Long", value = "id number of user to toggle their driver field", example = "1", required = true) @RequestParam Long id){
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+
+        user.setDriver(!user.getDriver());
+        userRepository.save(user);
+        return genericMessage("User with id %s has toggled driver status".formatted(id));
     }
 
 }

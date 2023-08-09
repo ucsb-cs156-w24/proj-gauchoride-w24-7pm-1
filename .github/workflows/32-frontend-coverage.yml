@@ -3,17 +3,16 @@ name: "32-frontend-coverage: Frontend Coverage (JavaScript/Jest)"
 on:
   workflow_dispatch:
   pull_request:
-    paths: [frontend/**]
+    paths: [frontend/**, .github/workflows/32-frontend-coverage.yml]
   push:
     branches: [main]
-    paths: [frontend/**]
+    paths: [frontend/**, .github/workflows/32-frontend-coverage.yml]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
- 
     steps:
       - uses: szenius/set-timezone@v1.2
         with:
@@ -21,6 +20,19 @@ jobs:
       - uses: actions/checkout@v3.5.2
         with: 
           fetch-depth: 2
+
+      - name: Get PR number
+        id: get-pr-num
+        run: |
+          echo "GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH}"
+          pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          echo "pr_number=${pr_number}" 
+          if [[ "${pr_number}" == "null" ]]; then
+            echo "This is not a PR"
+            pr_number="main"
+          fi
+          echo "pr_number=${pr_number}" >> "$GITHUB_ENV"
+                
       - name: Setup Node.js
         uses: actions/setup-node@v3.6.0
         with:
@@ -39,6 +51,17 @@ jobs:
           name: jest-coverage
           path: frontend/coverage/lcov-report/*
      
+      - name: Set path for github pages deploy when there is a PR num
+        if: always() # always upload artifacts, even if tests fail
+        run: |
+          if [ "${{env.pr_number }}" = "main" ]; then
+              prefix=""
+          else
+              prefix="prs/${{ env.pr_number }}/"
+          fi
+          echo "prefix=${prefix}"
+          echo "prefix=${prefix}" >> "$GITHUB_ENV"
+      
       - name: Deploy 🚀
         if: always() # always upload artifacts, even if tests fail
         uses: JamesIves/github-pages-deploy-action@v4
@@ -46,7 +69,7 @@ jobs:
           branch: gh-pages # The branch the action should deploy to.
           folder: frontend/coverage/lcov-report # The folder where the javadoc files are located
           clean: true # Automatically remove deleted files from the deploy branch
-          target-folder: coverage # The folder that we serve our javadoc files from
+          target-folder: ${{env.prefix}}coverage # The folder that we serve our javadoc files from
 
 
   
