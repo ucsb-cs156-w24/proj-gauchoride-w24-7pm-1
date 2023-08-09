@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.GeneratedValue;
 
@@ -26,7 +26,7 @@ public class Ride {
   private long riderId;
   private String student;
 
-  @ApiModelProperty(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
+  @Schema(allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday")
   private String day;
   
   private String startTime; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"

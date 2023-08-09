@@ -3,9 +3,10 @@ package edu.ucsb.cs156.gauchoride.controllers;
 import edu.ucsb.cs156.gauchoride.entities.Ride;
 import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
 import edu.ucsb.cs156.gauchoride.repositories.RideRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 
-@Api(description = "Ride Request")
+@Tag(name = "Ride Request")
 @RequestMapping("/api/ride_request")
 @RestController
 
@@ -32,7 +33,7 @@ public class RideController extends ApiController {
     @Autowired
     RideRepository rideRepository;
 
-    @ApiOperation(value = "List all rides, only user's if not admin/driver")
+    @Operation(summary = "List all rides, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<Ride> allRides() {
@@ -48,11 +49,11 @@ public class RideController extends ApiController {
         return rides;
     }
 
-    @ApiOperation(value = "Get a single ride by id, only user's if not admin/driver")
+    @Operation(summary = "Get a single ride by id, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @GetMapping("")
     public Ride getById(
-            @ApiParam(name="id", type="long", value = "Id of the Ride to get", 
+            @Parameter(name="id", description = "long, Id of the Ride to get", 
             required = true)  
             @RequestParam Long id) {
         Ride ride;
@@ -69,30 +70,30 @@ public class RideController extends ApiController {
         return ride;
     }
 
-    @ApiOperation(value = "Create a new ride")
+    @Operation(summary = "Create a new ride")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
     public Ride postRide(
-        @ApiParam(name="day", type="String", value = "Day of the week ride is requested (Monday - Sunday)", example="Tuesday", 
-                    required = true, allowableValues = "Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday") 
+        @Parameter(name="day", description="String, Day of the week ride is requested (Monday - Sunday) and allows Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday", 
+                    example="Tuesday", required = true) 
         @RequestParam String day,
 
-        @ApiParam(name="startTime", type="String", value = "Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
+        @Parameter(name="startTime", description="String, Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
         @RequestParam String startTime,
 
-        @ApiParam(name="endTime", type="String", value = "Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
+        @Parameter(name="endTime", description="String, Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
         @RequestParam String endTime,
 
-        @ApiParam(name="pickupLocation", type="String", value = "Location the ride starts", example="Phelps Hall", required = true)
+        @Parameter(name="pickupLocation", description="String, Location the ride starts", example="Phelps Hall", required = true)
         @RequestParam String pickupLocation,
 
-        @ApiParam(name="dropoffLocation", type="String", value = "Location the ride ends", example="South Hall", required = true)
+        @Parameter(name="dropoffLocation", description="String, Location the ride ends", example="South Hall", required = true)
         @RequestParam String dropoffLocation,
 
-        @ApiParam(name="room", type="String", value = "Room number for the dropoffLocation", example="1431", required = true)
+        @Parameter(name="room", description="String, Room number for the dropoffLocation", example="1431", required = true)
         @RequestParam String room,
 
-        @ApiParam(name="course", type="String", value = "Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
+        @Parameter(name="course", description="String, Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
         @RequestParam String course
         )
         {
@@ -114,11 +115,11 @@ public class RideController extends ApiController {
         return savedRide;
     }
 
-    @ApiOperation(value = "Delete a ride, only user's if not admin/driver")
+    @Operation(summary = "Delete a ride, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @DeleteMapping("")
     public Object deleteRide(
-        @ApiParam(name="id", type="long", value = "Id of the Ride to be deleted", 
+        @Parameter(name="id", description="long, Id of the Ride to be deleted", 
         required = true)
         @RequestParam Long id) {
 
@@ -138,11 +139,11 @@ public class RideController extends ApiController {
     }
 
 
-    @ApiOperation(value = "Update a single ride, only user's if not admin/driver")
+    @Operation(summary = "Update a single ride, only user's if not admin/driver")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
     @PutMapping("")
     public Ride updateRide(
-            @ApiParam(name="id", type="long", value = "Id of the Ride to be edited", 
+            @Parameter(name="id", description="long, Id of the Ride to be edited", 
             required = true)
             @RequestParam Long id,
             @RequestBody @Valid Ride incoming) {
