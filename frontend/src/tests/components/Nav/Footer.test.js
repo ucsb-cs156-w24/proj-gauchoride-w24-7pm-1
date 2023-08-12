@@ -33,6 +33,19 @@ describe("Footer tests", () => {
             "https://www.as.ucsb.edu/sticker-packs"
         );
     });
+
+    // tests taken from https://github.com/ucsb-cs156/proj-courses repo
+    test("space stands for a space", () => {
+        expect(space).toBe(" ");
+    });
+
+    test("Link is correct", async () => {
+        render(<Footer />)
+        expect(screen.getByTestId("footer-sticker-link")).toHaveAttribute(
+          "href",
+          "https://www.as.ucsb.edu/sticker-packs"
+        );
+      });
 });
 
 

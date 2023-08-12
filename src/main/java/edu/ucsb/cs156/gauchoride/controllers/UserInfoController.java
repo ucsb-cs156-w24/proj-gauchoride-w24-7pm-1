@@ -1,7 +1,7 @@
 package edu.ucsb.cs156.gauchoride.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +12,12 @@ import edu.ucsb.cs156.gauchoride.entities.User;
 import edu.ucsb.cs156.gauchoride.models.CurrentUser;
 import edu.ucsb.cs156.gauchoride.services.CurrentUserService;
 
-@Api(description="Current User Information")
+@Tag(name="Current User Information")
 @RequestMapping("/api/currentUser")
 @RestController
 public class UserInfoController extends ApiController {
  
-  @ApiOperation(value = "Get information about current user")
+  @Operation(summary = "Get information about current user")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("")
   public CurrentUser getCurrentUser() {

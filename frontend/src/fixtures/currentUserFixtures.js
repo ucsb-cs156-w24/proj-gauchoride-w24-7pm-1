@@ -11,7 +11,9 @@ const apiCurrentUserFixtures = {
             "emailVerified": true,
             "locale": "en",
             "hostedDomain": "ucsb.edu",
-            "admin": true
+            "admin": true,
+            "driver": false,
+            "rider": false
         },
         "roles": [
             {
@@ -46,6 +48,88 @@ const apiCurrentUserFixtures = {
         ]
 
     },
+    adminOnly: {
+        "user": {
+            "id": 1,
+            "email": "phtcon@ucsb.edu",
+            "googleSub": "115856948234298493496",
+            "pictureUrl": "https://lh3.googleusercontent.com/-bQynVrzVIrU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmkGuVsELD1ZeV5iDUAUfe6_K-p8w/s96-c/photo.jpg",
+            "fullName": "Phill Conrad",
+            "givenName": "Phill",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": "ucsb.edu",
+            "admin": true,
+            "driver": true
+        },
+        "roles": [
+            {
+                "authority": "ROLE_MEMBER"
+            },
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            },
+            {
+                "authority": "ROLE_USER",
+                "attributes": {
+                    "sub": "115856948234298493496",
+                    "name": "Phill Conrad",
+                    "given_name": "Phill",
+                    "family_name": "Conrad",
+                    "picture": "https://lh3.googleusercontent.com/a/AATXAJyxrU2gDahCiNe4ampVZlv5176Jo0F0PG3KyYgk=s96-c",
+                    "email": "phtcon@ucsb.edu",
+                    "email_verified": true,
+                    "locale": "en",
+                    "hd": "ucsb.edu"
+                }
+            },
+            {
+                "authority": "ROLE_ADMIN"
+            }
+        ]
+
+    },
+    adminOnlyNoUser: {
+        "user": {
+            "id": 1,
+            "email": "phtcon@ucsb.edu",
+            "googleSub": "115856948234298493496",
+            "pictureUrl": "https://lh3.googleusercontent.com/-bQynVrzVIrU/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmkGuVsELD1ZeV5iDUAUfe6_K-p8w/s96-c/photo.jpg",
+            "fullName": "Phill Conrad",
+            "givenName": "Phill",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": "ucsb.edu",
+            "admin": true,
+            "driver": true
+        },
+        "roles": [
+            {
+                "authority": "ROLE_MEMBER"
+            },
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            },
+            {
+                "authority": "ROLE_ADMIN"
+            }
+        ]
+
+    },
     userOnly: {
 
         "user": {
@@ -59,7 +143,9 @@ const apiCurrentUserFixtures = {
             "emailVerified": true,
             "locale": "en",
             "hostedDomain": null,
-            "admin": false
+            "admin": false,
+            "driver": false,
+            "rider": false
         },
         "roles": [
             {
@@ -86,6 +172,69 @@ const apiCurrentUserFixtures = {
             }
         ]
 
+    },
+    driverOnly: {
+        "user": {
+            "id": 2,
+            "email": "pconrad.cis@gmail.com",
+            "googleSub": "102656447703889917227",
+            "pictureUrl": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+            "fullName": "Phillip Conrad",
+            "givenName": "Phillip",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": null,
+            "admin": false,
+            "driver": true,
+            "rider": false
+        },
+        "roles": [
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "ROLE_DRIVER",
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            }
+        ]
+
+    },
+    riderOnly: {
+        "user": {
+            "id": 2,
+            "email": "pconrad.cis@gmail.com",
+            "googleSub": "102656447703889917227",
+            "pictureUrl": "https://lh3.googleusercontent.com/a-/AOh14GhpDBUt8eCEqiRT45hrFbcimsX_h1ONn0dc3HV8Bp8=s96-c",
+            "fullName": "Phillip Conrad",
+            "givenName": "Phillip",
+            "familyName": "Conrad",
+            "emailVerified": true,
+            "locale": "en",
+            "hostedDomain": null,
+            "admin": false,
+            "driver": false,
+            "rider": true
+        },
+        "roles": [
+            {
+                "authority": "SCOPE_openid"
+            },
+            {
+                "authority": "ROLE_RIDER",
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.profile"
+            },
+            {
+                "authority": "SCOPE_https://www.googleapis.com/auth/userinfo.email"
+            }
+        ]
     },
     missingRolesToTestErrorHandling:  {
         "user": {
@@ -115,6 +264,34 @@ const currentUserFixtures = {
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_USER",
+                "ROLE_DRIVER",
+                "ROLE_ADMIN"
+            ]
+        },
+    },
+    adminOnly: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.adminOnly),
+            rolesList: [
+                "ROLE_MEMBER",
+                "SCOPE_openid",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
+                "ROLE_USER",
+                "ROLE_ADMIN"
+            ]
+        },
+    },
+    adminOnlyNoUser: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.adminOnlyNoUser),
+            rolesList: [
+                "ROLE_MEMBER",
+                "SCOPE_openid",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
                 "ROLE_ADMIN"
             ]
         },
@@ -126,6 +303,30 @@ const currentUserFixtures = {
             rolesList: [
                 "SCOPE_openid",
                 "ROLE_USER",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
+            ]
+        },
+    },
+    driverOnly: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.driverOnly),
+            rolesList: [
+                "SCOPE_openid",
+                "ROLE_DRIVER",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
+                "SCOPE_https://www.googleapis.com/auth/userinfo.email",
+            ]
+        },
+    },
+    riderOnly: {
+        loggedIn: true,
+        root: {
+            ...(apiCurrentUserFixtures.riderOnly),
+            rolesList: [
+                "SCOPE_openid",
+                "ROLE_RIDER",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.profile",
                 "SCOPE_https://www.googleapis.com/auth/userinfo.email",
             ]

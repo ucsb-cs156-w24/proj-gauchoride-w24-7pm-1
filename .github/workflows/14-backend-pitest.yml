@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
-    paths: [src/**, pom.xml, lombok.config]
+    paths: [src/**, pom.xml, lombok.config, .github/workflows/14-backend-pitest.yml]
 
 jobs:
   build:

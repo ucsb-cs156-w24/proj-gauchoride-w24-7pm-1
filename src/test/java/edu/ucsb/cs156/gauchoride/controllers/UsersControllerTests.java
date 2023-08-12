@@ -234,7 +234,7 @@ public class UsersControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
-  public void admin_tries_to_toggle_non_existant_user_and_gets_right_error_message() throws Exception {
+  public void admin_tries_to_toggleAdmin_non_existant_user_and_gets_right_error_message() throws Exception {
           // arrange
         
     
@@ -255,6 +255,7 @@ public class UsersControllerTests extends ControllerTestCase {
   }
 
   // driver toggle tests
+
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void admin_can_toggle_driver_status_of_a_user_from_false_to_true() throws Exception {
@@ -323,6 +324,7 @@ public class UsersControllerTests extends ControllerTestCase {
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void admin_tries_to_toggle_driver_for_non_existant_user_and_gets_right_error_message() throws Exception {
+
           // arrange
         
     

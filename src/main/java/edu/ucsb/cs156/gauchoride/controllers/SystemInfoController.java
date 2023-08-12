@@ -1,7 +1,7 @@
 package edu.ucsb.cs156.gauchoride.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +17,7 @@ import edu.ucsb.cs156.gauchoride.services.SystemInfoService;
  * the values of environment variables that may be needed by the frontend.
  */
 
-@Api(description = "System Information")
+@Tag(name = "System Information")
 @RequestMapping("/api/systemInfo")
 @RestController
 public class SystemInfoController extends ApiController {
@@ -25,7 +25,7 @@ public class SystemInfoController extends ApiController {
     @Autowired
     private SystemInfoService systemInfoService;
 
-    @ApiOperation(value = "Get global information about the application")
+    @Operation(summary = "Get global information about the application")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("")
     public SystemInfo getSystemInfo() {

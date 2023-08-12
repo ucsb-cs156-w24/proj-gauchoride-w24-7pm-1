@@ -8,7 +8,7 @@ name: "33-frontend-pr-mutation-testing: Stryker JS Mutation Testing (JavaScript/
 on:
   workflow_dispatch:
   pull_request:
-    paths: [frontend/**]
+    paths: [frontend/**, .github/workflows/33-frontend-pr-mutation-testing.yml]
 
 jobs:
   build:
