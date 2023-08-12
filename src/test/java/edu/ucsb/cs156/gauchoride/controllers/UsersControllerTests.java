@@ -196,7 +196,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled admin status", json.get("message"));
+          assertEquals("User with id 15 has toggled admin status to true", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -229,7 +229,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled admin status", json.get("message"));
+          assertEquals("User with id 15 has toggled admin status to false", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -284,7 +284,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled driver status", json.get("message"));
+          assertEquals("User with id 15 has toggled driver status to true", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -317,7 +317,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled driver status", json.get("message"));
+          assertEquals("User with id 15 has toggled driver status to false", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -373,7 +373,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled rider status", json.get("message"));
+          assertEquals("User with id 15 has toggled rider status to true", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
@@ -406,7 +406,7 @@ public class UsersControllerTests extends ControllerTestCase {
           verify(userRepository, times(1)).save(userAfter);
 
           Map<String, Object> json = responseToJson(response);
-          assertEquals("User with id 15 has toggled rider status", json.get("message"));
+          assertEquals("User with id 15 has toggled rider status to false", json.get("message"));
   }
 
   @WithMockUser(roles = { "ADMIN", "USER" })
