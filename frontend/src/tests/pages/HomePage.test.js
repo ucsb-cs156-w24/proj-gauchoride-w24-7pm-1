@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor , screen} from "@testing-library/react";
 
 import HomePage from "main/pages/HomePage";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -8,7 +8,6 @@ import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import { render, waitFor, screen } from "@testing-library/react";
 
 describe("HomePage tests", () => {
 
@@ -111,8 +110,7 @@ describe("HomePage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor( () => expect(getByText("Hey there!")).toBeInTheDocument() );
-        expect(getByText("This app is being built by the students of CMPSC 156 at UCSB to assist an effort to provide transportation for UCSB students with mobility issues to be better able to get to and from class.")).toBeInTheDocument();
+        await waitFor( () => expect(getByText("This app is being built by the students of CMPSC 156 at UCSB to assist an effort to provide transportation for UCSB students with mobility issues to be better able to get to and from class.")).toBeInTheDocument() );
     });
 
 });

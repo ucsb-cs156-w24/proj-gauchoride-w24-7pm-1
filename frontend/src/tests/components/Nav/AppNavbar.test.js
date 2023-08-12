@@ -191,7 +191,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        expect(await screen.findByTestId("AppNavbarImage")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 10px;');     
+        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');     
     });
 
 
