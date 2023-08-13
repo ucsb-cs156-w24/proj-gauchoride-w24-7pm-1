@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,7 +78,7 @@ public class UsersController extends ApiController {
 
         user.setAdmin(!user.getAdmin());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled admin status".formatted(id));
+        return genericMessage("User with id %s has toggled admin status to %s".formatted(id, user.getAdmin()));
     }
 
     @Operation(summary = "Toggle the driver field")
@@ -91,7 +90,18 @@ public class UsersController extends ApiController {
 
         user.setDriver(!user.getDriver());
         userRepository.save(user);
-        return genericMessage("User with id %s has toggled driver status".formatted(id));
+        return genericMessage("User with id %s has toggled driver status to %s".formatted(id, user.getDriver()));
     }
 
+    @Operation(summary = "Toggle the rider field")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/toggleRider")
+    public Object toggleRider( @Parameter(name = "id") @RequestParam Long id){
+        User user = userRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+
+        user.setRider(!user.getRider());
+        userRepository.save(user);
+        return genericMessage("User with id %s has toggled rider status to %s".formatted(id, user.getRider()));
+    }
 }
