@@ -81,10 +81,12 @@ public class UsersController extends ApiController {
         return genericMessage("User with id %s has toggled admin status to %s".formatted(id, user.getAdmin()));
     }
 
+
     @Operation(summary = "Toggle the driver field")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/toggleDriver")
     public Object toggleDriver( @Parameter(name = "id", description = "Long, id number of user to toggle their driver field", example = "1", required = true) @RequestParam Long id){
+
         User user = userRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 

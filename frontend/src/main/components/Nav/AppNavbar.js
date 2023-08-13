@@ -1,7 +1,7 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
-import headerImg from "../../../assets/header-logo-240.png"
+import headerImg from "../../../assets/stork.png"
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 function isParticipant(currentUser) {
@@ -26,7 +26,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
       backgroundColor: "#003660",
     }
   }
-  
+
   return (
     <>
       {
@@ -34,9 +34,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
           <AppNavbarLocalhost url={currentUrl} />
         )
       }
+
       <Navbar expand="xl" variant="dark" sticky="top" data-testid="AppNavbar" style={styles.navbar}>
         <Container>
-        <img data-testid="AppNavbarImage" src={headerImg} alt="" style={{width: 80, height: 80, marginRight: 10}} />
+        <img data-testid="gauchoride-nav-logo" src={headerImg} alt="" style={{width: 80, height: 80, marginRight: 15}} />
+
           <Navbar.Brand as={Link} to="/">
             GauchoRide
           </Navbar.Brand>

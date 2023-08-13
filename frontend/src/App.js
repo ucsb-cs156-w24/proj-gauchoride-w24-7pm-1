@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
+import PageNotFound from "main/pages/PageNotFound";
 
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
@@ -49,8 +50,9 @@ function App() {
         }
         {
           hasRole(currentUser, "ROLE_USER")
-          
         }
+        <Route exact path="/*" element={<PageNotFound />} />
+
       </Routes>
     </BrowserRouter>
   );

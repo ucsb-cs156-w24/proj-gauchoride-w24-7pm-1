@@ -254,6 +254,8 @@ public class UsersControllerTests extends ControllerTestCase {
           assertEquals("User with id 15 not found", json.get("message"));
   }
 
+  // driver toggle tests
+
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
   public void admin_can_toggle_driver_status_of_a_user_from_false_to_true() throws Exception {
@@ -269,7 +271,6 @@ public class UsersControllerTests extends ControllerTestCase {
           .id(15L)
           .driver(true)
           .build();
-
     
           when(userRepository.findById(eq(15L))).thenReturn(Optional.of(userBefore));
           when(userRepository.save(eq(userAfter))).thenReturn(userAfter);
@@ -322,7 +323,8 @@ public class UsersControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = { "ADMIN", "USER" })
   @Test
-  public void admin_tries_to_toggleDriver_non_existant_user_and_gets_right_error_message() throws Exception {
+  public void admin_tries_to_toggle_driver_for_non_existant_user_and_gets_right_error_message() throws Exception {
+
           // arrange
         
     

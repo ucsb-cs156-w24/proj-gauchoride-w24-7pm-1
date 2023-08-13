@@ -1,4 +1,5 @@
 import { screen, render, waitFor} from "@testing-library/react";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -190,7 +191,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        expect(await screen.findByTestId("AppNavbarImage")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 10px;');     
+        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');     
     });
 
 
@@ -277,11 +278,27 @@ describe("AppNavbar tests", () => {
         expect(queryByTestId(/AppNavbarLocalhost/i)).toBeNull();
     });
 
+    test("renders image correctly", async () => {
+        const currentUser = currentUserFixtures.adminUser;
+        const systemInfo = systemInfoFixtures.showingBoth;
 
-    test("Navbar has UCSB-blue background color, regular user", () => {
-        
-        const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                    </MemoryRouter>
+            </QueryClientProvider>
+        );
+        expect(await screen.findByTestId("gauchoride-nav-logo")).toHaveAttribute('style', 'width: 80px; height: 80px; margin-right: 15px;');
+    });
+                    
+    test("background of AppNavbar is UCSB's navy color", async () => {
+
+        const currentUser = currentUserFixtures;
+        const doLogin = jest.fn();
+
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -290,10 +307,10 @@ describe("AppNavbar tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-       
-        const navbar = getByTestId("AppNavbar");
-        expect(navbar).toHaveStyle("background-color: #003660");
-      });
+     
+        await waitFor(() => expect(getByTestId(`AppNavbar`)).toHaveStyle(`backgroundColor: #003660`));
+    });
+
 
       test("Navbar has UCSB-blue background color, admin user", () => {
         
