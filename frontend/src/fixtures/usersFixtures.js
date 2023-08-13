@@ -12,7 +12,8 @@ const usersFixtures = {
             "locale": "en",
             "hostedDomain": "ucsb.edu",
             "admin": true,
-            "driver": false
+            "driver": false,
+            "rider": false
         },
         {
             "id": 2,
@@ -26,7 +27,8 @@ const usersFixtures = {
             "locale": "en",
             "hostedDomain": null,
             "admin": false,
-            "driver": true
+            "driver": true,
+            "rider": false
         },
         {
             "id": 3,
@@ -40,7 +42,8 @@ const usersFixtures = {
             "locale": "en",
             "hostedDomain": null,
             "admin": false,
-            "driver": false
+            "driver": false,
+            "rider": true
         }
     ]
 }
