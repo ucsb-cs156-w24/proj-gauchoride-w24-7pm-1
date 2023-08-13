@@ -1,0 +1,92 @@
+name: 98 - Copy specific issue from starter repo (creates new issue)
+
+# This workflow is intended for the situation where the issues have 
+# already been copied from the starter repo, but later a new issue
+# is added.  It can be used to copy over specific issues one at a time.
+#
+# For bulk copy of all issues, see workflow 99
+
+env:
+    GH_TOKEN: ${{ github.token }}
+    STARTER: https://github.com/ucsb-cs156/proj-gauchoride
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        type: number
+        description: issue number from https://github.com/ucsb-cs156/proj-gauchoride
+      
+jobs:
+  initialize:
+    name: List Issue to JSON
+    runs-on: ubuntu-latest
+    outputs:
+        issues: ${{ steps.get-issues.outputs.issues }}  
+    steps:
+      - uses: actions/checkout@v3
+            
+      - name: List Issues
+        id: get-issues
+        run: |
+          number=${{ github.event.inputs.issue_number }}
+          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq --argjson issue_num $number  '[ ( .[] | select(.number==$issue_num) | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json
+          cat issues.json
+          {
+               echo 'issues<<THIS_IS_THIS_EOF_MARKER'
+               cat issues.json
+               echo THIS_IS_THIS_EOF_MARKER
+          } >> "$GITHUB_OUTPUT"
+
+  addIssuesToRepo:
+    name: Add issue (${{ matrix.value.number }}) to repo 
+    runs-on: ubuntu-latest
+    needs: [initialize]
+
+    env:
+      destination: target/site/apidocs  
+    strategy:
+      matrix:
+        value: ${{ fromJSON(needs.initialize.outputs.issues)}}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3.5.2
+         
+      - name: Create issue
+        uses: dacbd/create-issue-action@main
+        id: new-issue
+        with:
+            token: ${{ github.token }}
+            title: ${{ matrix.value.title }}
+            body: ${{ matrix.value.body }}
+            labels: ${{ matrix.value.labels }}
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ steps.new-issue.outputs.number }}
+          body: |
+            Copied from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}
+           
+      - run: |
+          echo "Copied issue ${{ github.event.inputs.issue_number }} from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}" >> "$GITHUB_STEP_SUMMARY"
+          echo " to issue ${{ steps.new-issue.outputs.number }} at url ${{ steps.new-issue.outputs.html_url }}" >> "$GITHUB_STEP_SUMMARY"
+          
+  ifIssueNotFoundNotify:
+    needs: [initialize]
+    runs-on: ubuntu-latest
+    if: ${{ needs.initialize.outputs.issues == '[]' || needs.initialize.outputs.issues == '' }}
+    steps:
+      - name: Notify of failure
+        run: |
+          echo "ERROR: Issue ${{ github.event.inputs.issue_number }} could not be retrieved from  ${{ env.STARTER }}" >> "$GITHUB_STEP_SUMMARY"
+
+ 
+
+
+
+
+
+    
+
+        
