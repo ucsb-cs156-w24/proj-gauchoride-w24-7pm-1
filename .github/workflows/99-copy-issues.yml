@@ -4,6 +4,7 @@ name: 99 - Copy issues from starter repo
 env:
     GH_TOKEN: ${{ github.token }}
     STARTER: https://github.com/ucsb-cs156/proj-gauchoride
+    STARTER_NAME: ucsb-cs156/proj-gauchoride
 on:
   workflow_dispatch:
 
@@ -47,6 +48,7 @@ jobs:
         uses: actions/checkout@v3.5.2
          
       - name: Create issue
+        id: new-issue
         uses: dacbd/create-issue-action@main
         with:
             token: ${{ github.token }}
@@ -54,7 +56,16 @@ jobs:
             body: ${{ matrix.value.body }}
             labels: ${{ matrix.value.labels }}
         
+      - name: Create comment on new issue
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ steps.new-issue.outputs.number }}
+          body: |
+            Copied from ${{ env.STARTER }}/issues/${{ matrix.value.number }}
 
+      - run: |
+          echo "Copied issue ${{ github.event.inputs.issue_number }} from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}" >> "$GITHUB_STEP_SUMMARY"
+          echo " to issue ${{ steps.new-issue.outputs.number }} at url ${{ steps.new-issue.outputs.html_url }}" >> "$GITHUB_STEP_SUMMARY"
  
            
 
