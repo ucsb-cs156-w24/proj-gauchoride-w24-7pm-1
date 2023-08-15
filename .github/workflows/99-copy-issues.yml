@@ -63,14 +63,6 @@ jobs:
           body: |
             Copied from ${{ env.STARTER }}/issues/${{ matrix.value.number }}
 
-      - name: Create comment on old issue
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          repository: ${{ env.STARTER_NAME }}
-          issue-number: ${{ matrix.value.number }}
-          body: |
-            Copied to https://github.com/${{ github.repository }}/issues/${{ steps.new-issue.outputs.number}}
-           
       - run: |
           echo "Copied issue ${{ github.event.inputs.issue_number }} from ${{ env.STARTER }}/issues/${{ github.event.inputs.issue_number }}" >> "$GITHUB_STEP_SUMMARY"
           echo " to issue ${{ steps.new-issue.outputs.number }} at url ${{ steps.new-issue.outputs.html_url }}" >> "$GITHUB_STEP_SUMMARY"
