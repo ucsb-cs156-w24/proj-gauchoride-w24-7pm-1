@@ -4,6 +4,7 @@ name: 99 - Copy issues from starter repo
 env:
     GH_TOKEN: ${{ github.token }}
     STARTER: https://github.com/ucsb-cs156/proj-gauchoride
+    STARTER_NAME: ucsb-cs156/proj-gauchoride
 on:
   workflow_dispatch:
 
@@ -65,7 +66,7 @@ jobs:
       - name: Create comment on old issue
         uses: peter-evans/create-or-update-comment@v3
         with:
-          repository: ${{ env.STARTER }}
+          repository: ${{ env.STARTER_NAME }}
           issue-number: ${{ matrix.value.number }}
           body: |
             Copied to https://github.com/${{ github.repository }}/issues/${{ steps.new-issue.outputs.number}}
