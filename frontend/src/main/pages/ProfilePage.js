@@ -102,12 +102,12 @@ const ProfilePage = () => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Input phone number</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>PhoneInput</Form.Label>
+              <Form.Label>Phone number</Form.Label>
               <Form.Control
                 type="text"
                 id="PhoneInput"

@@ -138,9 +138,9 @@ describe("CellPhone tests", () => {
 
         const changeButton = screen.getByText("Change Cell Phone Number");
 
-        expect(screen.queryByText("Modal heading")).not.toBeInTheDocument();
+        expect(screen.queryByText("Input phone number")).not.toBeInTheDocument();
         fireEvent.click(changeButton);
-        expect(screen.getByText("Modal heading")).toBeInTheDocument();
+        expect(screen.getByText("Input phone number")).toBeInTheDocument();
 
         
         const phoneInput = screen.getByPlaceholderText("###-###-####");
@@ -149,7 +149,7 @@ describe("CellPhone tests", () => {
         const saveButton = screen.getByText("Save Changes");
         fireEvent.click(saveButton);
         
-        await waitFor(() => expect(screen.queryByText("Modal heading")).not.toBeInTheDocument());
+        await waitFor(() => expect(screen.queryByText("Input phone number")).not.toBeInTheDocument());
         await waitFor(() => expect(axiosMock.history.put.length).toBe(1));
         
         //"Required request parameter 'cellPhone' for method parameter type String is not present"
@@ -181,9 +181,9 @@ describe("CellPhone tests", () => {
         
         const changeButton = screen.getByText("Change Cell Phone Number");
 
-        expect(screen.queryByText("Modal heading")).not.toBeInTheDocument();
+        expect(screen.queryByText("Input phone number")).not.toBeInTheDocument();
         fireEvent.click(changeButton);
-        expect(screen.getByText("Modal heading")).toBeInTheDocument();
+        expect(screen.getByText("Input phone number")).toBeInTheDocument();
 
         
         const phoneInput = screen.getByTestId("PhoneInput");
@@ -193,7 +193,7 @@ describe("CellPhone tests", () => {
         fireEvent.click(closeButton);
         
         await waitFor(() => expect(screen.queryByText("Cell Phone number changed 987-654-3210")).not.toBeInTheDocument());
-        expect(screen.queryByText("Modal heading")).not.toBeInTheDocument();
+        expect(screen.queryByText("Input phone number")).not.toBeInTheDocument();
         expect(screen.queryByText("cell phone number: 987-654-3210")).not.toBeInTheDocument();
         fireEvent.click(changeButton);
         const saveButton = screen.getByText("Save Changes");
