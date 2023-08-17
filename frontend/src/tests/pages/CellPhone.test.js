@@ -1,13 +1,12 @@
-import { act, render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { apiCurrentUserFixtures, currentUserFixtures }  from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import ProfilePage from "main/pages/ProfilePage";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { useCurrentUser } from "main/utils/currentUser";
 
 
 
@@ -44,7 +43,7 @@ describe("CellPhone tests", () => {
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-        const { getByText } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -62,7 +61,7 @@ describe("CellPhone tests", () => {
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-        const { getByText, getByTestId, queryByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -81,7 +80,7 @@ describe("CellPhone tests", () => {
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.driverOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -99,7 +98,7 @@ describe("CellPhone tests", () => {
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.riderOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -126,7 +125,7 @@ describe("CellPhone tests", () => {
             }
           });
 
-        const { getByText, getById, queryByTestId, getByPlaceholderText } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
@@ -171,7 +170,7 @@ describe("CellPhone tests", () => {
 
         //axiosMock.onPut("/api/userprofile/update-cellPhone?cellPhone=123-456-7890").reply(202);
 
-        const { getByText, getById, queryByTestId, getByPlaceholderText } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ProfilePage />
