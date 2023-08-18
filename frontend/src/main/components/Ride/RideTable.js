@@ -68,7 +68,7 @@ export default function RideTable({
         },
         {
             Header: 'Room #',
-            accessor: 'room',
+            accessor: 'dropoffRoom',
         }
     ];
 
@@ -107,7 +107,7 @@ export default function RideTable({
         },
         {
             Header: 'Room #',
-            accessor: 'room',
+            accessor: 'dropoffRoom',
         }
     ];
 
@@ -146,7 +146,7 @@ export default function RideTable({
         },
         {
             Header: 'Room #',
-            accessor: 'room',
+            accessor: 'dropoffRoom',
         }
     ];
 
