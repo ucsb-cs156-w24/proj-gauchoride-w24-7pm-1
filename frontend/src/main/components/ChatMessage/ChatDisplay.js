@@ -5,11 +5,12 @@ import { useBackend } from 'main/utils/useBackend';
 
 const ChatDisplay = () => {
   const testId = 'ChatDisplay';
-  const refreshJobsIntervalMilliseconds = 2000;
+  const refreshIntervalMilliseconds = 2000;
   const pageSize = 10;
 
   const [selectedPage, setSelectedPage] = useState(0);
 
+  
   const {
     data: page,
     // Stryker disable all
@@ -24,9 +25,9 @@ const ChatDisplay = () => {
       }
     },
     {
-      content: [],
+      content: [], totalPages: 0
       },
-    { refetchInterval: refreshJobsIntervalMilliseconds }
+    { refetchInterval: refreshIntervalMilliseconds }
   );
   // Stryker restore all
 
@@ -39,8 +40,9 @@ const ChatDisplay = () => {
   };
 
   return (
-    <div style={{ height: '400px', overflowY: 'scroll' }}>
-      <Stack gap={3}>
+    //<div style={{ height: '400px', overflowY: 'scroll' }}>
+      <div>
+      <Stack>
         {page.content.map((message) => (
           <ChatMessageDisplay key={message.id} chatMessage={message} />
         ))}
