@@ -107,12 +107,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             <Nav className="PrivacyPolicy">
               {/* This `nav` component contains all navigation items that show up on the right side */}
               {
-                currentUser && currentUser.loggedIn ? (
-                  <>
-                    <Navbar.Text className="me-3" as={Link} to="/privacy">Privacy Policy</Navbar.Text>
-                    
-                  </>
-                ) : (
+                 (
                   <Button href="/privacy">Privacy Policy</Button>
                 )
               }
