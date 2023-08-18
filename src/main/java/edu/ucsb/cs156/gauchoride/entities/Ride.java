@@ -35,6 +35,8 @@ public class Ride {
   private String pickupLocation;
   private String dropoffLocation;
   
-  private String room;
+  private String dropoffRoom;
+  private String pickupRoom;
+  private String notes;
   private String course; // e.g. CMPSC 156
 }
