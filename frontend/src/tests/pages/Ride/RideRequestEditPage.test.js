@@ -83,7 +83,8 @@ describe("RideRequestEditPage tests", () => {
                 dropoffBuilding: "SRB",
                 dropoffRoom: "125",
                 pickupRoom: "1111",
-                course: "CMPSC 156"
+                course: "CMPSC 156",
+                notes: "note1"
             });
             axiosMock.onPut('/api/ride_request').reply(200, {
                 id: "17",
@@ -93,7 +94,9 @@ describe("RideRequestEditPage tests", () => {
                 pickupBuilding: "Phelps",
                 dropoffBuilding: "HSSB",
                 dropoffRoom: "1215",
-                course: "WRIT 105CD"
+                pickupRoom: "2222",
+                course: "WRIT 105CD",
+                notes: "note2"
             });
         });
 
@@ -129,7 +132,6 @@ describe("RideRequestEditPage tests", () => {
             const pickupRoomField = getByTestId("RideForm-pickupRoom");
             const courseField = getByTestId("RideForm-course");
             const notesField = getByTestId("RideForm-notes");
-            const submitButton = getByTestId("RideForm-submit");
 
             expect(dayField).toHaveValue("Tuesday");
             expect(startTimeField).toHaveValue("5:00PM");
@@ -137,7 +139,9 @@ describe("RideRequestEditPage tests", () => {
             expect(pickupBuildingField).toHaveValue("HSSB");
             expect(dropoffBuildingField).toHaveValue("SRB");
             expect(dropoffRoomField).toHaveValue("125");
+            expect(pickupRoomField).toHaveValue("1111");
             expect(courseField).toHaveValue("CMPSC 156");
+            expect(notesField).toHaveValue("note1");
             
         });
 
