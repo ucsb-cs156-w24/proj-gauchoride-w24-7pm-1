@@ -180,7 +180,7 @@ describe("RideRequestEditPage tests", () => {
             expect(dropoffRoomField).toHaveValue("125");
             expect(pickupRoomField).toHaveValue("1111")
             expect(courseField).toHaveValue("CMPSC 156");
-            expect(notesField).toHaveValue("");
+            expect(notesField).toHaveValue("note1");
 
 
             expect(submitButton).toBeInTheDocument();
@@ -212,7 +212,7 @@ describe("RideRequestEditPage tests", () => {
                 dropoffRoom: "1215",
                 pickupRoom: "1111",
                 course: "WRIT 105CD",
-                notes: "",
+                notes: "note1",
             })); // posted object
 
         });
