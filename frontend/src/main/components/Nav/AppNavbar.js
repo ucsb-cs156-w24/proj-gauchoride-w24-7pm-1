@@ -103,6 +103,20 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
+
+            <Nav className="PrivacyPolicy">
+              {/* This `nav` component contains all navigation items that show up on the right side */}
+              {
+                currentUser && currentUser.loggedIn ? (
+                  <>
+                    <Navbar.Text className="me-3" as={Link} to="/PrivacyPolicy">Welcome, {currentUser.root.user.fullName}</Navbar.Text>
+                    <Button onClick={doLogout}>PrivacyPolicy</Button>
+                  </>
+                ) : (
+                  <Button href="/PrivacyPolicy">PrivacyPolicy</Button>
+                )
+              }
+            </Nav>
           </Navbar.Collapse>
         </Container >
       </Navbar >
