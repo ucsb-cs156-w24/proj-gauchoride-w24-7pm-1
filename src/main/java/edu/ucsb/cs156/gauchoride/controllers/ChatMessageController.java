@@ -64,7 +64,7 @@ public class ChatMessageController extends ApiController {
     }
 
     @Operation(summary = "List all messages")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @GetMapping("/get")
     public Page<ChatMessage> allMessages(
          @Parameter(name="page") @RequestParam int page,
