@@ -34,5 +34,5 @@ public class ChatMessage {
 
     //UNUSED: TO IMPL LATER
   private boolean dm;
-  private Long toUserId;
+  private long toUserId;
 }
