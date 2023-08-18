@@ -109,11 +109,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               {
                 currentUser && currentUser.loggedIn ? (
                   <>
-                    <Navbar.Text className="me-3" as={Link} to="/PrivacyPolicy">Welcome, {currentUser.root.user.fullName}</Navbar.Text>
-                    <Button onClick={doLogout}>PrivacyPolicy</Button>
+                    <Navbar.Text className="me-3" as={Link} to="/privacy">Welcome, {currentUser.root.user.fullName}</Navbar.Text>
+                    <Button onClick={doLogout}>Privacy Policy</Button>
                   </>
                 ) : (
-                  <Button href="/PrivacyPolicy">PrivacyPolicy</Button>
+                  <Button href="/privacy">Privacy Policy</Button>
                 )
               }
             </Nav>

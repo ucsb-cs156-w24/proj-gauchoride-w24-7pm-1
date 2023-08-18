@@ -55,7 +55,7 @@ function App() {
           hasRole(currentUser, "ROLE_USER")
         }
         <Route exact path="/*" element={<PageNotFound />} />
-        <Route exact path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route exact path="/privacy" element={<PrivacyPolicy />} />
 
       </Routes>
     </BrowserRouter>
