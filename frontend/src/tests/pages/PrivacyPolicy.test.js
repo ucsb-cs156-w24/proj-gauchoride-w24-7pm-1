@@ -1,6 +1,6 @@
-import { render, waitFor , screen} from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 
-import HomePage from "main/pages/HomePage";
+
 import PrivacyPolicy from "main/pages/PrivacyPolicy";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
