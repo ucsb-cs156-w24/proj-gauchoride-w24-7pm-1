@@ -260,6 +260,107 @@ describe("ShiftForm tests", () => {
         fireEvent.change(shiftEndInput, { target: { value: "" } });
     });
     
+    test("invalidates incorrect time formats from mutations", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftStartInput = screen.getByTestId("ShiftForm-shiftStart");
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test the mutation that allows any character except those between 0-5 for the first character of the minutes
+        fireEvent.change(shiftStartInput, { target: { value: "12:X5AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+        fireEvent.change(shiftStartInput, { target: { value: "" } });
+    
+        // Test the mutation that allows any character except 0-2 after the 1 for hours
+        fireEvent.change(shiftEndInput, { target: { value: "1X:59AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    
+        // Test the mutation that allows any character except 0-9 for the second character of the minutes
+        fireEvent.change(shiftStartInput, { target: { value: "11:5XAM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    });
+
+    test("invalidates evem more time formats from mutations", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftStartInput = screen.getByTestId("ShiftForm-shiftStart");
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test for any character except 0-2 after the 1 for hours for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "1X:00AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+        fireEvent.change(shiftStartInput, { target: { value: "" } });
+    
+        // Test for any character except 0-5 as the first character for minutes for shift end
+        fireEvent.change(shiftEndInput, { target: { value: "12:X0AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    
+        // Test for any character except 0-9 as the second character for minutes for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "11:5XAM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    });
+    
+    test("validates time format with more character anomalies for shift end", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test for strings like "0X:00AM" for shift end
+        fireEvent.change(shiftEndInput, { target: { value: "0X:00AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+        
+        // Resetting input
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    });
+
+    test("validates that the minutes part of the time format must have digits", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test for strings like "12:5XAM" for shift end
+        fireEvent.change(shiftEndInput, { target: { value: "12:5XAM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+    
+        // Resetting input
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    });
+    
+    
     
     
 });
