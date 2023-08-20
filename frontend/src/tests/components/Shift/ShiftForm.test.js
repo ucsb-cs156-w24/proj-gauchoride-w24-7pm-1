@@ -161,4 +161,105 @@ describe("ShiftForm tests", () => {
         expect(screen.getByText("Driver Backup ID is required.")).toBeInTheDocument();
     });
 
+    test("validates specific time format anomalies", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftStartInput = screen.getByTestId("ShiftForm-shiftStart");
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test removing start anchor for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "X11:59AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    
+        // Test removing end anchor for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "11:59AMX" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    
+        // Test changing character class for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "01X:59AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    
+        // Repeat for shiftEndInput
+        fireEvent.change(shiftEndInput, { target: { value: "X11:59AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+        
+        fireEvent.change(shiftEndInput, { target: { value: "11:59AMX" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+        
+        fireEvent.change(shiftEndInput, { target: { value: "01X:59AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+    });
+
+    test("validates time format with extra characters", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftStartInput = screen.getByTestId("ShiftForm-shiftStart");
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test for characters following AM/PM for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "11:59AMX" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    
+        // Resetting input
+        fireEvent.change(shiftStartInput, { target: { value: "" } });
+    
+        // Test for characters following AM/PM for shift end
+        fireEvent.change(shiftEndInput, { target: { value: "11:59PMX" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+    
+        // Resetting input
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    });
+    
+    test("validates time format with character anomalies", async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <Router>
+                    <ShiftForm />
+                </Router>
+            </QueryClientProvider>
+        );
+    
+        const shiftStartInput = screen.getByTestId("ShiftForm-shiftStart");
+        const shiftEndInput = screen.getByTestId("ShiftForm-shiftEnd");
+    
+        // Test for strings like "0X:00AM" for shift start
+        fireEvent.change(shiftStartInput, { target: { value: "0X:00AM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftStart + .invalid-feedback' });
+    
+        // Resetting input
+        fireEvent.change(shiftStartInput, { target: { value: "" } });
+    
+        // Test for strings like "0X:00PM" for shift end
+        fireEvent.change(shiftEndInput, { target: { value: "0X:00PM" } });
+        fireEvent.click(screen.getByText(/Create/));
+        await screen.findByText(/Invalid time format./, { selector: '#shiftEnd + .invalid-feedback' });
+    
+        // Resetting input
+        fireEvent.change(shiftEndInput, { target: { value: "" } });
+    });
+    
+    
+    
 });
