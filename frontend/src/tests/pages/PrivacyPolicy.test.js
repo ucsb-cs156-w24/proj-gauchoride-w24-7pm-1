@@ -36,7 +36,7 @@ describe("Privacy Policy tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor( () => expect(getByText("PLACEHOLDER HTML FILE WILL BE INCLUDED")).toBeInTheDocument() );
+        await waitFor( () => expect(getByText("Go to Privacy Policy")).toBeInTheDocument() );
     });
 
 });
