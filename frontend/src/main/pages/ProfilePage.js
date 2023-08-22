@@ -19,7 +19,7 @@ const ProfilePage = () => {
     //Stryker disable all
     const [phoneNumber, setPhoneNumber] = useState("");
     const [updatedPhoneNumber, setUpdatedPhoneNumber] = useState("");
-    //striker enable all
+    // Stryker restore all
     const [whichNumber, setWhichNumber] = useState(false);
 
 
