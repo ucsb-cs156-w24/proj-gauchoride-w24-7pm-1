@@ -123,7 +123,6 @@ describe("ShiftCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual(noidshift);
 
         // Assert that the toast and navigate functions were called with expected values
-        //expect(mockToast).toBeCalledWith(`New shift Created - id: ${shift.id} day: ${shift.day}`);
         expect(mockToast).toBeCalledWith(`New shift Created - id: ${shift.id}, day: ${shift.day}, shiftStart: ${shift.shiftStart}, shiftEnd: ${shift.shiftEnd}, driverID: ${shift.driverID}, driverBackupID: ${shift.driverBackupID}`);
         expect(mockNavigate).toBeCalledWith({ "to": "/shift" });
 
