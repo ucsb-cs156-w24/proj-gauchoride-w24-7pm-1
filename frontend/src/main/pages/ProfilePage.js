@@ -95,7 +95,7 @@ const ProfilePage = () => {
                     <RoleBadge role={"ROLE_RIDER"} currentUser={currentUser}/>
                     <p></p>
                     <>
-                    <p className="lead text-muted" style={{ marginRight: "8px"}}>{"cell phone number: "} {whichNumber ? (updatedPhoneNumber ? updatedPhoneNumber : "N/A") : (cellPhone ? cellPhone : "N/A")}</p>
+                    <p className="lead text-muted" >{"cell phone number: "} {whichNumber ? (updatedPhoneNumber ? updatedPhoneNumber : "N/A") : (cellPhone ? cellPhone : "N/A")}</p>
       <Button variant="primary" onClick={handleShow}>
         Change Cell Phone Number
       </Button>
