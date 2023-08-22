@@ -8,7 +8,7 @@ const rideFixtures = {
         "end": "4:45PM",
         "pickup": "Cambell",
         "dropoff": "HSSB",
-        "room": "123",
+        "dropoffRoom": "123",
         "course": "CMPSC111"    
       }
     ],
@@ -23,7 +23,7 @@ const rideFixtures = {
             "endTime": "5:50PM",
             "pickupLocation": "Girvetz",
             "dropoffLocation": "Phelps",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC64"      
         },
 
@@ -36,7 +36,7 @@ const rideFixtures = {
             "endTime": "11:15AM",
             "pickupLocation": "SRB",
             "dropoffLocation": "HFH",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC138"  
         },
 
@@ -49,7 +49,7 @@ const rideFixtures = {
             "endTime": "5:30PM",
             "pickupLocation": "Buchanan",
             "dropoffLocation": "Phelps",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC156"   
         },
         
@@ -63,7 +63,7 @@ const rideFixtures = {
             "end": "5:50PM",
             "pickup": "Girvetz",
             "dropoff": "Phelps",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC64"      
         },
 
@@ -74,7 +74,7 @@ const rideFixtures = {
             "end": "11:15AM",
             "pickup": "SRB",
             "dropoff": "HFH",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC138"  
         },
 
@@ -85,7 +85,7 @@ const rideFixtures = {
             "end": "5:30PM",
             "pickup": "Buchanan",
             "dropoff": "Phelps",
-            "room": "123",
+            "dropoffRoom": "123",
             "course": "CMPSC156"   
         },
         

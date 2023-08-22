@@ -60,7 +60,7 @@ describe("RideRequestCreatePage tests", () => {
             endTime: "4:30PM", 
             pickupLocation: "Phelps",
             dropoffLocation: "HSSB",
-            room: "1215",
+            dropoffRoom: "1215",
             course: "WRIT 105CD"
         };
 
@@ -83,7 +83,7 @@ describe("RideRequestCreatePage tests", () => {
         const endTimeField = getByTestId("RideForm-end");
         const pickupLocationField = getByTestId("RideForm-pickup");
         const dropoffLocationField = getByTestId("RideForm-dropoff");
-        const roomField = getByTestId("RideForm-room");
+        const dropoffRoomField = getByTestId("RideForm-dropoffRoom");
         const courseField = getByTestId("RideForm-course");
         const submitButton = getByTestId("RideForm-submit");
 
@@ -92,7 +92,7 @@ describe("RideRequestCreatePage tests", () => {
         fireEvent.change(endTimeField, { target: { value: '4:30PM' } });
         fireEvent.change(pickupLocationField, { target: { value: 'Phelps' } });
         fireEvent.change(dropoffLocationField, { target: { value: 'HSSB' } });
-        fireEvent.change(roomField, { target: { value: '1215' } });
+        fireEvent.change(dropoffRoomField, { target: { value: '1215' } });
         fireEvent.change(courseField, { target: { value: 'WRIT 105CD' } });
 
 
@@ -109,7 +109,7 @@ describe("RideRequestCreatePage tests", () => {
                 "endTime": "4:30PM", 
                 "pickupLocation": "Phelps",
                 "dropoffLocation": "HSSB",
-                "room": "1215",
+                "dropoffRoom": "1215",
                 "course": "WRIT 105CD"
         });
 
