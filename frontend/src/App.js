@@ -3,6 +3,7 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import PageNotFound from "main/pages/PageNotFound";
+import PrivacyPolicy from "main/pages/PrivacyPolicy";
 
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
@@ -25,8 +26,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/profile" element={<ProfilePage />} />
+        
         {
           hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/admin/users" element={<AdminUsersPage />} />
         }
@@ -52,6 +55,7 @@ function App() {
           hasRole(currentUser, "ROLE_USER")
         }
         <Route exact path="/*" element={<PageNotFound />} />
+        <Route exact path="/privacy" element={<PrivacyPolicy />} />
 
       </Routes>
     </BrowserRouter>
