@@ -166,7 +166,6 @@ describe("CellPhone tests", () => {
         axiosMock.onPut('/api/userprofile/update-cellPhone').reply(202);
         
 
-        //axiosMock.onPut("/api/userprofile/update-cellPhone?cellPhone=123-456-7890").reply(202);
 
         render(
             <QueryClientProvider client={queryClient}>
