@@ -114,7 +114,7 @@ const ProfilePage = () => {
                 data-testid="PhoneInput"
                 placeholder="###-###-####"
                 autoFocus
-                onChange={onChangePhoneNumber} // Update phone number state
+                onChange={onChangePhoneNumber}
               />
             </Form.Group>
           </Form>
