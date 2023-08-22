@@ -200,52 +200,5 @@ describe("CellPhone tests", () => {
 
 
     });
-    /*
-    test("on submit, makes request to backend, but backend returns error", async () => {
-
-        const axiosMock =new AxiosMockAdapter(axios);
-        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        axiosMock.onPut('/api/userprofile/update-cellPhone').reply(404);
-        
-
-        //axiosMock.onPut("/api/userprofile/update-cellPhone?cellPhone=123-456-7890").reply(202);
-
-        const { getByText, getById, queryByTestId, getByPlaceholderText } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <ProfilePage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-      
-        const changeButton = screen.getByText("Change Cell Phone Number");
-
-        expect(screen.queryByText("Modal heading")).not.toBeInTheDocument();
-        fireEvent.click(changeButton);
-        expect(screen.getByText("Modal heading")).toBeInTheDocument();
-
-        
-        const phoneInput = screen.getByTestId("PhoneInput");
-        fireEvent.change(phoneInput, { target: { value: '987-654-3210' } });
-
-        const saveButton = screen.getByText("Save Changes");
-        
-        act(() => {
-            fireEvent.click(saveButton);
-          });
-        
-        await waitFor(() => expect(screen.getByText("Modal heading")).toBeInTheDocument());
-        await waitFor(() => expect(axiosMock.history.put.length).toBe(1));
-        
-        //"Required request parameter 'cellPhone' for method parameter type String is not present"
-        await waitFor(() => expect(mockToast).not.toBeCalledWith("Cell Phone number changed 987-654-3210"));
-        await waitFor(() => expect(screen.queryByText("987-654-3210")).not.toBeInTheDocument());
-
-    });*/
-
-    //TODO: Create test with custom user that starts with a CellPhone, mutation testing then DONE!!!!!
-    
-});
 
 
