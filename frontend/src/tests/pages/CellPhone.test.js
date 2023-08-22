@@ -151,7 +151,6 @@ describe("CellPhone tests", () => {
         await waitFor(() => expect(screen.queryByText("Input phone number")).not.toBeInTheDocument());
         await waitFor(() => expect(axiosMock.history.put.length).toBe(1));
         
-        //"Required request parameter 'cellPhone' for method parameter type String is not present"
         await waitFor(() => expect(mockToast).toBeCalledWith("Cell Phone number changed 987-654-3210"));
         await waitFor(() => expect(screen.queryByText("Cell Phone number changed 987-654-3210")).not.toBeInTheDocument());
         
