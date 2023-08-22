@@ -153,7 +153,6 @@ describe("CellPhone tests", () => {
         
         //"Required request parameter 'cellPhone' for method parameter type String is not present"
         await waitFor(() => expect(mockToast).toBeCalledWith("Cell Phone number changed 987-654-3210"));
-        //await waitFor(() => expect(screen.getByText("987-654-3210")).toBeInTheDocument());
         await waitFor(() => expect(screen.queryByText("Cell Phone number changed 987-654-3210")).not.toBeInTheDocument());
         
         expect(screen.getByText('cell phone number: 987-654-3210')).toBeInTheDocument();
