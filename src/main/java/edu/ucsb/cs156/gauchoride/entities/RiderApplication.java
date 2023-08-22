@@ -21,7 +21,7 @@ public class RiderApplication {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long userId; //user does not ned to used as an input 
+    private long userId; 
     private String status;
     private String perm_number;
     @CreatedDate
