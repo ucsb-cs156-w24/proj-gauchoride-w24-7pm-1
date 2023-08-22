@@ -147,7 +147,7 @@ public class ChatMessageControllerTests extends ControllerTestCase{
 
                 // assert
                 verify(chatMessageRepository, times(1)).save(message1);
-                String expectedJson = mapper.writeValueAsString(message1);
+                String expectedJson = mapper.writeValueAsString(message1); // change expected JSON
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
