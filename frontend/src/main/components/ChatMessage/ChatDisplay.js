@@ -8,7 +8,7 @@ const ChatDisplay = () => {
   const refreshIntervalMilliseconds = 2000;
   const pageSize = 10;
 
-  const [selectedPage, setSelectedPage] = React.useState(0);
+  const [selectedPage, setSelectedPage] = useState(0);
 
   // Stryker disable all
   const {

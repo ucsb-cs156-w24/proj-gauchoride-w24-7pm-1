@@ -1,9 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import ChatDisplay from "main/components/ChatMessage/ChatDisplay";
-import { firstPagedChatFixtures, secondPagedChatFixtures, thirdPagedChatFixtures, allPagedChatFixtures } from "fixtures/chatMessageFixtures";
+import { firstPagedChatFixtures, secondPagedChatFixtures, thirdPagedChatFixtures } from "fixtures/chatMessageFixtures";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import mockConsole from "jest-mock-console";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
@@ -22,8 +21,6 @@ jest.mock('react-toastify', () => {
 describe("chatDisplay tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
-
-    const testId = 'ChatDisplay';
 
     const setupAdminUser = () => {
         axiosMock.reset();
