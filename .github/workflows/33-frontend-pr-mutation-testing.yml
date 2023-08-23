@@ -24,7 +24,7 @@ jobs:
           timezoneLinux: "America/Los_Angeles"
       - uses: actions/checkout@v3.5.2
         with: 
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Get PR number
         id: get-pr-num
@@ -44,35 +44,31 @@ jobs:
           node-version-file: 'frontend/package.json'
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
-  
 
       - name: Create directory in case it doesn't exist
         run: |
-          mkdir -p frontend/history
-
-      - name: Download artifact
-        uses: dawidd6/action-download-artifact@v2.27.0
-        with:
-          workflow: 02-gh-pages-rebuild-part-1.yml
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          branch: main
-          name: stryker-incremental-${{env.pr_number}}.json
-          path: frontend/history
-          check_artifacts: true
-          if_no_artifact_found: warn
+          mkdir -p frontend/reports/mutation
     
       - run: npm ci
         working-directory: ./frontend
 
-      - run: npx stryker run --incremental --incrementalFile history/stryker-incremental-${{env.pr_number}}.json
-        working-directory: ./frontend
+      # Modified from https://stackoverflow.com/a/74268200
 
-      - name: Upload stryker incremental file to Artifacts
-        if: always() # always upload artifacts, even if tests fail
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: stryker-incremental-${{env.pr_number}}.json
-          path: frontend/history/stryker-incremental-${{env.pr_number}}.json
+      - name: Run stryker on changed files
+        id: changed-files
+        run: | 
+            git diff --name-only -r origin/main HEAD |              # get changed files in PR
+            grep "\.js" |                                           # remove non .js files from list
+            sed 's|\(.*\)tests\(.*\)\.test.js|\1main\2.js|' |       # alters test files to main files to account for changed tests
+            grep -v "\.stories\.js" |                               # remove .stories.js files from list
+            grep "src/main/" |                                      # remove files outside of src/main
+            sed 's|frontend/||' |                                   # remove 'frontend/' from file paths
+            sort -u |                                               # remove duplicates
+            xargs -I{} sh -c '[ -f "{}" ] && echo "{}"' |           # check if file exists
+            xargs printf '%s,' |                                    # convert to comma separated list
+            sed 's/.$//' |                                          # remove trailing comma
+            xargs -r npx stryker run --mutate                       # run stryker on changed files
+        working-directory: ./frontend
 
       - name: Set path for github pages deploy when there is a PR num
         if: always() # always upload artifacts, even if tests fail
