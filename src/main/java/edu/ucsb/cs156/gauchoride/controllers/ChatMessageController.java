@@ -66,7 +66,9 @@ public class ChatMessageController extends ApiController {
          @Parameter(name="page") @RequestParam int page,
          @Parameter(name="size") @RequestParam int size
     ) {
+
         Page<ChatMessage> messages = chatMessageRepository.findAll(PageRequest.of(page, size, Sort.by("timestamp").ascending()));
+
         return messages;
     }
 }
