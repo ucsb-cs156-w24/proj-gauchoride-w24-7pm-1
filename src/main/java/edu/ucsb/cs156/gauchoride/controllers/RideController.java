@@ -84,17 +84,23 @@ public class RideController extends ApiController {
         @Parameter(name="endTime", description="String, Time the ride ends HH:MM(A/P)M", example="12:30AM", required = true)
         @RequestParam String endTime,
 
-        @Parameter(name="pickupLocation", description="String, Location the ride starts", example="Phelps Hall", required = true)
-        @RequestParam String pickupLocation,
+        @Parameter(name="pickupBuilding", description="String, Location the ride starts", example="Phelps Hall", required = true)
+        @RequestParam String pickupBuilding,
 
-        @Parameter(name="dropoffLocation", description="String, Location the ride ends", example="South Hall", required = true)
-        @RequestParam String dropoffLocation,
+        @Parameter(name="pickupRoom", description="String, Room number the pickupLocation", example="1431", required = true)
+        @RequestParam String pickupRoom,
 
-        @Parameter(name="room", description="String, Room number for the dropoffLocation", example="1431", required = true)
-        @RequestParam String room,
+        @Parameter(name="dropoffBuilding", description="String, Location the ride ends", example="South Hall", required = true)
+        @RequestParam String dropoffBuilding,
+
+        @Parameter(name="dropoffRoom", description="String, Room number for the dropoffLocation", example="1431", required = true)
+        @RequestParam String dropoffRoom,
 
         @Parameter(name="course", description="String, Course number for the class at the dropoffLocation", example="CMPSC 156", required = true)
-        @RequestParam String course
+        @RequestParam String course,
+
+         @Parameter(name="notes", description="String, Extra information", example="We have two people riding", required = true)
+        @RequestParam String notes
         )
         {
 
@@ -105,10 +111,12 @@ public class RideController extends ApiController {
         ride.setDay(day);
         ride.setStartTime(startTime);
         ride.setEndTime(endTime);
-        ride.setPickupLocation(pickupLocation);
-        ride.setDropoffLocation(dropoffLocation);
-        ride.setRoom(room);
+        ride.setPickupBuilding(pickupBuilding);
+        ride.setPickupRoom(pickupRoom);
+        ride.setDropoffBuilding(dropoffBuilding);
+        ride.setDropoffRoom(dropoffRoom);
         ride.setCourse(course);
+        ride.setNotes(notes);
 
         Ride savedRide = rideRepository.save(ride);
 
@@ -162,10 +170,12 @@ public class RideController extends ApiController {
         ride.setDay(incoming.getDay());
         ride.setStartTime(incoming.getStartTime());
         ride.setEndTime(incoming.getEndTime());
-        ride.setPickupLocation(incoming.getPickupLocation());
-        ride.setDropoffLocation(incoming.getDropoffLocation());
-        ride.setRoom(incoming.getRoom());
+        ride.setPickupBuilding(incoming.getPickupBuilding());
+        ride.setPickupRoom(incoming.getPickupRoom());
+        ride.setDropoffBuilding(incoming.getDropoffBuilding());
+        ride.setDropoffRoom(incoming.getDropoffRoom());
         ride.setCourse(incoming.getCourse());
+        ride.setNotes(incoming.getNotes());
 
         rideRepository.save(ride);
 
