@@ -53,8 +53,6 @@ public class ChatMessageController extends ApiController {
         
         message.setUserId(getCurrentUser().getUser().getId());
         message.setPayload(content);
-        message.setDm(false); // future feature; not currently used
-        message.setToUserId(null);  // future feature; not currently used
 
         ChatMessage savedMessage = chatMessageRepository.save(message);
 
