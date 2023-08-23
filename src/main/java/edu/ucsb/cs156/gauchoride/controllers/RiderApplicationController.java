@@ -42,13 +42,13 @@ public class RiderApplicationController extends ApiController {
 
     // // Endpoints for ROLE_MEMBER
 
+    //Endpoints for members
     @Operation(summary = "Create a new rider application with the current user as the requester")
     @PreAuthorize("hasRole('ROLE_MEMBER')")
     @PostMapping("/riderApplication/new")
     public RiderApplication postRiderApplication(
         @Parameter(name="perm_number", description="String, Perm number consisting of 7 characters", example = "1234567", required = true) 
         @RequestParam String perm_number,
-
         @Parameter(name="description", description="String, Please describe the mobility limitations that cause you to need to use the Gauchoride service. ", example = "My legs are broken", required = true) 
         @RequestParam String description
     )
@@ -60,7 +60,6 @@ public class RiderApplicationController extends ApiController {
 
         riderApplication.setStatus("pending");
         riderApplication.setUserId(getCurrentUser().getUser().getId());
-        riderApplication.setEmail(getCurrentUser().getUser().getEmail());
         riderApplication.setPerm_number(perm_number);
         riderApplication.setCreated_date(currentDate);
         riderApplication.setUpdated_date(currentDate);
@@ -71,7 +70,7 @@ public class RiderApplicationController extends ApiController {
         return savedApplication;
     };
 
-    @Operation(summary = "Get all rider applications owned by the current user")
+    @Operation(summary = "Get all rider requests owned by the current user")
     @PreAuthorize("hasRole('ROLE_MEMBER')")
     @GetMapping("/rider")
     public Iterable<RiderApplication> allApplications()
@@ -154,7 +153,7 @@ public class RiderApplicationController extends ApiController {
             application.setCancelled_date(currentDate);
             riderApplicationRepository.save(application);
 
-            return genericMessage("Application with id %s is deleted".formatted(id));
+            return genericMessage("Application with id %s is cancelled".formatted(id));
         }
         else
         {

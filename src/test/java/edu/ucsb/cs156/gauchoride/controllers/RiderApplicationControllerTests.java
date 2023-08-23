@@ -35,7 +35,6 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = RiderApplicationController.class)
 @Import(TestConfig.class)
-
 public class RiderApplicationControllerTests extends ControllerTestCase {
         @MockBean
         RiderApplicationRepository riderApplicationRepository;
@@ -43,7 +42,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         @MockBean
         UserRepository userRepository;
 
-        // // Authorization test for MEMBER
 
         // Authorization tests for get /api/rider
         @Test
@@ -203,7 +201,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         @Test
         public void a_member_can_post_a_new_riderApplication() throws Exception {
             Long UserId = currentUserService.getCurrentUser().getUser().getId();
-            String Email = currentUserService.getCurrentUser().getUser().getEmail();
             // Get the current date
             LocalDate localDate = LocalDate.now();
             Date currentDate = Date.valueOf(localDate);
@@ -212,7 +209,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                             .status("pending")
                             .userId(UserId)
                             .perm_number("7654321")
-                            .email(Email)
                             .created_date(currentDate)
                             .updated_date(currentDate)
                             .cancelled_date(null)
@@ -237,13 +233,12 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
             assertEquals(expectedJson, responseString);
         }
 
-        // GET ALL
+    //  GET ALL
         @WithMockUser(roles = { "MEMBER" })
         @Test
         public void logged_in_member_can_get_all_their_own_rides() throws Exception {
 
             Long UserId = currentUserService.getCurrentUser().getUser().getId();
-            String Email = currentUserService.getCurrentUser().getUser().getEmail();
             // Get the current date
             LocalDate localDate = LocalDate.now();
             Date currentDate = Date.valueOf(localDate);
@@ -253,7 +248,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                             .status("pending")
                             .userId(UserId)
                             .perm_number("7654321")
-                            .email(Email)
                             .created_date(currentDate)
                             .updated_date(currentDate)
                             .cancelled_date(null)
@@ -265,7 +259,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                             .status("declined")
                             .userId(UserId)
                             .perm_number("7654321")
-                            .email(Email)
                             .created_date(currentDate)
                             .updated_date(testDate)
                             .cancelled_date(null)
@@ -296,7 +289,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_member_can_get_by_id_when_the_id_exists_and_user_id_matches() throws Exception {
         
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
         
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -306,7 +298,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("cancelled")
                         .userId(UserId)
                         .perm_number("7654321")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(testDate3)
@@ -352,7 +343,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_member_cannot_get_by_id_when_the_id_exists_but_user_id_does_not_match() throws Exception {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email = "random@example.org";
         
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -361,7 +351,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(otherUserId)
                         .perm_number("0123456")
-                        .email(Email)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -388,7 +378,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_can_edit_their_own_application_whose_status_is_pending() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -400,7 +389,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("0123456")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -412,7 +400,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("6543210")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -445,7 +432,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email = "random@example.org";
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -457,7 +443,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(otherUserId)
                         .perm_number("0123456")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -469,7 +454,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(otherUserId)
                         .perm_number("6543210")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -501,7 +485,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_cannot_edit_application_that_does_not_exist() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -512,7 +495,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("6543210")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -544,7 +526,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_canot_edit_application_whose_status_is_not_pending() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -556,7 +537,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("accepted")
                         .userId(UserId)
                         .perm_number("0123456")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -568,7 +548,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("accepted")
                         .userId(UserId)
                         .perm_number("6543210")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -602,7 +581,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_can_cancel_their_own_application_whose_status_is_pending() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -614,7 +592,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("0123456")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -626,7 +603,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("cancelled")
                         .userId(UserId)
                         .perm_number("0123456")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(currentDate)
@@ -649,9 +625,8 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         // assert
         verify(riderApplicationRepository, times(1)).findByIdAndUserId(eq(67L), eq(UserId));
         verify(riderApplicationRepository, times(1)).save(application_cancelled); // should be saved with correct user
-        
-        Map<String, Object> json = responseToJson(response);
-        assertEquals("Application with id 67 is deleted", json.get("message"));
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals("{\"message\":\"Application with id 67 is cancelled\"}", responseString);
     }
 
     @WithMockUser(roles = { "MEMBER" })
@@ -660,7 +635,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email = "random@example.org";
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -672,7 +646,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(otherUserId)
                         .perm_number("9876543")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -684,7 +657,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("cancelled")
                         .userId(otherUserId)
                         .perm_number("9876543")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(currentDate)
@@ -716,7 +688,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_cannot_cancel_application_that_does_not_exist() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -727,7 +698,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("6543210")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -759,7 +729,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void member_canot_cancel_application_whose_status_is_not_pending() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -771,7 +740,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("declined")
                         .userId(UserId)
                         .perm_number("2345678")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -783,7 +751,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("cancelled")
                         .userId(UserId)
                         .perm_number("2345678")
-                        .email(Email)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(currentDate)
@@ -819,8 +786,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
-        String Email_otherUser = "random@example.org";
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -833,7 +798,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -845,7 +809,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("cancelled")
                         .userId(otherUserId)
                         .perm_number("3456789")
-                        .email(Email_otherUser)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(currentDate)
@@ -857,7 +820,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate3)
                         .updated_date(testDate3)
                         .cancelled_date(null)
@@ -887,9 +849,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
-        String Email_otherUser = "random@example.org";
-
+      
         // Get the current date
         LocalDate localDate = LocalDate.now();
         Date currentDate = Date.valueOf(localDate);
@@ -901,7 +861,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -913,7 +872,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(otherUserId)
                         .perm_number("3456789")
-                        .email(Email_otherUser)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -925,7 +883,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate3)
                         .updated_date(testDate3)
                         .cancelled_date(null)
@@ -954,8 +911,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
         Long otherUserId = UserId + 1;
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
-        String Email_otherUser = "random@example.org";
+       
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -968,7 +924,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -980,7 +935,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("declined")
                         .userId(otherUserId)
                         .perm_number("3456789")
-                        .email(Email_otherUser)
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -992,7 +946,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate3)
                         .updated_date(testDate3)
                         .cancelled_date(null)
@@ -1020,7 +973,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_can_get_by_id_when_id_exists() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         // Get the current date
         LocalDate localDate = LocalDate.now();
@@ -1032,7 +984,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("expired")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(currentDate)
@@ -1076,7 +1027,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_admin_can_update_status_and_notes_when_the_application_exists() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -1085,7 +1035,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1097,7 +1046,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("accepted")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1127,7 +1075,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_admin_can_update_status_only_when_the_application_exists() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -1136,7 +1083,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1148,7 +1095,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("declined")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1178,7 +1125,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_admin_can_update_notes_only_when_the_application_exists() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -1187,7 +1133,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1199,7 +1145,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1229,7 +1175,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_admin_can_update_nothing_when_the_application_exists() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -1238,7 +1183,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1250,7 +1195,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("pending")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
@@ -1280,7 +1225,6 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
     public void test_that_logged_in_admin_cannot_update_when_the_application_does_not_exist() throws Exception
     {
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
-        String Email_User = currentUserService.getCurrentUser().getUser().getEmail();
 
         Date testDate1 = Date.valueOf("2023-03-20");
         Date testDate2 = Date.valueOf("2023-03-29");
@@ -1289,7 +1233,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .status("declined")
                         .userId(UserId)
                         .perm_number("9876543")
-                        .email(Email_User)
+                       
                         .created_date(testDate1)
                         .updated_date(testDate2)
                         .cancelled_date(null)
