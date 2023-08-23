@@ -38,7 +38,7 @@ export default function ShiftIndexPage() {
             <div className="pt-2">
                 {createButton()}
                 <h1>Shifts</h1>
-                <ShiftTable shifts={shifts} currentUser={currentUser} />
+                <ShiftTable shift={shifts} currentUser={currentUser} />
             </div>
         </BasicLayout>
     );
