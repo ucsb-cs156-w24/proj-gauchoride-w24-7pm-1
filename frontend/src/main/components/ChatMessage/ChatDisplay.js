@@ -8,12 +8,12 @@ const ChatDisplay = () => {
   const refreshIntervalMilliseconds = 2000;
   const pageSize = 10;
 
-  const [selectedPage, setSelectedPage] = useState(0);
+  const [selectedPage, setSelectedPage] = React.useState(0);
 
-  
+  // Stryker disable all
   const {
     data: page,
-    // Stryker disable all
+    
   } = useBackend(
     ["/api/chat/get"],
     {
@@ -30,7 +30,6 @@ const ChatDisplay = () => {
     { refetchInterval: refreshIntervalMilliseconds }
   );
 
-  console.log("page=", page)
   // Stryker restore all
 
   const previousPageCallback = () => {
@@ -42,7 +41,6 @@ const ChatDisplay = () => {
   };
 
   return (
-    //<div style={{ height: '400px', overflowY: 'scroll' }}>
       <div>
       <Stack>
         {page.content.map((message) => (

@@ -44,7 +44,7 @@ public class ChatMessageController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
     @PostMapping("/post")
     public ChatMessage postMessage(
-        @Parameter(name="content", description="String, Time the ride starts HH:MM(A/P)M", example="12:30AM", required = true)
+        @Parameter(name="content", description="The message you want to send", example="Hi", required = true)
         @RequestParam String content
         )
         {
@@ -53,8 +53,6 @@ public class ChatMessageController extends ApiController {
         
         message.setUserId(getCurrentUser().getUser().getId());
         message.setPayload(content);
-        //message.setDm(false);
-        //message.setToUserId(null);
 
         ChatMessage savedMessage = chatMessageRepository.save(message);
 

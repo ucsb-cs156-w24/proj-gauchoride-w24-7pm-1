@@ -2,7 +2,7 @@ import React from 'react';
 import ChatDisplay from "main/components/ChatMessage/ChatDisplay";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { pagedChatFixtures } from "fixtures/chatMessageFixtures";
+import { onePagedChatFixtures } from "fixtures/chatMessageFixtures";
 import { rest } from "msw";
 
 export default {
@@ -31,9 +31,9 @@ Default.parameters = {
     ]
 }
 
-export const ThreeItemsOrdinaryUser = Template.bind({});
+export const onePage = Template.bind({});
 
-ThreeItemsOrdinaryUser.parameters = {
+onePage.parameters = {
     msw: [
         rest.get('/api/currentUser', (_req, res, ctx) => {
             return res( ctx.json(apiCurrentUserFixtures.adminUser));
@@ -42,7 +42,7 @@ ThreeItemsOrdinaryUser.parameters = {
             return res(ctx.json(systemInfoFixtures.showingNeither));
         }),
         rest.get('/api/chat/get', (_req, res, ctx) => {
-            return res(ctx.json(pagedChatFixtures));
+            return res(ctx.json(onePagedChatFixtures));
         }),
     ],
 }
