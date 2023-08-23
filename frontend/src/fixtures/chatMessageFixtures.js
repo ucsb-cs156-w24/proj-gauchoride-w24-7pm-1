@@ -48,7 +48,7 @@ const pagedChatFixtures = {
           {
             "id": 1,
             "userId": 1,
-            "payload": "12:30AM",
+            "payload": "OneMessageThree",
             "timestamp": "2023-08-18T08:24:30.661204",
             "dm": false,
             "toUserId": 0
@@ -56,7 +56,7 @@ const pagedChatFixtures = {
           {
             "id": 2,
             "userId": 1,
-            "payload": "12:31AM",
+            "payload": "TwoMessageThree",
             "timestamp": "2023-08-18T08:25:04.62341",
             "dm": false,
             "toUserId": 0
@@ -64,7 +64,7 @@ const pagedChatFixtures = {
           {
             "id": 3,
             "userId": 1,
-            "payload": "12:31AM",
+            "payload": "ThreeMessageThree",
             "timestamp": "2023-08-18T08:33:08.465613",
             "dm": false,
             "toUserId": 0
