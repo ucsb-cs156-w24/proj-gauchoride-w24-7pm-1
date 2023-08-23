@@ -145,7 +145,8 @@ const apiCurrentUserFixtures = {
             "hostedDomain": null,
             "admin": false,
             "driver": false,
-            "rider": false
+            "rider": false,
+            "cellPhone": "111-111-1111"
         },
         "roles": [
             {
