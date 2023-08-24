@@ -34,6 +34,17 @@ export default function Footer() {
           </a>
           .
         </p>
+
+        <p>
+          see our{space}
+          <a
+          href="/privacy"
+          >
+            privacy policy
+          </a>
+
+        </p>
+
         <p>
           The cartoon Storke Tower images in the brand logo and favicon for this site were
           developed by Chelsea Lyon-Hayden, Art Director for UCSB Associate Students, and are
