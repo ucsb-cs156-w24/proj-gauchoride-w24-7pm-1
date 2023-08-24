@@ -38,7 +38,7 @@ export default function Footer() {
         <p>
           See our{space}
           <a
-          href="/privacy"
+          href="/privacy.html"
           >
             privacy policy
           </a>
