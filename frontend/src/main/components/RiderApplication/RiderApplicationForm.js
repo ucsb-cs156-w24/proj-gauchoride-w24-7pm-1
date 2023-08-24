@@ -157,18 +157,20 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" >                          
+            <Form.Group className="mb-3" >
                 <Form.Label htmlFor="description">Description</Form.Label>
+                <Form.Label style={{ display: 'block', fontSize: '80%', fontStyle: 'italic', color: '#888' }}>Please describe the mobility limitations that cause you to need to use the Gauchoride service.</Form.Label>                        
                 <Form.Control
                     data-testid={testIdPrefix + "-description"}
                     id="description"
-                    type="text"
+                    as="textarea"
                     isInvalid={Boolean(errors.description)}
                     {...register("description", {
                         required: "Description is required."
                     })}
                     placeholder="e.g. My legs are broken."  
                     defaultValue={initialContents?.description}
+                    style={{ width: '100%', minHeight: '10rem', resize: 'vertical', verticalAlign: 'top' }}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.description?.message}
