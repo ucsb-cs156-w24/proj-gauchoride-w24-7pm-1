@@ -11,8 +11,8 @@ import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
 import ShiftPage from "main/pages/ShiftPage";
 
-
-
+import DriverPage from "main/pages/DriverPage";
+// import DriversPage from "main/pages/Driver/DriversPage";
 
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
@@ -48,6 +48,9 @@ function App() {
         }
         {
           hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/shift/list" element={<ShiftPage />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/driver" element={<DriverPage />} />
         }
         {
           hasRole(currentUser, "ROLE_RIDER") && <Route exact path="/shift/list" element={<ShiftPage />} />
