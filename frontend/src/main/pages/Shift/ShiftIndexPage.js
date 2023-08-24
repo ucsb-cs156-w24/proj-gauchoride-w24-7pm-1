@@ -12,11 +12,11 @@ export default function ShiftIndexPage() {
 
     const { data: shifts, error: _error, status: _status } =
         useBackend(
-            // Stryker disable next-line all : don't test internal caching of React Query
+            // Stryker disable all : hard to test for query caching
             ["/api/shift/all"],
             { method: "GET", url: "/api/shift/all" },
-            // Stryker disable next-line all : don't test default value of empty list
             []
+            // Stryker restore all 
         );
 
     const createButton = () => {
@@ -42,4 +42,15 @@ export default function ShiftIndexPage() {
             </div>
         </BasicLayout>
     );
+    // return (
+    //     <BasicLayout>
+    //     <div className="pt-2">
+    //         <Button style={{ float: "right" }} as={Link} to="/shift/create">
+    //         Create Shift
+    //         </Button>
+    //         <h1>Shifts</h1>
+    //         <ShiftTable shift={shifts} currentUser={currentUser} />
+    //     </div>
+    //     </BasicLayout>
+    // )
 }

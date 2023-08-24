@@ -50,7 +50,7 @@ export default function ShiftEditPage({storybook=false}) {
         mutation.mutate(data);
     }
 
-    if (isSuccess && !storybook) {
+    if (isSuccess) {
         return <Navigate to="/shift" />
     }
 
