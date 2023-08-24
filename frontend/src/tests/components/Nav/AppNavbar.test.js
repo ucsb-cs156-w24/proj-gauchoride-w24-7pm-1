@@ -527,6 +527,23 @@ describe("AppNavbar tests", () => {
 
     });
 
+    test("Driver page link should not appear for a user that is not a driver", async () => {
+        const currentUser = currentUserFixtures.userOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const driverPage = screen.queryByTestId("appnavbar-driver-link");
+        expect(driverPage).not.toBeInTheDocument();      
+    })
+
 });
 
 
