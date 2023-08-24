@@ -1,14 +1,34 @@
-import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import OurTable from "main/components/OurTable"
 
-export default function DriversPage() {
-  return (
-    <BasicLayout>
-      <div className="pt-2">
-        <h1>Drivers Shifts Table</h1>
-        <p>
-          This page is a placeholder; it will eventually show information about the current driver.
-        </p>
-      </div>
-    </BasicLayout>
-  )
-}
+
+export default function DriverShiftsTable({ drivershifts }) {
+
+    const columns = [
+        {
+            Header: 'id',
+            accessor: 'id', // accessor is the "key" in the data
+        },
+        {
+            Header: 'Day',
+            accessor: 'day',
+        },
+        {
+            Header: 'Shift start',
+            accessor: 'shiftStart',
+        },
+        {
+            Header: 'Shift end',
+            accessor: 'shiftEnd',
+        },
+        {
+            Header: 'Backup driver',
+            accessor: 'driverBackupID',
+        }
+    ];
+
+    return <OurTable
+        data={drivershifts}
+        columns={columns}
+        testid={"DriverShiftsTable"}
+    />;
+};
