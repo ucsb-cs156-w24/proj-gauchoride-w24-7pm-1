@@ -540,7 +540,7 @@ describe("AppNavbar tests", () => {
         );
         
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
-        const driverLink = screen.queryByTestId("appnavbar-driver-link");
+        const driverLink = screen.queryByTestId("appnavbar-driver");
         expect(driverLink).toBeInTheDocument();      
     })
 
