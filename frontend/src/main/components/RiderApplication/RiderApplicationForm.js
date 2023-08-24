@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 
-function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Apply" }) {
     const navigate = useNavigate();
     
     // Stryker disable all
@@ -25,12 +25,26 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Cr
 
             {initialContents && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="id">Applicant Id</Form.Label>
+                    <Form.Label htmlFor="id">Application Id</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-id"}
                         id="id"
                         type="text"
                         {...register("id")}
+                        defaultValue={initialContents?.id}
+                        disabled
+                    />
+                </Form.Group>
+            )}
+
+            {initialContents && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="userId">Applicant Id</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-userId"}
+                        id="userId"
+                        type="text"
+                        {...register("userId")}
                         defaultValue={initialContents?.userId}
                         disabled
                     />
@@ -167,6 +181,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Cr
             >
                 {buttonLabel}
             </Button>
+            
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
