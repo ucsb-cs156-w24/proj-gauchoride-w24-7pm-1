@@ -2,7 +2,7 @@ import React from 'react';
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 
 import { useBackend } from "main/utils/useBackend";
-import DriverShiftsTable from 'main/components/Driver/DriversShiftsTable';
+import DriverShiftsTable from 'main/components/Driver/DriverShiftsTable';
 
 const DriverPage = () => {
     const { data: drivershifts, error: _error, status: _status } =
