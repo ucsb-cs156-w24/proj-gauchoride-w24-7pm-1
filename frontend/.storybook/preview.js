@@ -39,6 +39,3 @@ export const decorators = [
   ),
   mswDecorator, // provide the MSW decorator globally
 ];
-
-
-

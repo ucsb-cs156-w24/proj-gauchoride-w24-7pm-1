@@ -1,33 +1,28 @@
 import { Button, Form } from 'react-bootstrap';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
-
-    
     // Stryker disable all
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm(
-        { defaultValues: initialContents || {}, }
-    );
+    } = useForm({ defaultValues: initialContents || {} });
     // Stryker restore all
-   
     const navigate = useNavigate();
-
     const testIdPrefix = "ShiftForm";
 
     return (
         <Form onSubmit={handleSubmit(submitAction)}>
-
+            
             {initialContents && (
-                <Form.Group className="mb-3" >
+                <Form.Group className="mb-3">
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-id"}
                         id="id"
+                        name="id"
                         type="text"
                         {...register("id")}
                         value={initialContents.id}
@@ -36,12 +31,13 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                 </Form.Group>
             )}
 
-            <Form.Group className="mb-3" >
-                <Form.Label htmlFor="Day">Day of the Week</Form.Label>
+            <Form.Group className="mb-3">
+                <Form.Label htmlFor="day">Day of the Week</Form.Label>
                 <Form.Control 
-                    as="select" 
+                    as="select"
                     data-testid={testIdPrefix + "-day"}
                     id="day"
+                    name="day"
                     isInvalid={Boolean(errors.day)}
                     {...register("day", {
                         required: "Day is required."
@@ -62,10 +58,11 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label htmlFor="ShiftStart">Shift Start</Form.Label>
+                <Form.Label htmlFor="shiftStart">Shift Start</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-shiftStart"}
                     id="shiftStart"
+                    name="shiftStart"
                     type="text"
                     placeholder="HH:MMAM/PM e.g. 11:00AM"
                     isInvalid={Boolean(errors.shiftStart)}
@@ -83,10 +80,11 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label htmlFor="ShiftEnd">Shift End</Form.Label>
+                <Form.Label htmlFor="shiftEnd">Shift End</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-shiftEnd"}
                     id="shiftEnd"
+                    name="shiftEnd"
                     type="text"
                     placeholder="HH:MMAM/PM e.g. 01:37PM"
                     isInvalid={Boolean(errors.shiftEnd)}
@@ -104,10 +102,11 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label htmlFor="DriverID">Driver ID</Form.Label>
+                <Form.Label htmlFor="driverID">Driver ID</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-driverID"}
                     id="driverID"
+                    name="driverID"
                     type="number"
                     isInvalid={Boolean(errors.driverID)}
                     {...register("driverID", {
@@ -120,10 +119,11 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label htmlFor="DriverBackupID">Driver Backup ID</Form.Label>
+                <Form.Label htmlFor="driverBackupID">Driver Backup ID</Form.Label>
                 <Form.Control
                     data-testid={testIdPrefix + "-driverBackupID"}
                     id="driverBackupID"
+                    name="driverBackupID"
                     type="number"
                     isInvalid={Boolean(errors.driverBackupID)}
                     {...register("driverBackupID", {
@@ -134,7 +134,6 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     {errors.driverBackupID?.message}
                 </Form.Control.Feedback>
             </Form.Group>
-
 
             <Button
                 type="submit"
@@ -149,10 +148,8 @@ function ShiftForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             >
                 Cancel
             </Button>
-
         </Form>
-
-    )
+    );
 }
 
 export default ShiftForm;
