@@ -14,10 +14,18 @@ const Template = (args) => {
     )
 };
 
-export const Empty = Template.bind({});
+export const EmptyMember = Template.bind({});
 
-Empty.args = {
-    riderApplications: []
+EmptyMember.args = {
+    riderApplications: [],
+    currentUser: currentUserFixtures.memberOnly
+};
+
+export const EmptyAdmin = Template.bind({});
+
+EmptyAdmin.args = {
+    riderApplications: [],
+    currentUser: currentUserFixtures.adminOnly
 };
 
 
