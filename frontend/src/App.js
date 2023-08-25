@@ -3,13 +3,7 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import PageNotFound from "main/pages/PageNotFound";
-<<<<<<< HEAD
-
-
-=======
-import PrivacyPolicy from "main/pages/PrivacyPolicy";
 import DriverList from "main/pages/DriverList";
->>>>>>> ebb62f1d (set up navbar element)
 
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
