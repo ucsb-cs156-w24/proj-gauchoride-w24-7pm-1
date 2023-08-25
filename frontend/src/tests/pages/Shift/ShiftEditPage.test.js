@@ -42,7 +42,7 @@ describe("ShiftEditPage tests", () => {
         beforeEach(() => {
             axiosMock.reset();
             axiosMock.resetHistory();
-            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.adminUser);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/shift", { params: { id: 17 } }).timeout();
         });
@@ -77,16 +77,16 @@ describe("ShiftEditPage tests", () => {
             axiosMock.onGet("/api/shift", { params: { id: 17 } }).reply(200, {
                 id: 17,
                 day: "Tuesday",
-                shiftStart: "5:00PM",
-                shiftEnd: "7:30PM",
+                shiftStart: "05:00PM",
+                shiftEnd: "07:30PM",
                 driverID: 1,
                 driverBackupID: 2
             });
             axiosMock.onPut('/api/shift').reply(200, {
-                id: "17",
+                id: 17,
                 day: "Monday",
-                shiftStart: "3:30PM",
-                shiftEnd: "4:30PM",
+                shiftStart: "03:30PM",
+                shiftEnd: "04:30PM",
                 driverID: 2,
                 driverBackupID: 3
             });
@@ -123,8 +123,8 @@ describe("ShiftEditPage tests", () => {
             const backupDriverField = getByTestId("ShiftForm-driverBackupID");
 
             expect(dayField).toHaveValue("Tuesday");
-            expect(startField).toHaveValue("5:00PM");
-            expect(endField).toHaveValue("7:30PM");
+            expect(startField).toHaveValue("05:00PM");
+            expect(endField).toHaveValue("07:30PM");
             expect(driverField).toHaveValue(1);
             expect(backupDriverField).toHaveValue(2);
         });
@@ -150,24 +150,21 @@ describe("ShiftEditPage tests", () => {
         
             // Initial values assertions
             expect(dayField).toHaveValue("Tuesday");
-            expect(startField).toHaveValue("5:00PM");
-            expect(endField).toHaveValue("7:30PM");
+            expect(startField).toHaveValue("05:00PM");
+            expect(endField).toHaveValue("07:30PM");
             expect(driverField).toHaveValue(1);
             expect(backupDriverField).toHaveValue(2);
 
             expect(submitButton).toBeInTheDocument();
         
             fireEvent.change(dayField, { target: { value: 'Monday' } });
-            fireEvent.change(startField, { target: { value: '3:30PM' } });
-            fireEvent.change(endField, { target: { value: "4:30PM" } });
+            fireEvent.change(startField, { target: { value: '03:30PM' } });
+            fireEvent.change(endField, { target: { value: "04:30PM" } });
             fireEvent.change(driverField, { target: { value: 2 } });
             fireEvent.change(backupDriverField, { target: { value: 3 } });
         
-            fireEvent.click(submitButton);//This doesn't call the mock some reason
+            fireEvent.click(submitButton);
 
-            //This test fails because the mock isn't being called. All ShiftEditPage files
-            //match the RideRequestEditPage files almost identically. I'm hoping it's an environment
-            //issue and works on someone else's device.
             await waitFor(() => expect(mockToast).toHaveBeenCalled());
             expect(mockToast).toBeCalledWith("Shift Updated - id: 17");
             expect(mockNavigate).toBeCalledWith({ "to": "/shift" });
@@ -180,10 +177,10 @@ describe("ShiftEditPage tests", () => {
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
                 day: "Monday",
-                shiftStart: "3:30PM",
-                shiftEnd: "4:30PM",
-                driverID: 2,
-                driverBackupID: 3
+                shiftStart: "03:30PM",
+                shiftEnd: "04:30PM",
+                driverID: "2",
+                driverBackupID: "3"
             })); // posted object
         });
         

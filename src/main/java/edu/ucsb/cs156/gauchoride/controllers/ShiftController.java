@@ -53,7 +53,7 @@ public class ShiftController extends ApiController {
 
     @Operation(summary = "Get shift by id")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
-    @GetMapping("/get")
+    @GetMapping("")
     public Shift shiftByID(
             @Parameter(name = "id", description = "Long, id number of shift to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
