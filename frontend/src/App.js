@@ -17,7 +17,7 @@ import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 import DriverPage from "main/pages/DriverPage";
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPage";
-import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndex";
+import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndexPage";
 
 
 
