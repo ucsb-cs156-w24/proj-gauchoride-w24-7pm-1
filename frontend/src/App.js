@@ -12,7 +12,6 @@ import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
 import ShiftPage from "main/pages/ShiftPage";
 
 import DriverPage from "main/pages/DriverPage";
-// import DriversPage from "main/pages/Driver/DriversPage";
 
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
