@@ -1,7 +1,7 @@
 import { fireEvent, screen, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndexPage";
+import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndexPageMember";
 
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";

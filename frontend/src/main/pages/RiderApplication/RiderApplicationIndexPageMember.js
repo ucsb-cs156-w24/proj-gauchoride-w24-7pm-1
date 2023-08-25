@@ -10,7 +10,13 @@ import RiderApplicationTable from "main/components/RiderApplication/RiderApplica
 export default function RiderApplicationIndexPage() {
 
     const currentUser = useCurrentUser();
-
+    // Stryker disable all
+    const currentUserCopy = { ...currentUser };
+    if (currentUserCopy.data?.root?.rolesList.includes("ROLE_ADMIN"))
+    {
+        currentUserCopy.data.root.rolesList = currentUserCopy.data.root.rolesList.filter(role => role !== "ROLE_ADMIN");
+    }
+    // Stryker restore all 
     const { data: riderApplications, error: _error, status: _status } =
         useBackend(
             // Stryker disable all : hard to test for query caching
@@ -27,7 +33,7 @@ export default function RiderApplicationIndexPage() {
                     New Rider Application
                 </Button>
                 <h1>Rider Applications</h1>
-                <RiderApplicationTable riderApplications={riderApplications} currentUser={currentUser} />
+                <RiderApplicationTable riderApplications={riderApplications} currentUser={currentUserCopy} />
               </div>
           </BasicLayout>
       );

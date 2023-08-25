@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPage";
+import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
