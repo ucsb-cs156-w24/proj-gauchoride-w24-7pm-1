@@ -40,7 +40,7 @@ public class DriversControllerTests extends ControllerTestCase {
     mockMvc.perform(get("/api/drivers/all"))
         .andExpect(status().is(403));
   }
-////////////////////////////////////////////////////////////////////////////////////////////
+
    @WithMockUser(roles = { "ADMIN" })
         @Test
         public void test1() throws Exception {
@@ -65,16 +65,16 @@ public class DriversControllerTests extends ControllerTestCase {
                 ArrayList<User> exp = new ArrayList<>();
                 exp.addAll(Arrays.asList(user1));
 
-                when(userRepository.findByDriver(true)).thenReturn(exp);  // Check not sure why id is 7
+                when(userRepository.findByDriver(true)).thenReturn(exp);  
 
-                // act
+            
                 MvcResult response = mockMvc.perform(get("/api/drivers/all"))
                                 .andExpect(status().isOk()).andReturn();
 
-                // assert
+             
 
                 verify(userRepository, times(1)).findByDriver(true);
-                String expectedJson = mapper.writeValueAsString(exp);//need to fix
+                String expectedJson = mapper.writeValueAsString(exp);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
