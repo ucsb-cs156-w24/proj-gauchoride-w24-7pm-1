@@ -42,7 +42,7 @@ onePage.parameters = {
             return res(ctx.json(systemInfoFixtures.showingNeither));
         }),
         rest.get('/api/chat/get', (_req, res, ctx) => {
-            return res(ctx.json(onePagedChatFixtures));
+            return res(ctx.json(firstPagedChatFixtures));
         }),
     ],
 }
