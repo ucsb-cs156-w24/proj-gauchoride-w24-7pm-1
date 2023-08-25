@@ -10,15 +10,15 @@ import RiderApplicationTable from "main/components/RiderApplication/RiderApplica
 export default function RiderApplicationIndexPage() {
 
     const currentUser = useCurrentUser();
-    
+
     const { data: riderApplications, error: _error, status: _status } =
-          useBackend(
-              // Stryker disable next-line all : don't test internal caching of React Query
-              ["/api/rider"],
-              { method: "GET", url: "/api/rider" },
-              // Stryker disable next-line all : don't test default value of empty list
-              []
-          );   
+        useBackend(
+            // Stryker disable all : hard to test for query caching
+            ["/api/rider"],
+            { method: "GET", url: "/api/rider" },
+            []
+            // Stryker restore all 
+    );  
     
     return (
           <BasicLayout>
