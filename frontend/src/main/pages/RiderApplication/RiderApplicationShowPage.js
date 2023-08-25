@@ -23,13 +23,13 @@ export default function RiderApplicationEditPage() {
 
   useEffect(() => {
       // Find and make permNumber field read-only
-      const permNumberInput = document.querySelector("perm_number");
+      const permNumberInput = document.querySelector("#perm_number");
       if (permNumberInput) {
         permNumberInput.setAttribute("readonly", "true");
       }
   
       // Find and make description field read-only
-      const descriptionInput = document.querySelector("description");
+      const descriptionInput = document.querySelector("#description");
       if (descriptionInput) {
         descriptionInput.setAttribute("readonly", "true");
       }
