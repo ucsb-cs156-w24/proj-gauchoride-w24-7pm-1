@@ -20,7 +20,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "chatMessage")
+@Entity(name = "chat_messages")
 public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

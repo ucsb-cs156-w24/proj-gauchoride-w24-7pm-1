@@ -69,4 +69,15 @@ public class ChatMessageController extends ApiController {
         Page<ChatMessage> messages = chatMessageRepository.findAll(PageRequest.of(page, size, Sort.by("timestamp").descending()));
         return messages;
     }
+
+    @Operation(summary = "List all messages new way")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
+    @GetMapping("/getNewThing")
+    public Page<ChatMessage> allMessagesNewWay(
+         @Parameter(name="page") @RequestParam int page,
+         @Parameter(name="size") @RequestParam int size
+    ) {
+        Page<ChatMessage> messages = chatMessageRepository.tryThing(PageRequest.of(page, size, Sort.by("timestamp").descending()));
+        return messages;
+    }
 }
