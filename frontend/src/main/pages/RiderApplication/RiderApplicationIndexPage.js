@@ -9,7 +9,7 @@ export default function RiderApplicationIndexPage() {
         <h1>Index page not yet implemented</h1>
         <p><a href="/apply/rider/create">Create</a></p>
         <p><a href="/apply/rider/show/1">Show</a></p>
-        <p><a href="//apply/rider/show/1">Edit</a></p>
+        <p><a href="/apply/rider/show/1">Edit</a></p>
       </div>
     </BasicLayout>
   )
