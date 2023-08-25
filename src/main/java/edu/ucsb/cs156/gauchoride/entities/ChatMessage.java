@@ -5,9 +5,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import javax.persistence.GeneratedValue;
 
 import java.time.LocalDateTime;
@@ -20,7 +17,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "chatMessage")
+@Entity(name = "chat_messages")
 public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
