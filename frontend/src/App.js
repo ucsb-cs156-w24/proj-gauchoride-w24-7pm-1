@@ -15,6 +15,11 @@ import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 import DriverPage from "main/pages/DriverPage";
+import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
+import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPage";
+import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIRiderApplication";
+
+
 
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
@@ -73,7 +78,7 @@ function App() {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider" element={<RiderApplicationIndexPage />} />
         }
         {
-          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/create" element={<RiderApplicationCraetePage />} />
+          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/create" element={<RiderApplicationCreatePage />} />
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPage />} />
