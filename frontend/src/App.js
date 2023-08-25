@@ -78,7 +78,7 @@ function App() {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider" element={<RiderApplicationIndexPage />} />
         }
         {
-          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/create" element={<RiderApplicationCreatePage />} />
+          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/new" element={<RiderApplicationCreatePage />} />
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "MEMBER") )&& <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPage />} />
