@@ -527,6 +527,61 @@ describe("AppNavbar tests", () => {
 
     });
 
+    test("renders chat link correctly for driver", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Log Out")).toBeInTheDocument());
+        const chatMenu = getByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).toBeInTheDocument();        
+    });
+
+
+    test("renders shift table links correctly for adminOnly", async () => {
+
+        const currentUser = currentUserFixtures.adminOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                    </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
+        const chatMenu = getByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).toBeInTheDocument();        
+    });
+
+    test("not render shift table links for regular user", async () => {
+
+        const currentUser = currentUserFixtures.userOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const chatMenu = screen.queryByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).not.toBeInTheDocument();        
+    });
+
 });
 
 

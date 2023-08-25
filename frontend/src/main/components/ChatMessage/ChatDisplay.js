@@ -5,7 +5,7 @@ import { useBackend } from 'main/utils/useBackend';
 
 const ChatDisplay = () => {
   const testId = 'ChatDisplay';
-  const refreshIntervalMilliseconds = 2000;
+  const refreshIntervalMilliseconds = 1000;
   const pageSize = 10;
 
   const [selectedPage, setSelectedPage] = useState(0);
@@ -26,7 +26,7 @@ const ChatDisplay = () => {
     },
     {
       content: [], totalPages: 0
-      },
+    },
     { refetchInterval: refreshIntervalMilliseconds }
   );
 
@@ -39,12 +39,12 @@ const ChatDisplay = () => {
   const nextPageCallback = () => {
     setSelectedPage(selectedPage + 1);
   };
-
+  
   return (
-      <div>
+    <div>
       <Stack>
-        {page.content.map((message) => (
-          <ChatMessageDisplay key={message.id} chatMessage={message} />
+        {[...page.content].reverse().map((message) => (
+          <ChatMessageDisplay key={message.chatMessage.id} chatMessage={message} />
         ))}
       </Stack>
       <p>Page: {selectedPage + 1}</p>

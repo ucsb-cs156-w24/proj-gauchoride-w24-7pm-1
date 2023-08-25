@@ -21,7 +21,7 @@ import lombok.Builder;
 public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
   private long userId;
   private String payload;
@@ -31,5 +31,5 @@ public class ChatMessage {
 
     //UNUSED: TO IMPL LATER
   private boolean dm;
-  private long toUserId;
+  private Long toUserId;
 }

@@ -1,14 +1,20 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
+function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+  return formattedDate;
+}
+
 function ChatMessageDisplay({ chatMessage }) {
   return (
-    <Card>
+    <Card data-testid="ChatMessageDisplay">
       <Card.Body>
-        <Card.Title>{chatMessage.payload}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{chatMessage.timestamp}</Card.Subtitle>
+        <Card.Title>{chatMessage.chatMessage.payload}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{formatTimestamp(chatMessage.chatMessage.timestamp)}</Card.Subtitle>
         <Card.Text>
-          User ID: {chatMessage.userId}
+          Email: {chatMessage.email}
         </Card.Text>
       </Card.Body>
     </Card>
@@ -16,3 +22,4 @@ function ChatMessageDisplay({ chatMessage }) {
 }
 
 export default ChatMessageDisplay;
+

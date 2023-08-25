@@ -25,27 +25,29 @@ import { toast } from "react-toastify";
 //     []
 // );
 
-export function useBackend(queryKey, axiosParameters, initialData) {
+export function useBackend(queryKey, axiosParameters, initialData, rest) {
 
-    return useQuery(queryKey, async () => {
-        try {
-            const response = await axios(axiosParameters);
-            return response.data;
-        } catch (e) {
-            // Stryker disable next-line OptionalChaining
-            if (e.response?.data?.message) {
-                toast.error(e.response.data.message);
-            } else {
-                const errorMessage = `Error communicating with backend via ${axiosParameters.method} on ${axiosParameters.url}`;
-                toast.error(errorMessage);
+    return useQuery({
+        queryKey: queryKey,
+        queryFn: async () => {
+            try {
+                const response = await axios(axiosParameters);
+                return response.data;
+            } catch (e) {
+                // Stryker disable next-line OptionalChaining
+                if (e.response?.data?.message) {
+                    toast.error(e.response.data.message);
+                } else {
+                    const errorMessage = `Error communicating with backend via ${axiosParameters.method} on ${axiosParameters.url}`;
+                    toast.error(errorMessage);
+                }
+                throw e;
             }
-            throw e;
-        }
-    }, {
-        initialData
-    });
+        }, 
+        initialData: initialData,
+        ...rest
+        });
 }
-
 
 
 const wrappedParams = async (params) => {
