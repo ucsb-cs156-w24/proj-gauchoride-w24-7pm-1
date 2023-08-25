@@ -5,9 +5,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import javax.persistence.GeneratedValue;
 
 import java.time.LocalDateTime;
