@@ -39,10 +39,10 @@ public class DriversController extends ApiController{
     public ResponseEntity<String> drivers()
             throws JsonProcessingException {
 
-                Iterable<User> drivers;
+                Iterable<User> drivers=userRepository.findByDriver(true);
 
                 
-                    drivers=userRepository.findByDriver(true); 
+                
                 
 
                 
