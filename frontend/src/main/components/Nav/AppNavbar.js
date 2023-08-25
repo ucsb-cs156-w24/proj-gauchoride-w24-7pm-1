@@ -9,6 +9,7 @@ function isParticipant(currentUser) {
     hasRole(currentUser, "ROLE_ADMIN")
     || hasRole(currentUser, "ROLE_DRIVER")
     || hasRole(currentUser, "ROLE_RIDER")
+    || hasRole(currentUser, "ROLE_MEMBER")
   );
 }
 
@@ -104,7 +105,17 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
               {
                 hasRole(currentUser, "ROLE_DRIVER") && (
-                  <Nav.Link id ="appnavbar-driver-link" data-testid="appnavbar-driver" as={Link} to="/driver">Drivers Page</Nav.Link>
+                  <Nav.Link id="appnavbar-driver-link" data-testid="appnavbar-driver" as={Link} to="/driver">Drivers Page</Nav.Link>
+                )
+              }
+              {
+                hasRole(currentUser, "ROLE_MEMBER") && (
+                  <Nav.Link as={Link} to="/apply/rider">Apply to be a Rider</Nav.Link>
+                )
+              }
+              {
+                hasRole(currentUser, "ROLE_ADMIN") && (
+                  <Nav.Link as={Link} to="/admin/applications/riders">Rider Applications</Nav.Link>
                 )
               }
             </Nav>
