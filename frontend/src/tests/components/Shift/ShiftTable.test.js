@@ -1,8 +1,3 @@
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockedNavigate,
-  }));
-  
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import shiftFixtures from "fixtures/shiftFixtures";
 import ShiftTable from "main/components/Shift/ShiftTable"
@@ -10,6 +5,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
+  
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedNavigate,
+  }));
 
 const mockedNavigate = jest.fn();
 
@@ -136,7 +136,7 @@ describe("ShiftTable tests", () => {
 
     test("Delete button calls delete callback", async () => {
         const currentUser = currentUserFixtures.adminUser;
-        const deleteMutationMock = require("main/utils/useBackend").useBackendMutation;
+        
         
         // act - render the component
         render(

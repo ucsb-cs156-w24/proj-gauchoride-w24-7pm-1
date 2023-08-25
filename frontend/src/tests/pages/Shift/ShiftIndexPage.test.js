@@ -2,7 +2,6 @@ import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import mockConsole from "jest-mock-console";
 import { shiftFixtures } from "fixtures/shiftFixtures";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
