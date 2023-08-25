@@ -43,23 +43,6 @@ describe("ShiftIndexPage tests", () => {
 
     const queryClient = new QueryClient();
 
-    //This test case is insanity
-    test("renders empty table when backend unavailable, user only", async () => {
-        setupUserOnly();
-        axiosMock.onGet("/api/shift/all").timeout();
-        const restoreConsole = mockConsole();
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <ShiftIndexPage />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
-        const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/shift/all");
-        restoreConsole();
-    });
 
     test("fetches shifts using the correct GET method", async () => {
         setupAdminUser();

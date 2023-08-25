@@ -5,10 +5,10 @@ import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function ShiftEditPage({storybook=false}) {
+export default function ShiftEditPage({}) {
     let { id } = useParams();
 
-    const { data: shift, _error, _status } =
+    const { data: myshift, _error, _status } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
             [`/api/shift?id=${id}`],
@@ -21,20 +21,23 @@ export default function ShiftEditPage({storybook=false}) {
             }
         );
 
-    const objectToAxiosPutParams = (shift) => ({
+    const objectToAxiosPutParams = (myshift) => ({
         url: "/api/shift",
         method: "PUT",
         params: {
-            id: shift.id,
+            id: myshift.id,
         },
         data: {
-            name: shift.name,
-            description: shift.description,
+            day: myshift.day,
+            shiftStart: myshift.shiftStart,
+            shiftEnd: myshift.shiftEnd, 
+            driverID: myshift.driverID,
+            driverBackupID: myshift.driverBackupID
         }
     });
 
-    const onSuccess = (shift) => {
-        toast(`Shift Updated - id: ${shift.id} day: ${shift.day}`);
+    const onSuccess = (myshift) => {
+        toast(`Shift Updated - id: ${myshift.id}`);
     }
 
     const mutation = useBackendMutation(
@@ -58,8 +61,8 @@ export default function ShiftEditPage({storybook=false}) {
         <BasicLayout>
             <div className="pt-2">
                 <h1>Edit Shift</h1>
-                {
-                    shift && <ShiftForm submitAction={onSubmit} buttonLabel={"Update"} initialContents={shift} />
+                {myshift &&
+                <ShiftForm initialContents={myshift} submitAction={onSubmit} buttonLabel="Update" />
                 }
             </div>
         </BasicLayout>
