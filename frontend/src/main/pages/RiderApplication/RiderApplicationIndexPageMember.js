@@ -11,12 +11,20 @@ export default function RiderApplicationIndexPage() {
 
     const currentUser = useCurrentUser();
     // Stryker disable all
-    const currentUserCopy = { ...currentUser };
-    if (currentUserCopy.data?.root?.rolesList.includes("ROLE_ADMIN"))
-    {
-        currentUserCopy.data.root.rolesList = currentUserCopy.data.root.rolesList.filter(role => role !== "ROLE_ADMIN");
-    }
+    const currentUserCopy = currentUser.data?.root?.rolesList
+        ? {
+            ...currentUser,
+            data: {
+                ...currentUser.data,
+                root: {
+                    ...currentUser.data.root,
+                    rolesList: currentUser.data.root.rolesList.filter(role => role !== "ROLE_ADMIN")
+                }
+            }
+        }
+        : { ...currentUser };
     // Stryker restore all 
+    
     const { data: riderApplications, error: _error, status: _status } =
         useBackend(
             // Stryker disable all : hard to test for query caching
