@@ -48,11 +48,13 @@ describe("DriverShiftsTable tests", () => {
         expect(getByTestId(`${testId}-cell-row-0-col-day`)).toHaveTextContent("Monday");
         expect(getByTestId(`${testId}-cell-row-0-col-shiftStart`)).toHaveTextContent("09:00AM");
         expect(getByTestId(`${testId}-cell-row-0-col-shiftEnd`)).toHaveTextContent("12:00PM");
+        expect(getByTestId(`${testId}-cell-row-0-col-driverID`)).toHaveTextContent("1");
         expect(getByTestId(`${testId}-cell-row-0-col-driverBackupID`)).toHaveTextContent("3");
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-day`)).toHaveTextContent("Tuesday");
         expect(getByTestId(`${testId}-cell-row-1-col-shiftStart`)).toHaveTextContent("11:30AM");
         expect(getByTestId(`${testId}-cell-row-1-col-shiftEnd`)).toHaveTextContent("02:30PM");
+        expect(getByTestId(`${testId}-cell-row-1-col-driverID`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-1-col-driverBackupID`)).toHaveTextContent("1");
       });
 });
