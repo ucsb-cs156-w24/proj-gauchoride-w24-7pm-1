@@ -145,12 +145,11 @@ describe("RiderApplicationIndexPage tests", () => {
 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeApplications);
-        axiosMock.onPut("/api/riderApplication/cancel").reply(200);
+        axiosMock.onPut("/api/riderApplication/cancel").reply(200, "Application with id 4 is deleted");
 
         // Spy on window.confirm
         const mockConfirm = jest.spyOn(window, "confirm");
         mockConfirm.mockReturnValue(true);
-
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -173,11 +172,7 @@ describe("RiderApplicationIndexPage tests", () => {
 
         expect(mockConfirm).toHaveBeenCalledWith("Are you sure you want to cancel this application?\n\nClick 'OK' to confirm or 'Cancel' to keep your application active.");
         
-        // Use setTimeout to introduce a delay before checking the updated status
-        setTimeout(() => {
-            expect(getByTestId(`${testId}-cell-row-2-col-status`)).toHaveTextContent("cancelled");
-            }, 1000); 
-
+        await waitFor(() => { expect(mockToast).toBeCalledWith("Application with id 4 is deleted") });
     });
 
     test("what happens when you click cancel and no, member", async () => {
@@ -213,11 +208,9 @@ describe("RiderApplicationIndexPage tests", () => {
 
         expect(mockConfirm).toHaveBeenCalledWith("Are you sure you want to cancel this application?\n\nClick 'OK' to confirm or 'Cancel' to keep your application active.");
         
-        // Use setTimeout to introduce a delay before checking the updated status
-        setTimeout(() => {
-        // Verify that the status is updated to "cancelled"
+        await waitFor( ()=> {
             expect(getByTestId(`${testId}-cell-row-2-col-status`)).toHaveTextContent("pending");
-            }, 1000); // Adjust the delay duration as needed
+                       })
 
     });
 
