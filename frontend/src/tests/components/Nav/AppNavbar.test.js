@@ -560,7 +560,4 @@ describe("AppNavbar tests", () => {
         const driverLink = screen.queryByTestId("appnavbar-driver-link");
         expect(driverLink).not.toBeInTheDocument();      
     })
-
 });
-
-
