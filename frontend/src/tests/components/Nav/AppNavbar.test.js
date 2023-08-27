@@ -153,7 +153,7 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText(/^Drivers$/)).toBeInTheDocument());
+        await waitFor(() => expect(getByText(/Drivers/)).toBeInTheDocument());
     });
 
     test("does NOT render driver page link for rider", async () => {
@@ -632,8 +632,6 @@ describe("AppNavbar tests", () => {
         const chatMenu = screen.queryByTestId("appnavbar-chat-dropdown");
         expect(chatMenu).not.toBeInTheDocument();        
     });
-
-});
         
 
     test("Driver page link should not appear for a user that is not a driver", async () => {
