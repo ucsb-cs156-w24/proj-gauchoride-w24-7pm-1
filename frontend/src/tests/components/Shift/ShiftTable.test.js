@@ -56,7 +56,7 @@ describe("ShiftTable tests", () => {
 
         expectedFields.forEach( (field)=> {
           const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
-          expect(header).toBeInTheDocument();//test failing
+          expect(header).toBeInTheDocument(); 
         });
 
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
