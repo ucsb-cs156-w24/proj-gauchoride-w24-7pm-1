@@ -12,6 +12,13 @@ function isParticipant(currentUser) {
   );
 }
 
+function hasChat(currentUser) {
+  return (
+    hasRole(currentUser, "ROLE_ADMIN")
+    || hasRole(currentUser, "ROLE_DRIVER")
+  );
+}
+
 function createRideRequest(currentUser) {
   if (hasRole(currentUser, "ROLE_RIDER") || hasRole(currentUser, "ROLE_ADMIN")) {
     return (<NavDropdown.Item data-testid="appnavbar-ride-create-dropdown" as={Link} to="/ride/create">Request Ride</NavDropdown.Item>)
@@ -37,7 +44,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
 
       <Navbar expand="xl" variant="dark" sticky="top" data-testid="AppNavbar" style={styles.navbar}>
         <Container>
-        <img data-testid="gauchoride-nav-logo" src={headerImg} alt="" style={{width: 80, height: 80, marginRight: 15}} />
+          <img data-testid="gauchoride-nav-logo" src={headerImg} alt="" style={{ width: 80, height: 80, marginRight: 15 }} />
 
           <Navbar.Brand as={Link} to="/">
             GauchoRide
@@ -75,8 +82,8 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
               {
                 isParticipant(currentUser) && (
-                  <NavDropdown title="Shift" id="appnavbar-shift-dropdown" data-testid="appnavbar-shift-dropdown" >
-                    <NavDropdown.Item as={Link} to="/shift/list">Driver shift table</NavDropdown.Item>
+                  <NavDropdown title="Shifts" id="appnavbar-shift-dropdown" data-testid="appnavbar-shift-dropdown" >
+                    <NavDropdown.Item data-testid="appnavbar-shift-dropdown-shifts" as={Link} to="/shift/">Shifts</NavDropdown.Item>
                   </NavDropdown>
                 )
               }
@@ -84,7 +91,14 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 isParticipant(currentUser) && (
                   <NavDropdown title="Ride Request" id="appnavbar-ride-dropdown" data-testid="appnavbar-ride-dropdown" >
                     <NavDropdown.Item data-testid="appnavbar-ride-dropdown-rides" as={Link} to="/ride/">Rides</NavDropdown.Item>
-                    { createRideRequest(currentUser) }
+                    {createRideRequest(currentUser)}
+                  </NavDropdown>
+                )
+              }
+              {
+                hasChat(currentUser) && (
+                  <NavDropdown title="Chat" id="appnavbar-chat-dropdown" data-testid="appnavbar-chat-dropdown" >
+                    <NavDropdown.Item as={Link} to="/chat">Chat</NavDropdown.Item>
                   </NavDropdown>
                 )
               }
@@ -108,10 +122,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
-
-            
-              
-            
           </Navbar.Collapse>
         </Container >
       </Navbar >

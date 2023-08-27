@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +53,7 @@ public class ShiftController extends ApiController {
 
     @Operation(summary = "Get shift by id")
     @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')")
-    @GetMapping("/get")
+    @GetMapping("")
     public Shift shiftByID(
             @Parameter(name = "id", description = "Long, id number of shift to get", example = "1", required = true) @RequestParam Long id)
             throws JsonProcessingException {
@@ -59,7 +63,7 @@ public class ShiftController extends ApiController {
     }
 
     @Operation(summary = "Create a new shift for the table")
-    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public Shift postShift(
         @Parameter(name="day") @RequestParam String day,
@@ -82,4 +86,39 @@ public class ShiftController extends ApiController {
 
         return savedShift;
     }
+
+    
+    @Operation(summary= "Delete a shift")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteShift(
+            @Parameter(name="id") @RequestParam long id) {
+        Shift shift = shiftRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Shift.class, id));
+
+        shiftRepository.delete(shift);
+        return genericMessage("Shift with id %s deleted".formatted(id));
+    }
+
+    @Operation(summary= "Update a single shift")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public Shift updateReview(
+            @Parameter(name="id") @RequestParam long id,
+            @RequestBody @Valid Shift incoming) {
+
+        Shift shift = shiftRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Shift.class, id));
+
+        shift.setDay(incoming.getDay());
+        shift.setShiftStart(incoming.getShiftStart());
+        shift.setShiftEnd(incoming.getShiftEnd());
+        shift.setDriverID(incoming.getDriverID());
+        shift.setDriverBackupID(incoming.getDriverBackupID());
+
+        shiftRepository.save(shift);
+
+        return shift;
+    }
+
 }

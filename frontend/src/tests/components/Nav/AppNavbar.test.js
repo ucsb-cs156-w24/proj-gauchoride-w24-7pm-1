@@ -140,6 +140,38 @@ describe("AppNavbar tests", () => {
         expect(shiftMenu).toBeInTheDocument();        
     });
 
+    test("renders driver page link for driver", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText(/^Drivers$/)).toBeInTheDocument());
+    });
+
+    test("does NOT render driver page link for rider", async () => {
+
+        const currentUser = currentUserFixtures.riderOnly;
+        const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(screen.queryByText(/^Drivers$/)).not.toBeInTheDocument());
+    });
+
     test("renders shift table links correctly for rider", async () => {
 
         const currentUser = currentUserFixtures.riderOnly;
@@ -527,10 +559,11 @@ describe("AppNavbar tests", () => {
 
     });
 
+
     test("Driver page link should appear for a user that is not a driver", async () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
-
+        
         const { getByText } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -543,6 +576,65 @@ describe("AppNavbar tests", () => {
         const driverLink = screen.queryByTestId("appnavbar-driver");
         expect(driverLink).toBeInTheDocument();      
     })
+    
+
+    test("renders chat link correctly for driver", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Log Out")).toBeInTheDocument());
+        const chatMenu = getByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).toBeInTheDocument();        
+    });
+
+
+    test("renders shift table links correctly for adminOnly", async () => {
+
+        const currentUser = currentUserFixtures.adminOnly;
+        const doLogin = jest.fn();
+
+        const { getByText , getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                    </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
+        const chatMenu = getByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).toBeInTheDocument();        
+    });
+
+    test("not render shift table links for regular user", async () => {
+
+        const currentUser = currentUserFixtures.userOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const chatMenu = screen.queryByTestId("appnavbar-chat-dropdown");
+        expect(chatMenu).not.toBeInTheDocument();        
+    });
+
+});
+        
 
     test("Driver page link should not appear for a user that is not a driver", async () => {
         const currentUser = currentUserFixtures.userOnly;
