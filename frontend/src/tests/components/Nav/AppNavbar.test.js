@@ -140,6 +140,38 @@ describe("AppNavbar tests", () => {
         expect(shiftMenu).toBeInTheDocument();        
     });
 
+    test("renders driver page link for driver", async () => {
+
+        const currentUser = currentUserFixtures.driverOnly;
+        const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(getByText(/^Drivers$/)).toBeInTheDocument());
+    });
+
+    test("does NOT render driver page link for rider", async () => {
+
+        const currentUser = currentUserFixtures.riderOnly;
+        const doLogin = jest.fn();
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        
+        await waitFor(() => expect(screen.queryByText(/^Drivers$/)).not.toBeInTheDocument());
+    });
+
     test("renders shift table links correctly for rider", async () => {
 
         const currentUser = currentUserFixtures.riderOnly;
