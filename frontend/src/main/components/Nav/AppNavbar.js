@@ -104,9 +104,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
               {
                 hasRole(currentUser, "ROLE_DRIVER") && (
-                  <>
-                    <Nav.Link href="/drivers">Drivers</Nav.Link>
-                  </>
+                  <Nav.Link id ="appnavbar-driver-link" data-testid="appnavbar-driver" as={Link} to="/driver">Drivers Page</Nav.Link>
                 )
               }
             </Nav>

@@ -14,6 +14,7 @@ import ChatPage from "main/pages/ChatPage";
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
+import DriverPage from "main/pages/DriverPage";
 
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
@@ -29,6 +30,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<HomePage />} />
+        {
+          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/driver" element={<DriverPage />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_RIDER") && <Route exact path="/shift/list" element={<ShiftPage />} />
+        }
         {
           hasRole(currentUser, "ROLE_USER") &&  <Route exact path="/profile" element={<ProfilePage />} />
         }
