@@ -44,7 +44,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
 
       <Navbar expand="xl" variant="dark" sticky="top" data-testid="AppNavbar" style={styles.navbar}>
         <Container>
-        <img data-testid="gauchoride-nav-logo" src={headerImg} alt="" style={{width: 80, height: 80, marginRight: 15}} />
+          <img data-testid="gauchoride-nav-logo" src={headerImg} alt="" style={{ width: 80, height: 80, marginRight: 15 }} />
 
           <Navbar.Brand as={Link} to="/">
             GauchoRide
@@ -91,7 +91,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 isParticipant(currentUser) && (
                   <NavDropdown title="Ride Request" id="appnavbar-ride-dropdown" data-testid="appnavbar-ride-dropdown" >
                     <NavDropdown.Item data-testid="appnavbar-ride-dropdown-rides" as={Link} to="/ride/">Rides</NavDropdown.Item>
-                    { createRideRequest(currentUser) }
+                    {createRideRequest(currentUser)}
                   </NavDropdown>
                 )
               }
@@ -100,6 +100,13 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                   <NavDropdown title="Chat" id="appnavbar-chat-dropdown" data-testid="appnavbar-chat-dropdown" >
                     <NavDropdown.Item as={Link} to="/chat">Chat</NavDropdown.Item>
                   </NavDropdown>
+                )
+              }
+              {
+                hasRole(currentUser, "ROLE_DRIVER") && (
+                  <>
+                    <Nav.Link href="/drivers">Drivers</Nav.Link>
+                  </>
                 )
               }
             </Nav>
@@ -117,10 +124,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
             </Nav>
-
-            
-              
-            
           </Navbar.Collapse>
         </Container >
       </Navbar >

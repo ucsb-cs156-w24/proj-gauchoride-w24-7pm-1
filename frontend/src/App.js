@@ -3,8 +3,7 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import PageNotFound from "main/pages/PageNotFound";
-
-
+import DriverList from "main/pages/DriverList";
 
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
@@ -29,7 +28,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
         <Route exact path="/" element={<HomePage />} />
         {
           hasRole(currentUser, "ROLE_USER") &&  <Route exact path="/profile" element={<ProfilePage />} />
@@ -61,8 +59,12 @@ function App() {
         {
           (hasRole(currentUser, "ROLE_ADMIN"))&& <Route exact path="/shift/edit/:id" element={<ShiftEditPage />} />
         }
+        { 
+          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/drivers" element={<DriverList />} />
+        }
         <Route exact path="/privacy.html"  />
         <Route exact path="/*" element={<PageNotFound />} />
+
       </Routes>
     </BrowserRouter>
   );
