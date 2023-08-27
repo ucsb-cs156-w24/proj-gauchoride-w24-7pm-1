@@ -651,7 +651,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         verify(riderApplicationRepository, times(1)).save(application_cancelled); // should be saved with correct user
         
         Map<String, Object> json = responseToJson(response);
-        assertEquals("Application with id 67 deleted", json.get("message"));
+        assertEquals("Application with id 67 is deleted", json.get("message"));
     }
 
     @WithMockUser(roles = { "MEMBER" })
