@@ -12,7 +12,6 @@ export default {
 
 const Template = (args) => <ChatDisplay {...args} />;
 
-//const Template = () => <HelpRequestCreatePage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
