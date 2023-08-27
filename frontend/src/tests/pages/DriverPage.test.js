@@ -58,6 +58,4 @@ describe("DriverPage tests", () => {
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
-    // more test cases if needed
-
 });
