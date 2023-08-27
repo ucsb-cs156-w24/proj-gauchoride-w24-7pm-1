@@ -42,15 +42,4 @@ export default function ShiftIndexPage() {
             </div>
         </BasicLayout>
     );
-    // return (
-    //     <BasicLayout>
-    //     <div className="pt-2">
-    //         <Button style={{ float: "right" }} as={Link} to="/shift/create">
-    //         Create Shift
-    //         </Button>
-    //         <h1>Shifts</h1>
-    //         <ShiftTable shift={shifts} currentUser={currentUser} />
-    //     </div>
-    //     </BasicLayout>
-    // )
 }
