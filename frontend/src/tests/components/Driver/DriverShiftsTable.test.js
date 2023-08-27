@@ -30,8 +30,8 @@ describe("DriverShiftsTable tests", () => {
             </QueryClientProvider>
         );
     
-        const expectedHeaders = ["id", "Day", "Shift start", "Shift end", "Backup driver"];
-        const expectedFields = ["id", "day", "shiftStart", "shiftEnd", "driverBackupID"];
+        const expectedHeaders = ["id", "Day", "Shift start", "Shift end", "Driver", "Backup driver"];
+        const expectedFields = ["id", "day", "shiftStart", "shiftEnd", "driverID", "driverBackupID"];
         const testId = "DriverShiftsTable";
 
         expectedHeaders.forEach( (headerText)=> {
