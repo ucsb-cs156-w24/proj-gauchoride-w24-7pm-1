@@ -33,11 +33,11 @@ const ChatDisplay = () => {
   // Stryker restore all
 
   const previousPageCallback = () => {
-    setSelectedPage(selectedPage - 1);
+    setSelectedPage((prevPage) => prevPage - 1);
   };
 
   const nextPageCallback = () => {
-    setSelectedPage(selectedPage + 1);
+    setSelectedPage((prevPage) => prevPage + 1);
   };
   
   return (
