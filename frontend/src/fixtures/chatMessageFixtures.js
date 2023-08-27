@@ -46,84 +46,114 @@ const firstPagedChatFixtures = {
     
   "content": [
     {
-      "id": 1,
-      "userId": 1,
-      "payload": "Message1",
-      "timestamp": "2023-08-22T16:39:54.981211",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 30,
+        "userId": 1,
+        "payload": "message30",
+        "timestamp": "2024-11-24T21:51:17.644146",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 2,
-      "userId": 1,
-      "payload": "Message2",
-      "timestamp": "2023-08-22T16:40:09.555741",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 29,
+        "userId": 1,
+        "payload": "message29",
+        "timestamp": "2024-08-04T01:09:08.790645",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 3,
-      "userId": 1,
-      "payload": "Message3",
-      "timestamp": "2023-08-22T16:40:13.792036",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 28,
+        "userId": 1,
+        "payload": "message28",
+        "timestamp": "2023-08-24T21:50:00.182364",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 4,
-      "userId": 1,
-      "payload": "Message4",
-      "timestamp": "2023-08-22T16:40:16.251808",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 27,
+        "userId": 1,
+        "payload": "message27",
+        "timestamp": "2023-08-24T21:49:56.026918",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 5,
-      "userId": 1,
-      "payload": "Message5",
-      "timestamp": "2023-08-22T16:40:18.538566",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 26,
+        "userId": 1,
+        "payload": "message26",
+        "timestamp": "2023-08-24T21:49:48.278688",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 6,
-      "userId": 1,
-      "payload": "Message6",
-      "timestamp": "2023-08-22T16:40:21.819083",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 25,
+        "userId": 1,
+        "payload": "message25",
+        "timestamp": "2023-08-24T21:49:44.172651",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 7,
-      "userId": 1,
-      "payload": "Message7",
-      "timestamp": "2023-08-22T16:40:24.223265",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 24,
+        "userId": 1,
+        "payload": "message24",
+        "timestamp": "2023-08-24T21:49:40.602912",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 8,
-      "userId": 1,
-      "payload": "Message8",
-      "timestamp": "2023-08-22T16:40:27.476765",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 23,
+        "userId": 1,
+        "payload": "message23",
+        "timestamp": "2023-08-24T21:49:36.802511",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 9,
-      "userId": 1,
-      "payload": "Message9",
-      "timestamp": "2023-08-22T16:40:30.032275",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 22,
+        "userId": 1,
+        "payload": "message22",
+        "timestamp": "2023-08-24T21:49:33.488459",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 10,
-      "userId": 1,
-      "payload": "Message10",
-      "timestamp": "2023-08-22T16:40:32.280206",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 21,
+        "userId": 1,
+        "payload": "message21",
+        "timestamp": "2023-08-24T21:49:31.106867",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     }
   ],
   "pageable": {
@@ -139,7 +169,7 @@ const firstPagedChatFixtures = {
     "unpaged": false
   },
   "totalPages": 3,
-  "totalElements": 25,
+  "totalElements": 30,
   "last": false,
   "size": 10,
   "number": 0,
@@ -148,8 +178,8 @@ const firstPagedChatFixtures = {
     "unsorted": false,
     "empty": false
   },
-  "numberOfElements": 10,
   "first": true,
+  "numberOfElements": 10,
   "empty": false
       
 }
@@ -158,84 +188,114 @@ const secondPagedChatFixtures = {
     
   "content": [
     {
-      "id": 11,
-      "userId": 1,
-      "payload": "Message11",
-      "timestamp": "2023-08-22T16:40:34.419921",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 20,
+        "userId": 1,
+        "payload": "message20",
+        "timestamp": "2023-08-24T21:49:28.229408",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 12,
-      "userId": 1,
-      "payload": "Message12",
-      "timestamp": "2023-08-22T16:40:36.385311",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 19,
+        "userId": 1,
+        "payload": "message19",
+        "timestamp": "2023-08-24T21:49:24.438798",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 13,
-      "userId": 1,
-      "payload": "Message13",
-      "timestamp": "2023-08-22T16:40:38.490139",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 18,
+        "userId": 1,
+        "payload": "message18",
+        "timestamp": "2023-08-24T21:49:21.232491",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 14,
-      "userId": 1,
-      "payload": "Message14",
-      "timestamp": "2023-08-22T16:40:40.739879",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 17,
+        "userId": 1,
+        "payload": "message17",
+        "timestamp": "2023-08-24T21:49:18.591473",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 15,
-      "userId": 1,
-      "payload": "Message15",
-      "timestamp": "2023-08-22T16:40:43.231666",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 16,
+        "userId": 1,
+        "payload": "message16",
+        "timestamp": "2023-08-24T21:49:15.078777",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 16,
-      "userId": 1,
-      "payload": "Message16",
-      "timestamp": "2023-08-22T21:03:47.510025",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 15,
+        "userId": 1,
+        "payload": "message15",
+        "timestamp": "2023-08-24T21:49:12.166436",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 17,
-      "userId": 1,
-      "payload": "Message17",
-      "timestamp": "2023-08-22T21:03:53.146248",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 14,
+        "userId": 1,
+        "payload": "message14",
+        "timestamp": "2023-08-24T21:49:08.582609",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 18,
-      "userId": 1,
-      "payload": "Message18",
-      "timestamp": "2023-08-22T21:03:55.786879",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 13,
+        "userId": 1,
+        "payload": "message13",
+        "timestamp": "2023-08-24T21:49:05.79907",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 19,
-      "userId": 1,
-      "payload": "Message19",
-      "timestamp": "2023-08-22T21:03:58.940428",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 12,
+        "userId": 1,
+        "payload": "message12",
+        "timestamp": "2023-08-24T21:49:02.649196",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 20,
-      "userId": 1,
-      "payload": "Message20",
-      "timestamp": "2023-08-22T21:04:03.1719",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 11,
+        "userId": 1,
+        "payload": "message11",
+        "timestamp": "2023-08-24T21:48:59.403401",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     }
   ],
   "pageable": {
@@ -251,7 +311,7 @@ const secondPagedChatFixtures = {
     "unpaged": false
   },
   "totalPages": 3,
-  "totalElements": 25,
+  "totalElements": 30,
   "last": false,
   "size": 10,
   "number": 1,
@@ -260,8 +320,8 @@ const secondPagedChatFixtures = {
     "unsorted": false,
     "empty": false
   },
-  "numberOfElements": 10,
   "first": false,
+  "numberOfElements": 10,
   "empty": false
       
 }
@@ -270,44 +330,114 @@ const thirdPagedChatFixtures = {
     
   "content": [
     {
-      "id": 21,
-      "userId": 1,
-      "payload": "Message21",
-      "timestamp": "2023-08-22T21:04:05.392204",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 10,
+        "userId": 1,
+        "payload": "message10",
+        "timestamp": "2023-08-24T21:48:56.268648",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 22,
-      "userId": 1,
-      "payload": "Message22",
-      "timestamp": "2023-08-22T21:04:08.245983",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 9,
+        "userId": 1,
+        "payload": "message9",
+        "timestamp": "2023-08-24T21:48:52.848812",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 23,
-      "userId": 1,
-      "payload": "Message23",
-      "timestamp": "2023-08-22T21:04:10.863978",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 8,
+        "userId": 1,
+        "payload": "message8",
+        "timestamp": "2023-08-24T21:48:49.813983",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 24,
-      "userId": 1,
-      "payload": "Message24",
-      "timestamp": "2023-08-22T21:04:13.498318",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 7,
+        "userId": 1,
+        "payload": "message7",
+        "timestamp": "2023-08-24T21:48:47.775468",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     },
     {
-      "id": 25,
-      "userId": 1,
-      "payload": "Message25",
-      "timestamp": "2023-08-22T21:04:15.914394",
-      "dm": false,
-      "toUserId": 0
+      "chatMessage": {
+        "id": 6,
+        "userId": 1,
+        "payload": "message6",
+        "timestamp": "2023-08-24T21:48:45.248654",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
+    },
+    {
+      "chatMessage": {
+        "id": 5,
+        "userId": 1,
+        "payload": "message5",
+        "timestamp": "2023-08-24T21:48:41.120841",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
+    },
+    {
+      "chatMessage": {
+        "id": 4,
+        "userId": 1,
+        "payload": "message4",
+        "timestamp": "2023-08-24T21:48:38.388776",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
+    },
+    {
+      "chatMessage": {
+        "id": 3,
+        "userId": 1,
+        "payload": "message3",
+        "timestamp": "2023-08-24T21:48:35.653172",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
+    },
+    {
+      "chatMessage": {
+        "id": 2,
+        "userId": 1,
+        "payload": "message2",
+        "timestamp": "2023-08-24T21:48:33.036862",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
+    },
+    {
+      "chatMessage": {
+        "id": 1,
+        "userId": 1,
+        "payload": "message1",
+        "timestamp": "2023-08-24T21:47:48.121942",
+        "dm": false,
+        "toUserId": null
+      },
+      "email": "cGaucho@ucsb.edu"
     }
   ],
   "pageable": {
@@ -323,7 +453,7 @@ const thirdPagedChatFixtures = {
     "unpaged": false
   },
   "totalPages": 3,
-  "totalElements": 25,
+  "totalElements": 30,
   "last": true,
   "size": 10,
   "number": 2,
@@ -332,161 +462,11 @@ const thirdPagedChatFixtures = {
     "unsorted": false,
     "empty": false
   },
-  "numberOfElements": 5,
   "first": false,
-  "empty": false
-      
-}
-
-const onePagedChatFixtures = {
-  "content": [
-    {
-      "id": 1,
-      "userId": 1,
-      "payload": "Message1",
-      "timestamp": "2023-08-22T16:39:54.981211",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 2,
-      "userId": 1,
-      "payload": "Message2",
-      "timestamp": "2023-08-22T16:40:09.555741",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 3,
-      "userId": 1,
-      "payload": "Message3",
-      "timestamp": "2023-08-22T16:40:13.792036",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 4,
-      "userId": 1,
-      "payload": "Message4",
-      "timestamp": "2023-08-22T16:40:16.251808",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 5,
-      "userId": 1,
-      "payload": "Message5",
-      "timestamp": "2023-08-22T16:40:18.538566",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 6,
-      "userId": 1,
-      "payload": "Message6",
-      "timestamp": "2023-08-22T16:40:21.819083",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 7,
-      "userId": 1,
-      "payload": "Message7",
-      "timestamp": "2023-08-22T16:40:24.223265",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 8,
-      "userId": 1,
-      "payload": "Message8",
-      "timestamp": "2023-08-22T16:40:27.476765",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 9,
-      "userId": 1,
-      "payload": "Message9",
-      "timestamp": "2023-08-22T16:40:30.032275",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 10,
-      "userId": 1,
-      "payload": "Message10",
-      "timestamp": "2023-08-22T16:40:32.280206",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 11,
-      "userId": 1,
-      "payload": "Message11",
-      "timestamp": "2023-08-22T16:40:34.419921",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 12,
-      "userId": 1,
-      "payload": "Message12",
-      "timestamp": "2023-08-22T16:40:36.385311",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 13,
-      "userId": 1,
-      "payload": "Message13",
-      "timestamp": "2023-08-22T16:40:38.490139",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 14,
-      "userId": 1,
-      "payload": "Message14",
-      "timestamp": "2023-08-22T16:40:40.739879",
-      "dm": false,
-      "toUserId": 0
-    },
-    {
-      "id": 15,
-      "userId": 1,
-      "payload": "Message15",
-      "timestamp": "2023-08-22T16:40:43.231666",
-      "dm": false,
-      "toUserId": 0
-    }
-  ],
-  "pageable": {
-    "sort": {
-      "sorted": true,
-      "unsorted": false,
-      "empty": false
-    },
-    "pageNumber": 0,
-    "pageSize": 15,
-    "offset": 0,
-    "unpaged": false,
-    "paged": true
-  },
-  "totalPages": 1,
-  "totalElements": 15,
-  "last": true,
-  "size": 15,
-  "number": 0,
-  "sort": {
-    "sorted": true,
-    "unsorted": false,
-    "empty": false
-  },
-  "first": true,
-  "numberOfElements": 15,
+  "numberOfElements": 10,
   "empty": false
 }
 
 
-export { chatMessageFixtures, firstPagedChatFixtures, secondPagedChatFixtures, thirdPagedChatFixtures, onePagedChatFixtures};
+export { chatMessageFixtures, firstPagedChatFixtures, secondPagedChatFixtures, thirdPagedChatFixtures};
+

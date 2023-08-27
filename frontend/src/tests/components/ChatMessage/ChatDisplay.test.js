@@ -8,6 +8,12 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
+function convertDateToInt(dateString) {
+  const digitsOnly = dateString.replace(/\D/g, '');
+  const intValue = parseInt(digitsOnly);
+  return intValue;
+}
+
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
     const originalModule = jest.requireActual('react-toastify');
@@ -87,13 +93,28 @@ describe("chatDisplay tests", () => {
       expect(previousButton).toBeInTheDocument();
       expect(previousButton).toBeDisabled();
 
-      for (let i = 1; i < 16; i++){
-        if(i < 11){
-          expect(screen.getByText(`Message${i}`)).toBeInTheDocument();
+      for (let i = 29; i >= 0; i--){
+        if(i > 20){
+          expect(screen.getByText(`message${i}`)).toBeInTheDocument();
         }else{
-          expect(screen.queryByText(`Message${i}`)).not.toBeInTheDocument();
+          expect(screen.queryByText(`message${i}`)).not.toBeInTheDocument();
         }
       }
+      expect(screen.getByText(`2024-08-04 01:09:08`)).toBeInTheDocument();
+      expect(screen.getByText(`2024-11-24 21:51:17`)).toBeInTheDocument();
+      
+      const messageDisplays = screen.getAllByTestId('ChatMessageDisplay'); // Using the test ID
+
+    const timestamps = messageDisplays.map(messageDisplay => {
+      return messageDisplay.querySelector('.text-muted').textContent;
+    });
+
+    // Check if the timestamps are in reverse order
+    for (let i = 1; i < timestamps.length; i++) {
+      expect(convertDateToInt(timestamps[i])).toBeGreaterThanOrEqual(convertDateToInt(timestamps[i - 1])); // Compare as strings
+    }
+      
+      
       
       expect(screen.getByText(`Page: 1`)).toBeInTheDocument();
       fireEvent.click(nextButton);
