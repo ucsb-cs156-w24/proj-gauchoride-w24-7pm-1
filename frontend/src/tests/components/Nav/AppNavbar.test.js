@@ -559,7 +559,6 @@ describe("AppNavbar tests", () => {
 
     });
 
-
     test("Driver page link should appear for a user that is not a driver", async () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
@@ -575,8 +574,7 @@ describe("AppNavbar tests", () => {
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const driverLink = screen.queryByTestId("appnavbar-driver");
         expect(driverLink).toBeInTheDocument();      
-    })
-    
+    });
 
     test("renders chat link correctly for driver", async () => {
 
@@ -632,7 +630,6 @@ describe("AppNavbar tests", () => {
         const chatMenu = screen.queryByTestId("appnavbar-chat-dropdown");
         expect(chatMenu).not.toBeInTheDocument();        
     });
-        
 
     test("Driver page link should not appear for a user that is not a driver", async () => {
         const currentUser = currentUserFixtures.userOnly;
@@ -649,5 +646,8 @@ describe("AppNavbar tests", () => {
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const driverLink = screen.queryByTestId("appnavbar-driver-link");
         expect(driverLink).not.toBeInTheDocument();      
-    })
+    });
+
 });
+
+
