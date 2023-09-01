@@ -18,6 +18,8 @@ import DriverPage from "main/pages/DriverPage";
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import RiderApplicationIndexPageMember from "main/pages/RiderApplication/RiderApplicationIndexPageMember";
+import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPage";
+import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndexPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
