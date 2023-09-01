@@ -119,7 +119,31 @@ describe("AdminUsersPage tests", () => {
       
 
     })
+    test("usertable toggle rider tests", async ()=>{
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/admin/users").reply(200, usersFixtures.threeUsers);
+        axiosMock.onPost("/api/admin/users/toggleRider").reply(200, "User with id 1 has toggled rider status");
+        const { getByText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AdminUsersPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
+        const toggleRiderButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-rider-button`);
+        expect(toggleRiderButton).toBeInTheDocument();
+
+        fireEvent.click(toggleRiderButton);
+
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
+        expect(axiosMock.history.post[0].url).toBe("/api/admin/users/toggleRider");
+        expect(axiosMock.history.post[0].params).toEqual({id:1});
+
+
+    })
 });
 
 
