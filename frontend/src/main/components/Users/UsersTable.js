@@ -95,6 +95,11 @@ export default function UsersTable({ users}) {
             Header: 'Driver',
             id: 'driver',
             accessor: (row, _rowIndex) => String(row.driver) // hack needed for boolean values to show up
+        },
+        {
+            Header: 'Rider',
+            id: 'rider',
+            accessor: (row, _rowIndex) => String(row.rider) // hack needed for boolean values to show up
         }
     ];
 
