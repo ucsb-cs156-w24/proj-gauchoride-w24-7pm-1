@@ -112,10 +112,19 @@ describe("RiderApplicationTable tests", () => {
 
     const currentUser = currentUserFixtures.memberOnly;
 
+    const applications = [ 
+      riderApplicationFixtures.threeRiderApplications[0],
+      riderApplicationFixtures.threeRiderApplications[1],
+      { 
+        ...riderApplicationFixtures.threeRiderApplications[2],
+        status: "pending"
+      }
+    ]
+
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RiderApplicationTable riderApplications={riderApplicationFixtures.threeRiderApplications} currentUser={currentUser} />
+          <RiderApplicationTable riderApplications={applications} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -138,17 +147,9 @@ describe("RiderApplicationTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
 
-    const showButton = getByTestId(`${testId}-cell-row-0-col-Show-button`);
-    expect(showButton).toBeInTheDocument();
-    // expect(showButton).toHaveClass("btn-primary");
-
-    const tdEditElement = document.querySelector('[data-testid="RiderApplicationTable-cell-row-2-col-Edit"]');
-    const editButton = tdEditElement.querySelector('button');
-    // expect(editButton.classList.contains('btn-primary'));  
-
-    const tdCancelElement = document.querySelector('[data-testid="RiderApplicationTable-cell-row-2-col-Cancel"]');
-    const cancelButton = tdCancelElement.querySelector('button');
-    // expect(cancelButton.classList.contains('btn-danger'));  
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-Show-button`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-Edit-button`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`)).toBeInTheDocument();
   });
 
 
