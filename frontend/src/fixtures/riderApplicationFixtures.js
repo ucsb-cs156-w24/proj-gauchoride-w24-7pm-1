@@ -12,7 +12,7 @@ const riderApplicationFixtures = {
         "notes": "no notes"    
       }
     ],
-    threeRiderApplication:
+    threeRiderApplications:
     [
         {
             "id": 2,

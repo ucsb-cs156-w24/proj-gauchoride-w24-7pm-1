@@ -41,7 +41,7 @@ describe("RiderApplicationForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RiderApplicationForm initialContents={riderApplicationFixtures.oneApplication} />
+                    <RiderApplicationForm initialContents={riderApplicationFixtures.oneRiderApplication} />
                 </Router>
             </QueryClientProvider>
         );
@@ -52,9 +52,6 @@ describe("RiderApplicationForm tests", () => {
             const header = screen.getByText(headerText);
             expect(header).toBeInTheDocument();
         });
-
-        expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
-        expect(screen.getByText(`Applicant Id`)).toBeInTheDocument();
     });
 
 

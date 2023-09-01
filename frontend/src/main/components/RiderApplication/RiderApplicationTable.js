@@ -11,6 +11,7 @@ export default function RiderApplicationTable({
         currentUser
     }){
 
+    const testid = "RiderApplicationTable";
     const navigate = useNavigate();
 
     const showCallback = (cell) => {
@@ -77,6 +78,7 @@ export default function RiderApplicationTable({
                 if (cell.row.values.status === 'pending') {
                     return (
                         <Button
+                        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-button`}
                         variant = {"primary"} 
                         onClick={() => editCallback(cell)}>Edit</Button>
                     );
@@ -90,6 +92,7 @@ export default function RiderApplicationTable({
                 if (cell.row.values.status === 'pending') {
                     return (
                         <Button
+                        data-testid={`${testid}-cell-row-${cell.row.index}-col-${cell.column.id}-button`}
                         variant = {"danger"} 
                         onClick={() => cancelCallback(cell)}>Cancel</Button>
                     );
@@ -99,45 +102,6 @@ export default function RiderApplicationTable({
         },
     ]
 
-    // const allColumns = [
-    //     {
-    //         Header: 'Application Id',
-    //         accessor: 'id', // accessor is the "key" in the data
-    //     },
-    //     {
-    //         Header: 'Perm Number',
-    //         accessor: "perm_number",
-    //     },
-    //     {
-    //         Header: 'Email',
-    //         accessor: 'email', 
-    //     },
-    //     {
-    //         Header: 'Date Applied',
-    //         accessor: 'created_date',
-    //     },
-    //     {
-    //         Header: 'Date Updated',
-    //         accessor: 'updated_date',
-    //     },
-    //     {
-    //         Header: 'Date Cancelled',
-    //         accessor: 'cancelled_date',
-    //     },
-    //     {
-    //         Header: 'Description',
-    //         accessor: 'description',
-    //     },
-    //     {
-    //         Header: 'Notes',
-    //         accessor: 'notes',
-    //     },
-    //     {
-    //         Header: 'Status',
-    //         accessor: 'status',
-    //     }
-    // ];
-    
     const buttonColumnsAdmin = [
         ...defaultColumns,
         ButtonColumn("Review", "primary", reviewCallback, "RiderApplicationTable")
@@ -149,7 +113,7 @@ export default function RiderApplicationTable({
     return <OurTable
         data={riderApplications}
         columns={columnsToDisplay}
-        testid={"RiderApplicationTable"}
+        testid={testid}
     />;
 };
 
