@@ -147,9 +147,20 @@ describe("RiderApplicationTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-Show-button`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-Edit-button`)).toBeInTheDocument();
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`)).toBeInTheDocument();
+    const showButton = screen.getByTestId(`${testId}-cell-row-0-col-Show-button`);
+    expect(showButton).toBeInTheDocument();
+    expect(showButton).toHaveClass("btn-primary");
+
+    const editButton = screen.getByTestId(`${testId}-cell-row-2-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveClass("btn-primary");
+    
+    const cancelButton = screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`);
+    expect(cancelButton).toBeInTheDocument();
+    expect(cancelButton).toHaveClass("btn-danger");
+
+    expect(screen.queryByTestId(`${testId}-cell-row-0-col-Cancel-button`)).not.toBeInTheDocument();
+  
   });
 
 
@@ -276,7 +287,10 @@ describe("RiderApplicationTable tests", () => {
 
     fireEvent.click(cancelButton);
 
+    const prompt = "Are you sure you want to cancel this application?\n\nClick 'OK' to confirm or 'Cancel' to keep your application active.";
+
     expect(window.confirm).toHaveBeenCalled();
+    expect(window.confirm).toHaveBeenCalledWith(prompt);
     expect(mockCancelMutation).toHaveBeenCalled();
 
     // Restore the original window.confirm
