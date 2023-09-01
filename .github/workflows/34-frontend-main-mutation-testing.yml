@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 80
 
     steps:
       - uses: szenius/set-timezone@v1.2
@@ -22,11 +22,32 @@ jobs:
         with: 
           fetch-depth: 2
 
+      - name: Create directory in case it doesn't exist
+        run: |
+          mkdir -p frontend/reports
+
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v2.27.0
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branch: main
+          name: stryker-incremental-main.json
+          path: frontend/reports
+          check_artifacts: true
+          if_no_artifact_found: warn
+
       - run: npm ci
         working-directory: ./frontend
 
       - run: npx stryker run --incremental --incrementalFile reports/stryker-incremental-main.json
         working-directory: ./frontend
+
+      - name: Upload stryker incremental file to Artifacts
+        if: always() # always upload artifacts, even if tests fail
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: stryker-incremental-main.json
+          path: frontend/reports/stryker-incremental-main.json
 
       - name: Upload stryker report to Artifacts
         if: always() # always upload artifacts, even if tests fail
