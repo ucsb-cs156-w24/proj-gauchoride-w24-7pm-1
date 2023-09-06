@@ -24,9 +24,18 @@ jest.mock('react-toastify', () => {
 
 describe("RiderApplicationIndexPage tests", () => {
 
-    const axiosMock =new AxiosMockAdapter(axios);
+    const axiosMock = new AxiosMockAdapter(axios);
 
     const testId = "RiderApplicationTable";
+
+    const applications = [
+        riderApplicationFixtures.threeRiderApplications[0],
+        riderApplicationFixtures.threeRiderApplications[1],
+        {
+            ...riderApplicationFixtures.threeRiderApplications[2],
+            status: "pending"
+        }
+    ]
 
     const setupMemberOnly = () => {
         axiosMock.reset();
@@ -82,9 +91,9 @@ describe("RiderApplicationIndexPage tests", () => {
     test("renders three rides without crashing for regular user", async () => {
         setupMemberOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeApplications);
+        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeRiderApplications);
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <RiderApplicationIndexPage />
@@ -92,18 +101,18 @@ describe("RiderApplicationIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
     });
 
     test("renders three rides without crashing for admin user", async () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeApplications);
+        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeRiderApplications);
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <RiderApplicationIndexPage />
@@ -111,9 +120,9 @@ describe("RiderApplicationIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
-        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
     });
 
@@ -144,14 +153,14 @@ describe("RiderApplicationIndexPage tests", () => {
         setupMemberOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeApplications);
+        axiosMock.onGet("/api/rider").reply(200, applications);
         axiosMock.onPut("/api/riderApplication/cancel").reply(200, "Application with id 4 is deleted");
 
         // Spy on window.confirm
         const mockConfirm = jest.spyOn(window, "confirm");
         mockConfirm.mockReturnValue(true);
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <RiderApplicationIndexPage />
@@ -159,19 +168,20 @@ describe("RiderApplicationIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-2-col-id`)).toBeInTheDocument(); });
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toBeInTheDocument(); });
 
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4"); 
+        expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
 
-        const tdCancelElement = document.querySelector('[data-testid="RiderApplicationTable-cell-row-2-col-Cancel"]');
-        const cancelButton = tdCancelElement.querySelector('button');
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`)).toBeInTheDocument(); });
+
+
+        const cancelButton = screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`)
         expect(cancelButton.classList.contains('btn-danger'));
-       
         fireEvent.click(cancelButton);
 
         expect(mockConfirm).toHaveBeenCalledWith("Are you sure you want to cancel this application?\n\nClick 'OK' to confirm or 'Cancel' to keep your application active.");
-        
+
         await waitFor(() => { expect(mockToast).toBeCalledWith("Application with id 4 is deleted") });
     });
 
@@ -179,7 +189,7 @@ describe("RiderApplicationIndexPage tests", () => {
         setupMemberOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/rider").reply(200, riderApplicationFixtures.threeApplications);
+        axiosMock.onGet("/api/rider").reply(200, applications);
         axiosMock.onPut("/api/riderApplication/cancel").reply(200);
 
         // Spy on window.confirm
@@ -187,7 +197,7 @@ describe("RiderApplicationIndexPage tests", () => {
         mockConfirm.mockReturnValue(false);
 
 
-        const { getByTestId } = render(
+        render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <RiderApplicationIndexPage />
@@ -195,22 +205,20 @@ describe("RiderApplicationIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-2-col-id`)).toBeInTheDocument(); });
+        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toBeInTheDocument(); });
 
-        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4"); 
+        expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
 
-        const tdCancelElement = document.querySelector('[data-testid="RiderApplicationTable-cell-row-2-col-Cancel"]');
-        const cancelButton = tdCancelElement.querySelector('button');
+        const cancelButton = screen.getByTestId(`${testId}-cell-row-2-col-Cancel-button`)
         expect(cancelButton.classList.contains('btn-danger'));
-       
         fireEvent.click(cancelButton);
 
         expect(mockConfirm).toHaveBeenCalledWith("Are you sure you want to cancel this application?\n\nClick 'OK' to confirm or 'Cancel' to keep your application active.");
-        
-        await waitFor( ()=> {
-            expect(getByTestId(`${testId}-cell-row-2-col-status`)).toHaveTextContent("pending");
-                       })
+
+        await waitFor(() => {
+            expect(screen.getByTestId(`${testId}-cell-row-2-col-status`)).toHaveTextContent("pending");
+        })
 
     });
 
