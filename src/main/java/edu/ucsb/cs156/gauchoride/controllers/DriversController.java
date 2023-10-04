@@ -40,12 +40,7 @@ public class DriversController extends ApiController{
             throws JsonProcessingException {
 
                 Iterable<User> drivers=userRepository.findByDriver(true);
-
-                
-                
-                
-
-                
+                 
         String body = mapper.writeValueAsString(drivers);
         return ResponseEntity.ok().body(body);
     }
