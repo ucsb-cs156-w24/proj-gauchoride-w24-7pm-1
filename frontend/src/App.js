@@ -18,8 +18,8 @@ import DriverPage from "main/pages/DriverPage";
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import RiderApplicationIndexPageMember from "main/pages/RiderApplication/RiderApplicationIndexPageMember";
-import RiderApplicationEditPage from "main/pages/RiderApplication/RiderApplicationEditPage";
-import RiderApplicationIndexPage from "main/pages/RiderApplication/RiderApplicationIndexPage";
+import RiderApplicationIndexPageAdmin from "main/pages/RiderApplication/RiderApplicationIndexPageAdmin";
+import RiderApplicationReviewPage from "main/pages/RiderApplication/RiderApplicationReviewPage"
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -77,22 +77,22 @@ function App() {
           hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/drivers" element={<DriverList />} />
         }
         {
-          (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
+          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
         }
         {
-          (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/new" element={<RiderApplicationCreatePage />} />
+          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider/new" element={<RiderApplicationCreatePage />} />
         }
         {
-          (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPageMember />} />
+          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPageMember />} />
         }
         {
-          (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/admin/applications/riders" element={<RiderApplicationIndexPage />} />
+          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider/edit/:id" element={<RiderApplicationEditPageMember />} />
         }
         {
-          (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/admin/applications/riders/review/:id" element={<RiderApplicationEditPage />} />
+          (hasRole(currentUser, "ROLE_ADMIN") )&& <Route exact path="/admin/applications/riders" element={<RiderApplicationIndexPageAdmin />} />
         }
         {
-          (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/edit/:id" element={<RiderApplicationEditPageMember />} />
+          (hasRole(currentUser, "ROLE_ADMIN") )&& <Route exact path="/admin/applications/riders/review/:id" element={<RiderApplicationReviewPage />} />
         }
         <Route exact path="/privacy.html" />
 
