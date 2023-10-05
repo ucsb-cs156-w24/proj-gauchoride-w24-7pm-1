@@ -4,7 +4,7 @@ import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useBackend } from "main/utils/useBackend";
 import DriverTable from "main/components/Driver/DriverTable";
 
-const DriverList = () => {
+const DriverListPage = () => {
     const { data: drivers, error: _error, status: _status } =
         useBackend(
             // Stryker disable next-line all : don't test internal caching of React Query
@@ -22,4 +22,4 @@ const DriverList = () => {
     );
 };
 
-export default DriverList;
+export default DriverListPage;
