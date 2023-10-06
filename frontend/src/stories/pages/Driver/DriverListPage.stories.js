@@ -1,7 +1,6 @@
 import React from 'react';
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { driverFixtures } from "fixtures/driverFixtures";
 import { rest } from "msw";
 
 import DriverListPage from "main/pages/DriverListPage";
