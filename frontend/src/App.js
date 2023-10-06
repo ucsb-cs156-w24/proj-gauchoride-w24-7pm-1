@@ -67,7 +67,7 @@ function App() {
           (hasRole(currentUser, "ROLE_ADMIN"))&& <Route exact path="/shift/edit/:id" element={<ShiftEditPage />} />
         }
         { 
-          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/drivers/list" element={<DriverListPage />} />
+          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER") ) && <Route exact path="/drivers/list" element={<DriverListPage />} />
         }
         <Route exact path="/privacy.html"  />
         <Route exact path="/*" element={<PageNotFound />} />

@@ -631,7 +631,7 @@ describe("AppNavbar tests", () => {
         expect(chatMenu).not.toBeInTheDocument();        
     });
 
-    test("Driver page link should not appear for a user that is not a driver", async () => {
+    test("Driver page link should not appear for a user that is not a participant", async () => {
         const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
 
