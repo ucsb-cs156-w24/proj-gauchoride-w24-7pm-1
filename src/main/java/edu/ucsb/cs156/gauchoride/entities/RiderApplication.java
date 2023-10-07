@@ -38,4 +38,6 @@ public class RiderApplication {
     private String description;
     private String notes;
 
+    private String email;
+
 }

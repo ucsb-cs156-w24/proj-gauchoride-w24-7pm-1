@@ -65,6 +65,7 @@ public class RiderApplicationController extends ApiController {
         riderApplication.setUpdated_date(currentDate);
         riderApplication.setDescription(description);
         riderApplication.setNotes("");
+        riderApplication.setEmail(getCurrentUser().getUser().getEmail());
 
         RiderApplication savedApplication = riderApplicationRepository.save(riderApplication);
         return savedApplication;
