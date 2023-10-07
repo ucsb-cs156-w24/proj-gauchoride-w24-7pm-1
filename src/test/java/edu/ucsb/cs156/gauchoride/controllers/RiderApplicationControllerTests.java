@@ -214,6 +214,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                             .cancelled_date(null)
                             .description("My leg is broken")
                             .notes("")
+                            .email("user@example.org")
                             .build();
 
             when(riderApplicationRepository.save(eq(application1))).thenReturn(application1);
