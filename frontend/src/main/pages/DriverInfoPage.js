@@ -25,7 +25,6 @@ export default function DriverInfoPage() {
                 <Button
                     variant="primary"
                     href="/shift/"
-                    style={{ float: "right" }}
                 >
                     Return
                 </Button>
