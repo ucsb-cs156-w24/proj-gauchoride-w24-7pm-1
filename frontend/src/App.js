@@ -16,6 +16,8 @@ import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 import DriverPage from "main/pages/DriverPage";
 
+import DriverInfoPage from "main/pages/DriverInfoPage";
+
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -50,6 +52,9 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN")  || hasRole(currentUser, "ROLE_RIDER") )&& <Route exact path="/ride/edit/:id" element={<RideRequestEditPage />} />
+        }
+        {
+          (hasRole(currentUser, "ROLE_ADMIN")  || hasRole(currentUser, "ROLE_RIDER") )&& <Route exact path="/driverInfo/:id" element={<DriverInfoPage />} />
         }
         {
           (hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_ADMIN"))  && <Route exact path="/chat" element={<ChatPage />} />
