@@ -18,7 +18,7 @@ export default function DriverInfoPage() {
           params: {
             id
           }
-          // Stryker enable all
+          // Stryker restore all
         }
       );
 
