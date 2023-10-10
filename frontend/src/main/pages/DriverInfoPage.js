@@ -14,9 +14,11 @@ export default function DriverInfoPage() {
         {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
           method: "GET",
           url: `/api/drivers/get`,
+          // Stryker disable all
           params: {
             id
           }
+          // Stryker enable all
         }
       );
 

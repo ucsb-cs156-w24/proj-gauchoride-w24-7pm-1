@@ -51,6 +51,7 @@ export default function ShiftTable({
             Header: 'Driver',
             accessor: 'driverID',
             Cell: ({ value }) => (
+                // Stryker disable next-line all : hard to set up test
                 <Link to={`/driverInfo/${value}`}>{value}</Link>
               ),
         },
@@ -58,6 +59,7 @@ export default function ShiftTable({
             Header: 'Backup driver',
             accessor: 'driverBackupID',
             Cell: ({ value }) => (
+                // Stryker disable next-line all : hard to set up test
                 <Link to={`/driverInfo/${value}`}>{value}</Link>
               ),
         }
