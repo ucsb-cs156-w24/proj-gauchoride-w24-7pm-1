@@ -49,7 +49,9 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());        
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());    
+        const driverMenu = screen.queryByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).not.toBeInTheDocument();    
 
     });
 
@@ -67,6 +69,8 @@ describe("AppNavbar tests", () => {
         );
 
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const driverMenu = getByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).toBeInTheDocument();
     });
 
     test("renders correctly for admin user", async () => {
