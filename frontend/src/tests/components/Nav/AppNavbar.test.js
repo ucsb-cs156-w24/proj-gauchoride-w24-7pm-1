@@ -30,7 +30,10 @@ describe("AppNavbar tests", () => {
         expect(rideMenu).not.toBeInTheDocument();
 
         const adminMenu = queryByTestId("appnavbar-admin-dropdown");
-        expect(adminMenu).not.toBeInTheDocument();    
+        expect(adminMenu).not.toBeInTheDocument();
+
+        const driverMenu = queryByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).not.toBeInTheDocument();
     });
 
     test("renders correctly for regular logged in rider", async () => {

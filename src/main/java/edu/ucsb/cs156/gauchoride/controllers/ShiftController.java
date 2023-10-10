@@ -62,6 +62,18 @@ public class ShiftController extends ApiController {
         return shift;
     }
 
+    @Operation(summary = "Get a list of all shifts for given driverId")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @GetMapping("/drivershifts")
+    public ResponseEntity<String> driverShifts()
+            throws JsonProcessingException {
+        Long driverID = super.getCurrentUser().getUser().getId();
+        Iterable<Shift> shifts = shiftRepository.findByDriverID(driverID);
+        String body = mapper.writeValueAsString(shifts);
+        return ResponseEntity.ok().body(body);
+    }
+    
+
     @Operation(summary = "Create a new shift for the table")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
