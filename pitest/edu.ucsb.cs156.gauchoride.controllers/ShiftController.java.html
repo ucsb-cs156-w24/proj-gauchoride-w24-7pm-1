@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ShiftController.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package edu.ucsb.cs156.gauchoride.controllers;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.fasterxml.jackson.core.JsonProcessingException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.fasterxml.jackson.databind.ObjectMapper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.entities.Shift;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.repositories.ShiftRepository;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.repositories.UserRepository;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.models.CurrentUser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.time.LocalTime;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.beans.factory.annotation.Autowired;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.http.ResponseEntity;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.security.access.prepost.PreAuthorize;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.DeleteMapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.GetMapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.PostMapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.PathVariable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.RequestMapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.RequestParam;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.RestController;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.PutMapping;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.RequestBody;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.validation.Valid;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.swagger.v3.oas.annotations.tags.Tag;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.swagger.v3.oas.annotations.Operation;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import io.swagger.v3.oas.annotations.Parameter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@Tag(name = &#34;Shift information&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@RequestMapping(&#34;/api/shift&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@RestController</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class ShiftController extends ApiController {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Autowired</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    ShiftRepository shiftRepository;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Autowired</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    ObjectMapper mapper;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Operation(summary = &#34;Get a list of all shifts&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PreAuthorize(&#34;hasRole(&#39;ROLE_ADMIN&#39;) || hasRole(&#39;ROLE_DRIVER&#39;) || hasRole(&#39;ROLE_USER&#39;)&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @GetMapping(&#34;/all&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public ResponseEntity&#60;String&#62; allShifts()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            throws JsonProcessingException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Iterable&#60;Shift&#62; shifts = shiftRepository.findAll();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        String body = mapper.writeValueAsString(shifts);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_51'/>
+51
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_51'>1</a>
+<span>
+1. allShifts : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::allShifts &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return ResponseEntity.ok().body(body);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Operation(summary = &#34;Get shift by id&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PreAuthorize(&#34;hasRole(&#39;ROLE_ADMIN&#39;) || hasRole(&#39;ROLE_DRIVER&#39;) || hasRole(&#39;ROLE_USER&#39;)&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @GetMapping(&#34;&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Shift shiftByID(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            @Parameter(name = &#34;id&#34;, description = &#34;Long, id number of shift to get&#34;, example = &#34;1&#34;, required = true) @RequestParam Long id)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            throws JsonProcessingException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Shift shift = shiftRepository.findById(id)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_61'>1</a>
+<span>
+1. lambda$shiftByID$0 : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$shiftByID$0 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .orElseThrow(() -&#62; new EntityNotFoundException(Shift.class, id));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_62'>1</a>
+<span>
+1. shiftByID : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::shiftByID &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return shift;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Operation(summary = &#34;Create a new shift for the table&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PreAuthorize(&#34;hasRole(&#39;ROLE_ADMIN&#39;)&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PostMapping(&#34;/post&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Shift postShift(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Parameter(name=&#34;day&#34;) @RequestParam String day,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Parameter(name=&#34;shiftStart&#34;) @RequestParam String shiftStart,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Parameter(name=&#34;shiftEnd&#34;) @RequestParam String shiftEnd,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Parameter(name=&#34;driverID&#34;) @RequestParam long driverID ,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Parameter(name=&#34;driverBackupID&#34;) @RequestParam long driverBackupID</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        )</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Shift shift = new Shift();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_79'>1</a>
+<span>
+1. postShift : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverID &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDriverID(getCurrentUser().getUser().getId());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_80'/>
+80
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_80'>1</a>
+<span>
+1. postShift : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDay &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDay(day);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_81'/>
+81
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_81'>1</a>
+<span>
+1. postShift : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftStart &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setShiftStart(shiftStart);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_82'/>
+82
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_82'>1</a>
+<span>
+1. postShift : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftEnd &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setShiftEnd(shiftEnd);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_83'/>
+83
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_83'>1</a>
+<span>
+1. postShift : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverBackupID &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDriverBackupID(driverBackupID);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Shift savedShift = shiftRepository.save(shift);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_87'/>
+87
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_87'>1</a>
+<span>
+1. postShift : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::postShift &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return savedShift;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Operation(summary= &#34;Delete a shift&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PreAuthorize(&#34;hasRole(&#39;ROLE_ADMIN&#39;)&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @DeleteMapping(&#34;&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Object deleteShift(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            @Parameter(name=&#34;id&#34;) @RequestParam long id) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Shift shift = shiftRepository.findById(id)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_97'/>
+97
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_97'>1</a>
+<span>
+1. lambda$deleteShift$1 : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$deleteShift$1 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .orElseThrow(() -&#62; new EntityNotFoundException(Shift.class, id));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_99'/>
+99
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_99'>1</a>
+<span>
+1. deleteShift : removed call to edu/ucsb/cs156/gauchoride/repositories/ShiftRepository::delete &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shiftRepository.delete(shift);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_100'/>
+100
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_100'>1</a>
+<span>
+1. deleteShift : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::deleteShift &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return genericMessage(&#34;Shift with id %s deleted&#34;.formatted(id));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Operation(summary= &#34;Update a single shift&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PreAuthorize(&#34;hasRole(&#39;ROLE_ADMIN&#39;)&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @PutMapping(&#34;&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public Shift updateReview(</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            @Parameter(name=&#34;id&#34;) @RequestParam long id,</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            @RequestBody @Valid Shift incoming) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_110'/>
+110
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_110'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        Shift shift = shiftRepository.findById(id)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_111'>1</a>
+<span>
+1. lambda$updateReview$2 : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$updateReview$2 &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                .orElseThrow(() -&#62; new EntityNotFoundException(Shift.class, id));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_112'/>
+112
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_112'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_113'/>
+113
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_113'>1</a>
+<span>
+1. updateReview : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDay &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDay(incoming.getDay());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_114'>1</a>
+<span>
+1. updateReview : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftStart &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setShiftStart(incoming.getShiftStart());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_115'>1</a>
+<span>
+1. updateReview : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftEnd &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setShiftEnd(incoming.getShiftEnd());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_116'>1</a>
+<span>
+1. updateReview : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverID &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDriverID(incoming.getDriverID());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_117'>1</a>
+<span>
+1. updateReview : removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverBackupID &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        shift.setDriverBackupID(incoming.getDriverBackupID());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        shiftRepository.save(shift);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_121'/>
+121
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_121'>1</a>
+<span>
+1. updateReview : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::updateReview &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return shift;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_123'/>
+123
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_123'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@f110371_124'/>
+124
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@f110371_124'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_51'>51</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_51'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>allShifts<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_user_can_get_all_shifts()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::allShifts &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$shiftByID$0<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_admin_can_get_by_id()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$shiftByID$0 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>shiftByID<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_exists()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::shiftByID &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverID &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_80'>80</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_80'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDay &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_81'>81</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_81'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftStart &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_82'>82</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_82'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftEnd &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_83'>83</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_83'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverBackupID &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_87'>87</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_87'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>postShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::postShift &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_97'>97</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_97'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$deleteShift$1<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_tries_to_delete_non_existant_shift_and_gets_right_error_message()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$deleteShift$1 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_99'>99</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_99'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_delete_a_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/repositories/ShiftRepository::delete &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_100'>100</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_100'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>deleteShift<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_delete_a_shift()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::deleteShift &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>lambda$updateReview$2<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_cannot_edit_shift_that_does_not_exist()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::lambda$updateReview$2 &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_113'>113</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_113'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDay &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftStart &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setShiftEnd &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverID &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> removed call to edu/ucsb/cs156/gauchoride/entities/Shift::setDriverBackupID &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@f110371_121'>121</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@f110371_121'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>updateReview<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ShiftController::updateReview &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_edit_an_existing_shift()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_all()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_user_can_get_all_shifts()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_all_shifts()] (19 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_does_not_exist()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_exists_and_user_id_matches()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_admin_can_get_all_shifts()] (25 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_tries_to_delete_non_existant_shift_and_gets_right_error_message()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_by_id()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.CSRFControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.CSRFControllerTests]/[method:csrf_returns_ok()] (17 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_users_can_get_all_of_theirs()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_delete_a_shift()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_admin_can_get_by_id_when_the_id_does_not_exist()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_cannot_edit_shift_that_does_not_exist()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_admin_can_get_all()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_exists()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_admin_can_get_by_id()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_admin_can_get_by_id_when_the_id_exists()] (29 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.7.3
+
+</body>
+</html>
