@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoleInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GauchoRide</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.gauchoride.interceptors</a> &gt; <span class="el_source">RoleInterceptor.java</span></div><h1>RoleInterceptor.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.gauchoride.interceptors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import edu.ucsb.cs156.gauchoride.entities.User;
+
+<span class="fc" id="L31">@Slf4j</span>
+@Component
+<span class="fc" id="L33">public class RoleInterceptor implements HandlerInterceptor {</span>
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+<span class="fc" id="L40">        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
+
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (authentication.getClass() == OAuth2AuthenticationToken.class) {</span>
+<span class="fc" id="L43">            OAuth2User principal = ((OAuth2AuthenticationToken) authentication).getPrincipal();</span>
+<span class="fc" id="L44">            String email = principal.getAttribute(&quot;email&quot;);</span>
+<span class="fc" id="L45">            Optional&lt;User&gt; optionalUser = userRepository.findByEmail(email);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (optionalUser.isPresent()) {</span>
+<span class="fc" id="L47">                User user = optionalUser.get();</span>
+<span class="fc" id="L48">                Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
+<span class="fc" id="L49">                Set&lt;GrantedAuthority&gt; revisedAuthorities = authorities.stream().filter(</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                        grantedAuth -&gt; !grantedAuth.getAuthority().equals(&quot;ROLE_ADMIN&quot;)</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                                &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_DRIVER&quot;))</span>
+<span class="fc" id="L52">                        .collect(Collectors.toSet());</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                if (user.getAdmin()) {</span>
+<span class="fc" id="L54">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
+                }
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                if (user.getDriver()) {</span>
+<span class="fc" id="L57">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_DRIVER&quot;));</span>
+                }
+<span class="fc" id="L59">                Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,</span>
+<span class="fc" id="L60">                        (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));</span>
+<span class="fc" id="L61">                SecurityContextHolder.getContext().setAuthentication(newAuth);</span>
+            }
+        }
+<span class="fc" id="L64">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
