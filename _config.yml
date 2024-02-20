@@ -1,0 +1,26 @@
+
+title: Documentation
+description: >- # this means to ignore newlines until "baseurl:"
+  When reviewing a PR for this repo, you can see what the documentation,
+  e.g. the storybook, will look like when published for the branches
+  named above.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+collections:
+  branches:
+    output: true
+    permalink: /branches/:path/
+
+repo_name: "TBD"
+
+
+repo: ucsb-cs156-w24/proj-gauchoride-w24-7pm-1
+owner: ucsb-cs156-w24
+repo_name: proj-gauchoride-w24-7pm-1
+pull_requests: []
