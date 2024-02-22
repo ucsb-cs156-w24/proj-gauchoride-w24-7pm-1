@@ -4,10 +4,28 @@
 
 | Type | Link       | 
 |------|------------|
-| prod | <https://proj-gauchoride.dokku-00.cs.ucsb.edu/> | 
-| qa | <https://proj-gauchoride-qa.dokku-00.cs.ucsb.edu/>  | 
+| prod | <https://gauchoride.dokku-00.cs.ucsb.edu/> | 
+| qa | <https://gauchoride-qa.dokku-00.cs.ucsb.edu/>  | 
+
+# W24 Production Deployments
 
 
+| Team | Link       | 
+|------|------------|
+| w24-7pm-1 | <https://gauchoride.dokku-13.cs.ucsb.edu/> | 
+| w24-7pm-2 | <https://gauchoride.dokku-14.cs.ucsb.edu/>  | 
+| w24-7pm-3 | <https://gauchoride.dokku-15.cs.ucsb.edu/>  | 
+| w24-7pm-4 | <https://gauchoride.dokku-16.cs.ucsb.edu/>  | 
+
+# W24 QA Deployments
+
+
+| Team | Link       | 
+|------|------------|
+| w24-7pm-1 | <https://gauchoride-qa.dokku-13.cs.ucsb.edu/> | 
+| w24-7pm-2 | <https://gauchoride-qa.dokku-14.cs.ucsb.edu/>  | 
+| w24-7pm-3 | <https://gauchoride-qa.dokku-15.cs.ucsb.edu/>  | 
+| w24-7pm-4 | <https://gauchoride-qa.dokku-16.cs.ucsb.edu/>  | 
 
 # Setup before running application
 
