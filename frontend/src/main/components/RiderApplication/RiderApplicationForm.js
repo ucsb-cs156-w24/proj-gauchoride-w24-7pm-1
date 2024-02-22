@@ -100,6 +100,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                         type="text"
                         {...register("updated_date")}
                         defaultValue={initialContents?.updated_date}
+                        disabled
                     />
                 </Form.Group>
             )}
@@ -113,6 +114,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                         type="text"
                         {...register("cancelled_date")}
                         defaultValue={initialContents?.cancelled_date}
+                        disabled
                     />
                 </Form.Group>
             )}
