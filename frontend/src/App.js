@@ -14,8 +14,9 @@ import ChatPage from "main/pages/ChatPage";
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
-import DriverPage from "main/pages/DriverPage";
 
+import DriverPage from "main/pages/DriverPage";
+import DriverDashboardPage from "main/pages/Drivers/DriverDashboardPage";
 import DriverInfoPage from "main/pages/DriverInfoPage";
 
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
@@ -81,6 +82,8 @@ function App() {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER") ) && <Route exact path="/drivers/list" element={<DriverListPage />} />
         }
         {
+          (hasRole(currentUser, "ROLE_DRIVER") ) && <Route exact path="/drivershifts" element={<DriverDashboardPage />} />
+        }
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
         }
         {
@@ -99,7 +102,6 @@ function App() {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/edit/:id" element={<RiderApplicationEditPageMember />} />
         }
         <Route exact path="/privacy.html" />
-
         <Route exact path="/*" element={<PageNotFound />} />
 
       </Routes>

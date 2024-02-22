@@ -30,7 +30,10 @@ describe("AppNavbar tests", () => {
         expect(rideMenu).not.toBeInTheDocument();
 
         const adminMenu = queryByTestId("appnavbar-admin-dropdown");
-        expect(adminMenu).not.toBeInTheDocument();    
+        expect(adminMenu).not.toBeInTheDocument();
+
+        const driverMenu = queryByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).not.toBeInTheDocument();
     });
 
     test("renders correctly for regular logged in rider", async () => {
@@ -46,7 +49,9 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());        
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());    
+        const driverMenu = screen.queryByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).not.toBeInTheDocument();    
 
     });
 
@@ -55,7 +60,7 @@ describe("AppNavbar tests", () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
 
-        const { getByText} = render(
+        const { getByText, getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <AppNavbar currentUser={currentUser} doLogin={doLogin} />
@@ -64,6 +69,8 @@ describe("AppNavbar tests", () => {
         );
 
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const driverMenu = getByTestId("appnavbar-driver-dropdown");
+        expect(driverMenu).toBeInTheDocument();
     });
 
     test("renders correctly for admin user", async () => {
