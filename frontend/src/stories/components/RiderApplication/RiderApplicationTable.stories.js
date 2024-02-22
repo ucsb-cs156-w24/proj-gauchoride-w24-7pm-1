@@ -32,12 +32,12 @@ EmptyAdmin.args = {
 export const MemberThreeSubjectsWithButtons = Template.bind({});
 
 MemberThreeSubjectsWithButtons.args = {
-    riderApplications: riderApplicationFixtures.threeApplications,
+    riderApplications: riderApplicationFixtures.threeRiderApplications,
     currentUser: currentUserFixtures.memberOnly
 };
 
 export const AdminThreeSubjectsWithButtons = Template.bind({});
 AdminThreeSubjectsWithButtons.args = {
-    riderApplications: riderApplicationFixtures.threeApplications,
+    riderApplications: riderApplicationFixtures.threeRiderApplications,
     currentUser: currentUserFixtures.adminUser
 };
