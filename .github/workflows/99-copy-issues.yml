@@ -5,6 +5,7 @@ env:
     GH_TOKEN: ${{ github.token }}
     STARTER: https://github.com/ucsb-cs156/proj-gauchoride
     STARTER_NAME: ucsb-cs156/proj-gauchoride
+    TAG: w24
 on:
   workflow_dispatch:
 
@@ -21,7 +22,7 @@ jobs:
       - name: List Issues
         id: get-issues
         run: |
-          GH_REPO=${{env.STARTER}} gh issue list -s open -l M23 --json number,title,body,labels | jq '[ ( .[] | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json          
+          GH_REPO=${{env.STARTER}} gh issue list -s open -l ${{env.TAG}} --json number,title,body,labels | jq '[ ( .[] | { number: .number, title: .title , body: .body, labels: ( .labels | [ .[].name ] | join(",") )  } ) ]' > issues.json          
           cat issues.json
           {
                echo 'issues<<THIS_IS_THIS_EOF_MARKER'
