@@ -3,7 +3,7 @@ import HomePage from "main/pages/HomePage";
 import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
 import PageNotFound from "main/pages/PageNotFound";
-import DriverList from "main/pages/DriverList";
+import DriverListPage from "main/pages/DriverListPage";
 
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
@@ -71,8 +71,8 @@ function App() {
         {
           (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/shift/edit/:id" element={<ShiftEditPage />} />
         }
-        {
-          hasRole(currentUser, "ROLE_DRIVER") && <Route exact path="/drivers" element={<DriverList />} />
+        { 
+          (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER") ) && <Route exact path="/drivers/list" element={<DriverListPage />} />
         }
         {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
