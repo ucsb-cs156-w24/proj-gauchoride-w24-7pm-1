@@ -569,7 +569,25 @@ describe("AppNavbar tests", () => {
     test("Driver page link should appear for a user that is not a driver", async () => {
         const currentUser = currentUserFixtures.driverOnly;
         const doLogin = jest.fn();
+
+        const { getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const driverLink = screen.queryByTestId("appnavbar-driver");
+        expect(driverLink).toBeInTheDocument();      
+    });
         
+    test("renders RiderApplicationMember links correctly for member", async () => {
+
+        const currentUser = currentUserFixtures.memberOnly;
+        const doLogin = jest.fn();
+
         const { getByText } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -578,9 +596,8 @@ describe("AppNavbar tests", () => {
             </QueryClientProvider>
         );
         
-        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
-        const driverLink = screen.queryByTestId("appnavbar-driver");
-        expect(driverLink).toBeInTheDocument();      
+        await waitFor(() => expect(getByText("Welcome, Phill Conrad")).toBeInTheDocument());
+        await waitFor(() => expect(getByText("Apply to be a Rider")).toBeInTheDocument());        
     });
 
     test("renders chat link correctly for driver", async () => {
@@ -620,7 +637,8 @@ describe("AppNavbar tests", () => {
         expect(chatMenu).toBeInTheDocument();        
     });
 
-    test("not render shift table links for regular user", async () => {
+
+    test("not render RiderApplicationMember links for regular user", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
         const doLogin = jest.fn();
@@ -653,8 +671,11 @@ describe("AppNavbar tests", () => {
         await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
         const driverLink = screen.queryByTestId("appnavbar-driver-link");
         expect(driverLink).not.toBeInTheDocument();      
+        
+        await waitFor(() => expect(getByText("Welcome, Phillip Conrad")).toBeInTheDocument());
+        const applyMenu = screen.queryByText("Apply to be a Rider");
+        expect(applyMenu).not.toBeInTheDocument();      
     });
 
 });
-
 
