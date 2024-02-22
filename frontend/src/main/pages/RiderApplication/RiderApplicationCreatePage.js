@@ -3,8 +3,12 @@ import RiderApplicationForm from "main/components/RiderApplication/RiderApplicat
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
+import { useCurrentUser } from "main/utils/currentUser";
 
 export default function RideRequestCreatePage() {
+  const { data: currentUser } = useCurrentUser();
+
+  const email = currentUser.root?.user.email;
 
   const objectToAxiosParams = (riderApplication) => ({
       url: "/api/riderApplication/new",
@@ -40,7 +44,7 @@ export default function RideRequestCreatePage() {
       <BasicLayout>
       <div className="pt-2">
           <h1>Submit New Rider Application</h1>
-          <RiderApplicationForm submitAction={onSubmit} />
+          <RiderApplicationForm submitAction={onSubmit} email={email} />
       </div>
       </BasicLayout>
   )
