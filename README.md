@@ -58,26 +58,7 @@ If it doesn't work at first, e.g. you have a blank page on  <http://localhost:80
 If you see the following on localhost, make sure that you also have the frontend code running in a separate window.
 
 ```
-Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
-```
-
-# Getting Started on Heroku
-
-On Heroku, you'll need to set the following configuration variable:
-
-* Using the Heroku CLI:
-  ```
-  heroku config:set PRODUCTION=true --app <heroku app name>
-  ```
-* Or set it on the Heroku Dashboard:
-  ![image](https://user-images.githubusercontent.com/1119017/149855768-7b56164a-98f7-4357-b877-da34b7bd9ea4.png)
-
-You'll also need to follow the OAuth set up instructions here: [`docs/oauth.md`](docs/oauth.md).
-
-If you get the following message on Heroku, it probably means that you failed to setup the `PRODUCTION` environment variable.
-
-```
-Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
+Failed to connect to the frontend server... On Dokku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start;
 ```
 
 # Accessing swagger
