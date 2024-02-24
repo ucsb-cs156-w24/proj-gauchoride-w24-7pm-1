@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for layouts/BasicLayout/BasicLayout.js</title>
+    <title>Code coverage report for components/Driver/DriverInfo.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">layouts/BasicLayout</a> BasicLayout.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Driver</a> DriverInfo.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -85,7 +85,14 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,12 +100,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">329x</span>
-<span class="cline-any cline-yes">329x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">329x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">329x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,29 +108,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Container } from "react-bootstrap";
-import Footer from "main/components/Nav/Footer";
-import AppNavbar from "main/components/Nav/AppNavbar";
-import { useCurrentUser, useLogout} from "main/utils/currentUser";
-import { useSystemInfo} from "main/utils/systemInfo";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import Card from 'react-bootstrap/Card';
 &nbsp;
-export default function BasicLayout({ children }) {
-&nbsp;
-  const { data: currentUser } = useCurrentUser();
-  const { data: systemInfo } = useSystemInfo();
-&nbsp;
-  const doLogout = useLogout().mutate;
-&nbsp;
+function DriverInfo({ info }) {
   return (
-    &lt;div className="d-flex flex-column min-vh-100"&gt;
-      &lt;AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogout={doLogout} /&gt;
-      &lt;Container expand="xl" className="pt-4 flex-grow-1"&gt;
-        {children}
-      &lt;/Container&gt;
-      &lt;Footer/&gt;
-    &lt;/div&gt;
+    &lt;Card data-testid="DriverInfo"&gt;
+      &lt;Card.Body&gt;
+      {info.isDriver ? (
+          &lt;Card.Title&gt;{info.givenName + " " + info.familyName + ", Email: " + info.email}&lt;/Card.Title&gt;
+        ) : (
+          &lt;Card.Title&gt;
+            Searched user was not a driver
+          &lt;/Card.Title&gt;
+        )}
+      &lt;/Card.Body&gt;
+    &lt;/Card&gt;
   );
-}</pre></td></tr></table></pre>
+}
+&nbsp;
+export default DriverInfo;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
