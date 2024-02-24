@@ -7,7 +7,9 @@ import edu.ucsb.cs156.gauchoride.entities.User;
 import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
 
 import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
+import edu.ucsb.cs156.gauchoride.models.DriverInfo;
 
+import java.sql.Driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 
 @Tag(name = &quot;Driver Information&quot;)
-@RequestMapping(&quot;/api/drivers/all&quot;)
+@RequestMapping(&quot;/api/drivers&quot;)
 @RestController
-<span class="fc" id="L29">public class DriversController extends ApiController{</span>
+<span class="fc" id="L31">public class DriversController extends ApiController{</span>
     @Autowired
     UserRepository userRepository;
 
@@ -35,21 +37,35 @@ import io.swagger.v3.oas.annotations.Parameter;
 
     @Operation(summary = &quot;Get a list of all drivers&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')&quot;)
-    @GetMapping(&quot;&quot;)
+    @GetMapping(&quot;/all&quot;)
     public ResponseEntity&lt;String&gt; drivers()
             throws JsonProcessingException {
 
-<span class="fc" id="L42">                Iterable&lt;User&gt; drivers=userRepository.findByDriver(true);</span>
+<span class="fc" id="L44">                Iterable&lt;User&gt; drivers=userRepository.findByDriver(true);</span>
 
-                
-                
-                
-
-                
-<span class="fc" id="L49">        String body = mapper.writeValueAsString(drivers);</span>
-<span class="fc" id="L50">        return ResponseEntity.ok().body(body);</span>
+<span class="fc" id="L46">        String body = mapper.writeValueAsString(drivers);</span>
+<span class="fc" id="L47">        return ResponseEntity.ok().body(body);</span>
     }
 
+    @Operation(summary = &quot;Get user by id&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;/get&quot;)
+    public DriverInfo driver(
+            @Parameter(name = &quot;id&quot;, description = &quot;Long, id number of user to get&quot;, example = &quot;1&quot;, required = true) @RequestParam Long id)
+            throws JsonProcessingException {
+<span class="fc" id="L56">        User user = userRepository.findById(id)</span>
+<span class="fc" id="L57">                .orElseThrow(() -&gt; new EntityNotFoundException(User.class, id));</span>
+
+<span class="fc" id="L59">        DriverInfo driverInfo = new DriverInfo();</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if(user.getDriver()){</span>
+<span class="fc" id="L62">            driverInfo.setIsDriver(true);</span>
+<span class="fc" id="L63">            driverInfo.setEmail(user.getEmail());</span>
+<span class="fc" id="L64">            driverInfo.setFamilyName(user.getFamilyName());</span>
+<span class="fc" id="L65">            driverInfo.setGivenName(user.getGivenName());</span>
+        }
+<span class="fc" id="L67">        return driverInfo;</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
