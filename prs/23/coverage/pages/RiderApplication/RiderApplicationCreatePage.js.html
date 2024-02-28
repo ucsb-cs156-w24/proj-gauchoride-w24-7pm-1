@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/Shift/ShiftCreatePage.js</title>
+    <title>Code coverage report for pages/RiderApplication/RiderApplicationCreatePage.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Shift</a> ShiftCreatePage.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/RiderApplication</a> RiderApplicationCreatePage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -113,10 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,10 +121,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,32 +134,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,59 +164,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ShiftForm from "main/components/Shift/ShiftForm";
+import RiderApplicationForm from "main/components/RiderApplication/RiderApplicationForm";
 import { Navigate } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
+import { useCurrentUser } from "main/utils/currentUser";
 &nbsp;
-export default function ShiftCreatePage({storybook=false}) {
+export default function RideRequestCreatePage() {
+  const { data: currentUser } = useCurrentUser();
 &nbsp;
-    const objectToAxiosParams = (shift) =&gt; ({
-        url: "/api/shift/post",
-        method: "POST",
-        params: {
-            day: shift.day,
-            driverBackupID: shift.driverBackupID,
-            driverID: shift.driverID,
-            id: shift.id,
-            shiftEnd: shift.shiftEnd,
-            shiftStart: shift.shiftStart,
-        }
-    });
-    
+  const email = currentUser.root?.user.email;
 &nbsp;
-    const onSuccess = (shift) =&gt; {
-        toast(`New shift Created - id: ${shift.id}, day: ${shift.day}, shiftStart: ${shift.shiftStart}, shiftEnd: ${shift.shiftEnd}, driverID: ${shift.driverID}, driverBackupID: ${shift.driverBackupID}`);
-    }
-    
+  const objectToAxiosParams = (riderApplication) =&gt; ({
+      url: "/api/riderApplication/new",
+      method: "POST",
+      params: {
+          perm_number: riderApplication.perm_number,
+          description: riderApplication.description,
+      }
+  });
+&nbsp;
+  const onSuccess = (riderApplication) =&gt; {
+      toast(`New Rider Application Made - id: ${riderApplication.id}`);
+  }
 &nbsp;
   const mutation = useBackendMutation(
-    objectToAxiosParams,
-     { onSuccess }, 
-     // Stryker disable next-line all : hard to set up test for caching
-     ["/api/shift/all"] // mutation makes this key stale so that pages relying on it reload
-     );
+      objectToAxiosParams,
+      { onSuccess },
+      // Stryker disable next-line all : hard to set up test for caching
+      ["/api/riderApplication/new"]
+  );
 &nbsp;
   const { isSuccess } = mutation
 &nbsp;
   const onSubmit = async (data) =&gt; {
-    mutation.mutate(data);
+      mutation.mutate(data);
   }
 &nbsp;
-  if (isSuccess &amp;&amp; !storybook) {
-    return &lt;Navigate to="/shift" /&gt;
+  if (isSuccess) {
+      return &lt;Navigate to="/apply/rider" /&gt;
   }
 &nbsp;
   return (
-    &lt;BasicLayout&gt;
+      &lt;BasicLayout&gt;
       &lt;div className="pt-2"&gt;
-        &lt;h1&gt;Create New Shift&lt;/h1&gt;
-        &lt;ShiftForm submitAction={onSubmit} /&gt;
+          &lt;h1&gt;Submit New Rider Application&lt;/h1&gt;
+          &lt;RiderApplicationForm submitAction={onSubmit} email={email} /&gt;
       &lt;/div&gt;
-    &lt;/BasicLayout&gt;
+      &lt;/BasicLayout&gt;
   )
-}
-&nbsp;</pre></td></tr></table></pre>
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
