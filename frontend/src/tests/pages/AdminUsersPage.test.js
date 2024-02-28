@@ -82,7 +82,7 @@ describe("AdminUsersPage tests", () => {
         );
         await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
-        const toggleAdminButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-admin-button`);
+        const toggleAdminButton = screen.getByTestId(`${testId}-cell-row-0-col-Toggle Admin-button`);
         expect(toggleAdminButton).toBeInTheDocument();
 
         fireEvent.click(toggleAdminButton);
@@ -108,7 +108,7 @@ describe("AdminUsersPage tests", () => {
         );
         await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
-        const toggleDriverButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-driver-button`);
+        const toggleDriverButton = screen.getByTestId(`${testId}-cell-row-0-col-Toggle Driver-button`);
         expect(toggleDriverButton).toBeInTheDocument();
 
         fireEvent.click(toggleDriverButton);
@@ -133,7 +133,7 @@ describe("AdminUsersPage tests", () => {
         );
         await waitFor(() => expect(getByText("Users")).toBeInTheDocument());
 
-        const toggleRiderButton = screen.getByTestId(`${testId}-cell-row-0-col-toggle-rider-button`);
+        const toggleRiderButton = screen.getByTestId(`${testId}-cell-row-0-col-Toggle Rider-button`);
         expect(toggleRiderButton).toBeInTheDocument();
 
         fireEvent.click(toggleRiderButton);
