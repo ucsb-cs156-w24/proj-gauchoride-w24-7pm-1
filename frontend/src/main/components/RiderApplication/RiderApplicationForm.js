@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 
-function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Apply" }) {
+function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Apply", email}) {
     const navigate = useNavigate();
     
     // Stryker disable all
@@ -72,7 +72,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                     id="email"
                     type="text"
                     {...register("email")}
-                    defaultValue={initialContents?.email}
+                    defaultValue={email}
                     disabled
                 />
             </Form.Group>
@@ -100,6 +100,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                         type="text"
                         {...register("updated_date")}
                         defaultValue={initialContents?.updated_date}
+                        disabled
                     />
                 </Form.Group>
             )}
@@ -113,6 +114,7 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                         type="text"
                         {...register("cancelled_date")}
                         defaultValue={initialContents?.cancelled_date}
+                        disabled
                     />
                 </Form.Group>
             )}
