@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShiftController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GauchoRide</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.gauchoride.controllers</a> &gt; <span class="el_source">ShiftController.java</span></div><h1>ShiftController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.gauchoride.controllers;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.ucsb.cs156.gauchoride.entities.Shift;
+import edu.ucsb.cs156.gauchoride.repositories.ShiftRepository;
+import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
+import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
+import edu.ucsb.cs156.gauchoride.models.CurrentUser;
+
+import java.time.LocalTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
+
+@Tag(name = &quot;Shift information&quot;)
+@RequestMapping(&quot;/api/shift&quot;)
+@RestController
+<span class="fc" id="L37">public class ShiftController extends ApiController {</span>
+    @Autowired
+    ShiftRepository shiftRepository;
+
+    @Autowired
+    ObjectMapper mapper;
+
+    @Operation(summary = &quot;Get a list of all shifts&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;/all&quot;)
+    public ResponseEntity&lt;String&gt; allShifts()
+            throws JsonProcessingException {
+<span class="fc" id="L49">        Iterable&lt;Shift&gt; shifts = shiftRepository.findAll();</span>
+<span class="fc" id="L50">        String body = mapper.writeValueAsString(shifts);</span>
+<span class="fc" id="L51">        return ResponseEntity.ok().body(body);</span>
+    }
+
+    @Operation(summary = &quot;Get shift by id&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER') || hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public Shift shiftByID(
+            @Parameter(name = &quot;id&quot;, description = &quot;Long, id number of shift to get&quot;, example = &quot;1&quot;, required = true) @RequestParam Long id)
+            throws JsonProcessingException {
+<span class="fc" id="L60">        Shift shift = shiftRepository.findById(id)</span>
+<span class="fc" id="L61">                .orElseThrow(() -&gt; new EntityNotFoundException(Shift.class, id));</span>
+<span class="fc" id="L62">        return shift;</span>
+    }
+
+    @Operation(summary = &quot;Get a list of all shifts for given driverId&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_DRIVER')&quot;)
+    @GetMapping(&quot;/drivershifts&quot;)
+    public ResponseEntity&lt;String&gt; driverShifts()
+            throws JsonProcessingException {
+<span class="fc" id="L70">        Long driverID = super.getCurrentUser().getUser().getId();</span>
+<span class="fc" id="L71">        Iterable&lt;Shift&gt; shifts = shiftRepository.findByDriverID(driverID);</span>
+<span class="fc" id="L72">        String body = mapper.writeValueAsString(shifts);</span>
+<span class="fc" id="L73">        return ResponseEntity.ok().body(body);</span>
+    }
+    
+
+    @Operation(summary = &quot;Create a new shift for the table&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PostMapping(&quot;/post&quot;)
+    public Shift postShift(
+        @Parameter(name=&quot;day&quot;) @RequestParam String day,
+        @Parameter(name=&quot;shiftStart&quot;) @RequestParam String shiftStart,
+        @Parameter(name=&quot;shiftEnd&quot;) @RequestParam String shiftEnd,
+        @Parameter(name=&quot;driverID&quot;) @RequestParam long driverID ,
+        @Parameter(name=&quot;driverBackupID&quot;) @RequestParam long driverBackupID
+        )
+        {
+
+<span class="fc" id="L89">        Shift shift = new Shift();</span>
+
+<span class="fc" id="L91">        shift.setDriverID(getCurrentUser().getUser().getId());</span>
+<span class="fc" id="L92">        shift.setDay(day);</span>
+<span class="fc" id="L93">        shift.setShiftStart(shiftStart);</span>
+<span class="fc" id="L94">        shift.setShiftEnd(shiftEnd);</span>
+<span class="fc" id="L95">        shift.setDriverBackupID(driverBackupID);</span>
+
+<span class="fc" id="L97">        Shift savedShift = shiftRepository.save(shift);</span>
+
+<span class="fc" id="L99">        return savedShift;</span>
+    }
+
+    
+    @Operation(summary= &quot;Delete a shift&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @DeleteMapping(&quot;&quot;)
+    public Object deleteShift(
+            @Parameter(name=&quot;id&quot;) @RequestParam long id) {
+<span class="fc" id="L108">        Shift shift = shiftRepository.findById(id)</span>
+<span class="fc" id="L109">                .orElseThrow(() -&gt; new EntityNotFoundException(Shift.class, id));</span>
+
+<span class="fc" id="L111">        shiftRepository.delete(shift);</span>
+<span class="fc" id="L112">        return genericMessage(&quot;Shift with id %s deleted&quot;.formatted(id));</span>
+    }
+
+    @Operation(summary= &quot;Update a single shift&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @PutMapping(&quot;&quot;)
+    public Shift updateReview(
+            @Parameter(name=&quot;id&quot;) @RequestParam long id,
+            @RequestBody @Valid Shift incoming) {
+
+<span class="fc" id="L122">        Shift shift = shiftRepository.findById(id)</span>
+<span class="fc" id="L123">                .orElseThrow(() -&gt; new EntityNotFoundException(Shift.class, id));</span>
+
+<span class="fc" id="L125">        shift.setDay(incoming.getDay());</span>
+<span class="fc" id="L126">        shift.setShiftStart(incoming.getShiftStart());</span>
+<span class="fc" id="L127">        shift.setShiftEnd(incoming.getShiftEnd());</span>
+<span class="fc" id="L128">        shift.setDriverID(incoming.getDriverID());</span>
+<span class="fc" id="L129">        shift.setDriverBackupID(incoming.getDriverBackupID());</span>
+
+<span class="fc" id="L131">        shiftRepository.save(shift);</span>
+
+<span class="fc" id="L133">        return shift;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
