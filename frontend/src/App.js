@@ -1,23 +1,23 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "main/pages/HomePage";
-import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
-import PageNotFound from "main/pages/PageNotFound";
 import DriverListPage from "main/pages/DriverListPage";
+import HomePage from "main/pages/HomePage";
+import PageNotFound from "main/pages/PageNotFound";
+import ProfilePage from "main/pages/ProfilePage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import ChatPage from "main/pages/ChatPage";
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
 import ShiftPage from "main/pages/ShiftPage";
-import ChatPage from "main/pages/ChatPage";
 
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 
+import DriverInfoPage from "main/pages/DriverInfoPage";
 import DriverPage from "main/pages/DriverPage";
 import DriverDashboardPage from "main/pages/Drivers/DriverDashboardPage";
-import DriverInfoPage from "main/pages/DriverInfoPage";
 
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
@@ -84,6 +84,7 @@ function App() {
         {
           (hasRole(currentUser, "ROLE_DRIVER") ) && <Route exact path="/drivershifts" element={<DriverDashboardPage />} />
         }
+        {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
         }
         {
