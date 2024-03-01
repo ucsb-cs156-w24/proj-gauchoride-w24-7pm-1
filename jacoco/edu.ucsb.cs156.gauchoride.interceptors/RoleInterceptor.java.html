@@ -48,20 +48,24 @@ import edu.ucsb.cs156.gauchoride.entities.User;
 <span class="fc" id="L48">                Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
 <span class="fc" id="L49">                Set&lt;GrantedAuthority&gt; revisedAuthorities = authorities.stream().filter(</span>
 <span class="fc bfc" id="L50" title="All 2 branches covered.">                        grantedAuth -&gt; !grantedAuth.getAuthority().equals(&quot;ROLE_ADMIN&quot;)</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">                                &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_DRIVER&quot;))</span>
-<span class="fc" id="L52">                        .collect(Collectors.toSet());</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">                if (user.getAdmin()) {</span>
-<span class="fc" id="L54">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                                &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_DRIVER&quot;)</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">                                &amp;&amp; !grantedAuth.getAuthority().equals(&quot;ROLE_RIDER&quot;))</span>
+<span class="fc" id="L53">                        .collect(Collectors.toSet());</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                if (user.getAdmin()) {</span>
+<span class="fc" id="L55">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
                 }
-<span class="fc bfc" id="L56" title="All 2 branches covered.">                if (user.getDriver()) {</span>
-<span class="fc" id="L57">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_DRIVER&quot;));</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                if (user.getDriver()) {</span>
+<span class="fc" id="L58">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_DRIVER&quot;));</span>
                 }
-<span class="fc" id="L59">                Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,</span>
-<span class="fc" id="L60">                        (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));</span>
-<span class="fc" id="L61">                SecurityContextHolder.getContext().setAuthentication(newAuth);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">                if (user.getRider()) {</span>
+<span class="fc" id="L61">                    revisedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_RIDER&quot;));</span>
+                }
+<span class="fc" id="L63">                Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,</span>
+<span class="fc" id="L64">                        (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));</span>
+<span class="fc" id="L65">                SecurityContextHolder.getContext().setAuthentication(newAuth);</span>
             }
         }
-<span class="fc" id="L64">        return true;</span>
+<span class="fc" id="L68">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
