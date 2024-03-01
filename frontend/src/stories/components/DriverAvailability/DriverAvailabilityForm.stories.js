@@ -26,7 +26,7 @@ Create.args = {
 export const Update = Template.bind({});
 
 Update.args = {
-    initialContents: driverAvailabilityFixtures.oneDriverAvailability[0],
+    initialContents: driverAvailabilityFixtures.oneAvailability[0],
     buttonLabel: "Update",
     submitAction: (data) => {
         console.log("Submit was clicked with data: ", data); 

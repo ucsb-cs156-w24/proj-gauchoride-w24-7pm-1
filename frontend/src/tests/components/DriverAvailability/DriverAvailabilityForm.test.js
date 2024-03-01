@@ -41,7 +41,7 @@ describe("DriverAvailabilityForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <DriverAvailabilityForm initialContents={driverAvailabilityFixtures.oneDriverAvailability} />
+                    <DriverAvailabilityForm initialContents={driverAvailabilityFixtures.oneAvailability} />
                 </Router>
             </QueryClientProvider>
         );
