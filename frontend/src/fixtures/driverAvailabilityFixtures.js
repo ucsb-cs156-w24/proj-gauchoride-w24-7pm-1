@@ -38,3 +38,4 @@ const driverAvailabilityFixtures = {
 }
 
 export default driverAvailabilityFixtures;
+export {driverAvailabilityFixtures};
