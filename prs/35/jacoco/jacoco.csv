@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-GauchoRide,edu.ucsb.cs156.gauchoride.interceptors,RoleInterceptor,0,94,0,12,0,22,0,10,0,4
+GauchoRide,edu.ucsb.cs156.gauchoride.interceptors,RoleInterceptor,0,109,0,16,0,25,0,12,0,4
 GauchoRide,edu.ucsb.cs156.gauchoride.interceptors,RoleInterceptorConfig,0,9,0,0,0,3,0,2,0,2
 GauchoRide,edu.ucsb.cs156.gauchoride.errors,EntityNotFoundException,0,17,0,0,0,3,0,1,0,1
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,UserInfoController,0,6,0,0,0,2,0,2,0,2
