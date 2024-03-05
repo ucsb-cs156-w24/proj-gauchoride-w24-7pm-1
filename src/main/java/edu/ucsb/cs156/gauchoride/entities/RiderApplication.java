@@ -5,13 +5,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import java.sql.Date;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.GeneratedValue;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +26,7 @@ public class RiderApplication {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long userId; 
+    @Schema(allowableValues = "pending, accepted, declined, expired, cancelled")
     private String status;
     private String perm_number;
     @CreatedDate
@@ -32,5 +37,7 @@ public class RiderApplication {
     private Date cancelled_date;
     private String description;
     private String notes;
+
+    private String email;
 
 }

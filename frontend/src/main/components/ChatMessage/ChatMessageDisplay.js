@@ -11,11 +11,11 @@ function ChatMessageDisplay({ chatMessage }) {
   return (
     <Card data-testid="ChatMessageDisplay">
       <Card.Body>
-        <Card.Title>{chatMessage.chatMessage.payload}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{formatTimestamp(chatMessage.chatMessage.timestamp)}</Card.Subtitle>
-        <Card.Text>
+        <Card.Title>
           Email: {chatMessage.email}
-        </Card.Text>
+        </Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{formatTimestamp(chatMessage.chatMessage.timestamp)}</Card.Subtitle>
+        <Card.Text>{chatMessage.chatMessage.payload}</Card.Text>
       </Card.Body>
     </Card>
   );

@@ -4,10 +4,28 @@
 
 | Type | Link       | 
 |------|------------|
-| prod | <https://proj-gauchoride.dokku-00.cs.ucsb.edu/> | 
-| qa | <https://proj-gauchoride-qa.dokku-00.cs.ucsb.edu/>  | 
+| prod | <https://gauchoride.dokku-00.cs.ucsb.edu/> | 
+| qa | <https://gauchoride-qa.dokku-00.cs.ucsb.edu/>  | 
+
+# W24 Production Deployments
 
 
+| Team | Link       | 
+|------|------------|
+| w24-7pm-1 | <https://gauchoride.dokku-13.cs.ucsb.edu/> | 
+| w24-7pm-2 | <https://gauchoride.dokku-14.cs.ucsb.edu/>  | 
+| w24-7pm-3 | <https://gauchoride.dokku-15.cs.ucsb.edu/>  | 
+| w24-7pm-4 | <https://gauchoride.dokku-16.cs.ucsb.edu/>  | 
+
+# W24 QA Deployments
+
+
+| Team | Link       | 
+|------|------------|
+| w24-7pm-1 | <https://gauchoride-qa.dokku-13.cs.ucsb.edu/> | 
+| w24-7pm-2 | <https://gauchoride-qa.dokku-14.cs.ucsb.edu/>  | 
+| w24-7pm-3 | <https://gauchoride-qa.dokku-15.cs.ucsb.edu/>  | 
+| w24-7pm-4 | <https://gauchoride-qa.dokku-16.cs.ucsb.edu/>  | 
 
 # Setup before running application
 
@@ -40,26 +58,7 @@ If it doesn't work at first, e.g. you have a blank page on  <http://localhost:80
 If you see the following on localhost, make sure that you also have the frontend code running in a separate window.
 
 ```
-Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
-```
-
-# Getting Started on Heroku
-
-On Heroku, you'll need to set the following configuration variable:
-
-* Using the Heroku CLI:
-  ```
-  heroku config:set PRODUCTION=true --app <heroku app name>
-  ```
-* Or set it on the Heroku Dashboard:
-  ![image](https://user-images.githubusercontent.com/1119017/149855768-7b56164a-98f7-4357-b877-da34b7bd9ea4.png)
-
-You'll also need to follow the OAuth set up instructions here: [`docs/oauth.md`](docs/oauth.md).
-
-If you get the following message on Heroku, it probably means that you failed to setup the `PRODUCTION` environment variable.
-
-```
-Failed to connect to the frontend server... On Heroku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start";
+Failed to connect to the frontend server... On Dokku, be sure that PRODUCTION is defined.  On localhost, open a second terminal window, cd into frontend and type: npm install; npm start;
 ```
 
 # Accessing swagger
