@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 
@@ -66,7 +66,12 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="start">Start Time</Form.Label>
+                <Form.Label htmlFor="start">Pick Up Time</Form.Label>
+                <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip>This is when you would like to picked up.</Tooltip>}
+                    delay='100'
+                >
                 <Form.Control
                     data-testid={testIdPrefix + "-start"}
                     id="start"
@@ -83,13 +88,19 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     defaultValue={initialContents?.startTime}
 
                 />
+                </OverlayTrigger>
                 <Form.Control.Feedback type="invalid">
                     {errors.start?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="end">End Time</Form.Label>
+                <Form.Label htmlFor="end">Drop Off Time</Form.Label>
+                <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip>This is the latest that you would like to arrive by.</Tooltip>}
+                    delay='100'
+                >
                 <Form.Control
                     data-testid={testIdPrefix + "-end"}
                     id="end"
@@ -105,6 +116,7 @@ function RideForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     placeholder="Enter time in the format HH:MM AM/PM (e.g. 3:30PM)"   
                     defaultValue={initialContents?.endTime}     
                 />
+                </OverlayTrigger>
                 <Form.Control.Feedback type="invalid">
                     {errors.end?.message}
                 </Form.Control.Feedback>
