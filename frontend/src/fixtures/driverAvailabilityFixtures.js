@@ -22,7 +22,7 @@ const driverAvailabilityFixtures = {
             "id": 2,
             "driverId": 5,
             "day": "Thursday",
-            "startTime": "011:00AM",
+            "startTime": "11:00AM",
             "endTime": "01:45PM",
             "notes": "has class from 2-3pm",
         },
