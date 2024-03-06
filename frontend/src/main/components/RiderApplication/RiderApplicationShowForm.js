@@ -105,7 +105,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {(initialContents.status == "declined" || initialContents.status == "approved") && (
+            {(initialContents.notes != "") && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="notes">Notes</Form.Label>
                     <Form.Control
