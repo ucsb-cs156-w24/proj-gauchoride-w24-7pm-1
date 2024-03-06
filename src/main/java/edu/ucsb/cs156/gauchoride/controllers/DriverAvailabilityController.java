@@ -27,7 +27,7 @@ public class DriverAvailabilityController extends ApiController{
     DriverAvailabilityRepository driverAvailabilityRepository;
 
     //Allows driver to create and post new availability
-    @Operation(summary= "Create a new Driver Availability")
+    @Operation(summary= "Create a new driver availability")
     @PreAuthorize("hasRole('ROLE_DRIVER')")
     @PostMapping("/new")
     public DriverAvailability postDriverAvailability(
@@ -53,9 +53,18 @@ public class DriverAvailabilityController extends ApiController{
         return savedDriverAvailability;
     }
 
+    //GET all availability submissions for the current user.
+    @Operation(summary = "Get all driver availabilites owned by the current user")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @GetMapping("")
+    public Iterable<DriverAvailability> allApplications() {
+        Iterable<DriverAvailability> availabilities;
+        availabilities = driverAvailabilityRepository.findAllByDriverId(getCurrentUser().getUser().getId());
+        return availabilities;
+    }
 
     //Lets admins get all driver availabilties
-    @Operation(summary= "List all Driver Availabilities")
+    @Operation(summary= "List all driver availabilities")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin/all")
     public Iterable<DriverAvailability> allDriverAvailabilities() {

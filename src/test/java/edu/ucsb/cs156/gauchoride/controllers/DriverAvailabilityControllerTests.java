@@ -89,6 +89,68 @@ public class DriverAvailabilityControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
+    // Test for GET /api/driverAvailability
+
+    // Authorization tests for GET /api/driverAvailability
+    @Test
+    public void logged_out_users_cannot_get() throws Exception {
+            mockMvc.perform(post("/api/driverAvailability"))
+                            .andExpect(status().is(403));
+    }
+
+    @WithMockUser(roles = { "ADMIN" })
+    @Test
+    public void logged_in_admin_cannot_get() throws Exception {
+            mockMvc.perform(post("/api/driverAvailability"))
+                            .andExpect(status().is(403));
+    }
+
+    @WithMockUser(roles = { "RIDER" })
+    @Test
+    public void logged_in_rider_cannot_get() throws Exception {
+            mockMvc.perform(post("/api/driverAvailability"))
+                            .andExpect(status().is(403));
+    }
+
+    //  GET ALL
+    @WithMockUser(roles = { "DRIVER" })
+    @Test
+    public void logged_in_driver_can_get_all_their_own_availabilities() throws Exception {
+
+        Long UserId = currentUserService.getCurrentUser().getUser().getId();
+
+        DriverAvailability availability1 = DriverAvailability.builder()
+                        .driverId(1)
+                        .day("03/05/2024")
+                        .startTime("10:30AM")
+                        .endTime("2:30PM")
+                        .notes("End for late lunch")
+                        .build();
+
+        DriverAvailability availability2 = DriverAvailability.builder()
+                        .driverId(2)
+                        .day("12/24/2024")
+                        .startTime("5:00AM")
+                        .endTime("12:00PM")
+                        .notes("Early Shift")
+                        .build();
+
+        ArrayList<DriverAvailability> expectedAvailabilities = new ArrayList<>();
+        expectedAvailabilities.addAll(Arrays.asList(availability1, availability2));
+
+        when(driverAvailabilityRepository.findAllByDriverId(eq(UserId))).thenReturn(expectedAvailabilities);
+
+        // act
+        MvcResult response = mockMvc.perform(get("/api/driverAvailability"))
+                        .andExpect(status().isOk()).andReturn();
+
+        // assert
+
+        verify(driverAvailabilityRepository, times(1)).findAllByDriverId(eq(UserId));
+        String expectedJson = mapper.writeValueAsString(expectedAvailabilities);
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(expectedJson, responseString);
+    }
     // Test for GET /api/driverAvailability/admin/all
         
     // Authorization tests for get /api/driverAvailability/admin/all
