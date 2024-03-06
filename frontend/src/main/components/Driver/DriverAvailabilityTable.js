@@ -1,6 +1,5 @@
 import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
-import { Link } from "react-router-dom";
 
 import { useBackendMutation } from "main/utils/useBackend";
 import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/driverAvailabilityUtils"
@@ -9,17 +8,16 @@ import { hasRole } from "main/utils/currentUser";
 
 export default function DriverAvailabilityTable({
     driverAvailability,
-    currentUser,
-    testIdPrefix = "DriverAvalabilityTable" }) {
+    currentUser }) {
 
     const navigate = useNavigate();
 
     const editCallback = (cell) => {
-        navigate(`/driverAvailability/edit/${cell.row.values.id}`)
+        navigate(`/availability/edit/${cell.row.values.id}`)
     }
 
-    const showCallback = (cell) => {
-        navigate(`/driverAvailability/`)
+    const reviewCallback = (cell) => {
+        navigate(`/availability/review/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -27,7 +25,7 @@ export default function DriverAvailabilityTable({
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/driverAvailability/all"]
+        ["/availability"]
     );
     // Stryker restore all 
 
@@ -61,17 +59,23 @@ export default function DriverAvailabilityTable({
         }
     ];
 
-    if (hasRole(currentUser, "ROLE_DRIVER")) {
-        columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
-        columns.push(ButtonColumn("Delete", "primary", deleteCallback, testIdPrefix));
-    } else if (hasRole(currentUser, "ROLE_ADMIN")) {
-        columns.push(ButtonColumn("View", "primary", showCallback, testIdPrefix));
-    }
+    const buttonColumnsDriver = [
+        ...columns,
+        ButtonColumn("Edit", "primary", editCallback, "DriverAvalabilityTable"),
+        ButtonColumn("Delete", "danger", deleteCallback, "DriverAvalabilityTable")
+    ];
+
+    const buttonColumnsAdmin = [
+        ...columns,
+        ButtonColumn("Review", "primary", reviewCallback, "DriverAvalabilityTable")
+    ];
+
+    const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : buttonColumnsDriver;
 
     return <OurTable
         data={driverAvailability}
-        columns={columns}
-        testid={testIdPrefix}
+        columns={columnsToDisplay}
+        testid={"DriverAvalabilityTable"}
     />;
 };
 
