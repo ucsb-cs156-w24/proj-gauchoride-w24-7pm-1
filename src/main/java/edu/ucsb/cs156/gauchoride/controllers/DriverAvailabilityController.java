@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -108,6 +109,19 @@ public class DriverAvailabilityController extends ApiController{
         driverAvailabilityRepository.save(availability);
         return ResponseEntity.ok(availability);
 
+    }
+
+    //DELETE for driver Availability
+    @Operation(summary= "Delete a driver availability")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @DeleteMapping("")
+    public Object deleteDriverAvailability(
+            @Parameter(name="id") @RequestParam Long id) {
+        DriverAvailability availability = driverAvailabilityRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+
+        driverAvailabilityRepository.delete(availability);
+        return genericMessage("DriverAvailability with id %s deleted".formatted(id));
     }
 
     //Lets admins get all driver availabilties
