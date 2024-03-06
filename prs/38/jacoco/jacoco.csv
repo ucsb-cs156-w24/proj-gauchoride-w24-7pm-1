@@ -3,7 +3,7 @@ GauchoRide,edu.ucsb.cs156.gauchoride.interceptors,RoleInterceptor,0,109,0,16,0,2
 GauchoRide,edu.ucsb.cs156.gauchoride.interceptors,RoleInterceptorConfig,0,9,0,0,0,3,0,2,0,2
 GauchoRide,edu.ucsb.cs156.gauchoride.errors,EntityNotFoundException,0,17,0,0,0,3,0,1,0,1
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,UserInfoController,0,6,0,0,0,2,0,2,0,2
-GauchoRide,edu.ucsb.cs156.gauchoride.controllers,DriverAvailabilityController,0,114,0,0,0,27,0,9,0,9
+GauchoRide,edu.ucsb.cs156.gauchoride.controllers,DriverAvailabilityController,0,144,0,0,0,31,0,11,0,11
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,UserProfileController,0,53,0,0,0,8,0,4,0,4
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,ShiftController,0,160,0,0,0,32,0,10,0,10
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,RiderApplicationController,0,270,0,8,0,57,0,19,0,15
