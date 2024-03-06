@@ -48,13 +48,17 @@ public class RoleInterceptor implements HandlerInterceptor {
                 Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
                 Set<GrantedAuthority> revisedAuthorities = authorities.stream().filter(
                         grantedAuth -> !grantedAuth.getAuthority().equals("ROLE_ADMIN")
-                                && !grantedAuth.getAuthority().equals("ROLE_DRIVER"))
+                                && !grantedAuth.getAuthority().equals("ROLE_DRIVER")
+                                && !grantedAuth.getAuthority().equals("ROLE_RIDER"))
                         .collect(Collectors.toSet());
                 if (user.getAdmin()) {
                     revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 }
                 if (user.getDriver()) {
                     revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
+                }
+                if (user.getRider()) {
+                    revisedAuthorities.add(new SimpleGrantedAuthority("ROLE_RIDER"));
                 }
                 Authentication newAuth = new OAuth2AuthenticationToken(principal, revisedAuthorities,
                         (((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId()));

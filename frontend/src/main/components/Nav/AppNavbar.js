@@ -83,7 +83,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               }
               {
                 hasRole(currentUser, "ROLE_DRIVER") && (
-                  <NavDropdown title="Driver DashBoard" id="appnavbar-driver-dropdown" data-testid="appnavbar-driver-dropdown" >
+                  <NavDropdown title="Driver Dashboard" id="appnavbar-driver-dropdown" data-testid="appnavbar-driver-dropdown" >
                   <NavDropdown.Item as={Link} to="/drivershifts">Dashboard</NavDropdown.Item>
                 </NavDropdown>
                 )
@@ -116,8 +116,8 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 )
               }
               {
-                hasRole(currentUser, "ROLE_MEMBER") && (
-                  <Nav.Link as={Link} to="/apply/rider">Apply to be a Rider</Nav.Link>
+                !hasRole(currentUser, "ROLE_RIDER") && (
+                  <Nav.Link id ="appnavbar-applytobearider-link" data-testid="appnavbar-applytoberider" as={Link} to="/apply/rider">Apply to be a Rider</Nav.Link>
                 )
               }
 
