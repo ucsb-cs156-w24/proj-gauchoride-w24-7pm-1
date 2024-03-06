@@ -124,6 +124,21 @@ public class DriverAvailabilityController extends ApiController{
         return genericMessage("DriverAvailability with id %s deleted".formatted(id));
     }
 
+    //Lets Admin GET a single availability by ID
+    @Operation(summary = "Admin can get a single availability by id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("admin")
+    public DriverAvailability adminGetById(
+                    @Parameter(name="id", description = "Long, Id of the driver availability to get", 
+                    required = true)  
+                    @RequestParam Long id) 
+    {
+        DriverAvailability availability;
+        availability = driverAvailabilityRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+        return availability;
+    }
+
     //Lets admins get all driver availabilties
     @Operation(summary= "List all driver availabilities")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
