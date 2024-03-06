@@ -4,6 +4,7 @@ import { useBackendMutation } from "main/utils/useBackend";
 import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/rideUtils"
 import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
+import { Link } from "react-router-dom";
 
 export default function RideTable({
         ride,
@@ -14,6 +15,10 @@ export default function RideTable({
 
     const editCallback = (cell) => {
         navigate(`/ride/edit/${cell.row.values.id}`)
+    }
+
+    const assignCallback = (cell) => {
+        navigate(`/ride/assigndriver/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching
@@ -43,8 +48,12 @@ export default function RideTable({
             accessor: 'student',
         },
         {
-            Header: 'Driver',
-            accessor: 'driver',
+            Header: 'Shift',
+            accessor: 'shiftId',
+            Cell: ({ value }) => (
+                // Stryker disable next-line all : hard to set up test
+                <Link to={`/shiftInfo/${value}`}>{value}</Link>
+              ),
         },
         {
             Header: 'Course #',
@@ -94,6 +103,14 @@ export default function RideTable({
             accessor: 'student',
         },
         {
+            Header: 'Shift',
+            accessor: 'shiftId',
+            Cell: ({ value }) => (
+                // Stryker disable next-line all : hard to set up test
+                <Link to={`/shiftInfo/${value}`}>{value}</Link>
+              ),
+        },
+        {
             Header: 'Course #',
             accessor: 'course',
         },
@@ -135,10 +152,6 @@ export default function RideTable({
         {
             Header: 'Day',
             accessor: 'day',
-        },
-        {
-            Header: 'Driver',
-            accessor: 'driver',
         },
         {
             Header: 'Course #',
@@ -184,7 +197,8 @@ export default function RideTable({
     const buttonColumnsAdmin = [
         ...columns,
         ButtonColumn("Edit", "primary", editCallback, "RideTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "RideTable")
+        ButtonColumn("Delete", "danger", deleteCallback, "RideTable"),
+        ButtonColumn("Assign Driver", "success", assignCallback, "RideTable")
     ]
 
    

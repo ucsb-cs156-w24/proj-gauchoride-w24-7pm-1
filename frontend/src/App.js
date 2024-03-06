@@ -8,12 +8,14 @@ import DriverListPage from "main/pages/DriverListPage";
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
+import RideRequestAssignPage from "main/pages/Ride/RideRequestAssignPage";
 import ShiftPage from "main/pages/ShiftPage";
 import ChatPage from "main/pages/ChatPage";
 
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
+import ShiftInfoPage from "main/pages/Shift/ShiftInfoPage";
 
 import DriverPage from "main/pages/DriverPage";
 import DriverDashboardPage from "main/pages/Drivers/DriverDashboardPage";
@@ -52,6 +54,9 @@ function App() {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_RIDER")) && <Route exact path="/ride/" element={<RideRequestIndexPage />} />
         }
         {
+          hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/ride/assigndriver/:id" element={<RideRequestAssignPage />} />
+        }
+        {
           (hasRole(currentUser, "ROLE_RIDER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/ride/create" element={<RideRequestCreatePage />} />
         }
         {
@@ -84,6 +89,10 @@ function App() {
         {
           (hasRole(currentUser, "ROLE_DRIVER") ) && <Route exact path="/drivershifts" element={<DriverDashboardPage />} />
         }
+        {
+          (hasRole(currentUser, "ROLE_ADMIN")  || hasRole(currentUser, "ROLE_DRIVER") )&& <Route exact path="/shiftInfo/:id" element={<ShiftInfoPage />} />
+        }
+        {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider" element={<RiderApplicationIndexPageMember />} />
         }
         {
