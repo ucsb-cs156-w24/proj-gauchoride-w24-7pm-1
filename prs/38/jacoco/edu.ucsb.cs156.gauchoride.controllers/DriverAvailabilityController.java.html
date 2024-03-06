@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
     DriverAvailabilityRepository driverAvailabilityRepository;
 
     //Allows driver to create and post new availability
-    @Operation(summary= &quot;Create a new Driver Availability&quot;)
+    @Operation(summary= &quot;Create a new driver availability&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_DRIVER')&quot;)
     @PostMapping(&quot;/new&quot;)
     public DriverAvailability postDriverAvailability(
@@ -53,14 +53,23 @@ import lombok.extern.slf4j.Slf4j;
 <span class="fc" id="L53">        return savedDriverAvailability;</span>
     }
 
+    //GET all availability submissions for the current user.
+    @Operation(summary = &quot;Get all driver availabilites owned by the current user&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_DRIVER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public Iterable&lt;DriverAvailability&gt; allApplications() {
+        Iterable&lt;DriverAvailability&gt; availabilities;
+<span class="fc" id="L62">        availabilities = driverAvailabilityRepository.findAllByDriverId(getCurrentUser().getUser().getId());</span>
+<span class="fc" id="L63">        return availabilities;</span>
+    }
 
     //Lets admins get all driver availabilties
-    @Operation(summary= &quot;List all Driver Availabilities&quot;)
+    @Operation(summary= &quot;List all driver availabilities&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @GetMapping(&quot;/admin/all&quot;)
     public Iterable&lt;DriverAvailability&gt; allDriverAvailabilities() {
-<span class="fc" id="L62">        Iterable&lt;DriverAvailability&gt; availabilities = driverAvailabilityRepository.findAll();</span>
-<span class="fc" id="L63">        return availabilities;</span>
+<span class="fc" id="L71">        Iterable&lt;DriverAvailability&gt; availabilities = driverAvailabilityRepository.findAll();</span>
+<span class="fc" id="L72">        return availabilities;</span>
     }
 
 }
