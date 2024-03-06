@@ -1,40 +1,40 @@
 package edu.ucsb.cs156.gauchoride.interceptors;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import edu.ucsb.cs156.gauchoride.entities.User;
+
 import edu.ucsb.cs156.gauchoride.ControllerTestCase;
+import edu.ucsb.cs156.gauchoride.entities.User;
 import edu.ucsb.cs156.gauchoride.repositories.UserRepository;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.mock.web.MockHttpServletResponse;
-
-import java.util.Collection;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Optional;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.times;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -62,6 +62,7 @@ public class RoleInterceptorTests extends ControllerTestCase {
                 Set<GrantedAuthority> authorities = new HashSet<>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 authorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
+                authorities.add(new SimpleGrantedAuthority("ROLE_RIDER"));
                 authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
 
                 OAuth2User user = new DefaultOAuth2User(authorities, attributes, "name");
@@ -94,6 +95,7 @@ public class RoleInterceptorTests extends ControllerTestCase {
                                 .id(15L)
                                 .admin(false)
                                 .driver(true)
+                                .rider(true)
                                 .build();
                 when(userRepository.findByEmail("cgaucho@ucsb.edu")).thenReturn(Optional.of(user));
 
@@ -120,10 +122,13 @@ public class RoleInterceptorTests extends ControllerTestCase {
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_ADMIN"));
                 boolean role_driver = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_DRIVER"));
+                boolean role_rider = authorities.stream()
+                                .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_RIDER"));
                 boolean role_member = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_MEMBER"));
                 assertFalse(role_admin, "ROLE_ADMIN should not be in roles list");
                 assertTrue(role_driver, "ROLE_DRIVER should be in roles list");
+                assertTrue(role_rider, "ROLE_RIDER should be in roles list");
                 assertTrue(role_member, "ROLE_MEMBER should be in roles list");
         }
 
@@ -160,10 +165,13 @@ public class RoleInterceptorTests extends ControllerTestCase {
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_ADMIN"));
                 boolean role_driver = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_DRIVER"));
+                boolean role_rider = authorities.stream()
+                                .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_RIDER"));
                 boolean role_member = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_MEMBER"));
                 assertTrue(role_admin, "ROLE_ADMIN should not be in roles list");
                 assertFalse(role_driver, "ROLE_DRIVER should be in roles list");
+                assertFalse(role_rider, "ROLE_RIDER should be in roles list");
                 assertTrue(role_member, "ROLE_MEMBER should be in roles list");
         }
 
@@ -200,10 +208,13 @@ public class RoleInterceptorTests extends ControllerTestCase {
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_ADMIN"));
                 boolean role_driver = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_DRIVER"));
+                boolean role_rider = authorities.stream()
+                                .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_RIDER"));
                 boolean role_member = authorities.stream()
                                 .anyMatch(grantedAuth -> grantedAuth.getAuthority().equals("ROLE_MEMBER"));
                 assertTrue(role_admin, "ROLE_ADMIN should not be in roles list");
                 assertTrue(role_driver, "ROLE_DRIVER should be in roles list");
+                assertTrue(role_rider, "ROLE_RIDER should be in roles list");
                 assertTrue(role_member, "ROLE_MEMBER should be in roles list");
         }
 }
