@@ -78,7 +78,7 @@ describe("RideTable tests", () => {
   });
 
 
-  test("Has the expected column headers and content for adminUser", () => {
+  test("Has the expected column headers and content for adminUser", async () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
@@ -95,14 +95,18 @@ describe("RideTable tests", () => {
     const expectedFields = ['id', 'day', 'student', 'shiftId', 'course', 'startTime', 'endTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
     const testId = "RideTable";
 
-    expectedHeaders.forEach((headerText) => {
-      const header = getByText(headerText);
-      expect(header).toBeInTheDocument();
+    await waitFor(() => {
+      expectedHeaders.forEach((headerText) => {
+        const header = getByText(headerText);
+        expect(header).toBeInTheDocument();
+      });
     });
 
-    expectedFields.forEach((field) => {
-      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    await waitFor(() => {
+      expectedFields.forEach((field) => {
+        const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+        expect(header).toBeInTheDocument();
+      });
     });
 
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
@@ -124,7 +128,7 @@ describe("RideTable tests", () => {
 
 
 
-  test("Has the expected column headers and content for ordinary rider", () => {
+  test("Has the expected column headers and content for ordinary rider", async () => {
 
     const currentUser = currentUserFixtures.userOnly;
 
@@ -151,6 +155,20 @@ describe("RideTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
+    await waitFor(() => {
+      expectedHeaders.forEach((headerText) => {
+        const header = getByText(headerText);
+        expect(header).toBeInTheDocument();
+      });
+    });
+
+    await waitFor(() => {
+      expectedFields.forEach((field) => {
+        const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+        expect(header).toBeInTheDocument();
+      });
+    });
+
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
 
@@ -164,7 +182,7 @@ describe("RideTable tests", () => {
     
   });
 
-  test("Has the expected column headers and content for ordinary driver", () => {
+  test("Has the expected column headers and content for ordinary driver", async () => {
 
     const currentUser = currentUserFixtures.driverOnly;
 
@@ -181,14 +199,18 @@ describe("RideTable tests", () => {
     const expectedFields = ['id', 'day', 'student', 'shiftId', 'course', 'startTime', 'endTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
     const testId = "RideTable";
 
-    expectedHeaders.forEach((headerText) => {
-      const header = getByText(headerText);
-      expect(header).toBeInTheDocument();
+    await waitFor(() => {
+      expectedHeaders.forEach((headerText) => {
+        const header = getByText(headerText);
+        expect(header).toBeInTheDocument();
+      });
     });
 
-    expectedFields.forEach((field) => {
-      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    await waitFor(() => {
+      expectedFields.forEach((field) => {
+        const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
+        expect(header).toBeInTheDocument();
+      });
     });
 
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
