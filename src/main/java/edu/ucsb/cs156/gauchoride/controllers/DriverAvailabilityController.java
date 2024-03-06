@@ -1,9 +1,14 @@
 package edu.ucsb.cs156.gauchoride.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import edu.ucsb.cs156.gauchoride.entities.DriverAvailability;
+import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
 import edu.ucsb.cs156.gauchoride.repositories.DriverAvailabilityRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -61,6 +67,47 @@ public class DriverAvailabilityController extends ApiController{
         Iterable<DriverAvailability> availabilities;
         availabilities = driverAvailabilityRepository.findAllByDriverId(getCurrentUser().getUser().getId());
         return availabilities;
+    }
+
+    //GET a single availability by ID if owned by the current user
+    @Operation(summary = "Get a single availability but only if owned by the current user")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @GetMapping("id")
+    public DriverAvailability getById(
+                    @Parameter(name="id", description = "Long, Id of the driver availability to get", 
+                    required = true)  
+                    @RequestParam Long id) 
+    {
+        DriverAvailability availability;
+        availability = driverAvailabilityRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+        return availability;
+    }
+
+    //Edits an availability if owned by current user
+    @Operation(summary = "Edit an existing driver availability but only if it is owned by the current user")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @PutMapping("")
+    public ResponseEntity<Object> updateDriverAvailability(
+                            @Parameter(name="id", description="long, Id of the driver availability to be edited", 
+                            required = true)
+                            @RequestParam Long id,
+                            @RequestBody @Valid DriverAvailability incoming)
+    {
+        DriverAvailability availability;
+
+        availability = driverAvailabilityRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+
+        availability.setDriverId(incoming.getDriverId());
+        availability.setDay(incoming.getDay());
+        availability.setStartTime(incoming.getStartTime());
+        availability.setEndTime(incoming.getEndTime());
+        availability.setNotes(incoming.getNotes());
+
+        driverAvailabilityRepository.save(availability);
+        return ResponseEntity.ok(availability);
+
     }
 
     //Lets admins get all driver availabilties
