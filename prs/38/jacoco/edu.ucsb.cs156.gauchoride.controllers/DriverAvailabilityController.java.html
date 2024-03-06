@@ -124,13 +124,28 @@ import lombok.extern.slf4j.Slf4j;
 <span class="fc" id="L124">        return genericMessage(&quot;DriverAvailability with id %s deleted&quot;.formatted(id));</span>
     }
 
+    //Lets Admin GET a single availability by ID
+    @Operation(summary = &quot;Admin can get a single availability by id&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+    @GetMapping(&quot;admin&quot;)
+    public DriverAvailability adminGetById(
+                    @Parameter(name=&quot;id&quot;, description = &quot;Long, Id of the driver availability to get&quot;, 
+                    required = true)  
+                    @RequestParam Long id) 
+    {
+        DriverAvailability availability;
+<span class="fc" id="L137">        availability = driverAvailabilityRepository.findById(id)</span>
+<span class="fc" id="L138">                    .orElseThrow(() -&gt; new EntityNotFoundException(DriverAvailability.class, id));</span>
+<span class="fc" id="L139">        return availability;</span>
+    }
+
     //Lets admins get all driver availabilties
     @Operation(summary= &quot;List all driver availabilities&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
     @GetMapping(&quot;/admin/all&quot;)
     public Iterable&lt;DriverAvailability&gt; allDriverAvailabilities() {
-<span class="fc" id="L132">        Iterable&lt;DriverAvailability&gt; availabilities = driverAvailabilityRepository.findAll();</span>
-<span class="fc" id="L133">        return availabilities;</span>
+<span class="fc" id="L147">        Iterable&lt;DriverAvailability&gt; availabilities = driverAvailabilityRepository.findAll();</span>
+<span class="fc" id="L148">        return availabilities;</span>
     }
 
 }
