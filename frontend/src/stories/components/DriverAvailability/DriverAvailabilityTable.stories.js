@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DriverAvailabilityTable from "main/components/DriverAvailability/DriverAvailabilityTable";
+import DriverAvailabilityTable from "main/components/Driver/DriverAvailabilityTable";
 import driverAvailabilityFixtures from 'fixtures/driverAvailabilityFixtures';
 
 export default {

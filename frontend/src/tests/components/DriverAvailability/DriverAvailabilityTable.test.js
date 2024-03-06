@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import driverAvailabilityFixtures from "fixtures/driverAvailabilityFixtures";
-import DriverAvailabilityTable from "main/components/DriverAvailability/DriverAvailabilityTable"
+import DriverAvailabilityTable from "main/components/Driver/DriverAvailabilityTable"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { BrowserRouter as Router } from 'react-router-dom';

@@ -40,23 +40,23 @@ export default function DriverAvailabilityTable({
             accessor: 'id', // accessor is the "key" in the data
         },
         {
-            Header: 'Driver Id',
+            Header: 'driverId',
             accessor: 'driverId',
         },
         {
-            Header: 'Day',
+            Header: 'day',
             accessor: 'day',
         },
         {
-            Header: 'Start Time',
+            Header: 'startTime',
             accessor: 'startTime',
         },
         {
-            Header: 'End Time',
+            Header: 'endTime',
             accessor: 'endTime',
         },
         {
-            Header: 'Notes',
+            Header: 'notes',
             accessor: 'notes',
         }
     ];
