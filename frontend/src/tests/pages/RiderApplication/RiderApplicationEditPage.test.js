@@ -1,12 +1,12 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
+import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 
-import { apiCurrentUserFixtures} from "fixtures/currentUserFixtures";
-import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
 import mockConsole from "jest-mock-console";
 
