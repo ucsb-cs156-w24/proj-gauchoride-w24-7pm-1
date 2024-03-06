@@ -1,0 +1,10 @@
+edu.ucsb.cs156.gauchoride
+edu.ucsb.cs156.gauchoride.aop
+edu.ucsb.cs156.gauchoride.config
+edu.ucsb.cs156.gauchoride.controllers
+edu.ucsb.cs156.gauchoride.entities
+edu.ucsb.cs156.gauchoride.errors
+edu.ucsb.cs156.gauchoride.interceptors
+edu.ucsb.cs156.gauchoride.models
+edu.ucsb.cs156.gauchoride.repositories
+edu.ucsb.cs156.gauchoride.services
