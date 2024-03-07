@@ -74,6 +74,55 @@ describe("DriverAvailabilityTable tests", () => {
 
     });
 
+    test("Edit button navigates to the edit page", async () => {
+      const currentUser = currentUserFixtures.driverOnly;
+  
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <DriverAvailabilityTable Availability={driverAvailabilityFixtures.threeAvailability} currentUser={currentUser} />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+  
+      // assert - check that the expected content is rendered
+      expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      expect(screen.getByTestId(`${testId}-cell-row-0-col-driverId`)).toHaveTextContent("4");
+  
+      const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+      expect(editButton).toBeInTheDocument();
+  
+      // act - click the edit button
+      fireEvent.click(editButton);
+  
+      // assert - check that we navigated to the expected path
+      await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/availability/edit/1'));
+    });
+
+    test("Delete button calls delete callback", async () => {
+      const currentUser = currentUserFixtures.driverOnly;
+      
+      
+      // act - render the component
+      render(
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <DriverAvailabilityTable Availability={driverAvailabilityFixtures.threeAvailability} currentUser={currentUser} />
+          </Router>
+        </QueryClientProvider>
+      );
+    
+      // assert - check that the expected content is rendered
+      expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      expect(screen.getByTestId(`${testId}-cell-row-0-col-driverId`)).toHaveTextContent("4");
+    
+      const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+      expect(deleteButton).toBeInTheDocument();
+    
+      // act - click the delete button
+      fireEvent.click(deleteButton);
+    });
+
     test("Has the expected column headers and content for admin user", () => {
       const currentUser = currentUserFixtures.adminUser;
         
@@ -170,11 +219,11 @@ describe("DriverAvailabilityTable tests", () => {
     expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(screen.getByTestId(`${testId}-cell-row-0-col-driverId`)).toHaveTextContent("4");
 
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Review-button`);
-    expect(editButton).toBeInTheDocument();
+    const reviewButton = screen.getByTestId(`${testId}-cell-row-0-col-Review-button`);
+    expect(reviewButton).toBeInTheDocument();
 
     // act - click the edit button
-    fireEvent.click(editButton);
+    fireEvent.click(reviewButton);
 
     // assert - check that we navigated to the expected path
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/availability/review/1'));
