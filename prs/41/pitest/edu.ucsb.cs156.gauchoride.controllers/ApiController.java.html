@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ApiController.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package edu.ucsb.cs156.gauchoride.controllers;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import net.bytebuddy.implementation.bytecode.Throw;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.beans.factory.annotation.Autowired;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import lombok.extern.slf4j.Slf4j;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.http.HttpStatus;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.ExceptionHandler;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import org.springframework.web.bind.annotation.ResponseStatus;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.models.CurrentUser;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import edu.ucsb.cs156.gauchoride.services.CurrentUserService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Map;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Base class for all API controllers.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Provides a method to get the current user as well as common methods for</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * error handling.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>@Slf4j</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public abstract class ApiController {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @Autowired</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  private CurrentUserService currentUserService;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * Get the current user</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return the current user</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected CurrentUser getCurrentUser() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_35'/>
+35
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_35'>1</a>
+<span>
+1. getCurrentUser : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::getCurrentUser &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return currentUserService.getCurrentUser();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * This creates a plain old java object that can be returned as a JSON response</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return a Map object with a single key/value pair: &#34;message&#34; =&#62; message</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  protected Object genericMessage(String message) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_45'>1</a>
+<span>
+1. genericMessage : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::genericMessage &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return Map.of(&#34;message&#34;, message);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * This catches any EntityNotFoundExceptions and returns a 404 (NOT_FOUND) response</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   * @return a Map object that can be returned as a JSON response</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>   */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @ExceptionHandler({ EntityNotFoundException.class })</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  @ResponseStatus(HttpStatus.NOT_FOUND)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  public Object handleGenericException(Throwable e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_55'>1</a>
+<span>
+1. handleGenericException : replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::handleGenericException &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>    return Map.of(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      &#34;type&#34;, e.getClass().getSimpleName(),</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      &#34;message&#34;, e.getMessage()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    );</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>  }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@1559b4a0_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1559b4a0_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_35'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCurrentUser<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_driver_shifts()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::getCurrentUser &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1559b4a0_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>genericMessage<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_delete_a_user()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::genericMessage &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@1559b4a0_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@1559b4a0_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>handleGenericException<br/><b>Killed by : </b>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_tries_to_toggleAdmin_non_existant_user_and_gets_right_error_message()]</span></span> replaced return value with null for edu/ucsb/cs156/gauchoride/controllers/ApiController::handleGenericException &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+<li class='mutator'>EMPTY_RETURNS</li>
+<li class='mutator'>FALSE_RETURNS</li>
+<li class='mutator'>INCREMENTS</li>
+<li class='mutator'>INVERT_NEGS</li>
+<li class='mutator'>MATH</li>
+<li class='mutator'>NEGATE_CONDITIONALS</li>
+<li class='mutator'>NULL_RETURNS</li>
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+<li class='mutator'>TRUE_RETURNS</li>
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_cannot_cancel_other_members_application()] (19 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_admin_can_get_all()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_admin_can_get_by_id_when_the_id_exists()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_users_can_get_all_of_theirs()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:logged_in_member_can_get_all_their_own_rides()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:test_that_logged_in_admin_cannot_get_by_id_when_id_does_not_exists()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:test_that_logged_in_member_cannot_get_by_id_when_the_id_does_not_exist()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_does_not_exist()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:admin_tries_to_delete_non_existant_ride_and_gets_right_error_message()] (38 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:admin_can_edit_an_existing_ride()] (52 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:driver_cannot_edit_ride_that_does_not_exist()] (62 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_tries_to_toggle_driver_for_non_existant_user_and_gets_right_error_message()] (8 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_admin_status_of_a_user_from_false_to_true()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_admin_can_get_by_id_when_the_id_does_not_exist()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_canot_edit_other_users_ride()] (29 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UserInfoControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UserInfoControllerTests]/[method:currentUser__logged_in()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_driver_status_of_a_user_from_true_to_false()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_can_delete_their_own_ride()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_admin_can_get_by_id_when_the_id_does_not_exist()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:test_that_logged_in_admin_cannot_update_when_the_application_does_not_exist()] (12 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_driver_can_get_all_rides()] (29 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_rider_status_of_a_user_from_false_to_true()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_canot_edit_application_whose_status_is_not_pending()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_does_not_exist()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_can_edit_their_own_ride()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_user_can_get_all_their_own_rides()] (34 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:driver_can_delete_any_ride()] (71 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_cannot_cancel_application_that_does_not_exist()] (10 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_tries_to_delete_non_existant_shift_and_gets_right_error_message()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_rider_status_of_a_user_from_true_to_false()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_exists_and_user_id_does_not_match()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_by_id()] (11 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_tries_to_delete_non_existant_ride_and_gets_right_error_message()] (17 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_tries_to_delete_other_users_ride_and_fails()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_admin_can_get_by_id()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_can_edit_their_own_application_whose_status_is_pending()] (11 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_tries_to_toggle_rider_for_non_existant_user_and_gets_right_error_message()] (11 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:test_that_logged_in_member_can_get_by_id_when_the_id_exists_and_user_id_matches()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:a_member_can_post_a_new_riderApplication()] (19 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:logged_in_admins_can_get_specific_application()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ChatMessageControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ChatMessageControllerTests]/[method:a_driver_can_post_a_new_message()] (24 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_driver_can_get_all()] (29 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UserProfileControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UserProfileControllerTests]/[method:User_can_change_their_phone_Number1()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_driver_status_of_a_user_from_false_to_true()] (10 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_driver_can_get_by_id()] (24 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_exists_and_user_id_matches()] (23 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_toggle_admin_status_of_a_user_from_true_to_false()] (11 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_canot_cancel_application_whose_status_is_not_pending()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:test_that_logged_in_member_cannot_get_by_id_when_the_id_exists_but_user_id_does_not_match()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:admin_cannot_edit_ride_that_does_not_exist()] (44 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_can_delete_a_shift()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:admin_cannot_edit_shift_that_does_not_exist()] (12 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_can_delete_a_user()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:logged_in_members_can_get_all_of_theirs()] (14 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:logged_in_members_can_get_by_id_that_is_theirs()] (25 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_admin_can_get_by_id()] (17 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_tries_to_toggleAdmin_non_existant_user_and_gets_right_error_message()] (8 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:driver_tries_to_delete_non_existant_ride_and_gets_right_error_message()] (29 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:driver_can_edit_an_existing_ride()] (42 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:api_users__admin_logged_in__search_for_user_that_does_not_exist()] (10 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_user_can_get_by_id_when_the_id_does_not_exist()] (20 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_cannot_edit_application_that_does_not_exist()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_driver_shifts()] (11 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:admin_can_delete_any_ride()] (38 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UsersControllerTests]/[method:admin_tries_to_delete_non_existant_user_and_gets_right_error_message()] (12 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:an_admin_can_post_a_new_shift()] (13 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ChatMessageControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ChatMessageControllerTests]/[method:an_admin_can_post_a_new_message()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_admin_can_get_all_rides()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:test_that_logged_in_driver_can_get_by_id_when_the_id_exists()] (17 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_can_cancel_their_own_application_whose_status_is_pending()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:a_user_can_post_a_new_ride()] (39 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.ShiftControllerTests]/[method:logged_in_driver_can_get_all_their_shifts()] (9 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.DriversControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.DriversControllerTests]/[method:search_for_user_that_does_not_exist()] (27 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.CSRFControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.CSRFControllerTests]/[method:csrf_returns_ok()] (18 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:user_cannot_edit_ride_that_does_not_exist()] (52 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.UserProfileControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.UserProfileControllerTests]/[method:User_can_change_their_phone_Number()] (15 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RiderApplicationControllerTests]/[method:member_cannot_edit_other_members_application()] (16 ms)</li><li>edu.ucsb.cs156.gauchoride.controllers.RideControllerTests.[engine:junit-jupiter]/[class:edu.ucsb.cs156.gauchoride.controllers.RideControllerTests]/[method:logged_in_users_can_get_by_id_that_is_theirs()] (14 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.7.3
+
+</body>
+</html>
