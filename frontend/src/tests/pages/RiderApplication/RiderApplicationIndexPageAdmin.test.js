@@ -1,4 +1,4 @@
-import { fireEvent, screen, render, waitFor } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import RiderApplicationIndexPageAdmin from "main/pages/RiderApplication/RiderApplicationIndexPageAdmin";
@@ -27,15 +27,6 @@ describe("RiderApplicationIndexPageAdmin tests", () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
     const testId = "RiderApplicationTable";
-
-    const applications = [
-        riderApplicationFixtures.threeRiderApplications[0],
-        riderApplicationFixtures.threeRiderApplications[1],
-        {
-            ...riderApplicationFixtures.threeRiderApplications[2],
-            status: "pending"
-        }
-    ]
 
     const setupMemberOnly = () => {
         axiosMock.reset();
