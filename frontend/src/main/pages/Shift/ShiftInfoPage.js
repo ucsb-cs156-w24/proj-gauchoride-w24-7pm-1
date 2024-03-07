@@ -42,15 +42,20 @@ export default function ShiftInfoPage() {
     );
       
     const returnButton = () => {
+        const handleClick = () => {
+            window.history.back();
+        };
+    
         return (
             <Button
                 variant="primary"
-                href="/ride/"
+                onClick={handleClick}
+                data-testid="return-button"
             >
                 Return
             </Button>
-        )
-    }
+        );
+    };
 
     return (
         <BasicLayout>

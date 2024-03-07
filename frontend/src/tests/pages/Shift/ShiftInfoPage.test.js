@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
@@ -83,4 +83,28 @@ describe("ShiftInfoPage tests", () => {
         });
 
     });
+
+    test('clicking return button navigates back in history', async () => {
+        const queryClient = new QueryClient();
+
+        const originalBackFunction = window.history.back;
+        window.history.back = jest.fn();
+    
+        const { getByTestId, findByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ShiftInfoPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await findByTestId("return-button");
+    
+        const returnButton = getByTestId("return-button");
+        fireEvent.click(returnButton);
+
+        expect(window.history.back).toHaveBeenCalled();
+        window.history.back = originalBackFunction;
+    });
+
 });
