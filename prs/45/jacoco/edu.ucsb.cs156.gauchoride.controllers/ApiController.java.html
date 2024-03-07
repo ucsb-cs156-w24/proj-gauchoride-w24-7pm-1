@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GauchoRide</a> &gt; <a href="index.source.html" class="el_package">edu.ucsb.cs156.gauchoride.controllers</a> &gt; <span class="el_source">ApiController.java</span></div><h1>ApiController.java</h1><pre class="source lang-java linenums">package edu.ucsb.cs156.gauchoride.controllers;
+
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import edu.ucsb.cs156.gauchoride.errors.EntityNotFoundException;
+import edu.ucsb.cs156.gauchoride.models.CurrentUser;
+import edu.ucsb.cs156.gauchoride.services.CurrentUserService;
+
+import java.util.Map;
+
+/**
+ * Base class for all API controllers.
+ * 
+ * Provides a method to get the current user as well as common methods for
+ * error handling.
+ */
+
+<span class="fc" id="L24">@Slf4j</span>
+<span class="fc" id="L25">public abstract class ApiController {</span>
+  @Autowired
+  private CurrentUserService currentUserService;
+
+  /**
+   * Get the current user
+   * @return the current user
+   */
+
+  protected CurrentUser getCurrentUser() {
+<span class="fc" id="L35">    return currentUserService.getCurrentUser();</span>
+  }
+
+
+  /**
+   * This creates a plain old java object that can be returned as a JSON response
+   * @return a Map object with a single key/value pair: &quot;message&quot; =&gt; message
+   */
+
+  protected Object genericMessage(String message) {
+<span class="fc" id="L45">    return Map.of(&quot;message&quot;, message);</span>
+  }
+
+   /**
+   * This catches any EntityNotFoundExceptions and returns a 404 (NOT_FOUND) response
+   * @return a Map object that can be returned as a JSON response
+   */
+  @ExceptionHandler({ EntityNotFoundException.class })
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public Object handleGenericException(Throwable e) {
+<span class="fc" id="L55">    return Map.of(</span>
+<span class="fc" id="L56">      &quot;type&quot;, e.getClass().getSimpleName(),</span>
+<span class="fc" id="L57">      &quot;message&quot;, e.getMessage()</span>
+    );
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
