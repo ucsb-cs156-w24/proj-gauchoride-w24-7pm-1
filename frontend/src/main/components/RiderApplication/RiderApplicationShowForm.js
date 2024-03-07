@@ -92,7 +92,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
 
             {initialContents?.status == 'accepted' && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="approved_date">Date Approved</Form.Label>
+                    <Form.Label htmlFor="approved_date">Date Accepted</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-approved_date"}
                         id="approved_date"
