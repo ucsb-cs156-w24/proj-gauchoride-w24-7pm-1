@@ -1,5 +1,5 @@
 const driverAvailabilityFixtures = {
-    oneAvailability: [
+    oneAvailability:
         {
             "id": 1,
             "driverId": 4,
@@ -8,7 +8,7 @@ const driverAvailabilityFixtures = {
             "endTime": "12:00PM",
             "notes": "has class from 8-9am",
         }
-    ],
+    ,
     threeAvailability: [
         {
             "id": 1,
