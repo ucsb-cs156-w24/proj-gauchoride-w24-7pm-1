@@ -92,12 +92,12 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
 
             {initialContents?.status == 'accepted' && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="approved_date">Date Accepted</Form.Label>
+                    <Form.Label htmlFor="accepted_date">Date Accepted</Form.Label>
                     <Form.Control
-                        data-testid={testIdPrefix + "-approved_date"}
-                        id="approved_date"
+                        data-testid={testIdPrefix + "-accepted_date"}
+                        id="accepted_date"
                         type="text"
-                        {...register("approved_date")}
+                        {...register("accepted_date")}
                         defaultValue={initialContents?.updated_date}
                         disabled
                     />
