@@ -1,5 +1,5 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import DriverAvailabilityIndexPage from "main/pages/Drivers/DriverAvailabilityIndexPageAdmin";
+import DriverAvailabilityIndexPageAdmin from "main/pages/Drivers/DriverAvailabilityIndexPageAdmin";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import { driverAvailabilityFixtures } from "fixtures/driverAvailabilityFixtures";
@@ -19,7 +19,7 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("DriverAvailabilityIndexPage tests", () => {
+describe("DriverAvailabilityIndexPageAdmin tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
 
@@ -55,7 +55,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <DriverAvailabilityIndexPage />
+                    <DriverAvailabilityIndexPageAdmin />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -88,7 +88,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <DriverAvailabilityIndexPage />
+                    <DriverAvailabilityIndexPageAdmin />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -112,7 +112,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <DriverAvailabilityIndexPage />
+                    <DriverAvailabilityIndexPageAdmin />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -132,7 +132,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <DriverAvailabilityIndexPage />
+                    <DriverAvailabilityIndexPageAdmin />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -170,7 +170,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <DriverAvailabilityIndexPage />
+                    <DriverAvailabilityIndexPageAdmin />
                 </MemoryRouter>
             </QueryClientProvider>
         );

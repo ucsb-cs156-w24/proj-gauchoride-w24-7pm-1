@@ -4,14 +4,14 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { driverAvailabilityFixtures } from "fixtures/driverAvailabilityFixtures";
 import { rest } from "msw";
 
-import DriverAvailabilityIndexPage from "main/pages/Drivers/DriverAvailabilityIndexPageAdmin";
+import DriverAvailabilityIndexPageAdmin from "main/pages/Drivers/DriverAvailabilityIndexPageAdmin";
 
 export default {
-    title: 'pages/Drivers/DriverAvailabilityIndexPage',
-    component: DriverAvailabilityIndexPage
+    title: 'pages/Drivers/DriverAvailabilityIndexPageAdmin',
+    component: DriverAvailabilityIndexPageAdmin
 };
 
-const Template = () => <DriverAvailabilityIndexPage storybook={true}/>;
+const Template = () => <DriverAvailabilityIndexPageAdmin storybook={true}/>;
 
 export const Empty = Template.bind({});
 Empty.parameters = {
