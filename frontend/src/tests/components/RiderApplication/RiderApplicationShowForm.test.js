@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import RideForm from "main/components/Ride/RideForm";
-import { rideFixtures } from "fixtures/rideFixtures";
+import { riderApplicationFixtures } from "fixtures/riderApplicationFixtures";
+import RiderApplicationShowForm from "main/components/RiderApplication/RiderApplicationShowForm";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -13,22 +13,22 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }));
 
-describe("RideForm tests", () => {
+describe("RiderApplicationShowForm tests", () => {
     const queryClient = new QueryClient();
 
-    const expectedHeaders = ["Day of Week", "Pick Up Time", "Drop Off Time", "Pick Up Building", "Drop Off Building", "Room Number for Dropoff", "Course Number"];
-    const testId = "RideForm";
+    const expectedHeaders = ["Email", "Perm Number", "Description"];
+    const testId = "RiderApplicationShowForm";
 
     test("renders correctly with no initialContents", async () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RideForm />
+                    <RiderApplicationShowForm />
                 </Router>
             </QueryClientProvider>
         );
 
-        expect(await screen.findByText(/Create/)).toBeInTheDocument();
+        expect(await screen.findByText(/Back/)).toBeInTheDocument();
 
         expectedHeaders.forEach((headerText) => {
             const header = screen.getByText(headerText);
@@ -41,20 +41,17 @@ describe("RideForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RideForm initialContents={rideFixtures.oneRide} />
+                    <RiderApplicationShowForm initialContents={riderApplicationFixtures.oneRiderApplication} />
                 </Router>
             </QueryClientProvider>
         );
 
-        expect(await screen.findByText(/Create/)).toBeInTheDocument();
+        expect(await screen.findByText(/Back/)).toBeInTheDocument();
 
         expectedHeaders.forEach((headerText) => {
             const header = screen.getByText(headerText);
             expect(header).toBeInTheDocument();
         });
-
-        expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
-        expect(screen.getByText(`Id`)).toBeInTheDocument();
     });
 
 
@@ -62,7 +59,7 @@ describe("RideForm tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
-                    <RideForm />
+                    <RiderApplicationShowForm />
                 </Router>
             </QueryClientProvider>
         );

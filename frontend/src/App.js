@@ -1,29 +1,30 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "main/pages/HomePage";
-import ProfilePage from "main/pages/ProfilePage";
 import AdminUsersPage from "main/pages/AdminUsersPage";
-import PageNotFound from "main/pages/PageNotFound";
 import DriverListPage from "main/pages/DriverListPage";
+import HomePage from "main/pages/HomePage";
+import PageNotFound from "main/pages/PageNotFound";
+import ProfilePage from "main/pages/ProfilePage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import ChatPage from "main/pages/ChatPage";
 import RideRequestCreatePage from "main/pages/Ride/RideRequestCreatePage";
 import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
 import RideRequestAssignPage from "main/pages/Ride/RideRequestAssignPage";
 import ShiftPage from "main/pages/ShiftPage";
-import ChatPage from "main/pages/ChatPage";
 
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
 import ShiftInfoPage from "main/pages/Shift/ShiftInfoPage";
 
+import DriverInfoPage from "main/pages/DriverInfoPage";
 import DriverPage from "main/pages/DriverPage";
 import DriverDashboardPage from "main/pages/Drivers/DriverDashboardPage";
-import DriverInfoPage from "main/pages/DriverInfoPage";
 
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import RiderApplicationIndexPageMember from "main/pages/RiderApplication/RiderApplicationIndexPageMember";
+import RiderApplicationShowPageMember from "main/pages/RiderApplication/RiderApplicationShowPageMember";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -60,7 +61,7 @@ function App() {
           (hasRole(currentUser, "ROLE_RIDER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/ride/create" element={<RideRequestCreatePage />} />
         }
         {
-          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPageMember />} />
+          (hasRole(currentUser, "ROLE_MEMBER") )&& <Route exact path="/apply/rider/show/:id" element={<RiderApplicationShowPageMember />} />
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_RIDER")) && <Route exact path="/ride/edit/:id" element={<RideRequestEditPage />} />
@@ -97,9 +98,6 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/new" element={<RiderApplicationCreatePage />} />
-        }
-        {
-          (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/show/:id" element={<RiderApplicationEditPageMember />} />
         }
         {
           (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/admin/applications/riders" element={<RiderApplicationIndexPageMember />} />

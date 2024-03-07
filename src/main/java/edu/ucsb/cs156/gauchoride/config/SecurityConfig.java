@@ -90,6 +90,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_DRIVER"));
           }
 
+          if (getRider(email)) {
+            mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_RIDER"));
+          }
+
           if (email.endsWith("@ucsb.edu")) {
             mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
           }
@@ -112,6 +116,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public boolean getDriver(String email){
     Optional<User> u = userRepository.findByEmail(email);
     return u.isPresent() && u.get().getDriver();
+  }
+
+  public boolean getRider(String email){
+    Optional<User> u = userRepository.findByEmail(email);
+    return u.isPresent() && u.get().getRider();
   }
   
 }
