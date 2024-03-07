@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for layouts/BasicLayout/BasicLayout.js</title>
+    <title>Code coverage report for pages/RiderApplication/RiderApplicationShowPageMember.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">layouts/BasicLayout</a> BasicLayout.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/RiderApplication</a> RiderApplicationShowPageMember.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -85,7 +85,27 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -93,13 +113,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">341x</span>
-<span class="cline-any cline-yes">341x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">341x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">341x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,28 +125,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Container } from "react-bootstrap";
-import Footer from "main/components/Nav/Footer";
-import AppNavbar from "main/components/Nav/AppNavbar";
-import { useCurrentUser, useLogout} from "main/utils/currentUser";
-import { useSystemInfo} from "main/utils/systemInfo";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import RiderApplicationShowForm from "main/components/RiderApplication/RiderApplicationShowForm";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import { useBackend } from "main/utils/useBackend";
+import { useParams } from "react-router-dom";
 &nbsp;
-export default function BasicLayout({ children }) {
 &nbsp;
-  const { data: currentUser } = useCurrentUser();
-  const { data: systemInfo } = useSystemInfo();
+export default function RiderApplicationShowPage() {
+  let { id } = useParams();
 &nbsp;
-  const doLogout = useLogout().mutate;
+  const { data: riderApplication, _error, _status } =
+    useBackend(
+      // Stryker disable next-line all : don't test internal caching of React Query
+      [`/api/riderApplication?id=${id}`],
+      {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
+        method: "GET",
+        url: `/api/riderApplication`,
+        params: {
+          id
+        }
+      }
+    );
 &nbsp;
-  return (
-    &lt;div className="d-flex flex-column min-vh-100"&gt;
-      &lt;AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogout={doLogout} /&gt;
-      &lt;Container expand="xl" className="pt-4 flex-grow-1"&gt;
-        {children}
-      &lt;/Container&gt;
-      &lt;Footer/&gt;
-    &lt;/div&gt;
-  );
+    return (
+        &lt;BasicLayout&gt;
+            &lt;div className="pt-2"&gt;
+                &lt;h1&gt;Show Rider Application&lt;/h1&gt;
+                {riderApplication &amp;&amp;
+                &lt;RiderApplicationShowForm initialContents={riderApplication}  buttonLabel="Back" /&gt;
+                }
+            &lt;/div&gt;
+        &lt;/BasicLayout&gt;
+    )
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
