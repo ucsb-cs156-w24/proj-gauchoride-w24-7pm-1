@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -247,25 +247,7 @@
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,29 +267,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -472,7 +436,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 &nbsp;
-function <span class="fstat-no" title="function not covered" >RiderApplicationForm(</span>{ initialContents, submitAction, buttonLabel = <span class="branch-0 cbranch-no" title="branch not covered" >"Apply",</span> email}) {
+function <span class="fstat-no" title="function not covered" >RiderApplicationEditForm(</span>{ initialContents, submitAction, email}) {
     const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
     
     // Stryker disable all
@@ -485,12 +449,15 @@ function <span class="fstat-no" title="function not covered" >RiderApplicationFo
     );
     // Stryker enable all
    
-    const testIdPrefix = <span class="cstat-no" title="statement not covered" >"RiderApplicationForm";</span>
+    const testIdPrefix = <span class="cstat-no" title="statement not covered" >"RiderApplicationEditForm";</span>
 &nbsp;
-&nbsp;
+    const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        submitAction(data);</span>
+      };
+    
 <span class="cstat-no" title="statement not covered" >    return (</span>
 &nbsp;
-        &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
+        &lt;Form onSubmit={handleSubmit(onSubmit)}&gt;
 &nbsp;
             {initialContents &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
@@ -588,45 +555,30 @@ function <span class="fstat-no" title="function not covered" >RiderApplicationFo
                 &lt;/Form.Group&gt;
             )}
 &nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="notes"&gt;Notes&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-notes"}
+                    id="notes"
+                    type="text"
+                    {...register("notes")}
+                    defaultValue={initialContents?.notes}
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
             {initialContents &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="notes"&gt;Notes&lt;/Form.Label&gt;
+                &lt;Form.Group className="mb-3"&gt;
+                    &lt;Form.Label htmlFor="perm_number"&gt;Perm Number&lt;/Form.Label&gt;
                     &lt;Form.Control
-                        data-testid={testIdPrefix + "-notes"}
-                        id="notes"
+                        data-testid={testIdPrefix + "-perm_number"}
+                        id="perm_number"
                         type="text"
-                        {...register("notes")}
-                        defaultValue={initialContents?.notes}
+                        {...register("perm_number")}
+                        defaultValue={initialContents?.perm_number}
+                        disabled
                     /&gt;
                 &lt;/Form.Group&gt;
             )}
-&nbsp;
-            &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="perm_number"&gt;Perm Number&lt;/Form.Label&gt;
-                &lt;Form.Control
-                    data-testid={testIdPrefix + "-perm_number"}
-                    id="perm_number"
-                    type="text"
-                    isInvalid={Boolean(errors.perm_number)}
-                    {...register("perm_number", {
-                        required: "Perm Number is required.",
-                        minLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        },
-                        maxLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        }
-                    })}
-                    placeholder="e.g. 0000000"
-                    defaultValue={initialContents?.perm_number}
-                    disabled
-                /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.perm_number?.message}
-                &lt;/Form.Control.Feedback&gt;
-            &lt;/Form.Group&gt;
 &nbsp;
             &lt;Form.Group className="mb-3" &gt;
                 &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
@@ -636,24 +588,18 @@ function <span class="fstat-no" title="function not covered" >RiderApplicationFo
                     id="description"
                     as="textarea"
                     isInvalid={Boolean(errors.description)}
-                    {...register("description", {
-                        required: "Description is required."
-                    })}
-                    placeholder="e.g. My legs are broken."  
+                    {...register("description")}
                     defaultValue={initialContents?.description}
                     disabled
                     style={{ width: '100%', minHeight: '10rem', resize: 'vertical', verticalAlign: 'top' }}
                 /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.description?.message}
-                &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
 &nbsp;
             &lt;Button
                 type="submit"
                 data-testid={testIdPrefix + "-submit"}
             &gt;
-                {buttonLabel}
+                Save
             &lt;/Button&gt;
             
             &lt;Button
@@ -669,14 +615,14 @@ function <span class="fstat-no" title="function not covered" >RiderApplicationFo
     )
 }
 &nbsp;
-export default RiderApplicationForm;</pre></td></tr></table></pre>
+export default RiderApplicationEditForm;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue Mar 05 2024 18:16:08 GMT-0800 (Pacific Standard Time)
+                at Wed Mar 06 2024 16:49:54 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
