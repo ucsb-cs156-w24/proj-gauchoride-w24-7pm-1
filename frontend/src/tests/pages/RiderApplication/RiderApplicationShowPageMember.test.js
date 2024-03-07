@@ -113,19 +113,13 @@ describe("RiderApplicationShowPage tests", () => {
             const permNumberField = getByTestId("RiderApplicationShowForm-perm_number");
             const emailField =getByTestId("RiderApplicationShowForm-email");
             const createdDateField =getByTestId("RiderApplicationShowForm-created_date");
-            const updatedDateField =getByTestId("RiderApplicationShowForm-updated_date");
-            const cancelledDateField =getByTestId("RiderApplicationShowForm-cancelled_date");
             const descriptionField = getByTestId("RiderApplicationShowForm-description");
-            const notesField =getByTestId("RiderApplicationShowForm-notes");
 
             expect(statusField).toHaveValue("pending");
             expect(permNumberField).toHaveValue("1234567");
             expect(emailField).toHaveValue("random@example.org");
             expect(createdDateField).toHaveValue("2023-04-17");
-            expect(updatedDateField).toHaveValue("2023-04-17");
-            expect(cancelledDateField).toHaveValue("");
             expect(descriptionField).toHaveValue("");
-            expect(notesField).toHaveValue("");
             
         });
 

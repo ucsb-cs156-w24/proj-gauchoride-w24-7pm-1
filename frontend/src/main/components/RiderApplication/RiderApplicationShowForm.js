@@ -62,9 +62,9 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
             
-            {initialContents && (
+            {initialContents?.status === "pending" && initialContents?.notes !== '' && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="updated_date">Date Updated</Form.Label>
+                    <Form.Label htmlFor="updated_date"> Date Updated</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-updated_date"}
                         id="updated_date"
@@ -75,8 +75,8 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                     />
                 </Form.Group>
             )}
-
-            {initialContents && (
+            
+            {initialContents?.status == "cancelled" && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="cancelled_date">Date Cancelled</Form.Label>
                     <Form.Control
@@ -90,7 +90,35 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {initialContents && (
+            {initialContents?.status == 'accepted' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="approved_date">Date Approved</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-approved_date"}
+                        id="approved_date"
+                        type="text"
+                        {...register("approved_date")}
+                        defaultValue={initialContents?.updated_date}
+                        disabled
+                    />
+                </Form.Group>
+            )}
+
+            {initialContents?.status == 'declined' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="declined_date">Date Declined</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-declined_date"}
+                        id="declined_date"
+                        type="text"
+                        {...register("declined_date")}
+                        defaultValue={initialContents?.updated_date}
+                        disabled
+                    />
+                </Form.Group>
+            )}
+
+            {(initialContents?.notes != "") && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="notes">Notes</Form.Label>
                     <Form.Control
