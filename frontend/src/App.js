@@ -14,6 +14,7 @@ import ShiftPage from "main/pages/ShiftPage";
 
 import DriverAvailabilityCreatePage from "main/pages/Drivers/DriverAvailabilityCreatePage";
 import DriverAvailabilityIndexPage from "main/pages/Drivers/DriverAvailabilityIndexPage"
+import DriverAvailabilityEditPage from "main/pages/Drivers/DriverAvailabilityEditPage"
 
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
@@ -33,7 +34,7 @@ import RiderApplicationEditPageAdmin from "main/pages/RiderApplication/RiderAppl
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.css";  
 
 
 function App() {
@@ -82,6 +83,9 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/availability/create" element={<DriverAvailabilityCreatePage />} />
+        }
+        {
+          (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/availability/edit/:id" element={<DriverAvailabilityEditPage />} />
         }
         {
           hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/shift/list" element={<ShiftPage />} />
