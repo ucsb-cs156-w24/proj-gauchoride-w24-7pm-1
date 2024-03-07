@@ -14,9 +14,9 @@ const Template = (args) => {
     )
 };
 
-export const EmptyMember = Template.bind({});
+export const EmptyDriver = Template.bind({});
 
-EmptyMember.args = {
+EmptyDriver.args = {
     Availability: [],
     currentUser: currentUserFixtures.memberOnly
 };
@@ -29,15 +29,15 @@ EmptyAdmin.args = {
 };
 
 
-export const MemberThreeSubjectsWithButtons = Template.bind({});
+export const DriverWithButtons = Template.bind({});
 
-MemberThreeSubjectsWithButtons.args = {
+DriverWithButtons.args = {
     Availability: driverAvailabilityFixtures.threeAvailability,
     currentUser: currentUserFixtures.memberOnly
 };
 
-export const AdminThreeSubjectsWithButtons = Template.bind({});
-AdminThreeSubjectsWithButtons.args = {
+export const AdminWithButtons = Template.bind({});
+AdminWithButtons.args = {
     Availability: driverAvailabilityFixtures.threeAvailability,
     currentUser: currentUserFixtures.adminUser
 };

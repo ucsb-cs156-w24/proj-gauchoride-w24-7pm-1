@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
 export default function DriverAvailabilityTable({
-    driverAvailability,
+    Availability,
     currentUser }) {
 
     const navigate = useNavigate();
@@ -61,21 +61,21 @@ export default function DriverAvailabilityTable({
 
     const buttonColumnsDriver = [
         ...columns,
-        ButtonColumn("Edit", "primary", editCallback, "DriverAvalabilityTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "DriverAvalabilityTable")
+        ButtonColumn("Edit", "primary", editCallback, "DriverAvailabilityTable"),
+        ButtonColumn("Delete", "danger", deleteCallback, "DriverAvailabilityTable")
     ];
 
     const buttonColumnsAdmin = [
         ...columns,
-        ButtonColumn("Review", "primary", reviewCallback, "DriverAvalabilityTable")
+        ButtonColumn("Review", "primary", reviewCallback, "DriverAvailabilityTable")
     ];
 
-    const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : buttonColumnsDriver;
+    const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : (hasRole(currentUser, "ROLE_DRIVER")) ? buttonColumnsDriver : columns;
 
     return <OurTable
-        data={driverAvailability}
+        data={Availability}
         columns={columnsToDisplay}
-        testid={"DriverAvalabilityTable"}
+        testid={"DriverAvailabilityTable"}
     />;
 };
 
