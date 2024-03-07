@@ -165,7 +165,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 <Form.Control
                     data-testid={testIdPrefix + "-description"}
                     id="description"
-           horide   as="textarea"
+                    as="textarea"
                     isInvalid={Boolean(errors.description)}
                     {...register("description", {
                         required: "Description is required."
