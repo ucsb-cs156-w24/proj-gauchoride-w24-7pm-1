@@ -11,6 +11,9 @@ import RideRequestEditPage from "main/pages/Ride/RideRequestEditPage";
 import RideRequestIndexPage from "main/pages/Ride/RideRequestIndexPage";
 import ShiftPage from "main/pages/ShiftPage";
 
+import DriverAvailabilityCreatePage from "main/pages/Drivers/DriverAvailabilityCreatePage";
+import DriverAvailabilityIndexPage from "main/pages/Drivers/DriverAvailabilityIndexPage"
+
 import ShiftCreatePage from "main/pages/Shift/ShiftCreatePage";
 import ShiftEditPage from "main/pages/Shift/ShiftEditPage";
 import ShiftIndexPage from "main/pages/Shift/ShiftIndexPage";
@@ -66,6 +69,12 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/chat" element={<ChatPage />} />
+        }
+        {
+          (hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/availability/" element={<DriverAvailabilityIndexPage />} />
+        }
+        {
+          (hasRole(currentUser, "ROLE_DRIVER") || hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/availability/create" element={<DriverAvailabilityCreatePage />} />
         }
         {
           hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/shift/list" element={<ShiftPage />} />
