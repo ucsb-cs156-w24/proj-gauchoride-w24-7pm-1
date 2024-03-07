@@ -61,11 +61,11 @@ export default function RideTable({
         },
         {
             Header: 'Pick Up Time',
-            accessor: 'pickUpTime',
+            accessor: 'startTime',
         },
         {
             Header: 'Drop Off Time',
-            accessor: 'dropOffTime',
+            accessor: 'endTime',
         },
         {
             Header: 'Pick Up Building',
@@ -116,11 +116,11 @@ export default function RideTable({
         },
         {
             Header: 'Pick Up Time',
-            accessor: 'pickUpTime',
+            accessor: 'startTime',
         },
         {
             Header: 'Drop Off Time',
-            accessor: 'dropOffTime',
+            accessor: 'endTime',
         },
         {
             Header: 'Pick Up Building',
