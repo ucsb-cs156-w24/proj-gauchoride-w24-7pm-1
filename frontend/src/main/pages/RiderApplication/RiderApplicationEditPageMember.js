@@ -31,7 +31,8 @@ export default function RiderApplicationEditPage() {
     },
     data: {
         perm_number: riderApplication.perm_number,
-        description: riderApplication.description
+        description: riderApplication.description,
+        notes: riderApplication.notes
     }
   });
 

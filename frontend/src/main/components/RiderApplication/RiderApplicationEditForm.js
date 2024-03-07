@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 
-function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Apply", email}) {
+function RiderApplicationEditForm({ initialContents, submitAction, email}) {
     const navigate = useNavigate();
     
     // Stryker disable all
@@ -16,12 +16,15 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
     );
     // Stryker enable all
    
-    const testIdPrefix = "RiderApplicationForm";
+    const testIdPrefix = "RiderApplicationEditForm";
 
-
+    const onSubmit = async (data) => {
+        submitAction(data);
+      };
+    
     return (
 
-        <Form onSubmit={handleSubmit(submitAction)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
 
             {initialContents && (
                 <Form.Group className="mb-3" >
@@ -119,45 +122,30 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                 </Form.Group>
             )}
 
+            <Form.Group className="mb-3" >
+                <Form.Label htmlFor="notes">Notes</Form.Label>
+                <Form.Control
+                    data-testid={testIdPrefix + "-notes"}
+                    id="notes"
+                    type="text"
+                    {...register("notes")}
+                    defaultValue={initialContents?.notes}
+                />
+            </Form.Group>
+
             {initialContents && (
-                <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="notes">Notes</Form.Label>
+                <Form.Group className="mb-3">
+                    <Form.Label htmlFor="perm_number">Perm Number</Form.Label>
                     <Form.Control
-                        data-testid={testIdPrefix + "-notes"}
-                        id="notes"
+                        data-testid={testIdPrefix + "-perm_number"}
+                        id="perm_number"
                         type="text"
-                        {...register("notes")}
-                        defaultValue={initialContents?.notes}
+                        {...register("perm_number")}
+                        defaultValue={initialContents?.perm_number}
+                        disabled
                     />
                 </Form.Group>
             )}
-
-            <Form.Group className="mb-3">
-                <Form.Label htmlFor="perm_number">Perm Number</Form.Label>
-                <Form.Control
-                    data-testid={testIdPrefix + "-perm_number"}
-                    id="perm_number"
-                    type="text"
-                    isInvalid={Boolean(errors.perm_number)}
-                    {...register("perm_number", {
-                        required: "Perm Number is required.",
-                        minLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        },
-                        maxLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        }
-                    })}
-                    placeholder="e.g. 0000000"
-                    defaultValue={initialContents?.perm_number}
-                    disabled
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors.perm_number?.message}
-                </Form.Control.Feedback>
-            </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="description">Description</Form.Label>
@@ -167,24 +155,18 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
                     id="description"
                     as="textarea"
                     isInvalid={Boolean(errors.description)}
-                    {...register("description", {
-                        required: "Description is required."
-                    })}
-                    placeholder="e.g. My legs are broken."  
+                    {...register("description")}
                     defaultValue={initialContents?.description}
                     disabled
                     style={{ width: '100%', minHeight: '10rem', resize: 'vertical', verticalAlign: 'top' }}
                 />
-                <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
-                </Form.Control.Feedback>
             </Form.Group>
 
             <Button
                 type="submit"
                 data-testid={testIdPrefix + "-submit"}
             >
-                {buttonLabel}
+                Save
             </Button>
             
             <Button
@@ -200,4 +182,4 @@ function RiderApplicationForm({ initialContents, submitAction, buttonLabel = "Ap
     )
 }
 
-export default RiderApplicationForm;
+export default RiderApplicationEditForm;

@@ -191,6 +191,7 @@ describe("RiderApplicationEditPage tests", () => {
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
                 perm_number: "7654321",
                 description: "I broke my leg.",
+                notes: "",
             })); // posted object
 
         });

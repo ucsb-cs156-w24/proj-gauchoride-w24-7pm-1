@@ -30,6 +30,8 @@ export default function RiderApplicationEditPage() {
       id: riderApplication.id,
     },
     data: {
+        perm_number: riderApplication.perm_number,
+        description: riderApplication.description,
         notes: riderApplication.notes
     }
   });
@@ -52,7 +54,7 @@ export default function RiderApplicationEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/apply/rider" />
+    return <Navigate to="/admin/applications/riders" />
   }
 
     return (
@@ -60,7 +62,7 @@ export default function RiderApplicationEditPage() {
             <div className="pt-2">
                 <h1>Edit Rider Application</h1>
                 {riderApplication &&
-                <RiderApplicationEditForm initialContents={riderApplication} submitAction={onSubmit} buttonLabel="Edit" />
+                <RiderApplicationEditForm initialContents={riderApplication} submitAction={onSubmit} />
                 }
             </div>
         </BasicLayout>
