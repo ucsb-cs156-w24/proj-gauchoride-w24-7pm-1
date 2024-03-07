@@ -119,9 +119,24 @@ public class RiderApplicationController extends ApiController {
             application.setUpdated_date(currentDate);
             application.setDescription(incoming.getDescription());
             application.setNotes(incoming.getNotes());
+            application.setStatus(incoming.getStatus());
             riderApplicationRepository.save(application);
             return ResponseEntity.ok(application);
-        }
+        } 
+        else if ("accepted".equals(application.getStatus()))
+        {
+            // Get the current date
+            LocalDate localDate = LocalDate.now();
+            Date currentDate = Date.valueOf(localDate);
+
+            application.setPerm_number(incoming.getPerm_number());
+            application.setUpdated_date(currentDate);
+            application.setDescription(incoming.getDescription());
+            application.setNotes(incoming.getNotes());
+            application.setStatus(incoming.getStatus());
+            riderApplicationRepository.save(application);
+            return ResponseEntity.ok(application);
+        } 
         else
         {
             String errorMessage = "RiderApplication with \"" + application.getStatus() + "\" status cannot be updated";

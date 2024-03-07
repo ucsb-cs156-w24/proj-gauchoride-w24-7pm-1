@@ -191,6 +191,7 @@ describe("RiderApplicationEditPageAdmin tests", () => {
                 perm_number: "1234567",
                 description: "",
                 notes: "approving",
+                status: "pending",
             })); // posted object
 
         });
