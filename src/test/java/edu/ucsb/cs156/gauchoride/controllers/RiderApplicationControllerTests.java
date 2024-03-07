@@ -405,7 +405,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .updated_date(currentDate)
                         .cancelled_date(null)
                         .description("My legs were broken")
-                        .notes("")
+                        .notes("can be approved if proved")
                         .build();
 
         String requestBody = mapper.writeValueAsString(application_edited);
