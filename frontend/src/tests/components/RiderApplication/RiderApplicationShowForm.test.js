@@ -184,5 +184,32 @@ describe("RiderApplicationShowForm tests", () => {
         });
     });
     
+    test('renders correctly when passing in initialContents with expired', async () => {
+        const mockSubmitAction = jest.fn();
+    
+        render(
+            <RiderApplicationShowForm
+                initialContents={{ id: 1,
+                    userId: 'user123',
+                    status: 'expired',
+                    email: 'test@example.com',
+                    created_date: '2024-03-06',
+                    updated_date: '2024-03-06',
+                    cancelled_date: null,
+                    notes: '',
+                    perm_number: '1234567',
+                    description: 'This is a test description.', }}
+                submitAction={mockSubmitAction}
+                email="test@example.com"
+            />
+        );
+    
+        expect(await screen.findByText(/Back/)).toBeInTheDocument();
+    
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
+    });
 
 });
