@@ -70,6 +70,20 @@ public class RideController extends ApiController {
         return ride;
     }
 
+    @Operation(summary = "Get all rides by shiftId")
+    @PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_DRIVER')")
+    @GetMapping("/shiftId")
+    public Iterable<Ride> allRidesByShiftId(
+            @Parameter(name="shiftId", description = "long, shiftId of the Ride to get", 
+            required = true)  
+            @RequestParam Long shiftId) {
+        Iterable<Ride> rides;
+
+        rides = rideRepository.findAllByShiftId(shiftId);
+
+        return rides;
+    }
+
     @Operation(summary = "Create a new ride")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/post")
@@ -176,6 +190,27 @@ public class RideController extends ApiController {
         ride.setDropoffRoom(incoming.getDropoffRoom());
         ride.setCourse(incoming.getCourse());
         ride.setNotes(incoming.getNotes());
+
+        rideRepository.save(ride);
+
+        return ride;
+    }
+
+    @Operation(summary = "Admins can assign a driver to a ride")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/assigndriver")
+    public Ride assigndriverRide(
+            @Parameter(name="id", description="long, Id of the Ride to be edited", 
+            required = true)
+            @RequestParam Long id,
+            @RequestBody @Valid Ride incoming) {
+
+        Ride ride;
+
+        ride = rideRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(Ride.class, id));
+
+        ride.setShiftId(incoming.getShiftId());
 
         rideRepository.save(ride);
 

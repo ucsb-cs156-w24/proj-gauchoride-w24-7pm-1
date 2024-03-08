@@ -3,6 +3,7 @@ import React from 'react';
 
 import ShiftTable from "main/components/Shift/ShiftTable";
 import shiftFixtures from 'fixtures/shiftFixtures';
+import { currentUserFixtures } from 'fixtures/currentUserFixtures';
 
 export default {
     title: 'components/Shift/ShiftTable',
@@ -27,4 +28,15 @@ ThreeShifts.args = {
     shift: shiftFixtures.threeShifts
 };
 
+export const DriverThreeSubjectsWithButtons = Template.bind({});
+DriverThreeSubjectsWithButtons.args = {
+    shift: shiftFixtures.threeShifts,
+    currentUser: currentUserFixtures.driverOnly
+};
+
+export const AdminThreeSubjectsWithButtons = Template.bind({});
+AdminThreeSubjectsWithButtons.args = {
+    shift: shiftFixtures.threeShifts,
+    currentUser: currentUserFixtures.adminUser
+};
 

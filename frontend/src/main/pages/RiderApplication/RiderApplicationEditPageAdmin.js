@@ -1,6 +1,6 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import RiderApplicationForm from "main/components/RiderApplication/RiderApplicationForm";
+import RiderApplicationEditForm from "main/components/RiderApplication/RiderApplicationEditForm";
 import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 
@@ -54,7 +54,7 @@ export default function RiderApplicationEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/apply/rider" />
+    return <Navigate to="/admin/applications/riders" />
   }
 
     return (
@@ -62,7 +62,7 @@ export default function RiderApplicationEditPage() {
             <div className="pt-2">
                 <h1>Edit Rider Application</h1>
                 {riderApplication &&
-                <RiderApplicationForm initialContents={riderApplication} submitAction={onSubmit} buttonLabel="Edit" />
+                <RiderApplicationEditForm initialContents={riderApplication} submitAction={onSubmit} />
                 }
             </div>
         </BasicLayout>

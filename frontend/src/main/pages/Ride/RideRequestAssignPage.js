@@ -1,21 +1,21 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import RiderApplicationForm from "main/components/RiderApplication/RiderApplicationForm";
+import RideAssignDriverForm from "main/components/Ride/RideAssignDriverForm";
 import { Navigate } from 'react-router-dom'
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 
 import { toast } from "react-toastify";
 
-export default function RiderApplicationEditPage() {
+export default function RideRequestAssignPage() {
   let { id } = useParams();
 
-  const { data: riderApplication, _error, _status } =
+  const { data: ride, _error, _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      [`/api/riderApplication?id=${id}`],
+      [`/api/ride_request?id=${id}`],
       {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
         method: "GET",
-        url: `/api/riderApplication`,
+        url: `/api/ride_request`,
         params: {
           id
         }
@@ -23,28 +23,26 @@ export default function RiderApplicationEditPage() {
     );
 
 
-  const objectToAxiosPutParams = (riderApplication) => ({
-    url: "/api/riderApplication",
+  const objectToAxiosPutParams = (ride) => ({
+    url: "/api/ride_request/assigndriver",
     method: "PUT",
     params: {
-      id: riderApplication.id,
+      id: ride.id,
     },
     data: {
-        perm_number: riderApplication.perm_number,
-        description: riderApplication.description,
-        notes: riderApplication.notes
+        shiftId: ride.shiftId,
     }
   });
 
-  const onSuccess = (riderApplication) => {
-    toast(`Application Updated - id: ${riderApplication.id}`);
+  const onSuccess = (ride) => {
+    toast(`Driver Assigned - id: ${ride.id}`);
   }
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/riderApplication?id=${id}`]
+    [`/api/ride_request/assigndriver?id=${id}`]
   );
 
   const { isSuccess } = mutation
@@ -54,15 +52,15 @@ export default function RiderApplicationEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/apply/rider" />
+    return <Navigate to="/ride/" />
   }
 
     return (
         <BasicLayout>
             <div className="pt-2">
-                <h1>Edit Rider Application</h1>
-                {riderApplication &&
-                <RiderApplicationForm initialContents={riderApplication} submitAction={onSubmit} buttonLabel="Edit" />
+                <h1>Assign Driver to Ride Request</h1>
+                {ride &&
+                <RideAssignDriverForm initialContents={ride} submitAction={onSubmit} buttonLabel="Assign Driver" />
                 }
             </div>
         </BasicLayout>
