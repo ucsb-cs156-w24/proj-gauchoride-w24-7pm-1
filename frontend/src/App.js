@@ -19,6 +19,8 @@ import DriverInfoPage from "main/pages/DriverInfoPage";
 import DriverPage from "main/pages/DriverPage";
 import DriverDashboardPage from "main/pages/Drivers/DriverDashboardPage";
 
+import DriverAvailabilityIndexPageAdmin from "main/pages/Drivers/DriverAvailabilityIndexPageAdmin";
+
 import RiderApplicationCreatePage from "main/pages/RiderApplication/RiderApplicationCreatePage";
 import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
 import RiderApplicationIndexPageMember from "main/pages/RiderApplication/RiderApplicationIndexPageMember";
@@ -99,6 +101,9 @@ function App() {
         }
         {
           (hasRole(currentUser, "ROLE_MEMBER")) && <Route exact path="/apply/rider/edit/:id" element={<RiderApplicationEditPageMember />} />
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/admin/driverAvailability" element={<DriverAvailabilityIndexPageAdmin />} />
         }
         <Route exact path="/privacy.html" />
         <Route exact path="/*" element={<PageNotFound />} />
