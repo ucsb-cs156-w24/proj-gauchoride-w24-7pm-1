@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/RiderApplication/RiderApplicationShowForm.js</title>
+    <title>Code coverage report for components/Ride/RideAssignDriverForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/RiderApplication</a> RiderApplicationShowForm.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Ride</a> RideAssignDriverForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -257,42 +257,7 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,17 +265,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,11 +451,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 &nbsp;
-function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email}) {
+&nbsp;
+&nbsp;
+function RideAssignDriverForm({ initialContents, submitAction, buttonLabel = "Assign Driver" }) {
     const navigate = useNavigate();
     
     // Stryker disable all
@@ -498,191 +471,173 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
     );
     // Stryker enable all
    
-    const testIdPrefix = "RiderApplicationShowForm";
+    const testIdPrefix = "RideAssignDriverForm";
 &nbsp;
 &nbsp;
     return (
 &nbsp;
-        &lt;Form onSubmit={handleSubmit()}&gt;
+        &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
 &nbsp;
             {initialContents &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="status"&gt;Status&lt;/Form.Label&gt;
+                    &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
                     &lt;Form.Control
-                        data-testid={testIdPrefix + "-status"}
-                        id="status"
+                        data-testid={testIdPrefix + "-id"}
+                        id="id"
                         type="text"
-                        {...register("status")}
-                        defaultValue={initialContents?.status}
+                        {...register("id")}
+                        defaultValue={initialContents.id}
                         disabled
                     /&gt;
                 &lt;/Form.Group&gt;
             )}
+&nbsp;
+            
 &nbsp;
             &lt;Form.Group className="mb-3" &gt;
-                &lt;Form.Label htmlFor="email"&gt;Email&lt;/Form.Label&gt;
+                &lt;Form.Label htmlFor="shiftId"&gt;Shift Id&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={testIdPrefix + "-email"}
-                    id="email"
+                    data-testid={testIdPrefix + "-shiftId"}
+                    id="shiftId"
                     type="text"
-                    {...register("email")}
-                    defaultValue={email}
-                    disabled
-                /&gt;
-            &lt;/Form.Group&gt;
-&nbsp;
-            {initialContents &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="created_date"&gt;Date Applied&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-created_date"}
-                        id="created_date"
-                        type="text"
-                        {...register("created_date")}
-                        defaultValue={initialContents?.created_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-            
-            {initialContents?.status === "pending" &amp;&amp; initialContents?.notes !== '' &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="updated_date"&gt; Date Updated&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-updated_date"}
-                        id="updated_date"
-                        type="text"
-                        {...register("updated_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-            
-            {initialContents?.status === "cancelled" &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="cancelled_date"&gt;Date Cancelled&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-cancelled_date"}
-                        id="cancelled_date"
-                        type="text"
-                        {...register("cancelled_date")}
-                        defaultValue={initialContents?.cancelled_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-&nbsp;
-            {initialContents?.status === "expired" &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="expired_date"&gt;Date Expired&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-expired_date"}
-                        id="expired_date"
-                        type="text"
-                        {...register("expired_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-&nbsp;
-            {initialContents?.status === 'accepted' &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="accepted_date"&gt;Date Accepted&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-accepted_date"}
-                        id="accepted_date"
-                        type="text"
-                        {...register("accepted_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-&nbsp;
-            {initialContents?.status === 'declined' &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="declined_date"&gt;Date Declined&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-declined_date"}
-                        id="declined_date"
-                        type="text"
-                        {...register("declined_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-&nbsp;
-            {(initialContents?.notes !== "") &amp;&amp; (
-                &lt;Form.Group className="mb-3" &gt;
-                    &lt;Form.Label htmlFor="notes"&gt;Notes&lt;/Form.Label&gt;
-                    &lt;Form.Control
-                        data-testid={testIdPrefix + "-notes"}
-                        id="notes"
-                        type="text"
-                        {...register("notes")}
-                        defaultValue={initialContents?.notes}
-                        disabled
-                    /&gt;
-                &lt;/Form.Group&gt;
-            )}
-&nbsp;
-            &lt;Form.Group className="mb-3"&gt;
-                &lt;Form.Label htmlFor="perm_number"&gt;Perm Number&lt;/Form.Label&gt;
-                &lt;Form.Control
-                    data-testid={testIdPrefix + "-perm_number"}
-                    id="perm_number"
-                    type="text"
-                    isInvalid={Boolean(errors.perm_number)}
-                    {...register("perm_number", {
-                        required: "Perm Number is required.",
-                        minLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        },
-                        maxLength: {
-                            value: 7,
-                            message: "Perm Number must be exactly 7 characters long."
-                        }
+                    isInvalid={Boolean(errors.pickupBuilding)}
+                    {...register("shiftId", {
+                        required: "Shift Id Up Building is required."
                     })}
-                    placeholder="e.g. 0000000"
-                    defaultValue={initialContents?.perm_number}
-                    disabled
+                    defaultValue={initialContents?.pickupBuilding} 
                 /&gt;
                 &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.perm_number?.message}
+                    {errors.pickupBuilding?.message}
                 &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
 &nbsp;
             &lt;Form.Group className="mb-3" &gt;
-                &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
-                &lt;Form.Label style={{ display: 'block', fontSize: '80%', fontStyle: 'italic', color: '#888' }}&gt;Please describe the mobility limitations that cause you to need to use the Gauchoride service.&lt;/Form.Label&gt;                        
+                &lt;Form.Label htmlFor="day"&gt;Day of Week&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={testIdPrefix + "-description"}
-                    id="description"
-                    as="textarea"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("description", {
-                        required: "Description is required."
-                    })}
-                    placeholder="e.g. My legs are broken."  
-                    defaultValue={initialContents?.description}
+                    data-testid={testIdPrefix + "-day"}
+                    id="day"
+                    isInvalid={Boolean(errors.day)}
+                    {...register("day")}
                     disabled
-                    style={{ width: '100%', minHeight: '10rem', resize: 'vertical', verticalAlign: 'top' }}
+                    defaultValue={initialContents?.day}
                 /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.description?.message}
-                &lt;/Form.Control.Feedback&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="start"&gt;Start Time&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-start"}
+                    id="start"
+                    type="text"
+                    {...register("start")}
+                    disabled
+                    defaultValue={initialContents?.startTime}
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="end"&gt;End Time&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-end"}
+                    id="end"
+                    type="text"
+                    {...register("end")}
+                    disabled
+                    defaultValue={initialContents?.endTime}     
+                /&gt;
             &lt;/Form.Group&gt;
             
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="pickupBuilding"&gt;Pick Up Building&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-pickupBuilding"}
+                    id="pickupBuilding"
+                    type="text"
+                    isInvalid={Boolean(errors.pickupBuilding)}
+                    {...register("pickupBuilding")}
+                    disabled
+                    defaultValue={initialContents?.pickupBuilding} 
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="pickupRoom"&gt;Room Number for Pickup&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-pickupRoom"}
+                    id="pickupRoom"
+                    type="text"
+                    isInvalid={Boolean(errors.pickupRoom)}
+                    {...register("pickupRoom")}
+                    disabled
+                    defaultValue={initialContents?.pickupRoom} 
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="dropoffBuilding"&gt;Drop Off Building&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-dropoffBuilding"}
+                    id="dropoffBuilding"
+                    type="text"
+                    isInvalid={Boolean(errors.dropoffBuilding)}
+                    {...register("dropoffBuilding")}
+                    disabled
+                    defaultValue={initialContents?.dropoffBuilding}
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="dropoffRoom"&gt;Room Number for Dropoff&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-dropoffRoom"}
+                    id="dropoffRoom"
+                    type="text"
+                    isInvalid={Boolean(errors.dropoffRoom)}
+                    {...register("dropoffRoom")}
+                    disabled
+                    defaultValue={initialContents?.dropoffRoom} 
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="course"&gt;Course Number&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-course"}
+                    id="course"
+                    type="text"
+                    isInvalid={Boolean(errors.course)}
+                    {...register("course")}
+                    disabled
+                    defaultValue={initialContents?.course} 
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="notes"&gt;Notes&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-notes"}
+                    id="notes"
+                    type="text"
+                    isInvalid={Boolean(errors.notes)}
+                    {...register("notes")}
+                    disabled
+                    defaultValue={initialContents?.notes} 
+                /&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+&nbsp;
             &lt;Button
                 type="submit"
+                data-testid={testIdPrefix + "-submit"}
+            &gt;
+                {buttonLabel}
+            &lt;/Button&gt;
+            &lt;Button
+                variant="Secondary"
                 onClick={() =&gt; navigate(-1)}
                 data-testid={testIdPrefix + "-cancel"}
             &gt;
-            {buttonLabel}
+                Cancel
             &lt;/Button&gt;
 &nbsp;
         &lt;/Form&gt;
@@ -690,7 +645,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
     )
 }
 &nbsp;
-export default RiderApplicationShowForm;</pre></td></tr></table></pre>
+export default RideAssignDriverForm;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
