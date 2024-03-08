@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-import DriverAvailabilityIndexPage from 'main/pages/Ride/DriverAvailabilityIndexPage';
+import DriverAvailabilityIndexPage from 'main/pages/Drivers/DriverAvailabilityIndexPage';
 
 export default {
     title: 'pages/Driver/DriverAvailabilityIndexPage',
