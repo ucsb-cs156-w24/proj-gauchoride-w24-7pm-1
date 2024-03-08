@@ -91,8 +91,8 @@ describe("RideTable tests", () => {
 
     );
 
-    const expectedHeaders = ['id','Day','Student','Driver', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
-    const expectedFields = ['id', 'day', 'student', 'driver', 'course', 'pickUpTime', 'dropOffTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
+    const expectedHeaders = ['id','Day','Student','Shift', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
+    const expectedFields = ['id', 'day', 'student', 'shiftId', 'course', 'startTime', 'endTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -115,6 +115,10 @@ describe("RideTable tests", () => {
     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
+
+    const assignButton = getByTestId(`${testId}-cell-row-0-col-Assign Driver-button`);
+    expect(assignButton).toBeInTheDocument();
+    expect(assignButton).toHaveClass("btn-success");
 
   });
 
@@ -133,8 +137,8 @@ describe("RideTable tests", () => {
 
     );
 
-    const expectedHeaders = ['id','Day','Driver', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
-    const expectedFields = ['id', 'day',  'driver', 'course', 'pickUpTime', 'dropOffTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
+    const expectedHeaders = ['id','Day', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
+    const expectedFields = ['id', 'day', 'course', 'startTime', 'endTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -157,7 +161,7 @@ describe("RideTable tests", () => {
     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
-
+    
   });
 
   test("Has the expected column headers and content for ordinary driver", () => {
@@ -173,8 +177,8 @@ describe("RideTable tests", () => {
 
     );
 
-    const expectedHeaders = ['id','Day','Student', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
-    const expectedFields = ['id', 'day', 'student', 'course', 'pickUpTime', 'dropOffTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
+    const expectedHeaders = ['id','Day','Student', 'Shift', 'Course #', 'Pick Up Time', 'Drop Off Time', 'Pick Up Building', 'Pick Up Room', 'Drop Off Building', 'Drop Off Room', 'Notes'];
+    const expectedFields = ['id', 'day', 'student', 'shiftId', 'course', 'startTime', 'endTime', 'pickupBuilding', 'pickupRoom', 'dropoffBuilding','dropoffRoom', 'notes'];
     const testId = "RideTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -266,5 +270,28 @@ describe("RideTable tests", () => {
     expect(mockDeleteMutation).toHaveBeenCalled();
   });
   
-  
+  test("Assign driver button navigates to the assign driver page for admin user", async () => {
+
+    const currentUser = currentUserFixtures.adminUser;
+
+    const { getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <RideTable ride={rideFixtures.threeRidesTable} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
+
+    );
+
+    await waitFor(() => { expect(getByTestId(`RideTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+
+    const assignDriverButton = getByTestId(`RideTable-cell-row-0-col-Assign Driver-button`);
+    expect(assignDriverButton).toBeInTheDocument();
+    
+    fireEvent.click(assignDriverButton);
+
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ride/assigndriver/2'));
+
+  });
+
 });
