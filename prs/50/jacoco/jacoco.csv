@@ -9,7 +9,7 @@ GauchoRide,edu.ucsb.cs156.gauchoride.controllers,ShiftController,0,160,0,0,0,32,
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,RiderApplicationController,0,274,0,8,0,58,0,19,0,15
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,ApiController,0,24,0,0,0,7,0,5,0,5
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,UsersController,0,198,0,6,0,26,0,15,0,12
-GauchoRide,edu.ucsb.cs156.gauchoride.controllers,RideController,0,309,0,16,0,52,0,20,0,12
+GauchoRide,edu.ucsb.cs156.gauchoride.controllers,RideController,0,343,0,16,0,59,0,23,0,15
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,CSRFController,0,5,0,0,0,2,0,2,0,2
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,SystemInfoController,0,7,0,0,0,2,0,2,0,2
 GauchoRide,edu.ucsb.cs156.gauchoride.controllers,DriversController,0,56,0,2,0,13,0,5,0,4
