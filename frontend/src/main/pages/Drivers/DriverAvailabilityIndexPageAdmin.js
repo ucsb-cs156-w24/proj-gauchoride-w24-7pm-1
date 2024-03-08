@@ -3,8 +3,8 @@ import { useBackend } from 'main/utils/useBackend';
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import DriverAvailabilityTable from 'main/components/Driver/DriverAvailabilityTable';
-import { useCurrentUser , hasRole} from 'main/utils/currentUser'
-import { Button } from 'react-bootstrap';
+import { useCurrentUser } from 'main/utils/currentUser'
+// import { Button } from 'react-bootstrap';
 
 export default function DriverAvailabilityIndexPage() {
 
@@ -19,24 +19,23 @@ export default function DriverAvailabilityIndexPage() {
             // Stryker restore all 
         );
 
-    const createButton = () => {
-        if (hasRole(currentUser, "ROLE_ADMIN")) {
-            return (
-                <Button
-                    variant="primary"
-                    href="/driverAvailability/create"
-                    style={{ float: "right" }}
-                >
-                    Create Driver Availability
-                </Button>
-            )
-        } 
-    }
+    // const createButton = () => {
+    //     if (hasRole(currentUser, "ROLE_ADMIN")) {
+    //         return (
+    //             <Button
+    //                 variant="primary"
+    //                 href="/driverAvailability/create"
+    //                 style={{ float: "right" }}
+    //             >
+    //                 Create Driver Availability
+    //             </Button>
+    //         )
+    //     } 
+    // }
 
     return (
         <BasicLayout>
             <div className="pt-2">
-                {createButton()}
                 <h1>Driver Availabilities</h1>
                 <DriverAvailabilityTable Availability={availabilities} currentUser={currentUser} />
             </div>
