@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DriverAvailabilityEditPage from 'main/pages/Ride/DriverAvailabilityEditPage';
+import DriverAvailabilityEditPage from 'main/pages/Drivers/DriverAvailabilityEditPage';
 import driverAvailabilityFixtures from 'fixtures/driverAvailabilityFixtures';
 
 export default {
