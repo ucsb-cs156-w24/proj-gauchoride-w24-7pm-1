@@ -10,11 +10,11 @@ export default function DriverAvailabilityIndexPage() {
 
     const currentUser = useCurrentUser();
 
-    const { data: driverAvailabilities, error: _error, status: _status } =
+    const { data: availabilities, error: _error, status: _status } =
         useBackend(
             // Stryker disable all : hard to test for query caching
-            ["/api/driverAvailability/all"],
-            { method: "GET", url: "/api/driverAvailability/all" },
+            ["/api/driverAvailability"],
+            { method: "GET", url: "/api/driverAvailability/admin/all" },
             []
             // Stryker restore all 
         );
@@ -38,7 +38,7 @@ export default function DriverAvailabilityIndexPage() {
             <div className="pt-2">
                 {createButton()}
                 <h1>Driver Availabilities</h1>
-                <DriverAvailabilityTable driverAvailability={driverAvailabilities} currentUser={currentUser} />
+                <DriverAvailabilityTable Availability={availabilities} currentUser={currentUser} />
             </div>
         </BasicLayout>
     );

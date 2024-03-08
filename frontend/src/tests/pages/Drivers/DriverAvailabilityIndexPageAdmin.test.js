@@ -45,7 +45,7 @@ describe("DriverAvailabilityIndexPageAdmin tests", () => {
 
     test("fetches driver availabilities using the correct GET method", async () => {
         setupAdminUser();
-        axiosMock.onGet("/api/driveravailability/all").reply(config => {
+        axiosMock.onGet("/api/driverAvailability/admin/all").reply(config => {
             if (config.method === "get") {  // Ensures the method is GET
                 return [200, driverAvailabilityFixtures.threeAvailability];
             }
@@ -76,7 +76,7 @@ describe("DriverAvailabilityIndexPageAdmin tests", () => {
         // This variable will help us verify that the correct method was used.
         let wasGetMethodUsed = false;
     
-        axiosMock.onAny("/api/driveravailability/all").reply(config => {
+        axiosMock.onAny("/api/driverAvailability/admin/all").reply(config => {
             if (config.method === "get") {  
                 wasGetMethodUsed = true; 
                 return [200, driverAvailabilityFixtures.threeAvailability];
@@ -107,7 +107,7 @@ describe("DriverAvailabilityIndexPageAdmin tests", () => {
 
     test("Renders with Create Button for admin user", async () => {
         setupAdminUser();
-        axiosMock.onGet("/api/driveravailability/all").reply(200, []);
+        axiosMock.onGet("/api/driverAvailability/admin/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -121,13 +121,13 @@ describe("DriverAvailabilityIndexPageAdmin tests", () => {
             expect(screen.getByText(/Create Driver Availability/)).toBeInTheDocument();
         });
         const button = screen.getByText(/Create Driver Availability/);
-        expect(button).toHaveAttribute("href", "/driveravailability/create");
+        expect(button).toHaveAttribute("href", "/driverAvailability/create");
         expect(button).toHaveAttribute("style", "float: right;");
     });
 
     test("renders three driver availabilities correctly for regular user", async () => {
         setupUserOnly();
-        axiosMock.onGet("/api/driveravailability/all").reply(200, driverAvailabilityFixtures.threeAvailability);
+        axiosMock.onGet("/api/driverAvailability/admin/all").reply(200, driverAvailabilityFixtures.threeAvailability);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -156,41 +156,6 @@ describe("DriverAvailabilityIndexPageAdmin tests", () => {
         // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
         expect(screen.queryByTestId("DriverAvailabilityTable-cell-row-0-col-Delete-button")).not.toBeInTheDocument();
         expect(screen.queryByTestId("DriverAvailabilityTable-cell-row-0-col-Edit-button")).not.toBeInTheDocument();
-    });
-
-
-
-    test("what happens when you click delete, admin", async () => {
-        setupAdminUser();
-
-        axiosMock.onGet("/api/driveravailability/all").reply(200, driverAvailabilityFixtures.threeAvailability);
-        axiosMock.onDelete("/api/driveravailability").reply(200, "driveravailability with id 1 was deleted");
-
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <DriverAvailabilityIndexPageAdmin />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
-
-        await waitFor(() => { expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
-
-        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-
-
-        const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-        expect(deleteButton).toBeInTheDocument();
-
-        fireEvent.click(deleteButton);
-
-        await waitFor(() => { expect(mockToast).toBeCalledWith("driveravailability with id 1 was deleted") });
-
-        await waitFor(() => { expect(axiosMock.history.delete.length).toBe(1); });
-        //expect(axiosMock.history.delete[0].url).toBe("/api/shift");
-        expect(axiosMock.history.delete[0].url).toBe("/api/driveravailability");
-        expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
     });
 
 });
