@@ -18,6 +18,10 @@ export default function ShiftTable({
         navigate(`/shift/edit/${cell.row.values.id}`)
     }
 
+    const infoCallback = (cell) => {
+        navigate(`/shiftInfo/${cell.row.values.id}`)
+    }
+
     // Stryker disable all : hard to test for query caching
 
     const deleteMutation = useBackendMutation(
@@ -68,7 +72,11 @@ export default function ShiftTable({
     if (hasRole(currentUser, "ROLE_ADMIN")) {
         columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix));
-    } 
+    }
+    
+    if (hasRole(currentUser, "ROLE_ADMIN") || hasRole(currentUser, "ROLE_DRIVER")) {
+        columns.push(ButtonColumn("Info", "success", infoCallback, testIdPrefix))
+    }
 
     return <OurTable
         data={shift}

@@ -74,7 +74,7 @@ describe("ShiftTable tests", () => {
 
 
       test("Has the expected column headers, content, and buttons for admin user", () => {
-        const currentUser = currentUserFixtures.adminUser;
+        const currentUser = currentUserFixtures.adminOnly;
         
         render(
             <QueryClientProvider client={queryClient}>
@@ -104,7 +104,40 @@ describe("ShiftTable tests", () => {
         const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
         expect(deleteButton).toBeInTheDocument();
         expect(deleteButton).toHaveClass("btn-danger");
+
+        const infoButton = screen.getByTestId(`${testId}-cell-row-0-col-Info-button`);
+        expect(infoButton).toBeInTheDocument();
+        expect(infoButton).toHaveClass("btn-success");
     });
+
+    test("Has the expected column headers, content, and buttons for driver user", () => {
+      const currentUser = currentUserFixtures.driverOnly;
+      
+      render(
+          <QueryClientProvider client={queryClient}>
+              <Router>
+                  <ShiftTable shift={shiftFixtures.threeShifts} currentUser={currentUser} />
+              </Router>
+          </QueryClientProvider>
+      );
+  
+      expectedHeaders.forEach((headerText) => {
+          const header = screen.getByText(headerText);
+          expect(header).toBeInTheDocument();
+      });
+  
+      expectedFields.forEach((field) => {
+          const cellContent = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+          expect(cellContent).toBeInTheDocument();
+      });
+  
+      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      expect(screen.getByTestId(`${testId}-cell-row-0-col-day`)).toHaveTextContent("Monday");
+
+      const infoButton = screen.getByTestId(`${testId}-cell-row-0-col-Info-button`);
+      expect(infoButton).toBeInTheDocument();
+      expect(infoButton).toHaveClass("btn-success");
+  });
     
     test("Has the expected column headers and content for an ordinary user", () => {
         const currentUser = currentUserFixtures.userOnly;
@@ -132,6 +165,7 @@ describe("ShiftTable tests", () => {
     
         expect(screen.queryByText("Delete")).not.toBeInTheDocument();
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+        expect(screen.queryByText("Info")).not.toBeInTheDocument();
     });
 
     test("Delete button calls delete callback", async () => {
@@ -206,5 +240,28 @@ describe("ShiftTable tests", () => {
     // assert - check that we navigated to the expected path
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/shift/edit/1'));
   });
+
+    test("Info button triggers navigation", async () => {
+      const currentUser = currentUserFixtures.adminUser;
+    
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter>
+            <ShiftTable shift={shiftFixtures.threeShifts} currentUser={currentUser} />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+    
+      // assert - check that the expected content is rendered
+      expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
+      const infoButton = screen.getByTestId(`${testId}-cell-row-0-col-Info-button`);
+      expect(infoButton).toBeInTheDocument();
+    
+      // act - click the info button
+      fireEvent.click(infoButton);
+    
+      // assert - check if the mocked navigate function was called
+      expect(mockedNavigate).toHaveBeenCalledWith('/shiftInfo/1');
+    });
 
 });
