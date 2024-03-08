@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
@@ -106,8 +106,7 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,19 +116,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,8 +131,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,8 +154,8 @@ import { useBackend } from 'main/utils/useBackend';
 &nbsp;
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import DriverAvailabilityTable from 'main/components/Driver/DriverAvailabilityTable';
-import { useCurrentUser , hasRole} from 'main/utils/currentUser'
-import { Button } from 'react-bootstrap';
+import { useCurrentUser } from 'main/utils/currentUser'
+// import { Button } from 'react-bootstrap';
 &nbsp;
 export default function DriverAvailabilityIndexPage() {
 &nbsp;
@@ -172,24 +170,23 @@ export default function DriverAvailabilityIndexPage() {
             // Stryker restore all 
         );
 &nbsp;
-    const createButton = () =&gt; {
-        if (hasRole(currentUser, "ROLE_ADMIN")) {
-            return (
-                &lt;Button
-                    variant="primary"
-                    href="/driverAvailability/create"
-                    style={{ float: "right" }}
-                &gt;
-                    Create Driver Availability
-                &lt;/Button&gt;
-            )
-        } 
-    }
+    // const createButton = () =&gt; {
+    //     if (hasRole(currentUser, "ROLE_ADMIN")) {
+    //         return (
+    //             &lt;Button
+    //                 variant="primary"
+    //                 href="/driverAvailability/create"
+    //                 style={{ float: "right" }}
+    //             &gt;
+    //                 Create Driver Availability
+    //             &lt;/Button&gt;
+    //         )
+    //     } 
+    // }
 &nbsp;
     return (
         &lt;BasicLayout&gt;
             &lt;div className="pt-2"&gt;
-                {createButton()}
                 &lt;h1&gt;Driver Availabilities&lt;/h1&gt;
                 &lt;DriverAvailabilityTable Availability={availabilities} currentUser={currentUser} /&gt;
             &lt;/div&gt;
@@ -202,7 +199,7 @@ export default function DriverAvailabilityIndexPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 07 2024 16:14:43 GMT-0800 (Pacific Standard Time)
+                at Thu Mar 07 2024 16:39:11 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
