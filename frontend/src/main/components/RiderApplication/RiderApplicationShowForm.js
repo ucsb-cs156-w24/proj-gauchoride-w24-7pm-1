@@ -63,7 +63,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
             )}
             
             
-            {initialContents?.status == "cancelled" && (
+            {initialContents?.status === "cancelled" && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="cancelled_date">Date Cancelled</Form.Label>
                     <Form.Control
@@ -77,7 +77,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {initialContents?.status == "approved" && (
+            {initialContents?.status === "approved" && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="approved_date">Date Approved</Form.Label>
                     <Form.Control
@@ -91,7 +91,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {initialContents?.status == "declined" && (
+            {initialContents?.status === "declined" && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="declined_date">Date Approved</Form.Label>
                     <Form.Control
@@ -105,7 +105,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {(initialContents.notes != "") && (
+            {(initialContents?.notes !== "") && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="notes">Notes</Form.Label>
                     <Form.Control
