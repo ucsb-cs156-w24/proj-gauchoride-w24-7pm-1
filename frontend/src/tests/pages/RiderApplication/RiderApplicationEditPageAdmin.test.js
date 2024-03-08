@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import RiderApplicationEditPageMember from "main/pages/RiderApplication/RiderApplicationEditPageMember";
+import RiderApplicationEditPageAdmin from "main/pages/RiderApplication/RiderApplicationEditPageAdmin";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
@@ -33,7 +33,7 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-describe("RiderApplicationEditPage tests", () => {
+describe("RiderApplicationEditPageAdmin tests", () => {
 
     describe("when the backend doesn't return a todo", () => {
 
@@ -55,12 +55,12 @@ describe("RiderApplicationEditPage tests", () => {
             const {queryByTestId, findByText} = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
-                        <RiderApplicationEditPageMember />
+                        <RiderApplicationEditPageAdmin />
                     </MemoryRouter>
                 </QueryClientProvider>
             );
             await findByText("Edit Rider Application");
-            expect(queryByTestId("RiderApplicationForm-id")).not.toBeInTheDocument();
+            expect(queryByTestId("RiderApplicationEditForm-id")).not.toBeInTheDocument();
             restoreConsole();
         });
     });
@@ -103,7 +103,7 @@ describe("RiderApplicationEditPage tests", () => {
             render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
-                        <RiderApplicationEditPageMember />
+                        <RiderApplicationEditPageAdmin />
                     </MemoryRouter>
                 </QueryClientProvider>
             );
@@ -114,21 +114,21 @@ describe("RiderApplicationEditPage tests", () => {
             const { getByTestId, findByTestId } = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
-                        <RiderApplicationEditPageMember />
+                        <RiderApplicationEditPageAdmin />
                     </MemoryRouter>
                 </QueryClientProvider>
             );
 
-            await findByTestId("RiderApplicationForm-id");
+            await findByTestId("RiderApplicationEditForm-id");
 
-            const statusField =getByTestId("RiderApplicationForm-status");
-            const permNumberField = getByTestId("RiderApplicationForm-perm_number");
-            const emailField =getByTestId("RiderApplicationForm-email");
-            const createdDateField =getByTestId("RiderApplicationForm-created_date");
-            const updatedDateField =getByTestId("RiderApplicationForm-updated_date");
-            const cancelledDateField =getByTestId("RiderApplicationForm-cancelled_date");
-            const descriptionField = getByTestId("RiderApplicationForm-description");
-            const notesField =getByTestId("RiderApplicationForm-notes");
+            const statusField =getByTestId("RiderApplicationEditForm-status");
+            const permNumberField = getByTestId("RiderApplicationEditForm-perm_number");
+            const emailField =getByTestId("RiderApplicationEditForm-email");
+            const createdDateField =getByTestId("RiderApplicationEditForm-created_date");
+            const updatedDateField =getByTestId("RiderApplicationEditForm-updated_date");
+            const cancelledDateField =getByTestId("RiderApplicationEditForm-cancelled_date");
+            const descriptionField = getByTestId("RiderApplicationEditForm-description");
+            const notesField =getByTestId("RiderApplicationEditForm-notes");
 
             expect(statusField).toHaveValue("pending");
             expect(permNumberField).toHaveValue("1234567");
@@ -148,22 +148,22 @@ describe("RiderApplicationEditPage tests", () => {
             const { getByTestId, findByTestId } = render(
                 <QueryClientProvider client={queryClient}>
                     <MemoryRouter>
-                        <RiderApplicationEditPageMember />
+                        <RiderApplicationEditPageAdmin />
                     </MemoryRouter>
                 </QueryClientProvider>
             );
 
-            await findByTestId("RiderApplicationForm-id");
+            await findByTestId("RiderApplicationEditForm-id");
 
-            const statusField =getByTestId("RiderApplicationForm-status");
-            const permNumberField = getByTestId("RiderApplicationForm-perm_number");
-            const emailField =getByTestId("RiderApplicationForm-email");
-            const createdDateField =getByTestId("RiderApplicationForm-created_date");
-            const updatedDateField =getByTestId("RiderApplicationForm-updated_date");
-            const cancelledDateField =getByTestId("RiderApplicationForm-cancelled_date");
-            const descriptionField = getByTestId("RiderApplicationForm-description");
-            const notesField =getByTestId("RiderApplicationForm-notes");
-            const submitButton = getByTestId("RiderApplicationForm-submit")
+            const statusField =getByTestId("RiderApplicationEditForm-status");
+            const permNumberField = getByTestId("RiderApplicationEditForm-perm_number");
+            const emailField =getByTestId("RiderApplicationEditForm-email");
+            const createdDateField =getByTestId("RiderApplicationEditForm-created_date");
+            const updatedDateField =getByTestId("RiderApplicationEditForm-updated_date");
+            const cancelledDateField =getByTestId("RiderApplicationEditForm-cancelled_date");
+            const descriptionField = getByTestId("RiderApplicationEditForm-description");
+            const notesField =getByTestId("RiderApplicationEditForm-notes");
+            const submitButton = getByTestId("RiderApplicationEditForm-submit")
 
             expect(statusField).toHaveValue("pending");
             expect(permNumberField).toHaveValue("1234567");
@@ -176,22 +176,21 @@ describe("RiderApplicationEditPage tests", () => {
 
             expect(submitButton).toBeInTheDocument();
 
-            fireEvent.change(permNumberField, { target: { value: "7654321" } });
-            fireEvent.change(descriptionField, { target: { value: "I broke my leg." } });
+            fireEvent.change(notesField, { target: { value: "approving" } });
 
             fireEvent.click(submitButton);
 
     
             await waitFor(() => expect(mockToast).toHaveBeenCalled());
             expect(mockToast).toBeCalledWith("Application Updated - id: 17");
-            expect(mockNavigate).toBeCalledWith({ "to": "/apply/rider" });
+            expect(mockNavigate).toBeCalledWith({ "to": "/admin/applications/riders" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
             expect(axiosMock.history.put[0].data).toBe(JSON.stringify({
-                perm_number: "7654321",
-                description: "I broke my leg.",
-                notes: "",
+                perm_number: "1234567",
+                description: "",
+                notes: "approving",
             })); // posted object
 
         });
