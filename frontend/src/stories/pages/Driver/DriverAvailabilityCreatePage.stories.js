@@ -1,10 +1,10 @@
 import React from 'react';
 
-import RideRequestCreatePage from 'main/pages/Ride/DriverAvailabilityCreatePage';
+import DriverAvailabilityCreatePage from 'main/pages/Drivers/DriverAvailabilityCreatePage';
 
 export default {
     title: 'pages/Driver/DriverAvailabilityCreatePage',
-    component: RideRequestCreatePage
+    component: DriverAvailabilityCreatePage
 };
 
 const Template = () => <DriverAvailabilityCreatePage />;
