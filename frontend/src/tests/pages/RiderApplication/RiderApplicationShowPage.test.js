@@ -161,7 +161,7 @@ describe("RiderApplicationShowPage tests", () => {
             const descriptionField = getByTestId("RiderApplicationShowForm-description");
       
 
-            if (statusField.value == "approved") {
+            if (statusField.value === "approved") {
                 expect(statusField).toHaveValue("approved");
                 expect(permNumberField).toHaveValue("1234567");
                 expect(emailField).toHaveValue("random@example.org");
@@ -184,7 +184,7 @@ describe("RiderApplicationShowPage tests", () => {
                 status: "declined",
                 email: "random@example.org",
                 created_date: "2023-04-17",
-                declined_date: "2023-04-17",
+                updated_date: "2023-04-17",
                 cancelled_date: "",
                 declined_date: "2023-04-18",
                 description: "",
@@ -209,7 +209,7 @@ describe("RiderApplicationShowPage tests", () => {
             const notesField = getByTestId("RiderApplicationShowForm-notes");
             const descriptionField = getByTestId("RiderApplicationShowForm-description");
       
-            if (statusField.value == "declined") {
+            if (statusField.value === "declined") {
                 expect(statusField).toHaveValue("declined");
                 expect(permNumberField).toHaveValue("1234567");
                 expect(emailField).toHaveValue("random@example.org");
@@ -231,7 +231,7 @@ describe("RiderApplicationShowPage tests", () => {
                 status: "cancelled",
                 email: "random@example.org",
                 created_date: "2023-04-17",
-                declined_date: "2023-04-17",
+                updated_date: "2023-04-17",
                 cancelled_date: "",
                 declined_date: "2023-04-18",
                 description: "",
@@ -255,7 +255,7 @@ describe("RiderApplicationShowPage tests", () => {
             const cancelledDateField =getByTestId("RiderApplicationShowForm-cancelled_date");
             const descriptionField = getByTestId("RiderApplicationShowForm-description");
       
-            if (statusField.value == "cancelled") {
+            if (statusField.value === "cancelled") {
                 expect(statusField).toHaveValue("cancelled");
                 expect(permNumberField).toHaveValue("1234567");
                 expect(emailField).toHaveValue("random@example.org");
