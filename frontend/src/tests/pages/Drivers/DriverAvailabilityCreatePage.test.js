@@ -64,7 +64,6 @@ describe("DriverAvailabilityCreatePage tests", () => {
             notes: "none",
         };
         const noidavailability = {
-            day: "Sunday",
             driverId: "3",
             day: "Saturday",
             startTime: "11:40AM",
