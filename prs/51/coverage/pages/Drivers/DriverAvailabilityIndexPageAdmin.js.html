@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -117,23 +117,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,7 +139,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -163,18 +163,18 @@ export default function DriverAvailabilityIndexPage() {
 &nbsp;
     const currentUser = useCurrentUser();
 &nbsp;
-    const { data: driverAvailabilities, error: _error, status: _status } =
+    const { data: availabilities, error: _error, status: _status } =
         useBackend(
             // Stryker disable all : hard to test for query caching
-            ["/api/driverAvailability/all"],
-            { method: "GET", url: "/api/driverAvailability/all" },
+            ["/api/driverAvailability"],
+            { method: "GET", url: "/api/driverAvailability/admin/all" },
             []
             // Stryker restore all 
         );
 &nbsp;
     const createButton = () =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (hasRole(currentUser, "ROLE_ADMIN")) {
-<span class="cstat-no" title="statement not covered" >            return (</span>
+        if (hasRole(currentUser, "ROLE_ADMIN")) {
+            return (
                 &lt;Button
                     variant="primary"
                     href="/driverAvailability/create"
@@ -191,7 +191,7 @@ export default function DriverAvailabilityIndexPage() {
             &lt;div className="pt-2"&gt;
                 {createButton()}
                 &lt;h1&gt;Driver Availabilities&lt;/h1&gt;
-                &lt;DriverAvailabilityTable driverAvailability={driverAvailabilities} currentUser={currentUser} /&gt;
+                &lt;DriverAvailabilityTable Availability={availabilities} currentUser={currentUser} /&gt;
             &lt;/div&gt;
         &lt;/BasicLayout&gt;
     );
@@ -202,7 +202,7 @@ export default function DriverAvailabilityIndexPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Mar 07 2024 15:18:09 GMT-0800 (Pacific Standard Time)
+                at Thu Mar 07 2024 16:01:13 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
