@@ -202,13 +202,13 @@ describe("RiderApplicationEditForm tests", () => {
         });
     });
 
-    test("renders correctly when passing in initialContents with status expired", async () => {
+    test("renders correctly when passing in initialContents with status cancelled", async () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <Router>
                     <RiderApplicationEditForm initialContents={{ id: 1,
                     userId: 'user123',
-                    status: 'expired',
+                    status: 'cancelled',
                     email: 'test@example.com',
                     created_date: '2024-03-06',
                     updated_date: '2024-03-06',
