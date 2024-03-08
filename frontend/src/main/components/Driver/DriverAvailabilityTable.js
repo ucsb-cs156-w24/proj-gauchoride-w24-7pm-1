@@ -59,7 +59,6 @@ export default function DriverAvailabilityTable({
         }
     ];
 
-    // Stryker disable all : hard to test for query caching
     const buttonColumnsDriver = [
         ...columns,
         ButtonColumn("Edit", "primary", editCallback, "DriverAvailabilityTable"),
@@ -70,7 +69,7 @@ export default function DriverAvailabilityTable({
         ...columns,
         ButtonColumn("Review", "primary", reviewCallback, "DriverAvailabilityTable")
     ];
-    // Stryker restore all
+
     const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : (hasRole(currentUser, "ROLE_DRIVER")) ? buttonColumnsDriver : columns;
 
     return <OurTable
