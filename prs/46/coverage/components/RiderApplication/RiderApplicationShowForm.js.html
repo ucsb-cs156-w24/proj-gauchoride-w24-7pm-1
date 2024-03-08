@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -250,22 +250,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +416,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -492,7 +492,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
             )}
             
             
-            {initialContents?.status == "cancelled" &amp;&amp; (
+            {initialContents?.status === "cancelled" &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="cancelled_date"&gt;Date Cancelled&lt;/Form.Label&gt;
                     &lt;Form.Control
@@ -506,7 +506,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 &lt;/Form.Group&gt;
             )}
 &nbsp;
-            {initialContents?.status == "approved" &amp;&amp; (
+            {initialContents?.status === "approved" &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="approved_date"&gt;Date Approved&lt;/Form.Label&gt;
                     &lt;Form.Control
@@ -520,7 +520,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 &lt;/Form.Group&gt;
             )}
 &nbsp;
-            {initialContents?.status == "declined" &amp;&amp; (
+            {initialContents?.status === "declined" &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="declined_date"&gt;Date Approved&lt;/Form.Label&gt;
                     &lt;Form.Control
@@ -534,7 +534,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 &lt;/Form.Group&gt;
             )}
 &nbsp;
-            {(initialContents.notes != "") &amp;&amp; (
+            {(initialContents?.notes !== "") &amp;&amp; (
                 &lt;Form.Group className="mb-3" &gt;
                     &lt;Form.Label htmlFor="notes"&gt;Notes&lt;/Form.Label&gt;
                     &lt;Form.Control
@@ -598,7 +598,7 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
             
             &lt;Button
                 type="submit"
-                onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(-1)}</span>
+                onClick={() =&gt; navigate(-1)}
                 data-testid={testIdPrefix + "-cancel"}
             &gt;
             {buttonLabel}
@@ -616,7 +616,7 @@ export default RiderApplicationShowForm;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Mar 08 2024 14:00:52 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 08 2024 14:20:16 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
