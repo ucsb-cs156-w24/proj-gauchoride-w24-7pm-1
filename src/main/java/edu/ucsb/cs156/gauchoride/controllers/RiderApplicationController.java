@@ -118,7 +118,7 @@ public class RiderApplicationController extends ApiController {
             application.setPerm_number(incoming.getPerm_number());
             application.setUpdated_date(currentDate);
             application.setDescription(incoming.getDescription());
-
+            application.setNotes(incoming.getNotes());
             riderApplicationRepository.save(application);
             return ResponseEntity.ok(application);
         }
