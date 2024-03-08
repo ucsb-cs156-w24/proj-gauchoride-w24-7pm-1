@@ -33,10 +33,13 @@ public class Ride {
   private String endTime; // format: HH:MM(A/P)M e.g. "11:00AM" or "1:37PM"
 
   private String pickupBuilding;
-  private String dropoffBuilding;
+  private String dropoffBuilding; 
   
   private String dropoffRoom;
   private String pickupRoom;
   private String notes;
   private String course; // e.g. CMPSC 156
+
+  @Builder.Default
+  private long shiftId = 0;
 }

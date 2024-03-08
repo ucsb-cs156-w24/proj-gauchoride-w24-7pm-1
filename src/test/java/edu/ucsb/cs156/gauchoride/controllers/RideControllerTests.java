@@ -1126,4 +1126,173 @@ public class RideControllerTests extends ControllerTestCase {
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("Ride with id 67 not found", json.get("message"));
         }
+
+        @WithMockUser(roles = { "DRIVER" })
+        @Test
+        public void logged_in_driver_can_get_rides_by_shift_id() throws Exception {
+                long shiftId = 1L;
+                
+                Ride ride1 = Ride.builder()
+                                .riderId(1L)
+                                .student("CGaucho")
+                                .day("Monday")
+                                .course("CMPSC 156")
+                                .startTime("2:00PM")
+                                .endTime("3:15PM")
+                                .dropoffBuilding("South Hall")
+                                .pickupBuilding("Phelps Hall")
+                                .dropoffRoom("1431")
+                                .shiftId(shiftId)
+                                .build();
+                
+                Ride ride2 = Ride.builder()
+                                .riderId(2L)
+                                .student("DGaucho")
+                                .day("Thursday")
+                                .course("MATH 118C")
+                                .startTime("12:30PM")
+                                .endTime("1:45PM")
+                                .dropoffBuilding("Phelps Hall")
+                                .pickupBuilding("UCen")
+                                .dropoffRoom("3505")
+                                .shiftId(shiftId)
+                                .build();
+                
+                ArrayList<Ride> expectedRides = new ArrayList<>(Arrays.asList(ride1, ride2));
+                
+                when(rideRepository.findAllByShiftId(eq(shiftId))).thenReturn(expectedRides);
+                
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ride_request/shiftId?shiftId=" + shiftId))
+                                .andExpect(status().isOk())
+                                .andReturn();
+                
+                // assert
+                verify(rideRepository, times(1)).findAllByShiftId(eq(shiftId));
+                String expectedJson = mapper.writeValueAsString(expectedRides);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void logged_in_admin_can_get_rides_by_shift_id() throws Exception {
+                long shiftId = 1L;
+                
+                Ride ride1 = Ride.builder()
+                                .riderId(1L)
+                                .student("CGaucho")
+                                .day("Monday")
+                                .course("CMPSC 156")
+                                .startTime("2:00PM")
+                                .endTime("3:15PM")
+                                .dropoffBuilding("South Hall")
+                                .pickupBuilding("Phelps Hall")
+                                .dropoffRoom("1431")
+                                .shiftId(shiftId)
+                                .build();
+                
+                Ride ride2 = Ride.builder()
+                                .riderId(2L) // Assuming 'otherUserId'
+                                .student("DGaucho")
+                                .day("Thursday")
+                                .course("MATH 118C")
+                                .startTime("12:30PM")
+                                .endTime("1:45PM")
+                                .dropoffBuilding("Phelps Hall")
+                                .pickupBuilding("UCen")
+                                .dropoffRoom("3505")
+                                .shiftId(shiftId)
+                                .build();
+                
+                ArrayList<Ride> expectedRides = new ArrayList<>(Arrays.asList(ride1, ride2));
+                
+                when(rideRepository.findAllByShiftId(eq(shiftId))).thenReturn(expectedRides);
+                
+                // act
+                MvcResult response = mockMvc.perform(get("/api/ride_request/shiftId?shiftId=" + shiftId))
+                                .andExpect(status().isOk())
+                                .andReturn();
+                
+                // assert
+                verify(rideRepository, times(1)).findAllByShiftId(eq(shiftId));
+                String expectedJson = mapper.writeValueAsString(expectedRides);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void admin_can_assign_shiftId_to_a_ride() throws Exception {
+                // arange
+                long shiftId = 1L;
+                long rideId = 2L;
+            
+                Ride ride_original = Ride.builder()
+                                .id(rideId) // Make sure to set the ID to match the ride being edited
+                                .riderId(1L)
+                                .student("DGaucho")
+                                .day("Monday")
+                                .course("CMPSC 156")
+                                .startTime("2:00PM")
+                                .endTime("3:15PM")
+                                .dropoffBuilding("South Hall")
+                                .pickupBuilding("Phelps Hall")
+                                .dropoffRoom("1431")
+                                .build();
+            
+                Ride ride_edited = Ride.builder()
+                                .shiftId(shiftId)
+                                .build();
+            
+                String requestBody = mapper.writeValueAsString(ride_edited);
+            
+                when(rideRepository.findById(eq(rideId))).thenReturn(Optional.of(ride_original));
+            
+                // act
+                mockMvc.perform(put("/api/ride_request/assigndriver?id=" + rideId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .characterEncoding("utf-8")
+                                .content(requestBody)
+                                .with(csrf()))
+                        .andExpect(status().isOk())
+                        .andExpect(jsonPath("$.shiftId").value((int) shiftId));
+            
+                // assert
+                verify(rideRepository).findById(eq(rideId));
+                verify(rideRepository).save(any(Ride.class));
+        }
+
+        @WithMockUser(roles = { "ADMIN" })
+        @Test
+        public void admin_cant_assigndriver_for_non_existent_ride_id() throws Exception {
+                // arange
+                long shiftId = 1L;
+                long rideId = 2L;
+
+                when(rideRepository.findById(eq(7L))).thenReturn(Optional.empty());
+
+                Ride ride_edited = Ride.builder()
+                                .shiftId(shiftId)
+                                .build();
+            
+                String requestBody = mapper.writeValueAsString(ride_edited);
+
+                // act
+                MvcResult response = mockMvc.perform(put("/api/ride_request/assigndriver?id=" + rideId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .characterEncoding("utf-8")
+                                .content(requestBody)
+                                .with(csrf()))
+                        .andExpect(status().isNotFound()).andReturn();
+
+                // assert
+
+                verify(rideRepository, times(1)).findById(eq(rideId));
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("EntityNotFoundException", json.get("type"));
+                assertEquals("Ride with id " + rideId + " not found", json.get("message"));
+        }
+
+
 }
