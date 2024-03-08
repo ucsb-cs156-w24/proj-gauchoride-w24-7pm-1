@@ -219,7 +219,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
 
             when(riderApplicationRepository.save(eq(application1))).thenReturn(application1);
 
-            String postRequesString = "perm_number=7654321&description=My leg is broken";
+            String postRequesString = "perm_number=7654321&description=My leg is broken&notes=";
 
             // act
             MvcResult response = mockMvc.perform(
@@ -405,7 +405,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .updated_date(currentDate)
                         .cancelled_date(null)
                         .description("My legs were broken")
-                        .notes("")
+                        .notes("can be approved if proved")
                         .build();
 
         String requestBody = mapper.writeValueAsString(application_edited);
