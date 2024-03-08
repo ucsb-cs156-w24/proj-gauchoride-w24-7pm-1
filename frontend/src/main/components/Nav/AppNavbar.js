@@ -77,6 +77,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                 hasRole(currentUser, "ROLE_ADMIN") && (
                   <NavDropdown title="Admin" id="appnavbar-admin-dropdown" data-testid="appnavbar-admin-dropdown" >
                     <NavDropdown.Item as={Link} to="/admin/users">Users</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/admin/applications/riders">Rider Applications</NavDropdown.Item>
                   </NavDropdown>
                 )
               }

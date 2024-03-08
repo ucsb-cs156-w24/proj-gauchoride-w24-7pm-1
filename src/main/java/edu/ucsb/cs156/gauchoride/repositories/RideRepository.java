@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface RideRepository extends CrudRepository<Ride, Long> {
   Iterable<Ride> findAllByRiderId(long riderId);
   Optional<Ride> findByIdAndRiderId(long id, long riderId);
+  Iterable<Ride> findAllByShiftId(long shiftId);
 }
