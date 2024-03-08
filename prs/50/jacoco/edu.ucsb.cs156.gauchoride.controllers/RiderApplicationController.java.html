@@ -118,7 +118,7 @@ import java.util.List;
 <span class="fc" id="L118">            application.setPerm_number(incoming.getPerm_number());</span>
 <span class="fc" id="L119">            application.setUpdated_date(currentDate);</span>
 <span class="fc" id="L120">            application.setDescription(incoming.getDescription());</span>
-
+<span class="fc" id="L121">            application.setNotes(incoming.getNotes());</span>
 <span class="fc" id="L122">            riderApplicationRepository.save(application);</span>
 <span class="fc" id="L123">            return ResponseEntity.ok(application);</span>
         }
