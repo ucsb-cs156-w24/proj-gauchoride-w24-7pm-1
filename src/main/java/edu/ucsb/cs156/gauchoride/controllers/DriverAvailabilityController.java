@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class DriverAvailabilityController extends ApiController{
-    
+
     @Autowired
     DriverAvailabilityRepository driverAvailabilityRepository;
 
@@ -108,6 +109,34 @@ public class DriverAvailabilityController extends ApiController{
         driverAvailabilityRepository.save(availability);
         return ResponseEntity.ok(availability);
 
+    }
+
+    //DELETE for driver Availability
+    @Operation(summary= "Delete a driver availability")
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @DeleteMapping("")
+    public Object deleteDriverAvailability(
+            @Parameter(name="id") @RequestParam Long id) {
+        DriverAvailability availability = driverAvailabilityRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+
+        driverAvailabilityRepository.delete(availability);
+        return genericMessage("DriverAvailability with id %s deleted".formatted(id));
+    }
+
+    //Lets Admin GET a single availability by ID
+    @Operation(summary = "Admin can get a single availability by id")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("admin")
+    public DriverAvailability adminGetById(
+                    @Parameter(name="id", description = "Long, Id of the driver availability to get", 
+                    required = true)  
+                    @RequestParam Long id) 
+    {
+        DriverAvailability availability;
+        availability = driverAvailabilityRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(DriverAvailability.class, id));
+        return availability;
     }
 
     //Lets admins get all driver availabilties
