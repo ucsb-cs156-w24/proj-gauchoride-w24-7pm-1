@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class DriverAvailabilityController extends ApiController{
-
     @Autowired
     DriverAvailabilityRepository driverAvailabilityRepository;
 
@@ -147,5 +146,4 @@ public class DriverAvailabilityController extends ApiController{
         Iterable<DriverAvailability> availabilities = driverAvailabilityRepository.findAll();
         return availabilities;
     }
-
 }
