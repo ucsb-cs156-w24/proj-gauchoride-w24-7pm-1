@@ -398,9 +398,62 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .build();
 
         RiderApplication application_edited = RiderApplication.builder()
-                        .status("pending")
+                        .status("cancelled")
                         .userId(UserId)
                         .perm_number("6543210")
+                        .created_date(testDate1)
+                        .updated_date(currentDate)
+                        .cancelled_date(null)
+                        .description("My legs were broken")
+                        .notes("can be approved if proved")
+                        .build();
+
+        String requestBody = mapper.writeValueAsString(application_edited);
+
+        when(riderApplicationRepository.findByIdAndUserId(eq(67L), eq(UserId))).thenReturn(Optional.of(application_original));
+
+        // act
+        MvcResult response = mockMvc.perform(
+        put("/api/riderApplication?id=67")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding("utf-8")
+                            .content(requestBody)
+                            .with(csrf()))
+            .andExpect(status().isOk()).andReturn();
+        // assert
+        verify(riderApplicationRepository, times(1)).findByIdAndUserId(eq(67L), eq(UserId));
+        verify(riderApplicationRepository, times(1)).save(application_edited); // should be saved with correct user
+        String responseString = response.getResponse().getContentAsString();
+        assertEquals(requestBody, responseString);
+    }
+
+    @WithMockUser(roles = { "MEMBER" })
+    @Test
+    public void member_can_edit_their_own_application_whose_status_is_accepted() throws Exception {
+
+        Long UserId = currentUserService.getCurrentUser().getUser().getId();
+
+        // Get the current date
+        LocalDate localDate = LocalDate.now();
+        Date currentDate = Date.valueOf(localDate);
+        Date testDate1 = Date.valueOf("2023-03-20");
+        Date testDate2 = Date.valueOf("2023-03-29");
+
+        RiderApplication application_original = RiderApplication.builder()
+                        .status("accepted")
+                        .userId(UserId)
+                        .perm_number("0123456")
+                        .created_date(testDate1)
+                        .updated_date(testDate2)
+                        .cancelled_date(null)
+                        .description("")
+                        .notes("")
+                        .build();
+
+        RiderApplication application_edited = RiderApplication.builder()
+                        .status("expired")
+                        .userId(UserId)
+                        .perm_number("0134526")
                         .created_date(testDate1)
                         .updated_date(currentDate)
                         .cancelled_date(null)
@@ -524,7 +577,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "MEMBER" })
     @Test
-    public void member_canot_edit_application_whose_status_is_not_pending() throws Exception {
+    public void member_canot_edit_application_whose_status_is_not_pending_or_accepted() throws Exception {
 
         Long UserId = currentUserService.getCurrentUser().getUser().getId();
 
@@ -535,7 +588,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         Date testDate2 = Date.valueOf("2023-03-29");
 
         RiderApplication application_original = RiderApplication.builder()
-                        .status("accepted")
+                        .status("declined")
                         .userId(UserId)
                         .perm_number("0123456")
                         .created_date(testDate1)
@@ -546,7 +599,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
                         .build();
 
         RiderApplication application_edited = RiderApplication.builder()
-                        .status("accepted")
+                        .status("declined")
                         .userId(UserId)
                         .perm_number("6543210")
                         .created_date(testDate1)
@@ -572,7 +625,7 @@ public class RiderApplicationControllerTests extends ControllerTestCase {
         // assert
         verify(riderApplicationRepository, times(1)).findByIdAndUserId(eq(67L), eq(UserId));
         String responseString = response.getResponse().getContentAsString();
-        assertEquals("RiderApplication with \"accepted\" status cannot be updated", responseString);
+        assertEquals("RiderApplication with \"declined\" status cannot be updated", responseString);
     }
 
     // EDIT (CANCEL)

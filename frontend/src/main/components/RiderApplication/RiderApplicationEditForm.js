@@ -11,6 +11,7 @@ function RiderApplicationEditForm({ initialContents, submitAction, email}) {
         register,
         formState: { errors },
         handleSubmit,
+        getValues
     } = useForm(
         { defaultValues: initialContents }
     );
@@ -20,7 +21,27 @@ function RiderApplicationEditForm({ initialContents, submitAction, email}) {
 
     const onSubmit = async (data) => {
         submitAction(data);
-      };
+    };
+    
+    const handleApprove = () => {
+        const updatedData = { ...initialContents, status: 'accepted' , notes: getValues("notes") };
+        handleAction(updatedData, -1);
+    };
+
+    const handleDeny = () => {
+        const updatedData = { ...initialContents, status: 'declined' , notes: getValues("notes")};
+        handleAction(updatedData, -1);
+    };
+
+    const handleExpired = () => {
+        const updatedData = { ...initialContents, status: 'expired' , notes: getValues("notes") };
+        handleAction(updatedData, -1);
+    };
+
+    const handleAction = (data, navigation) => {
+        submitAction(data);
+        navigate(navigation);
+    };
     
     return (
 
@@ -122,16 +143,60 @@ function RiderApplicationEditForm({ initialContents, submitAction, email}) {
                 </Form.Group>
             )}
 
-            <Form.Group className="mb-3" >
-                <Form.Label htmlFor="notes">Notes</Form.Label>
-                <Form.Control
-                    data-testid={testIdPrefix + "-notes"}
-                    id="notes"
-                    type="text"
-                    {...register("notes")}
-                    defaultValue={initialContents?.notes}
-                />
-            </Form.Group>
+            {initialContents && initialContents.status === 'declined' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="notes">Notes</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-notes"}
+                        id="notes"
+                        type="text"
+                        {...register("notes")}
+                        defaultValue={initialContents?.notes}
+                        disabled
+                    />
+                </Form.Group>
+            )} 
+
+            {initialContents && initialContents.status === 'cancelled' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="notes">Notes</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-notes"}
+                        id="notes"
+                        type="text"
+                        {...register("notes")}
+                        defaultValue={initialContents?.notes}
+                        disabled
+                    />
+                </Form.Group>
+            )}
+
+            {initialContents && initialContents.status === 'expired' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="notes">Notes</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-notes"}
+                        id="notes"
+                        type="text"
+                        {...register("notes")}
+                        defaultValue={initialContents?.notes}
+                        disabled
+                    />
+                </Form.Group>
+            )}  
+
+            {initialContents && initialContents.status !== 'declined' && initialContents.status !== 'cancelled' && initialContents.status !== 'expired' && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="notes">Notes</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-notes"}
+                        id="notes"
+                        type="text"
+                        {...register("notes")}
+                        defaultValue={initialContents?.notes}
+                    />
+                </Form.Group>
+            )} 
 
             {initialContents && (
                 <Form.Group className="mb-3">
@@ -161,20 +226,52 @@ function RiderApplicationEditForm({ initialContents, submitAction, email}) {
                     style={{ width: '100%', minHeight: '10rem', resize: 'vertical', verticalAlign: 'top' }}
                 />
             </Form.Group>
+            
+            {initialContents && initialContents.status === 'pending' && (
+                <Button
+                    variant="success" // You can customize the variant based on your design
+                    onClick={handleApprove}
+                    data-testid={testIdPrefix + "-approve"}
+                >
+                    Approve
+                </Button>
+            )}
 
-            <Button
-                type="submit"
-                data-testid={testIdPrefix + "-submit"}
-            >
-                Save
-            </Button>
+            {initialContents && initialContents.status === 'pending' && (
+                <Button
+                    variant="danger" // You can customize the variant based on your design
+                    onClick={handleDeny}
+                    data-testid={testIdPrefix + "-deny"}
+                >
+                    Deny
+                </Button>
+            )}
+
+            {initialContents && initialContents.status === 'pending' && (
+                <Button
+                    type="submit"
+                    data-testid={testIdPrefix + "-submit"}
+                >
+                    Save
+                </Button>
+            )}
+
+            {initialContents && initialContents.status === 'accepted' && (
+                <Button
+                    variant="danger"
+                    onClick={handleExpired}
+                    data-testid={testIdPrefix + "-expire"}
+                >
+                    Set Status to Expired
+                </Button>
+            )}
             
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
                 data-testid={testIdPrefix + "-cancel"}
             >
-                Cancel
+                Return
             </Button>
 
         </Form>

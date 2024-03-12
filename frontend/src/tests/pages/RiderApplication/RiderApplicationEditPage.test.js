@@ -192,6 +192,7 @@ describe("RiderApplicationEditPage tests", () => {
                 perm_number: "7654321",
                 description: "I broke my leg.",
                 notes: "",
+                status: "pending"
             })); // posted object
 
         });
