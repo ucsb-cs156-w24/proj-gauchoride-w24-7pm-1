@@ -34,27 +34,27 @@ export default function DriverAvailabilityTable({
 
     const columns = [
         {
-            Header: 'id',
+            Header: 'Id',
             accessor: 'id', // accessor is the "key" in the data
         },
         {
-            Header: 'driverId',
+            Header: 'Driver Id',
             accessor: 'driverId',
         },
         {
-            Header: 'day',
+            Header: 'Day',
             accessor: 'day',
         },
         {
-            Header: 'startTime',
+            Header: 'Start Time',
             accessor: 'startTime',
         },
         {
-            Header: 'endTime',
+            Header: 'End Time',
             accessor: 'endTime',
         },
         {
-            Header: 'notes',
+            Header: 'Notes',
             accessor: 'notes',
         }
     ];
