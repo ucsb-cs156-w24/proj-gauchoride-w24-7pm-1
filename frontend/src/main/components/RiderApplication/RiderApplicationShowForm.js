@@ -62,19 +62,6 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
             
-            {initialContents?.status === "pending" && initialContents?.notes !== '' && (
-                <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="updated_date"> Date Updated</Form.Label>
-                    <Form.Control
-                        data-testid={testIdPrefix + "-updated_date"}
-                        id="updated_date"
-                        type="text"
-                        {...register("updated_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    />
-                </Form.Group>
-            )}
             
             {initialContents?.status === "cancelled" && (
                 <Form.Group className="mb-3" >
@@ -90,43 +77,29 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
-            {initialContents?.status === "expired" && (
+            {initialContents?.status === "approved" && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="expired_date">Date Expired</Form.Label>
+                    <Form.Label htmlFor="approved_date">Date Approved</Form.Label>
                     <Form.Control
-                        data-testid={testIdPrefix + "-expired_date"}
-                        id="expired_date"
+                        data-testid={testIdPrefix + "-approved_date"}
+                        id="approved_date"
                         type="text"
-                        {...register("expired_date")}
-                        defaultValue={initialContents?.updated_date}
+                        {...register("approved_date")}
+                        defaultValue={initialContents?.approved_date}
                         disabled
                     />
                 </Form.Group>
             )}
 
-            {initialContents?.status === 'accepted' && (
+            {initialContents?.status === "declined" && (
                 <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="accepted_date">Date Accepted</Form.Label>
-                    <Form.Control
-                        data-testid={testIdPrefix + "-accepted_date"}
-                        id="accepted_date"
-                        type="text"
-                        {...register("accepted_date")}
-                        defaultValue={initialContents?.updated_date}
-                        disabled
-                    />
-                </Form.Group>
-            )}
-
-            {initialContents?.status === 'declined' && (
-                <Form.Group className="mb-3" >
-                    <Form.Label htmlFor="declined_date">Date Declined</Form.Label>
+                    <Form.Label htmlFor="declined_date">Date Approved</Form.Label>
                     <Form.Control
                         data-testid={testIdPrefix + "-declined_date"}
                         id="declined_date"
                         type="text"
                         {...register("declined_date")}
-                        defaultValue={initialContents?.updated_date}
+                        defaultValue={initialContents?.declined_date}
                         disabled
                     />
                 </Form.Group>
