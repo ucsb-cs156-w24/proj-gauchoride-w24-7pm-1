@@ -34,32 +34,32 @@ export default function DriverAvailabilityTable({
 
     const columns = [
         {
-            Header: 'id',
+            Header: 'Id',
             accessor: 'id', // accessor is the "key" in the data
         },
         {
-            Header: 'driverId',
+            Header: 'Driver Id',
             accessor: 'driverId',
         },
         {
-            Header: 'day',
+            Header: 'Day',
             accessor: 'day',
         },
         {
-            Header: 'startTime',
+            Header: 'Start Time',
             accessor: 'startTime',
         },
         {
-            Header: 'endTime',
+            Header: 'End Time',
             accessor: 'endTime',
         },
         {
-            Header: 'notes',
+            Header: 'Notes',
             accessor: 'notes',
         }
     ];
 
-    // Stryker disable all : hard to test for query caching
+    // Stryker disable all : hard to test for button mutations
     const buttonColumnsDriver = [
         ...columns,
         ButtonColumn("Edit", "primary", editCallback, "DriverAvailabilityTable"),
@@ -70,7 +70,8 @@ export default function DriverAvailabilityTable({
         ...columns,
         ButtonColumn("Review", "primary", reviewCallback, "DriverAvailabilityTable")
     ];
-    // Stryker restore all
+    // Stryker restore all 
+
     const columnsToDisplay = (hasRole(currentUser, "ROLE_ADMIN")) ? buttonColumnsAdmin : (hasRole(currentUser, "ROLE_DRIVER")) ? buttonColumnsDriver : columns;
 
     return <OurTable
