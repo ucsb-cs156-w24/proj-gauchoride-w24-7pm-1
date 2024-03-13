@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/Shift/ShiftIndexPage.js</title>
+    <title>Code coverage report for pages/Drivers/DriverAvailabilityIndexPage.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Shift</a> ShiftIndexPage.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Drivers</a> DriverAvailabilityIndexPage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -117,23 +117,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,7 +139,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,32 +155,32 @@
 import { useBackend } from 'main/utils/useBackend';
 &nbsp;
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ShiftTable from 'main/components/Shift/ShiftTable';
+import DriverAvailabilityTable from 'main/components/Driver/DriverAvailabilityTable';
 import { useCurrentUser , hasRole} from 'main/utils/currentUser'
 import { Button } from 'react-bootstrap';
 &nbsp;
-export default function ShiftIndexPage() {
+export default function DriverAvailabilityIndexPage() {
 &nbsp;
     const currentUser = useCurrentUser();
 &nbsp;
-    const { data: shifts, error: _error, status: _status } =
+    const { data: availabilities, error: _error, status: _status } =
         useBackend(
             // Stryker disable all : hard to test for query caching
-            ["/api/shift/all"],
-            { method: "GET", url: "/api/shift/all" },
+            ["/api/driverAvailability"],
+            { method: "GET", url: "/api/driverAvailability" },
             []
             // Stryker restore all 
         );
 &nbsp;
     const createButton = () =&gt; {
-        if (hasRole(currentUser, "ROLE_ADMIN")) {
+        if (hasRole(currentUser, "ROLE_DRIVER")) {
             return (
                 &lt;Button
                     variant="primary"
-                    href="/shift/create"
+                    href="/availability/create"
                     style={{ float: "right" }}
                 &gt;
-                    Create Shift
+                    Create Driver Availability
                 &lt;/Button&gt;
             )
         } 
@@ -190,8 +190,8 @@ export default function ShiftIndexPage() {
         &lt;BasicLayout&gt;
             &lt;div className="pt-2"&gt;
                 {createButton()}
-                &lt;h1&gt;Shifts&lt;/h1&gt;
-                &lt;ShiftTable shift={shifts} currentUser={currentUser} /&gt;
+                &lt;h1&gt;Driver Availabilities&lt;/h1&gt;
+                &lt;DriverAvailabilityTable Availability={availabilities} currentUser={currentUser} /&gt;
             &lt;/div&gt;
         &lt;/BasicLayout&gt;
     );
