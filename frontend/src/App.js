@@ -128,6 +128,9 @@ function App() {
         {
           hasRole(currentUser, "ROLE_ADMIN") && <Route exact path="/admin/driverAvailability" element={<DriverAvailabilityIndexPageAdmin />} />
         }
+        {
+          (hasRole(currentUser, "ROLE_ADMIN")) && <Route exact path="/admin/availability/review/:id" element={<DriverAvailabilityEditPage />} />
+        }
         <Route exact path="/privacy.html" />
         <Route exact path="/*" element={<PageNotFound />} />
 
