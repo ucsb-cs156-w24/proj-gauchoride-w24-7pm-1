@@ -17,7 +17,7 @@ export default function DriverAvailabilityTable({
     }
 
     const reviewCallback = (cell) => {
-        navigate(`/availability/review/${cell.row.values.id}`)
+        navigate(`/admin/availability/review/${cell.row.values.id}`)
     }
 
     // Stryker disable all : hard to test for query caching

@@ -201,7 +201,7 @@ describe("DriverAvailabilityTable tests", () => {
         fireEvent.click(editButton);
       
         // assert - check if the mocked navigate function was called
-        expect(mockedNavigate).toHaveBeenCalledWith('/availability/review/1');
+        expect(mockedNavigate).toHaveBeenCalledWith('/admin/availability/review/1');
       });
       
   test("Review button navigates to the edit page", async () => {
@@ -226,7 +226,7 @@ describe("DriverAvailabilityTable tests", () => {
     fireEvent.click(reviewButton);
 
     // assert - check that we navigated to the expected path
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/availability/review/1'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/admin/availability/review/1'));
   });
 
 });
