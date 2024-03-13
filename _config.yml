@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-w24/proj-gauchoride-w24-7pm-1
 owner: ucsb-cs156-w24
 repo_name: proj-gauchoride-w24-7pm-1
-pull_requests: [{"author":{"id":"U_kgDOBXd_vw","is_bot":false,"login":"gretchenlam","name":""},"headRefName":"Gretchen-DriverAvailabilityAdminPages","number":51,"title":"Add DriverAvailability Index Page for Admin User","url":"https://github.com/ucsb-cs156-w24/proj-gauchoride-w24-7pm-1/pull/51"},{"author":{"id":"U_kgDOB09jxQ","is_bot":false,"login":"Daoyijiucsb","name":"Daoyi"},"headRefName":"dj-applyshow-limit","number":49,"title":"Limit the displayed element in the ShowRiderApplyPage","url":"https://github.com/ucsb-cs156-w24/proj-gauchoride-w24-7pm-1/pull/49"}]
+pull_requests: [{"author":{"id":"U_kgDOBXd_vw","is_bot":false,"login":"gretchenlam","name":""},"headRefName":"Gretchen-DriverAvailabilityAdminPages","number":51,"title":"Add DriverAvailability Index Page for Admin User","url":"https://github.com/ucsb-cs156-w24/proj-gauchoride-w24-7pm-1/pull/51"}]
