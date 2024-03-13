@@ -77,6 +77,20 @@ function RiderApplicationShowForm({ initialContents, buttonLabel = "Back", email
                 </Form.Group>
             )}
 
+            {initialContents?.status === "expired" && (
+                <Form.Group className="mb-3" >
+                    <Form.Label htmlFor="expired_date">Date Expired</Form.Label>
+                    <Form.Control
+                        data-testid={testIdPrefix + "-expired_date"}
+                        id="expired_date"
+                        type="text"
+                        {...register("expired_date")}
+                        defaultValue={initialContents?.updated_date}
+                        disabled
+                    />
+                </Form.Group>
+            )}
+
             {initialContents?.status === "approved" && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="approved_date">Date Approved</Form.Label>
