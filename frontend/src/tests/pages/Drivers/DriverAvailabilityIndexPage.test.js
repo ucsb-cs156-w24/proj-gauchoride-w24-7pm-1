@@ -45,7 +45,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
 
     test("fetches driverAvailabilities using the correct GET method", async () => {
         setupAdminUser();
-        axiosMock.onGet("/api/driverAvailability").reply(config => {
+        axiosMock.onGet("/api/driverAvailability/admin/all").reply(config => {
             if (config.method === "get") {  // Ensures the method is GET
                 return [200, driverAvailabilityFixtures.threeAvailability];
             }
@@ -76,7 +76,7 @@ describe("DriverAvailabilityIndexPage tests", () => {
         // This variable will help us verify that the correct method was used.
         let wasGetMethodUsed = false;
     
-        axiosMock.onAny("/api/driverAvailability").reply(config => {
+        axiosMock.onAny("/api/driverAvailability/admin/all").reply(config => {
             if (config.method === "get") {  
                 wasGetMethodUsed = true; 
                 return [200, driverAvailabilityFixtures.threeAvailability];
