@@ -19,20 +19,6 @@ export default function DriverAvailabilityIndexPage() {
             // Stryker restore all 
         );
 
-    // const createButton = () => {
-    //     if (hasRole(currentUser, "ROLE_ADMIN")) {
-    //         return (
-    //             <Button
-    //                 variant="primary"
-    //                 href="/driverAvailability/create"
-    //                 style={{ float: "right" }}
-    //             >
-    //                 Create Driver Availability
-    //             </Button>
-    //         )
-    //     } 
-    // }
-
     return (
         <BasicLayout>
             <div className="pt-2">
